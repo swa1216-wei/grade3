@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>國小三年級期末大考・108課綱全真模擬題庫系統</title>
+<title>國小三年級期末大考・108課綱全科目全真模擬題庫系統</title>
 <style>
   :root {
     --primary: #2563eb;
@@ -62,7 +62,6 @@
     border-radius: 6px;
     font-weight: 700;
   }
-  .badge-status.syncing { background: #d97706; }
 
   .subject-nav {
     display: flex;
@@ -337,8 +336,8 @@
 
 <div class="app-container">
   <header>
-    <h1>國小三年級期末大考・108課綱全真模擬系統</h1>
-    <p>📐 數學5~9單元(動態繪圖) ｜ 📖 國語7~12課 ｜ 🌱 自然3~4單元 ｜ 🔤 英文Dino3 (支援雲端試算表自動同步)</p>
+    <h1>國小三年級期末大考・108課綱全真全科模擬系統</h1>
+    <p>📐 數學5~9單元(動態繪圖) ｜ 📖 國語7~12課(120題) ｜ 🌱 自然3~4單元(200題) ｜ 🔤 英文Dino3</p>
   </header>
 
   <div class="status-bar">
@@ -392,18 +391,16 @@
 </div>
 
 <script>
-// Google 試算表綁定
 const SPREADSHEET_ID = "13lCIn_XK-f-PMHsBGJHiW3Wvv6JEeLJQheN-7-08_fM";
 const SHEET_NAME = "題庫資料表";
-
-let CLOUD_QUESTIONS = []; // 來自 Google 試算表的最新題庫
+let CLOUD_QUESTIONS = [];
 
 function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
 function sample(arr) { return arr[rand(0, arr.length - 1)]; }
 
-// ==========================================
+const NAMES = ["小明", "小華", "小美", "小宇", "晴晴", "安安", "宸宸", "雨彤", "睿睿", "心怡"];
+
 // 繪圖引擎
-// ==========================================
 const DrawEngine = {
   drawAngleParts: function(canvas) {
     const ctx = canvas.getContext('2d');
@@ -591,7 +588,7 @@ const DrawEngine = {
   }
 };
 
-// 數學科：第 5 單元【角與幾何】16 組動態演算法
+// 16 組角幾何動態生成題
 const AngleQuizGenerators = [
   function() {
     return {
@@ -802,48 +799,9 @@ const OtherMathGenerators = {
   }
 };
 
-// 國語科
-const CHINESE_QUESTIONS = [
-  { lesson:"c_l7", title:"在課文《風的味道》中，作者走過結實纍纍的稻田時，主要透過哪種感官描寫大自然？", options:["嗅覺摹寫（聞到甘甜稻香）", "聽覺摹寫", "觸覺摹寫", "味覺摹寫"], ans:0, explain:"課文核心在於用鼻子細細聞大自然中不同地方風帶來的氣味。" },
-  { lesson:"c_l7", title:"「微風『徐徐』吹拂著臉龐。」句中「徐徐」的意思為何？", options:["緩慢、從容舒緩的樣子", "急促突然", "劇烈狂暴", "大聲喊叫"], ans:0, explain:"「徐徐」形容動作或風速輕柔緩慢。" },
-  { lesson:"c_l8", title:"在課文《寄居蟹找新家》中，為什麼沙灘上的野生寄居蟹越來越難找到天然螺殼？", options:["因為遊客過度撿拾美麗貝殼帶回家", "因為海浪把貝殼全部溶化了", "因為寄居蟹不喜歡天然貝殼", "因為貝殼被魚群吃光了"], ans:0, explain:"遊客隨手撿拾貝殼，導致寄居蟹無殼可換，被迫揹塑膠垃圾瓶蓋。" },
-  { lesson:"c_l8", title:"寄居蟹身體長大後，為什麼必須定期換殼？", options:["因為牠的外殼不會跟著身體長大，需要更大螺殼保護腹部", "因為牠喜歡換新衣服炫耀", "因為舊殼顏色褪色了", "為了躲避冬眠"], ans:0, explain:"寄居蟹外殼是寄居在現成螺殼內，身體長大就必須尋覓更大的螺殼。" },
-  { lesson:"c_l9", title:"《阿塱壹古道》沿途鋪滿著名的南田石，退潮時海浪捲動石頭會發出什麼特殊聲音？", options:["圓潤鵝卵石互相撞擊滾動的唰啦聲，宛如唱歌", "高鐵飛馳的呼嘯聲", "工廠機器的轟鳴聲", "大雨打在鐵皮屋上的聲音"], ans:0, explain:"阿塱壹海岸浪花退潮時捲動南田石，石塊碰撞聲被譽為大自然天籟。" },
-  { lesson:"c_l9", title:"「阿塱壹古道依山傍海，景致壯麗。」「依山傍海」的意思是：", options:["緊靠著高山，又緊鄰著大海", "只有荒山沒有海", "全部沉在海底", "隱藏在地底洞穴中"], ans:0, explain:"依山傍海形容地理景觀同時緊鄰山嶺與壯闊海洋。" },
-  { lesson:"c_l10", title:"在魯凱族傳統鞦韆婚禮中，族人佩戴在頭冠上的「百合花」象徵什麼深遠意義？", options:["女子的純潔品德與男子的英勇狩獵榮譽", "家裡很有錢買很多花", "比賽誰摘的花大朵", "慶祝天氣晴朗"], ans:0, explain:"百合花在魯凱族文化中具崇高神聖地位，代表女子純潔堅貞與勇士功勳。" },
-  { lesson:"c_l11", title:"「出門要多加小心，一路平安！」這句平常家人叮嚀背後蘊含的情感是：", options:["家人之間深切的關懷、疼愛與平安期盼", "急著把孩子趕出門", "不希望孩子再回家", "炫耀自己很有禮貌"], ans:0, explain:"看似平常的祝福，蘊含著家人最深厚的愛與對生命安全的牽掛。" },
-  { lesson:"c_l12", title:"課文《不一樣的團員》傳遞的核心團隊精神是：", options:["互相包容欣賞彼此長處，凝聚力量達成共同目標", "聯合同學嘲笑和自己不同的人", "逼所有人個性與才能一模一樣", "大家都不跟他說話"], ans:0, explain:"多元共融：欣賞每個人獨特的特質與天賦，團結互助合作。" }
-];
-
-// 自然科
-const NATURE_QUESTIONS = [
-  { lesson:"n_air", title:"將塞有乾衛生紙的杯子「垂直倒扣」壓入水槽底，衛生紙不會濕，證明了空氣：", options:["會佔據空間（把水擋在外面）", "完全沒有重量", "有甜味", "容易燃燒"], ans:0, explain:"杯內空間被空氣佔滿，水無法進入，故衛生紙維持乾燥。" },
-  { lesson:"n_air", title:"空注射筒抽滿空氣堵住出口，用力往前推活塞可以前進一段。這證明空氣：", options:["可以被壓縮（氣體分子間隙大）", "有固定的形狀", "比鐵塊更重", "沒有彈性"], ans:0, explain:"活塞前進體積縮小，證明氣體分子間隙大，空氣容易被壓縮。" },
-  { lesson:"n_wind", title:"操場上的風向袋正向著「西南方」水平飄展，請問此時地面吹的是什麼風？", options:["東北風（風從東北方吹來）", "西南風", "西北風", "東南風"], ans:0, explain:"風向是指「風吹來的方向」！飄向西南代表風是從東北吹來的，故為東北風！" },
-  { lesson:"n_wind", title:"風向計前端的「箭頭」正指向正南方，請問此時地面吹什麼風？", options:["南風", "北風", "東風", "西風"], ans:0, explain:"風向計箭頭指的方向就是來風方向，指南方即為南風。" },
-  { lesson:"n_powder", title:"廚房四種白色粉末：白糖、食鹽、太白粉、小蘇打。滴入棕褐色碘液後，哪種會變成深藍紫色？", options:["太白粉（含有澱粉）", "食鹽", "白糖", "小蘇打"], ans:0, explain:"太白粉主要成分是澱粉，澱粉遇到碘液會產生深藍紫色特徵反應。" },
-  { lesson:"n_powder", title:"小蘇打粉加入白醋後會劇烈冒出大量氣泡，這個氣體是：", options:["二氧化碳（不可燃亦不助燃）", "氧氣", "水蒸氣", "氫氣"], ans:0, explain:"小蘇打（碳酸氫鈉）遇酸反應會釋放出二氧化碳氣體，可使燃燒線香熄滅。" },
-  { lesson:"n_dissolve", title:"想讓一杯水中的粗鹽加速溶解，下列哪一種方法「完全沒有幫助」？", options:["把容器蓋緊冰進冷凍庫降溫", "用熱水代替冷水", "拿湯匙快速攪拌", "將粗鹽搗成細粉末"], ans:0, explain:"降溫會減緩水分子熱運動，使溶解速率變慢，完全無加速幫助。" },
-  { lesson:"n_dissolve", title:"將 5 公克糖完全溶於 100 公克水中，這杯糖水的總重量是：", options:["105 公克（質量守恆）", "100 公克", "小於 100 公克", "大於 110 公克"], ans:0, explain:"質量守恆定律：溶質重 (5g) ＋ 溶劑重 (100g) ＝ 溶液總重 (105g)。" }
-];
-
-// 英文科
-const ENGLISH_SPELL_LIST = [
-  { t:"直尺", en:"RULER", exp:"直尺英文是 R-U-L-E-R。" },
-  { t:"橡皮擦", en:"ERASER", exp:"橡皮擦英文是 E-R-A-S-E-R。" },
-  { t:"鉛筆", en:"PENCIL", exp:"鉛筆英文是 P-E-N-C-I-L。" },
-  { t:"牛奶", en:"MILK", exp:"牛奶英文是 M-I-L-K。" },
-  { t:"蘋果", en:"APPLE", exp:"蘋果英文是 A-P-P-L-E。" },
-  { t:"水", en:"WATER", exp:"水英文是 W-A-T-E-R。" },
-  { t:"書本", en:"BOOK", exp:"書本英文是 B-O-O-K。" },
-  { t:"盒子/箱子", en:"BOX", exp:"盒子英文是 B-O-X。" },
-  { t:"書桌", en:"DESK", exp:"書桌英文是 D-E-S-K。" },
-  { t:"椅子", en:"CHAIR", exp:"椅子英文是 C-H-A-I-R。" }
-];
-
 const LESSON_CATALOG = {
   math: [
-    { id: "all", name: "🔥 數學期末全範圍 (5~9單元動態繪圖・題目無限)" },
+    { id: "all", name: "🔥 數學期末全範圍 (5~9單元全能動態繪圖・題目無限)" },
     { id: "m_angle", name: "第五單元：角與幾何大師 (16 種題型・動態繪圖・不重複)" },
     { id: "m_area", name: "第六單元：面積 (方格即時繪圖、長方形公式、面積守恆)" },
     { id: "m_formula", name: "⭐ 必考：自己按按鍵列除法算式題 (數字隨機)" },
@@ -852,20 +810,20 @@ const LESSON_CATALOG = {
     { id: "m_fraction", name: "第九單元：分數 (圓餅披薩切塊圖解、同分母加減)" }
   ],
   chinese: [
-    { id: "all", name: "🔥 國語期末全範圍 (7~12課課文綜合大挑戰)" },
-    { id: "c_l7", name: "第七課：風的味道 (嗅覺摹寫與稻香)" },
-    { id: "c_l8", name: "第八課：寄居蟹找新家 (海洋生態與換殼)" },
-    { id: "c_l9", name: "第九課：阿塱壹古道 (海岸地質與南田石之歌)" },
-    { id: "c_l10", name: "第十課：秋千上的婚禮 (原住民族傳統儀式)" },
-    { id: "c_l11", name: "第十一課：一路平安 (交通安全與親情叮嚀)" },
-    { id: "c_l12", name: "第十二課：不一樣的團員 (包容互助與團隊合作)" }
+    { id: "all", name: "🔥 國語期末全範圍 (7~12課課文綜合大挑戰・共120題)" },
+    { id: "c_l7", name: "第七課：風的味道 (嗅覺摹寫與稻香・20題)" },
+    { id: "c_l8", name: "第八課：寄居蟹找新家 (海洋生態與換殼・20題)" },
+    { id: "c_l9", name: "第九課：阿塱壹古道 (海岸地質與南田石之歌・20題)" },
+    { id: "c_l10", name: "第十課：秋千上的婚禮 (原住民族傳統儀式・20題)" },
+    { id: "c_l11", name: "第十一課：一路平安 (交通安全與親情叮嚀・20題)" },
+    { id: "c_l12", name: "第十二課：不一樣的團員 (包容互助與團隊合作・20題)" }
   ],
   nature: [
-    { id: "all", name: "🔥 自然期末全範圍 (空氣與風・廚房科學)" },
-    { id: "n_air", name: "第三單元：空氣的特性與空間 (佔據空間、可壓縮)" },
-    { id: "n_wind", name: "第三單元：風向與風力觀測 (風向定義、風向袋)" },
-    { id: "n_powder", name: "第四單元：廚房調味粉大解密 (太白粉碘液、小蘇打醋)" },
-    { id: "n_dissolve", name: "第四單元：溶解快慢與飽和現象 (溫度攪拌、質量守恆)" }
+    { id: "all", name: "🔥 自然期末全範圍 (空氣與風・廚房科學・共200題)" },
+    { id: "n_air", name: "第三單元：空氣的特性與空間 (50題)" },
+    { id: "n_wind", name: "第三單元：風向與風力觀測 (50題)" },
+    { id: "n_powder", name: "第四單元：廚房調味粉大解密 (50題)" },
+    { id: "n_dissolve", name: "第四單元：溶解快慢與飽和現象 (50題)" }
   ],
   english: [
     { id: "all", name: "🔥 英文期末全範圍大挑戰" },
@@ -882,9 +840,6 @@ let userEquation = "";
 let userSpelling = "";
 let wrongQuestions = [];
 
-// ==========================================
-// 雲端試算表自動同步邏輯 (在 GitHub Pages 上自動啟用)
-// ==========================================
 function fetchCloudSheet() {
   const syncText = document.getElementById('syncStatusText');
   const syncBadge = document.getElementById('syncBadge');
@@ -919,7 +874,7 @@ function fetchCloudSheet() {
         syncBadge.className = "badge-status";
         syncBadge.innerText = "雲端即時連線";
       } else {
-        syncText.innerText = `💡 試算表連線成功（目前使用內建動態題庫）`;
+        syncText.innerText = `💡 試算表連線成功（目前使用內建全科真題題庫）`;
       }
     } catch (e) {
       console.warn("解析試算表錯誤：", e);
@@ -1010,34 +965,42 @@ function loadQuestions() {
       document.getElementById('poolBadge').innerText = "分數單元：圓餅披薩切塊動態繪圖";
     }
   } else if (currentSubject === 'chinese') {
-    let pool = CHINESE_QUESTIONS;
+    let pool = STATIC_DATABASE.filter(q => q.subject === 'chinese');
     if (CLOUD_QUESTIONS.length > 0) {
       const cloudP = CLOUD_QUESTIONS.filter(q => q.subject.includes("國語"));
       if (cloudP.length > 0) pool = cloudP;
     }
+    if (currentLesson !== 'all') {
+      pool = pool.filter(q => q.lesson === currentLesson);
+    }
     const shuffled = [...pool].sort(() => Math.random() - 0.5);
     currentQuestions = shuffled.slice(0, Math.min(shuffled.length, TOTAL_COUNT));
-    document.getElementById('poolBadge').innerText = `可用真題：${pool.length} 題`;
+    document.getElementById('poolBadge').innerText = `可用真題：${pool.length} 題 (每次隨機抽10題)`;
   } else if (currentSubject === 'nature') {
-    let pool = NATURE_QUESTIONS;
+    let pool = STATIC_DATABASE.filter(q => q.subject === 'nature');
     if (CLOUD_QUESTIONS.length > 0) {
       const cloudP = CLOUD_QUESTIONS.filter(q => q.subject.includes("自然"));
       if (cloudP.length > 0) pool = cloudP;
     }
+    if (currentLesson !== 'all') {
+      pool = pool.filter(q => q.lesson === currentLesson);
+    }
     const shuffled = [...pool].sort(() => Math.random() - 0.5);
     currentQuestions = shuffled.slice(0, Math.min(shuffled.length, TOTAL_COUNT));
-    document.getElementById('poolBadge').innerText = `可用真題：${pool.length} 題`;
+    document.getElementById('poolBadge').innerText = `可用真題：${pool.length} 題 (每次隨機抽10題)`;
   } else if (currentSubject === 'english') {
-    const shuffled = [...ENGLISH_SPELL_LIST].sort(() => Math.random() - 0.5);
-    currentQuestions = shuffled.slice(0, Math.min(shuffled.length, TOTAL_COUNT)).map(it => ({
-      subject: "english",
-      lesson: "e_spell",
-      type: "spell",
-      title: `【英文動手拼單字】：請利用下方字母鍵盤拼出【${it.t}】的英文單字：`,
-      target: it.en,
-      explain: it.exp,
-      draw: null
-    }));
+    if (currentLesson === 'e_spell') {
+      const spellPool = STATIC_DATABASE.filter(q => q.type === 'spell');
+      const shuffled = [...spellPool].sort(() => Math.random() - 0.5);
+      currentQuestions = shuffled.slice(0, Math.min(shuffled.length, TOTAL_COUNT));
+    } else {
+      let pool = STATIC_DATABASE.filter(q => q.subject === 'english' && q.type !== 'spell');
+      if (currentLesson !== 'all') {
+        pool = pool.filter(q => q.lesson === currentLesson);
+      }
+      const shuffled = [...pool].sort(() => Math.random() - 0.5);
+      currentQuestions = shuffled.slice(0, Math.min(shuffled.length, TOTAL_COUNT));
+    }
     document.getElementById('poolBadge').innerText = `可用題目：${currentQuestions.length} 題`;
   }
 
@@ -1089,6 +1052,12 @@ function renderQuestion() {
     document.getElementById('typeBadge').innerText = "🔤 字母拼字機";
     userSpelling = "";
     renderSpellBoard(q);
+  } else if (q.type === 'tf' || q.ans === 'O' || q.ans === 'X') {
+    document.getElementById('typeBadge').innerText = "是非題";
+    optArea.innerHTML = `<div class="choice-list" style="display:flex; flex-direction:row; gap:16px;">
+      <button class="choice-btn" style="text-align:center; font-size:24px; font-weight:800; color:#059669;" onclick="checkTF('O')">⭕ 正確</button>
+      <button class="choice-btn" style="text-align:center; font-size:24px; font-weight:800; color:#dc2626;" onclick="checkTF('X')">❌ 錯誤</button>
+    </div>`;
   } else {
     document.getElementById('typeBadge').innerText = "選擇題";
     const correctIdx = q.ans !== undefined ? (typeof q.ans === 'number' ? q.ans : (q.ans.charCodeAt(0) - 65)) : 0;
@@ -1106,6 +1075,27 @@ function renderQuestion() {
     html += '</div>';
     optArea.innerHTML = html;
   }
+}
+
+function checkTF(userChoice) {
+  const q = currentQuestions[currentIndex];
+  const isCorrect = (userChoice === q.ans);
+  const fb = document.getElementById('feedbackBox');
+  const fbTitle = document.getElementById('fbTitle');
+  const fbDetail = document.getElementById('fbDetail');
+
+  if (isCorrect) {
+    score += 10;
+    fb.className = "feedback-box correct";
+    fbTitle.innerText = "🎯 回答完全正確！";
+  } else {
+    fb.className = "feedback-box wrong";
+    fbTitle.innerText = `💡 差一點點！正確答案是【${q.ans}】`;
+    recordWrong(q, userChoice);
+  }
+  fbDetail.innerText = q.explain;
+  fb.style.display = 'block';
+  document.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
 }
 
 function checkChoice(selectedLabel, userChosenText, correctText) {
