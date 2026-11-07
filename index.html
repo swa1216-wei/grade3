@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>國小三年級期末大考・108課綱全真模擬題庫系統</title>
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #eff6ff;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --text-main: #0f172a;
+    --text-sub: #475569;
+    --bg-page: #f8fafc;
+    --card-bg: #ffffff;
+    --border: #cbd5e1;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+    background: var(--bg-page);
+    color: var(--text-main);
+    margin: 0;
+    padding: 12px;
+  }
+  .app-container {
+    max-width: 940px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  header {
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    color: white;
+    padding: 22px 20px;
+    text-align: center;
+  }
+  header h1 { margin: 0 0 6px 0; font-size: 22px; font-weight: 800; letter-spacing: 0.5px; }
+  header p { margin: 0; font-size: 13.5px; opacity: 0.95; }
+
+  .status-bar {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 10px 18px;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .badge-status {
+    background: #059669;
+    color: #ecfdf5;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 700;
+  }
+  .badge-status.syncing { background: #d97706; }
+
+  .subject-nav {
+    display: flex;
+    background: #e2e8f0;
+    padding: 6px;
+    gap: 6px;
+    overflow-x: auto;
+  }
+  .sub-btn {
+    flex: 1;
+    min-width: 95px;
+    padding: 12px 6px;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    color: #475569;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .sub-btn.active {
+    background: white;
+    color: var(--primary-dark);
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.15);
+  }
+
+  .lesson-bar {
+    padding: 12px 18px;
+    background: var(--primary-light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .lesson-bar label { font-size: 14px; font-weight: 700; color: #1e293b; white-space: nowrap; }
+  .lesson-select {
+    flex: 1;
+    min-width: 280px;
+    padding: 9px 12px;
+    border: 1px solid #94a3b8;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    background: white;
+    color: #0f172a;
+    outline: none;
+  }
+  .action-btn {
+    padding: 9px 16px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .action-btn:hover { background: var(--primary-dark); }
+  .mode-badge {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 700;
+    background: #dbeafe;
+    color: #1e40af;
+  }
+
+  .main-panel { padding: 22px; min-height: 480px; }
+  .status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-sub);
+  }
+  .q-badge {
+    background: #e2e8f0;
+    padding: 5px 12px;
+    border-radius: 20px;
+    color: #1e293b;
+    font-size: 13px;
+  }
+  .score-badge {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 5px 12px;
+    border-radius: 20px;
+  }
+  .q-box {
+    background: #fafbfe;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .q-title {
+    font-size: 18.5px;
+    font-weight: 700;
+    line-height: 1.65;
+    color: #0f172a;
+    margin: 0;
+  }
+
+  .diagram-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 16px auto;
+    background: #ffffff;
+    border: 2px solid #cbd5e1;
+    border-radius: 14px;
+    padding: 12px;
+    max-width: 520px;
+    min-height: 200px;
+  }
+  .diagram-container canvas {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .choice-list { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
+  .choice-btn {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
+    background: white;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.45;
+    cursor: pointer;
+    color: #1e293b;
+    transition: all 0.15s;
+  }
+  .choice-btn:hover { border-color: var(--primary); background: #eff6ff; }
+
+  .math-display-container {
+    background: white;
+    border: 2px dashed #94a3b8;
+    border-radius: 12px;
+    padding: 12px;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .math-display-text {
+    font-size: 26px;
+    font-weight: 800;
+    color: #1e3a8a;
+    letter-spacing: 2px;
+    min-height: 32px;
+  }
+  .math-keypad {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    max-width: 520px;
+    margin: 0 auto 12px auto;
+  }
+  .m-key {
+    padding: 14px 0;
+    font-size: 20px;
+    font-weight: 800;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background: white;
+    color: #1e293b;
+    cursor: pointer;
+    text-align: center;
+  }
+  .m-key.op { background: #eff6ff; color: #2563eb; border-color: #bfdbfe; }
+  .m-key.func { background: #fee2e2; color: #dc2626; border-color: #fca5a5; }
+  .m-key.submit { background: #059669; color: white; grid-column: span 2; border: none; }
+
+  .spell-display {
+    min-height: 52px;
+    border: 2px dashed #94a3b8;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    background: white;
+    padding: 8px;
+  }
+  .letter-box {
+    width: 38px;
+    height: 44px;
+    border-bottom: 3px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary);
+    background: #f8fafc;
+  }
+  .virtual-keyboard {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .vk-key {
+    padding: 12px 0;
+    border: 1px solid #cbd5e1;
+    background: white;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+    cursor: pointer;
+  }
+  .spell-actions { display: flex; gap: 10px; }
+  .spell-action-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .btn-del { background: #fee2e2; color: #b91c1c; }
+  .btn-submit { background: var(--primary); color: white; }
+
+  .feedback-box {
+    margin-top: 18px;
+    padding: 16px;
+    border-radius: 14px;
+    display: none;
+  }
+  .feedback-box.correct { background: #ecfdf5; border: 2px solid #6ee7b7; color: #065f46; }
+  .feedback-box.wrong { background: #fef2f2; border: 2px solid #fca5a5; color: #991b1b; }
+  .fb-title { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+  .fb-detail { font-size: 14.5px; line-height: 1.6; }
+  .next-btn {
+    display: block;
+    width: 100%;
+    margin-top: 14px;
+    padding: 14px;
+    background: #0f172a;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15.5px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .notebook-view { display: none; padding: 16px; }
+  .nb-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 12px;
+    background: #fff;
+  }
+</style>
+</head>
+<body>
+
+<div class="app-container">
+  <header>
+    <h1>國小三年級期末大考・108課綱全真模擬系統</h1>
+    <p>📐 數學5~9單元(動態繪圖) ｜ 📖 國語7~12課 ｜ 🌱 自然3~4單元 ｜ 🔤 英文Dino3 (支援雲端試算表自動同步)</p>
+  </header>
+
+  <div class="status-bar">
+    <span id="syncStatusText">✨ 系統啟動中...</span>
+    <span id="syncBadge" class="badge-status">同步就緒</span>
+  </div>
+
+  <div class="subject-nav">
+    <button class="sub-btn active" onclick="switchSubject('math')">🔢 數學實驗室</button>
+    <button class="sub-btn" onclick="switchSubject('chinese')">📖 國語真題</button>
+    <button class="sub-btn" onclick="switchSubject('nature')">🌱 自然科學</button>
+    <button class="sub-btn" onclick="switchSubject('english')">🔤 英文闖關</button>
+    <button class="sub-btn" onclick="openNotebook()" style="color:#d97706;">📝 錯題筆記</button>
+  </div>
+
+  <div class="lesson-bar" id="lessonBar">
+    <label for="lessonSelect">選擇測驗單元：</label>
+    <select id="lessonSelect" class="lesson-select" onchange="onLessonChange()"></select>
+    <button class="action-btn" onclick="loadQuestions()">🎲 換一批全新題目</button>
+    <span class="mode-badge" id="poolBadge">載入中...</span>
+  </div>
+
+  <div class="main-panel" id="mainPanel">
+    <div class="status-row">
+      <span class="q-badge" id="typeBadge">選擇題</span>
+      <span id="progressText">第 1 題</span>
+      <span class="score-badge" id="scoreText">得分：0</span>
+    </div>
+
+    <div class="q-box">
+      <h2 class="q-title" id="qTitle">題目載入中...</h2>
+      <div id="diagramArea"></div>
+    </div>
+
+    <div id="optionArea"></div>
+
+    <div class="feedback-box" id="feedbackBox">
+      <div class="fb-title" id="fbTitle"></div>
+      <div class="fb-detail" id="fbDetail"></div>
+      <button class="next-btn" onclick="nextQuestion()">進入下一題 ➔</button>
+    </div>
+  </div>
+
+  <div class="notebook-view" id="notebookPanel">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+      <h3 style="margin:0; font-size:18px;">📝 錯題收錄筆記本</h3>
+      <button onclick="closeNotebook()" style="padding:6px 14px; border-radius:8px; border:1px solid #cbd5e1; font-weight:700; cursor:pointer;">返回練習</button>
+    </div>
+    <div id="wrongList">目前沒有錯題，表現優異！</div>
+  </div>
+</div>
+
+<script>
+// Google 試算表綁定
+const SPREADSHEET_ID = "13lCIn_XK-f-PMHsBGJHiW3Wvv6JEeLJQheN-7-08_fM";
+const SHEET_NAME = "題庫資料表";
+
+let CLOUD_QUESTIONS = []; // 來自 Google 試算表的最新題庫
+
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function sample(arr) { return arr[rand(0, arr.length - 1)]; }
+
+// ==========================================
+// 繪圖引擎
+// ==========================================
+const DrawEngine = {
+  drawAngleParts: function(canvas) {
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width = 340, h = canvas.height = 200;
+    ctx.clearRect(0, 0, w, h);
+    const bx = 60, by = 140, px = 240, py = 140, mx = 180, my = 40;
+    ctx.lineWidth = 3; ctx.strokeStyle = "#1e293b";
+    ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(px, py); ctx.stroke();
+    DrawEngine.drawArrow(ctx, px, py, 0);
+    ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(mx, my); ctx.stroke();
+    const rad = Math.atan2(my - by, mx - bx);
+    DrawEngine.drawArrow(ctx, mx, my, rad);
+    ctx.lineWidth = 2.5; ctx.strokeStyle = "#2563eb";
+    ctx.beginPath(); ctx.arc(bx, by, 40, rad, 0); ctx.stroke();
+    ctx.font = "bold 16px sans-serif";
+    ctx.fillStyle = "#ef4444"; ctx.beginPath(); ctx.arc(bx, by, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillText("ㄅ (頂點)", bx - 50, by + 5);
+    ctx.fillStyle = "#2563eb"; ctx.beginPath(); ctx.arc(px, py, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillText("ㄆ", px + 10, py + 5);
+    ctx.beginPath(); ctx.arc(mx, my, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillText("ㄇ", mx + 10, my - 5);
+  },
+  drawCutCorner: function(canvas, cutType) {
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width = 340, h = canvas.height = 210;
+    ctx.clearRect(0, 0, w, h);
+    const rx = 50, ry = 40, rw = 220, rh = 130;
+    ctx.lineWidth = 2; ctx.strokeStyle = "#94a3b8"; ctx.setLineDash([5, 5]);
+    ctx.strokeRect(rx, ry, rw, rh); ctx.setLineDash([]);
+    ctx.lineWidth = 3; ctx.strokeStyle = "#1e293b"; ctx.fillStyle = "#e0f2fe";
+    ctx.beginPath();
+    if (cutType === 5) {
+      ctx.moveTo(rx, ry); ctx.lineTo(rx + rw - 60, ry); ctx.lineTo(rx + rw, ry + 60); ctx.lineTo(rx + rw, ry + rh); ctx.lineTo(rx, ry + rh);
+    } else {
+      ctx.moveTo(rx, ry); ctx.lineTo(rx + rw, ry + rh); ctx.lineTo(rx, ry + rh);
+    }
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "#ef4444"; ctx.font = "bold 14px sans-serif";
+    ctx.fillText("✂️ 剪切線", rx + rw - 70, ry + 25);
+  },
+  drawRulerTest: function(canvas, type) {
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width = 340, h = canvas.height = 210;
+    ctx.clearRect(0, 0, w, h);
+    const ox = 70, oy = 160;
+    ctx.lineWidth = 4; ctx.strokeStyle = "#ef4444";
+    ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox + 160, oy); ctx.stroke();
+    let deg = (type === 'acute') ? 50 : 125;
+    const rad = -deg * Math.PI / 180;
+    ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox + 160 * Math.cos(rad), oy + 160 * Math.sin(rad)); ctx.stroke();
+    ctx.lineWidth = 2.5; ctx.strokeStyle = "#059669"; ctx.fillStyle = "rgba(16, 185, 129, 0.25)";
+    ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox + 130, oy); ctx.lineTo(ox, oy - 130); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.lineWidth = 2; ctx.strokeRect(ox, oy - 20, 20, 20);
+    ctx.font = "bold 14px sans-serif"; ctx.fillStyle = "#059669"; ctx.fillText("三角板的直角", ox + 15, oy - 60);
+    ctx.fillStyle = "#ef4444"; ctx.fillText("紅色：待測角", ox + 140, oy - 120);
+  },
+  drawPolygon: function(canvas, type) {
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width = 300, h = canvas.height = 200;
+    ctx.clearRect(0, 0, w, h);
+    ctx.lineWidth = 3; ctx.strokeStyle = "#1e293b"; ctx.fillStyle = "#e0f2fe";
+    ctx.beginPath();
+    if (type === 'right_trapezoid') {
+      ctx.moveTo(60, 160); ctx.lineTo(240, 160); ctx.lineTo(170, 50); ctx.lineTo(60, 50); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.lineWidth = 2; ctx.strokeStyle = "#ef4444"; ctx.strokeRect(60, 140, 20, 20); ctx.strokeRect(60, 50, 20, 20);
+    } else if (type === 'right_triangle') {
+      ctx.moveTo(50, 160); ctx.lineTo(250, 160); ctx.lineTo(50, 40); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.lineWidth = 2; ctx.strokeStyle = "#ef4444"; ctx.strokeRect(50, 140, 20, 20);
+    } else if (type === 'obtuse_triangle') {
+      ctx.moveTo(110, 160); ctx.lineTo(270, 160); ctx.lineTo(40, 60); ctx.closePath(); ctx.fill(); ctx.stroke();
+    }
+  },
+  drawLetterAngle: function(canvas, letter) {
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width = 240, h = canvas.height = 180;
+    ctx.clearRect(0, 0, w, h);
+    ctx.lineWidth = 14; ctx.strokeStyle = "#1e3a8a"; ctx.lineCap = "square";
+    const ox = 70, oy = 30, sz = 110;
+    ctx.beginPath();
+    if (letter === 'E') {
+      ctx.moveTo(ox + sz - 30, oy); ctx.lineTo(ox, oy); ctx.lineTo(ox, oy + sz); ctx.lineTo(ox + sz - 30, oy + sz);
+      ctx.moveTo(ox, oy + sz / 2); ctx.lineTo(ox + sz - 45, oy + sz / 2);
+    } else {
+      ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + sz); ctx.lineTo(ox + sz - 20, oy + sz);
+    }
+    ctx.stroke();
+  },
+  drawClock: function(canvas, hour, min = 0) {
+    const ctx = canvas.getContext('2d');
+    const size = canvas.width = canvas.height = 220;
+    ctx.clearRect(0, 0, size, size);
+    const cx = size / 2, cy = size / 2, r = 90;
+    ctx.lineWidth = 4; ctx.strokeStyle = "#1e293b"; ctx.fillStyle = "#ffffff";
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.font = "bold 14px sans-serif"; ctx.fillStyle = "#334155"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    for (let i = 1; i <= 12; i++) {
+      const a = (i * 30 - 90) * Math.PI / 180;
+      ctx.fillText(i, cx + (r - 18) * Math.cos(a), cy + (r - 18) * Math.sin(a));
+    }
+    const minAngle = (min * 6 - 90) * Math.PI / 180;
+    ctx.lineWidth = 3.5; ctx.strokeStyle = "#2563eb";
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + (r - 28) * Math.cos(minAngle), cy + (r - 28) * Math.sin(minAngle)); ctx.stroke();
+    const hourAngle = ((hour % 12 + min / 60) * 30 - 90) * Math.PI / 180;
+    ctx.lineWidth = 5; ctx.strokeStyle = "#ef4444";
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + (r - 45) * Math.cos(hourAngle), cy + (r - 45) * Math.sin(hourAngle)); ctx.stroke();
+    ctx.fillStyle = "#0f172a"; ctx.beginPath(); ctx.arc(cx, cy, 6, 0, Math.PI * 2); ctx.fill();
+  },
+  drawTwoAngles: function(canvas, deg1, deg2, len1, len2) {
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width = 460, h = canvas.height = 200;
+    ctx.clearRect(0, 0, w, h);
+    DrawEngine.renderSubAngle(ctx, 40, 150, deg1, len1, "甲角", "#2563eb");
+    DrawEngine.renderSubAngle(ctx, 260, 150, deg2, len2, "乙角", "#d97706");
+  },
+  renderSubAngle: function(ctx, ox, oy, deg, len, label, color) {
+    const rad = -deg * Math.PI / 180;
+    ctx.lineWidth = 3; ctx.strokeStyle = "#1e293b";
+    ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox + len, oy); ctx.stroke();
+    DrawEngine.drawArrow(ctx, ox + len, oy, 0);
+    const ex = ox + len * Math.cos(rad), ey = oy + len * Math.sin(rad);
+    ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ex, ey); ctx.stroke();
+    DrawEngine.drawArrow(ctx, ex, ey, rad);
+    ctx.lineWidth = 2.5; ctx.strokeStyle = color;
+    ctx.beginPath(); ctx.arc(ox, oy, 30, rad, 0); ctx.stroke();
+    ctx.font = "bold 15px sans-serif"; ctx.fillStyle = color;
+    ctx.fillText(label, ox + 15, oy - 45);
+  },
+  drawAreaGrid: function(canvas, cols, rows, colored, half) {
+    const ctx = canvas.getContext('2d');
+    const sz = 32;
+    canvas.width = cols * sz + 40; canvas.height = rows * sz + 40;
+    const ox = 20, oy = 20;
+    ctx.lineWidth = 1; ctx.strokeStyle = "#cbd5e1";
+    for (let r = 0; r <= rows; r++) { ctx.beginPath(); ctx.moveTo(ox, oy + r * sz); ctx.lineTo(ox + cols * sz, oy + r * sz); ctx.stroke(); }
+    for (let c = 0; c <= cols; c++) { ctx.beginPath(); ctx.moveTo(ox + c * sz, oy); ctx.lineTo(ox + c * sz, oy + rows * sz); ctx.stroke(); }
+    ctx.fillStyle = "#86efac"; ctx.strokeStyle = "#15803d"; ctx.lineWidth = 2;
+    for (let i = 0; i < colored; i++) {
+      const c = i % cols, r = Math.floor(i / cols);
+      ctx.fillRect(ox + c * sz, oy + r * sz, sz, sz); ctx.strokeRect(ox + c * sz, oy + r * sz, sz, sz);
+    }
+    ctx.fillStyle = "#38bdf8"; ctx.strokeStyle = "#0369a1";
+    for (let i = 0; i < half; i++) {
+      const c = (colored + i) % cols, r = Math.floor((colored + i) / cols);
+      ctx.beginPath(); ctx.moveTo(ox + c * sz, oy + r * sz); ctx.lineTo(ox + (c + 1) * sz, oy + (r + 1) * sz); ctx.lineTo(ox + c * sz, oy + (r + 1) * sz); ctx.closePath(); ctx.fill(); ctx.stroke();
+    }
+  },
+  drawDisplacement: function(canvas, beforeMl, afterMl) {
+    const ctx = canvas.getContext('2d');
+    canvas.width = 380; canvas.height = 220;
+    DrawEngine.renderCyl(ctx, 60, 20, beforeMl, "放入前", false);
+    DrawEngine.renderCyl(ctx, 220, 20, afterMl, "放入鐵球後", true);
+  },
+  renderCyl: function(ctx, x, y, ml, label, hasStone) {
+    const cw = 70, ch = 160;
+    ctx.lineWidth = 3; ctx.strokeStyle = "#334155"; ctx.fillStyle = "#f8fafc";
+    ctx.strokeRect(x, y, cw, ch);
+    const waterH = (ml / 700) * (ch - 20);
+    const wy = y + ch - waterH;
+    ctx.fillStyle = "rgba(56, 189, 248, 0.45)";
+    ctx.fillRect(x + 2, wy, cw - 4, waterH);
+    if (hasStone) {
+      ctx.fillStyle = "#475569"; ctx.beginPath(); ctx.arc(x + cw / 2, y + ch - 22, 16, 0, Math.PI * 2); ctx.fill(); ctx.strokeStyle = "#0f172a"; ctx.stroke();
+    }
+    ctx.font = "bold 13px sans-serif"; ctx.fillStyle = "#0369a1";
+    ctx.fillText(`${ml} mL`, x + cw + 10, wy + 4);
+    ctx.fillStyle = "#0f172a"; ctx.font = "bold 14px sans-serif";
+    ctx.fillText(label, x + 8, y + ch + 22);
+  },
+  drawFractionCircle: function(canvas, totalParts, takenParts) {
+    const ctx = canvas.getContext('2d');
+    const size = canvas.width = canvas.height = 200;
+    const cx = size / 2, cy = size / 2, r = 80;
+    const sliceRad = (2 * Math.PI) / totalParts;
+    ctx.lineWidth = 2.5; ctx.strokeStyle = "#1e293b";
+    for (let i = 0; i < totalParts; i++) {
+      const sRad = i * sliceRad - Math.PI / 2;
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, r, sRad, sRad + sliceRad); ctx.closePath();
+      ctx.fillStyle = (i < takenParts) ? "#f59e0b" : "#fef3c7";
+      ctx.fill(); ctx.stroke();
+    }
+  },
+  drawArrow: function(ctx, x, y, rad) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rad); ctx.fillStyle = "#1e293b";
+    ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-10, -5); ctx.lineTo(-10, 5); ctx.closePath(); ctx.fill(); ctx.restore();
+  }
+};
+
+// 數學科：第 5 單元【角與幾何】16 組動態演算法
+const AngleQuizGenerators = [
+  function() {
+    return {
+      title: "【角的構造】：請觀察下圖，標記了點ㄅ、點ㄆ與點ㄇ。請問這個角的「頂點」是哪一個點？構成這個角的「兩條邊」是哪兩條？",
+      draw: (c) => DrawEngine.drawAngleParts(c),
+      options: ["頂點是「點ㄅ」，兩條邊是「邊ㄅㄆ」和「邊ㄅㄇ」", "頂點是「點ㄆ」，兩條邊是「邊ㄆㄅ」和「邊ㄆㄇ」", "頂點是「點ㄇ」，兩條邊是「邊ㄇㄅ」和「邊ㄇㄆ」", "這個圖形有 3 個頂點和 1 條邊"],
+      ans: 0,
+      explain: "角的定義：由一個公共頂點和向外延伸的兩條邊所組成。相交點「ㄅ」是頂點，兩條邊為「邊ㄅㄆ」與「邊ㄅㄇ」。"
+    };
+  },
+  function() {
+    return {
+      title: "【剪角動腦題】：一張長方形色紙原本有 4 個角，如圖中紅線剪去一個角（未穿過頂點）。請問剩下的一張大紙片上一共有幾個角？",
+      draw: (c) => DrawEngine.drawCutCorner(c, 5),
+      options: ["變成了 5 個角（形狀變成五邊形）", "少了一個角，變成 3 個角", "依然是 4 個角", "變成 6 個角"],
+      ans: 0,
+      explain: "剪去一個角會多出 2 個新頂角，加上剩下的 3 個舊角，合起來是 3 ＋ 2 ＝ 5 個角！"
+    };
+  },
+  function() {
+    return {
+      title: "【剪角動腦題】：一張長方形色紙，拿剪刀沿著「對角線」剪開成兩張色紙，請問剪開後的其中一張色紙上有幾個角？是什麼形狀？",
+      draw: (c) => DrawEngine.drawCutCorner(c, 3),
+      options: ["有 3 個角（變成直角三角形）", "有 4 個角（變成平行四邊形）", "有 2 個角", "有 5 個角"],
+      ans: 0,
+      explain: "沿對角線剪開剛好將長方形平分成兩個直角三角形，每個三角形都有 3 個角（1 直角、2 銳角）。"
+    };
+  },
+  function() {
+    return {
+      title: "【三角板檢驗】：小美拿三角板的直角去量紅色角，發現紅色角的另一條邊落在三角板內側（張開幅度比直角小）。請問紅色角是什麼角？",
+      draw: (c) => DrawEngine.drawRulerTest(c, 'acute'),
+      options: ["銳角（小於 90 度直角）", "直角（剛好 90 度）", "鈍角（大於 90 度直角）", "平角"],
+      ans: 0,
+      explain: "用三角板直角當檢驗標準：張開幅度比直角小、落在三角板內部的角稱為「銳角」。"
+    };
+  },
+  function() {
+    return {
+      title: "【三角板檢驗】：小華拿三角板的直角去量紅色角，發現紅色角的另一條邊開口超過了三角板邊界。請問這個紅色角是什麼角？",
+      draw: (c) => DrawEngine.drawRulerTest(c, 'obtuse'),
+      options: ["鈍角（大於 90 度直角）", "銳角（小於 90 度直角）", "直角（剛好 90 度）", "周角"],
+      ans: 0,
+      explain: "張開幅度比三角板直角更大、超出直角範圍的角稱為「鈍角」。"
+    };
+  },
+  function() {
+    return {
+      title: "【圖形直角計數】：請觀察下方圖形【直角梯形】，請問它內部一共有幾個「直角（90度）」？",
+      draw: (c) => DrawEngine.drawPolygon(c, 'right_trapezoid'),
+      options: ["2 個直角（左上角與左下角）", "1 個直角", "4 個直角", "0 個直角"],
+      ans: 0,
+      explain: "直角梯形有一條垂直底邊的腰，因此會有連續 2 個直角（90°），另外 2 個角分別為 1 個銳角與 1 個鈍角。"
+    };
+  },
+  function() {
+    return {
+      title: "【圖形直角計數】：請觀察下方【直角三角形】，請問它的 3 個角分別是什麼角？",
+      draw: (c) => DrawEngine.drawPolygon(c, 'right_triangle'),
+      options: ["1 個直角和 2 個銳角", "2 個直角和 1 個銳角", "3 個都是直角", "1 個直角和 2 個鈍角"],
+      ans: 0,
+      explain: "直角三角形固定擁有 1 個標準 90 度直角，另外 2 個角都小於 90 度，全為銳角。"
+    };
+  },
+  function() {
+    return {
+      title: "【英文字母的角】：請觀察大寫英文字母【E】（如下圖垂直轉折），請問在字母 E 的轉折處一共有幾個「直角」？",
+      draw: (c) => DrawEngine.drawLetterAngle(c, 'E'),
+      options: ["4 個直角", "2 個直角", "3 個直角", "0 個直角"],
+      ans: 0,
+      explain: "大寫字母 E：上方轉折 1 個直角、下方轉折 1 個直角、中間橫線上下兩側各 1 個直角，合計共有 4 個垂直直角！"
+    };
+  },
+  function() {
+    return {
+      title: "【英文字母的角】：請觀察大寫英文字母【L】（如下圖），請問字母 L 的轉角處含有幾個直角？",
+      draw: (c) => DrawEngine.drawLetterAngle(c, 'L'),
+      options: ["剛好 1 個直角", "2 個直角", "0 個直角", "4 個直角"],
+      ans: 0,
+      explain: "大寫字母 L 由一條鉛直線與一條水平線垂直相交，轉折處剛好是標準的 90 度直角（1 個）。"
+    };
+  },
+  function() {
+    return {
+      title: "【邊長迷思比較】：下圖中，甲角的兩邊畫得特別長（14公分），乙角的兩邊畫得特別短（8公分）。請問哪一個角比較大？",
+      draw: (c) => DrawEngine.drawTwoAngles(c, 35, 75, 140, 80),
+      options: ["乙角比較大（乙角兩邊張開的角度比較寬）", "甲角比較大（因為甲角的兩條邊長度比較長）", "兩個角一樣大", "無法比較"],
+      ans: 0,
+      explain: "角的大小只由「兩邊張開的幅度」決定，和邊畫得多長完全無關！乙角張開 75° 明顯大於甲角 35°，因此乙角大。"
+    };
+  },
+  function() {
+    return {
+      title: "【幾何推理】：一個三角形裡面，可不可能同時出現「2 個直角」？為什麼？",
+      draw: null,
+      options: ["不可能，因為有 2 個直角兩邊會互相平行，無法封閉連成三角形", "可能，只要把三角形畫得很大就可以", "可能，直角三角形就有 2 個直角", "不一定，正三角形有 3 個直角"],
+      ans: 0,
+      explain: "三角形內角和為 180 度。若有兩個 90 度直角，總和已達 180 度，第三個邊無法閉合形成三角形，因此任何三角形最多只能有 1 個直角！"
+    };
+  },
+  function() {
+    return {
+      title: "【摺紙動手做】：拿一張不規則形狀的色紙，先對摺一次撫平，再沿著摺線「垂直對摺」第二次並壓平摺痕。展開摺角處會形成什麼角？",
+      draw: null,
+      options: ["直角（90 度）", "銳角", "鈍角", "平角"],
+      ans: 0,
+      explain: "連續垂直對摺兩次，是將圓周 360 度平分成 4 等份，每一份摺角剛好就是標準的 90 度直角！"
+    };
+  },
+  function() {
+    return {
+      title: "【鐘面夾角】：請觀察時鐘在【3 點整】時，時針指向 3，分針指向 12。兩針所夾的較小角是什麼角？是多少度？",
+      draw: (c) => DrawEngine.drawClock(c, 3, 0),
+      options: ["直角（剛好 90 度）", "銳角（60 度）", "鈍角（120 度）", "平角（180 度）"],
+      ans: 0,
+      explain: "3 點整時，兩針相隔 3 大格，每大格 30 度，3 × 30° ＝ 90 度，為標準直角。"
+    };
+  },
+  function() {
+    return {
+      title: "【鐘面夾角】：當時鐘指向【4 點整】時，時針指向 4，分針指向 12。兩針所夾的較小角是什麼角？",
+      draw: (c) => DrawEngine.drawClock(c, 4, 0),
+      options: ["鈍角（大於 90 度，約 120 度）", "銳角（小於 90 度）", "直角（剛好 90 度）", "平角（180 度）"],
+      ans: 0,
+      explain: "4 點整時兩針相隔 4 大格，4 × 30° ＝ 120 度，大於 90 度直角，屬於「鈍角」。"
+    };
+  },
+  function() {
+    return {
+      title: "【鐘面夾角】：當時鐘指向【6 點整】時，時針指向 6，分針指向 12，兩針成一直線。此時所夾的角度稱為：",
+      draw: (c) => DrawEngine.drawClock(c, 6, 0),
+      options: ["平角（剛好 180 度）", "直角（90 度）", "周角（360 度）", "銳角"],
+      ans: 0,
+      explain: "6 點整時兩針成一條直線，張開度數為 180 度，稱為平角。"
+    };
+  }
+];
+
+// 數學其他單元生成器
+const OtherMathGenerators = {
+  m_formula: function() {
+    const divisor = rand(3, 9), quotient = rand(4, 9), rem = rand(1, divisor - 1);
+    const total = divisor * quotient + rem;
+    return {
+      subject: "math", lesson: "m_formula", type: "formula",
+      title: `【動手列橫式算式】：老師買了 ${total} 顆彩色果汁糖，每 ${divisor} 顆裝成一袋。請使用下方專屬鍵盤列出完整的除法橫式算式：`,
+      draw: null, targetPattern: `${total}÷${divisor}=${quotient}⋯${rem}`,
+      explain: `${total} ÷ ${divisor} ＝ ${quotient} ⋯ ${rem}。可以裝滿 ${quotient} 袋，還剩下 ${rem} 顆！`
+    };
+  },
+  m_div_ceil: function() {
+    const cap = rand(4, 8), quo = rand(5, 9), rem = rand(1, cap - 1);
+    const total = cap * quo + rem, ans = quo + 1;
+    return {
+      subject: "math", lesson: "m_div", type: "choice",
+      title: `三年級有 ${total} 位學生去划船，每艘天鵝船最多只能載 ${cap} 個人。請問學校「至少」需要安排幾艘船才夠所有人全數搭乘？`,
+      draw: null, options: [`${ans} 艘（進一法）`, `${quo} 艘`, `${ans + 1} 艘`, `${quo - 1} 艘`], ans: 0,
+      explain: `${total} ÷ ${cap} = ${quo} 餘 ${rem}。剩下的 ${rem} 個人也必須有船坐，要用「進一法」：${quo} + 1 = ${ans} 艘！`
+    };
+  },
+  m_div_floor: function() {
+    const price = rand(6, 12), canBuy = rand(4, 9), rem = rand(1, price - 1);
+    const money = price * canBuy + rem;
+    return {
+      subject: "math", lesson: "m_div", type: "choice",
+      title: `小美身上帶了 ${money} 元去文具行，每本精裝筆記本特價 ${price} 元。請問小美「最多」可以買幾本？還剩下幾元？`,
+      draw: null, options: [`最多買 ${canBuy} 本，剩下 ${rem} 元`, `最多買 ${canBuy + 1} 本，剩下 ${rem} 元`, `最多買 ${canBuy} 本，剩下 0 元`], ans: 0,
+      explain: `${money} ÷ ${price} = ${canBuy} 餘 ${rem}。剩下的 ${rem} 元不夠再買一本，使用「捨去法」，最多買 ${canBuy} 本，剩 ${rem} 元。`
+    };
+  },
+  m_area_grid: function() {
+    const full = rand(6, 12), half = rand(1, 3) * 2;
+    const totalArea = full + (half / 2);
+    return {
+      subject: "math", lesson: "m_area", type: "choice",
+      title: `【看圖算面積】：下圖方格紙中，每一小格代表 1 平方公分。綠色代表完整方格（共 ${full} 格），藍色代表半格（共 ${half} 個半格）。請問這個圖形的總面積是多少平方公分？`,
+      draw: (c) => DrawEngine.drawAreaGrid(c, 5, 4, full, half),
+      options: [`${totalArea} 平方公分`, `${full + half} 平方公分`, `${full} 平方公分`, `${totalArea + 2} 平方公分`], ans: 0,
+      explain: `2 個半格可以拼成 1 個完整的 1 平方公分方格。${half} 個半格 ＝ ${half / 2} 平方公分。總面積 ＝ ${full} ＋ ${half / 2} ＝ ${totalArea} 平方公分。`
+    };
+  },
+  m_capacity_displace: function() {
+    const initMl = rand(3, 5) * 100, stoneVol = rand(12, 35) * 10;
+    const finalMl = initMl + stoneVol;
+    return {
+      subject: "math", lesson: "m_capacity", type: "choice",
+      title: `【實驗看圖題】：科學課時，量筒內原本裝有 ${initMl} 毫升的水。將一顆鐵球完全沉入水中後，量筒刻度上升至 ${finalMl} 毫升（如下圖所示）。請問這顆鐵球的體積相當於多少容量？`,
+      draw: (c) => DrawEngine.drawDisplacement(c, initMl, finalMl),
+      options: [`${stoneVol} 毫升（排水法）`, `${finalMl} 毫升`, `${initMl} 毫升`, `${finalMl + initMl} 毫升`], ans: 0,
+      explain: `排水法原理：水位上升的體積等於沉入物體的體積。${finalMl} － ${initMl} ＝ ${stoneVol} 毫升。`
+    };
+  },
+  m_fraction_visual: function() {
+    const totalParts = rand(6, 10), takenParts = rand(2, totalParts - 2);
+    const remain = totalParts - takenParts;
+    return {
+      subject: "math", lesson: "m_fraction", type: "choice",
+      title: `【看圖算分數】：下圖大披薩平分成 ${totalParts} 塊。橘色部分代表吃掉的份量（共吃了 ${takenParts} 塊）。請問吃了幾分之幾「個」披薩？還剩下幾分之幾「個」？`,
+      draw: (c) => DrawEngine.drawFractionCircle(c, totalParts, takenParts),
+      options: [
+        `吃了 ${totalParts}分之${takenParts} 個，剩下 ${totalParts}分之${remain} 個`,
+        `吃了 ${takenParts} 個，剩下 ${remain} 個`,
+        `吃了 ${totalParts}分之${remain} 個，剩下 ${totalParts}分之${takenParts} 個`
+      ],
+      ans: 0,
+      explain: `平分成 ${totalParts} 等份，每份代表 1/${totalParts} 個。吃了 ${takenParts} 塊是 ${takenParts}/${totalParts} 個。剩下 ${totalParts} － ${takenParts} ＝ ${remain} 塊，即 ${remain}/${totalParts} 個。`
+    };
+  }
+};
+
+// 國語科
+const CHINESE_QUESTIONS = [
+  { lesson:"c_l7", title:"在課文《風的味道》中，作者走過結實纍纍的稻田時，主要透過哪種感官描寫大自然？", options:["嗅覺摹寫（聞到甘甜稻香）", "聽覺摹寫", "觸覺摹寫", "味覺摹寫"], ans:0, explain:"課文核心在於用鼻子細細聞大自然中不同地方風帶來的氣味。" },
+  { lesson:"c_l7", title:"「微風『徐徐』吹拂著臉龐。」句中「徐徐」的意思為何？", options:["緩慢、從容舒緩的樣子", "急促突然", "劇烈狂暴", "大聲喊叫"], ans:0, explain:"「徐徐」形容動作或風速輕柔緩慢。" },
+  { lesson:"c_l8", title:"在課文《寄居蟹找新家》中，為什麼沙灘上的野生寄居蟹越來越難找到天然螺殼？", options:["因為遊客過度撿拾美麗貝殼帶回家", "因為海浪把貝殼全部溶化了", "因為寄居蟹不喜歡天然貝殼", "因為貝殼被魚群吃光了"], ans:0, explain:"遊客隨手撿拾貝殼，導致寄居蟹無殼可換，被迫揹塑膠垃圾瓶蓋。" },
+  { lesson:"c_l8", title:"寄居蟹身體長大後，為什麼必須定期換殼？", options:["因為牠的外殼不會跟著身體長大，需要更大螺殼保護腹部", "因為牠喜歡換新衣服炫耀", "因為舊殼顏色褪色了", "為了躲避冬眠"], ans:0, explain:"寄居蟹外殼是寄居在現成螺殼內，身體長大就必須尋覓更大的螺殼。" },
+  { lesson:"c_l9", title:"《阿塱壹古道》沿途鋪滿著名的南田石，退潮時海浪捲動石頭會發出什麼特殊聲音？", options:["圓潤鵝卵石互相撞擊滾動的唰啦聲，宛如唱歌", "高鐵飛馳的呼嘯聲", "工廠機器的轟鳴聲", "大雨打在鐵皮屋上的聲音"], ans:0, explain:"阿塱壹海岸浪花退潮時捲動南田石，石塊碰撞聲被譽為大自然天籟。" },
+  { lesson:"c_l9", title:"「阿塱壹古道依山傍海，景致壯麗。」「依山傍海」的意思是：", options:["緊靠著高山，又緊鄰著大海", "只有荒山沒有海", "全部沉在海底", "隱藏在地底洞穴中"], ans:0, explain:"依山傍海形容地理景觀同時緊鄰山嶺與壯闊海洋。" },
+  { lesson:"c_l10", title:"在魯凱族傳統鞦韆婚禮中，族人佩戴在頭冠上的「百合花」象徵什麼深遠意義？", options:["女子的純潔品德與男子的英勇狩獵榮譽", "家裡很有錢買很多花", "比賽誰摘的花大朵", "慶祝天氣晴朗"], ans:0, explain:"百合花在魯凱族文化中具崇高神聖地位，代表女子純潔堅貞與勇士功勳。" },
+  { lesson:"c_l11", title:"「出門要多加小心，一路平安！」這句平常家人叮嚀背後蘊含的情感是：", options:["家人之間深切的關懷、疼愛與平安期盼", "急著把孩子趕出門", "不希望孩子再回家", "炫耀自己很有禮貌"], ans:0, explain:"看似平常的祝福，蘊含著家人最深厚的愛與對生命安全的牽掛。" },
+  { lesson:"c_l12", title:"課文《不一樣的團員》傳遞的核心團隊精神是：", options:["互相包容欣賞彼此長處，凝聚力量達成共同目標", "聯合同學嘲笑和自己不同的人", "逼所有人個性與才能一模一樣", "大家都不跟他說話"], ans:0, explain:"多元共融：欣賞每個人獨特的特質與天賦，團結互助合作。" }
+];
+
+// 自然科
+const NATURE_QUESTIONS = [
+  { lesson:"n_air", title:"將塞有乾衛生紙的杯子「垂直倒扣」壓入水槽底，衛生紙不會濕，證明了空氣：", options:["會佔據空間（把水擋在外面）", "完全沒有重量", "有甜味", "容易燃燒"], ans:0, explain:"杯內空間被空氣佔滿，水無法進入，故衛生紙維持乾燥。" },
+  { lesson:"n_air", title:"空注射筒抽滿空氣堵住出口，用力往前推活塞可以前進一段。這證明空氣：", options:["可以被壓縮（氣體分子間隙大）", "有固定的形狀", "比鐵塊更重", "沒有彈性"], ans:0, explain:"活塞前進體積縮小，證明氣體分子間隙大，空氣容易被壓縮。" },
+  { lesson:"n_wind", title:"操場上的風向袋正向著「西南方」水平飄展，請問此時地面吹的是什麼風？", options:["東北風（風從東北方吹來）", "西南風", "西北風", "東南風"], ans:0, explain:"風向是指「風吹來的方向」！飄向西南代表風是從東北吹來的，故為東北風！" },
+  { lesson:"n_wind", title:"風向計前端的「箭頭」正指向正南方，請問此時地面吹什麼風？", options:["南風", "北風", "東風", "西風"], ans:0, explain:"風向計箭頭指的方向就是來風方向，指南方即為南風。" },
+  { lesson:"n_powder", title:"廚房四種白色粉末：白糖、食鹽、太白粉、小蘇打。滴入棕褐色碘液後，哪種會變成深藍紫色？", options:["太白粉（含有澱粉）", "食鹽", "白糖", "小蘇打"], ans:0, explain:"太白粉主要成分是澱粉，澱粉遇到碘液會產生深藍紫色特徵反應。" },
+  { lesson:"n_powder", title:"小蘇打粉加入白醋後會劇烈冒出大量氣泡，這個氣體是：", options:["二氧化碳（不可燃亦不助燃）", "氧氣", "水蒸氣", "氫氣"], ans:0, explain:"小蘇打（碳酸氫鈉）遇酸反應會釋放出二氧化碳氣體，可使燃燒線香熄滅。" },
+  { lesson:"n_dissolve", title:"想讓一杯水中的粗鹽加速溶解，下列哪一種方法「完全沒有幫助」？", options:["把容器蓋緊冰進冷凍庫降溫", "用熱水代替冷水", "拿湯匙快速攪拌", "將粗鹽搗成細粉末"], ans:0, explain:"降溫會減緩水分子熱運動，使溶解速率變慢，完全無加速幫助。" },
+  { lesson:"n_dissolve", title:"將 5 公克糖完全溶於 100 公克水中，這杯糖水的總重量是：", options:["105 公克（質量守恆）", "100 公克", "小於 100 公克", "大於 110 公克"], ans:0, explain:"質量守恆定律：溶質重 (5g) ＋ 溶劑重 (100g) ＝ 溶液總重 (105g)。" }
+];
+
+// 英文科
+const ENGLISH_SPELL_LIST = [
+  { t:"直尺", en:"RULER", exp:"直尺英文是 R-U-L-E-R。" },
+  { t:"橡皮擦", en:"ERASER", exp:"橡皮擦英文是 E-R-A-S-E-R。" },
+  { t:"鉛筆", en:"PENCIL", exp:"鉛筆英文是 P-E-N-C-I-L。" },
+  { t:"牛奶", en:"MILK", exp:"牛奶英文是 M-I-L-K。" },
+  { t:"蘋果", en:"APPLE", exp:"蘋果英文是 A-P-P-L-E。" },
+  { t:"水", en:"WATER", exp:"水英文是 W-A-T-E-R。" },
+  { t:"書本", en:"BOOK", exp:"書本英文是 B-O-O-K。" },
+  { t:"盒子/箱子", en:"BOX", exp:"盒子英文是 B-O-X。" },
+  { t:"書桌", en:"DESK", exp:"書桌英文是 D-E-S-K。" },
+  { t:"椅子", en:"CHAIR", exp:"椅子英文是 C-H-A-I-R。" }
+];
+
+const LESSON_CATALOG = {
+  math: [
+    { id: "all", name: "🔥 數學期末全範圍 (5~9單元動態繪圖・題目無限)" },
+    { id: "m_angle", name: "第五單元：角與幾何大師 (16 種題型・動態繪圖・不重複)" },
+    { id: "m_area", name: "第六單元：面積 (方格即時繪圖、長方形公式、面積守恆)" },
+    { id: "m_formula", name: "⭐ 必考：自己按按鍵列除法算式題 (數字隨機)" },
+    { id: "m_div", name: "第七單元：除法應用 (租車進一法、買文具捨去法、餘數)" },
+    { id: "m_capacity", name: "第八單元：容量 (公升毫升換算、量筒排水法動態實驗圖)" },
+    { id: "m_fraction", name: "第九單元：分數 (圓餅披薩切塊圖解、同分母加減)" }
+  ],
+  chinese: [
+    { id: "all", name: "🔥 國語期末全範圍 (7~12課課文綜合大挑戰)" },
+    { id: "c_l7", name: "第七課：風的味道 (嗅覺摹寫與稻香)" },
+    { id: "c_l8", name: "第八課：寄居蟹找新家 (海洋生態與換殼)" },
+    { id: "c_l9", name: "第九課：阿塱壹古道 (海岸地質與南田石之歌)" },
+    { id: "c_l10", name: "第十課：秋千上的婚禮 (原住民族傳統儀式)" },
+    { id: "c_l11", name: "第十一課：一路平安 (交通安全與親情叮嚀)" },
+    { id: "c_l12", name: "第十二課：不一樣的團員 (包容互助與團隊合作)" }
+  ],
+  nature: [
+    { id: "all", name: "🔥 自然期末全範圍 (空氣與風・廚房科學)" },
+    { id: "n_air", name: "第三單元：空氣的特性與空間 (佔據空間、可壓縮)" },
+    { id: "n_wind", name: "第三單元：風向與風力觀測 (風向定義、風向袋)" },
+    { id: "n_powder", name: "第四單元：廚房調味粉大解密 (太白粉碘液、小蘇打醋)" },
+    { id: "n_dissolve", name: "第四單元：溶解快慢與飽和現象 (溫度攪拌、質量守恆)" }
+  ],
+  english: [
+    { id: "all", name: "🔥 英文期末全範圍大挑戰" },
+    { id: "e_spell", name: "🔤 26鍵字母全螢幕動手拼字機" }
+  ]
+};
+
+let currentSubject = 'math';
+let currentLesson = 'all';
+let currentQuestions = [];
+let currentIndex = 0;
+let score = 0;
+let userEquation = "";
+let userSpelling = "";
+let wrongQuestions = [];
+
+// ==========================================
+// 雲端試算表自動同步邏輯 (在 GitHub Pages 上自動啟用)
+// ==========================================
+function fetchCloudSheet() {
+  const syncText = document.getElementById('syncStatusText');
+  const syncBadge = document.getElementById('syncBadge');
+
+  window.googleDocCallback = function(data) {
+    try {
+      const rows = data.table.rows;
+      const parsed = [];
+      rows.forEach(r => {
+        const c = r.c;
+        if (!c || !c[1] || !c[4]) return;
+        const subject = c[1] && c[1].v ? String(c[1].v).trim() : "";
+        const lesson = c[2] && c[2].v ? String(c[2].v).trim() : "";
+        const qType = c[3] && c[3].v ? String(c[3].v).trim() : "單選題";
+        const title = c[4] && c[4].v ? String(c[4].v).trim() : "";
+        const optA = c[5] && c[5].v ? String(c[5].v).trim() : "";
+        const optB = c[6] && c[6].v ? String(c[6].v).trim() : "";
+        const optC = c[7] && c[7].v ? String(c[7].v).trim() : "";
+        const optD = c[8] && c[8].v ? String(c[8].v).trim() : "";
+        const ans = c[9] && c[9].v ? String(c[9].v).trim().toUpperCase() : "A";
+        const explain = c[10] && c[10].v ? String(c[10].v).trim() : "";
+
+        if (title === "題目" && optA.includes("文字選項")) return;
+        if (!title) return;
+
+        parsed.push({ subject, lesson, qType, title, options: [optA, optB, optC, optD].filter(Boolean), ans, explain });
+      });
+
+      if (parsed.length > 0) {
+        CLOUD_QUESTIONS = parsed;
+        syncText.innerText = `✅ 雲端試算表同步成功！已連線載入 ${CLOUD_QUESTIONS.length} 題外部題庫`;
+        syncBadge.className = "badge-status";
+        syncBadge.innerText = "雲端即時連線";
+      } else {
+        syncText.innerText = `💡 試算表連線成功（目前使用內建動態題庫）`;
+      }
+    } catch (e) {
+      console.warn("解析試算表錯誤：", e);
+    }
+  };
+
+  const script = document.createElement('script');
+  script.src = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=responseHandler:googleDocCallback&sheet=${encodeURIComponent(SHEET_NAME)}&tq=${encodeURIComponent('select *')}`;
+  document.body.appendChild(script);
+}
+
+function init() {
+  switchSubject('math');
+  fetchCloudSheet();
+}
+
+function switchSubject(sub) {
+  currentSubject = sub;
+  closeNotebook();
+  document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
+  const map = { math:0, chinese:1, nature:2, english:3 };
+  if (document.querySelectorAll('.sub-btn')[map[sub]]) {
+    document.querySelectorAll('.sub-btn')[map[sub]].classList.add('active');
+  }
+
+  const select = document.getElementById('lessonSelect');
+  select.innerHTML = "";
+  LESSON_CATALOG[sub].forEach(l => {
+    const opt = document.createElement('option');
+    opt.value = l.id;
+    opt.innerText = l.name;
+    select.appendChild(opt);
+  });
+  currentLesson = LESSON_CATALOG[sub][0].id;
+  select.value = currentLesson;
+
+  loadQuestions();
+}
+
+function onLessonChange() {
+  currentLesson = document.getElementById('lessonSelect').value;
+  loadQuestions();
+}
+
+function loadQuestions() {
+  currentQuestions = [];
+  const TOTAL_COUNT = 10;
+
+  if (currentSubject === 'math') {
+    if (currentLesson === 'm_angle') {
+      const shuffled = [...AngleQuizGenerators].sort(() => Math.random() - 0.5);
+      for (let i = 0; i < Math.min(TOTAL_COUNT, shuffled.length); i++) {
+        currentQuestions.push(shuffled[i]());
+      }
+      document.getElementById('poolBadge').innerText = "角單元：16 種題型・10 題保證完全不同！";
+    } else if (currentLesson === 'all') {
+      const allGenList = [
+        ...AngleQuizGenerators,
+        OtherMathGenerators.m_formula,
+        OtherMathGenerators.m_div_ceil,
+        OtherMathGenerators.m_div_floor,
+        OtherMathGenerators.m_area_grid,
+        OtherMathGenerators.m_capacity_displace,
+        OtherMathGenerators.m_fraction_visual
+      ];
+      const shuffledAll = [...allGenList].sort(() => Math.random() - 0.5);
+      for (let i = 0; i < TOTAL_COUNT; i++) {
+        currentQuestions.push(shuffledAll[i]());
+      }
+      document.getElementById('poolBadge').innerText = "數學全範圍：全圖解動態出題・題目無限";
+    } else if (currentLesson === 'm_formula') {
+      for (let i = 0; i < TOTAL_COUNT; i++) currentQuestions.push(OtherMathGenerators.m_formula());
+      document.getElementById('poolBadge').innerText = "除法算式按鈕機：數字每次隨機重算";
+    } else if (currentLesson === 'm_div') {
+      for (let i = 0; i < TOTAL_COUNT; i++) {
+        const fn = rand(0, 1) === 0 ? OtherMathGenerators.m_div_ceil : OtherMathGenerators.m_div_floor;
+        currentQuestions.push(fn());
+      }
+      document.getElementById('poolBadge').innerText = "除法生活應用：進一法與捨去法";
+    } else if (currentLesson === 'm_area') {
+      for (let i = 0; i < TOTAL_COUNT; i++) currentQuestions.push(OtherMathGenerators.m_area_grid());
+      document.getElementById('poolBadge').innerText = "面積單元：方格即時繪圖出題";
+    } else if (currentLesson === 'm_capacity') {
+      for (let i = 0; i < TOTAL_COUNT; i++) currentQuestions.push(OtherMathGenerators.m_capacity_displace());
+      document.getElementById('poolBadge').innerText = "容量單元：量筒排水法動態實驗圖";
+    } else if (currentLesson === 'm_fraction') {
+      for (let i = 0; i < TOTAL_COUNT; i++) currentQuestions.push(OtherMathGenerators.m_fraction_visual());
+      document.getElementById('poolBadge').innerText = "分數單元：圓餅披薩切塊動態繪圖";
+    }
+  } else if (currentSubject === 'chinese') {
+    let pool = CHINESE_QUESTIONS;
+    if (CLOUD_QUESTIONS.length > 0) {
+      const cloudP = CLOUD_QUESTIONS.filter(q => q.subject.includes("國語"));
+      if (cloudP.length > 0) pool = cloudP;
+    }
+    const shuffled = [...pool].sort(() => Math.random() - 0.5);
+    currentQuestions = shuffled.slice(0, Math.min(shuffled.length, TOTAL_COUNT));
+    document.getElementById('poolBadge').innerText = `可用真題：${pool.length} 題`;
+  } else if (currentSubject === 'nature') {
+    let pool = NATURE_QUESTIONS;
+    if (CLOUD_QUESTIONS.length > 0) {
+      const cloudP = CLOUD_QUESTIONS.filter(q => q.subject.includes("自然"));
+      if (cloudP.length > 0) pool = cloudP;
+    }
+    const shuffled = [...pool].sort(() => Math.random() - 0.5);
+    currentQuestions = shuffled.slice(0, Math.min(shuffled.length, TOTAL_COUNT));
+    document.getElementById('poolBadge').innerText = `可用真題：${pool.length} 題`;
+  } else if (currentSubject === 'english') {
+    const shuffled = [...ENGLISH_SPELL_LIST].sort(() => Math.random() - 0.5);
+    currentQuestions = shuffled.slice(0, Math.min(shuffled.length, TOTAL_COUNT)).map(it => ({
+      subject: "english",
+      lesson: "e_spell",
+      type: "spell",
+      title: `【英文動手拼單字】：請利用下方字母鍵盤拼出【${it.t}】的英文單字：`,
+      target: it.en,
+      explain: it.exp,
+      draw: null
+    }));
+    document.getElementById('poolBadge').innerText = `可用題目：${currentQuestions.length} 題`;
+  }
+
+  currentIndex = 0;
+  score = 0;
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const fb = document.getElementById('feedbackBox');
+  fb.style.display = 'none';
+
+  if (currentIndex >= currentQuestions.length) {
+    document.getElementById('qTitle').innerText = `🎉 恭喜完成本組挑戰！總得分：${score} / ${currentQuestions.length * 10} 分`;
+    document.getElementById('diagramArea').innerHTML = "";
+    document.getElementById('optionArea').innerHTML = `
+      <div style="text-align:center; padding:20px;">
+        <button class="next-btn" onclick="loadQuestions()">🎲 換一套全新考題繼續練習</button>
+      </div>
+    `;
+    document.getElementById('typeBadge').innerText = "結算";
+    return;
+  }
+
+  const q = currentQuestions[currentIndex];
+  document.getElementById('progressText').innerText = `第 ${currentIndex + 1} / ${currentQuestions.length} 題`;
+  document.getElementById('scoreText').innerText = `得分：${score}`;
+  document.getElementById('qTitle').innerText = q.title;
+
+  const diagArea = document.getElementById('diagramArea');
+  diagArea.innerHTML = "";
+  if (q.draw && typeof q.draw === 'function') {
+    const container = document.createElement('div');
+    container.className = 'diagram-container';
+    const canvas = document.createElement('canvas');
+    container.appendChild(canvas);
+    diagArea.appendChild(container);
+    q.draw(canvas);
+  }
+
+  const optArea = document.getElementById('optionArea');
+  optArea.innerHTML = "";
+
+  if (q.type === 'formula') {
+    document.getElementById('typeBadge').innerText = "🔢 算式按鈕機";
+    userEquation = "";
+    renderFormulaKeypad();
+  } else if (q.type === 'spell') {
+    document.getElementById('typeBadge').innerText = "🔤 字母拼字機";
+    userSpelling = "";
+    renderSpellBoard(q);
+  } else {
+    document.getElementById('typeBadge').innerText = "選擇題";
+    const correctIdx = q.ans !== undefined ? (typeof q.ans === 'number' ? q.ans : (q.ans.charCodeAt(0) - 65)) : 0;
+    const correctText = q.options[correctIdx] || q.options[0];
+    const shuffled = q.options.map((opt, i) => ({ text: opt, isCorrect: i === correctIdx }));
+    shuffled.sort(() => Math.random() - 0.5);
+
+    let html = '<div class="choice-list">';
+    const labels = ['A', 'B', 'C', 'D'];
+    shuffled.forEach((item, idx) => {
+      const safeText = encodeURIComponent(item.text);
+      const safeCorrect = encodeURIComponent(correctText);
+      html += `<button class="choice-btn" onclick="checkChoice('${labels[idx]}', decodeURIComponent('${safeText}'), decodeURIComponent('${safeCorrect}'))">${labels[idx]}. ${item.text}</button>`;
+    });
+    html += '</div>';
+    optArea.innerHTML = html;
+  }
+}
+
+function checkChoice(selectedLabel, userChosenText, correctText) {
+  const q = currentQuestions[currentIndex];
+  const isCorrect = (userChosenText === correctText);
+
+  const fb = document.getElementById('feedbackBox');
+  const fbTitle = document.getElementById('fbTitle');
+  const fbDetail = document.getElementById('fbDetail');
+
+  if (isCorrect) {
+    score += 10;
+    fb.className = "feedback-box correct";
+    fbTitle.innerText = `🎯 太棒了！選擇【${selectedLabel}. ${userChosenText}】完全正確！`;
+  } else {
+    fb.className = "feedback-box wrong";
+    fbTitle.innerText = `💡 差一點點！正確答案是：【${correctText}】`;
+    recordWrong(q, userChosenText);
+  }
+
+  fbDetail.innerText = q.explain;
+  fb.style.display = 'block';
+  document.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
+}
+
+function renderFormulaKeypad() {
+  const optArea = document.getElementById('optionArea');
+  optArea.innerHTML = `
+    <div class="math-display-container">
+      <div class="math-display-text" id="mDisplay">${userEquation || "（請點選下方按鈕輸入算式）"}</div>
+    </div>
+    <div class="math-keypad">
+      <button class="m-key" onclick="pressMathKey('7')">7</button>
+      <button class="m-key" onclick="pressMathKey('8')">8</button>
+      <button class="m-key" onclick="pressMathKey('9')">9</button>
+      <button class="m-key op" onclick="pressMathKey('÷')">÷</button>
+      <button class="m-key func" onclick="deleteMathKey()">⌫</button>
+
+      <button class="m-key" onclick="pressMathKey('4')">4</button>
+      <button class="m-key" onclick="pressMathKey('5')">5</button>
+      <button class="m-key" onclick="pressMathKey('6')">6</button>
+      <button class="m-key op" onclick="pressMathKey('×')">×</button>
+      <button class="m-key func" onclick="clearMathKey()">C</button>
+
+      <button class="m-key" onclick="pressMathKey('1')">1</button>
+      <button class="m-key" onclick="pressMathKey('2')">2</button>
+      <button class="m-key" onclick="pressMathKey('3')">3</button>
+      <button class="m-key op" onclick="pressMathKey('＝')">＝</button>
+      <button class="m-key op" onclick="pressMathKey('⋯')">⋯(餘)</button>
+
+      <button class="m-key" onclick="pressMathKey('0')">0</button>
+      <button class="m-key op" onclick="pressMathKey('＋')">＋</button>
+      <button class="m-key op" onclick="pressMathKey('－')">－</button>
+      <button class="m-key submit" onclick="submitFormula()">送出算式 ✔</button>
+    </div>
+  `;
+}
+
+function pressMathKey(char) {
+  userEquation += char;
+  const disp = document.getElementById('mDisplay');
+  if (disp) disp.innerText = userEquation;
+}
+
+function deleteMathKey() {
+  if (userEquation.length > 0) {
+    userEquation = userEquation.slice(0, -1);
+    const disp = document.getElementById('mDisplay');
+    if (disp) disp.innerText = userEquation || "（請點選下方按鈕輸入算式）";
+  }
+}
+
+function clearMathKey() {
+  userEquation = "";
+  const disp = document.getElementById('mDisplay');
+  if (disp) disp.innerText = "（請點選下方按鈕輸入算式）";
+}
+
+function submitFormula() {
+  const q = currentQuestions[currentIndex];
+  let cleaned = userEquation.replace(/=/g, '＝').replace(/\//g, '÷').replace(/\.\.\./g, '⋯').replace(/\s+/g, '');
+  let targetCleaned = (q.targetPattern || "").replace(/=/g, '＝').replace(/\//g, '÷').replace(/\.\.\./g, '⋯').replace(/\s+/g, '');
+
+  let isCorrect = (cleaned === targetCleaned);
+
+  const fb = document.getElementById('feedbackBox');
+  const fbTitle = document.getElementById('fbTitle');
+  const fbDetail = document.getElementById('fbDetail');
+
+  if (isCorrect) {
+    score += 10;
+    fb.className = "feedback-box correct";
+    fbTitle.innerText = "🎯 太厲害了！列出的除法算式完全正確！";
+  } else {
+    fb.className = "feedback-box wrong";
+    fbTitle.innerText = `💡 算式差一點點喔！正確算式為【${q.targetPattern}】`;
+    recordWrong(q, userEquation);
+  }
+
+  fbDetail.innerText = q.explain;
+  fb.style.display = 'block';
+  document.querySelectorAll('.m-key').forEach(b => b.disabled = true);
+}
+
+function renderSpellBoard(q) {
+  const optArea = document.getElementById('optionArea');
+  let boxes = "";
+  for(let i = 0; i < (q.target || "").length; i++) {
+    const ch = userSpelling[i] || "";
+    boxes += `<div class="letter-box">${ch}</div>`;
+  }
+
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  let keys = "";
+  alphabet.forEach(letter => {
+    keys += `<button class="vk-key" onclick="pressKey('${letter}')">${letter}</button>`;
+  });
+
+  optArea.innerHTML = `
+    <div class="spell-display">${boxes}</div>
+    <div class="virtual-keyboard">${keys}</div>
+    <div class="spell-actions">
+      <button class="spell-action-btn btn-del" onclick="deleteKey()">⌫ 刪除</button>
+      <button class="spell-action-btn btn-submit" onclick="submitSpell()">送出答案 ✔</button>
+    </div>
+  `;
+}
+
+function pressKey(letter) {
+  const q = currentQuestions[currentIndex];
+  if(userSpelling.length < (q.target || "").length) {
+    userSpelling += letter;
+    renderSpellBoard(q);
+  }
+}
+
+function deleteKey() {
+  if(userSpelling.length > 0) {
+    userSpelling = userSpelling.slice(0, -1);
+    renderSpellBoard(currentQuestions[currentIndex]);
+  }
+}
+
+function submitSpell() {
+  const q = currentQuestions[currentIndex];
+  const isCorrect = (userSpelling.toUpperCase() === q.target.toUpperCase());
+
+  const fb = document.getElementById('feedbackBox');
+  const fbTitle = document.getElementById('fbTitle');
+  const fbDetail = document.getElementById('fbDetail');
+
+  if (isCorrect) {
+    score += 10;
+    fb.className = "feedback-box correct";
+    fbTitle.innerText = `🎯 太棒了！拼寫完全正確：【${q.target}】！`;
+  } else {
+    fb.className = "feedback-box wrong";
+    fbTitle.innerText = `💡 差一點點！你拼的是【${userSpelling || "空白"}】，正確拼法是【${q.target}】`;
+    recordWrong(q, userSpelling);
+  }
+
+  fbDetail.innerText = q.explain;
+  fb.style.display = 'block';
+  document.querySelectorAll('.vk-key, .spell-action-btn').forEach(b => b.disabled = true);
+}
+
+function recordWrong(q, userChoice) {
+  if (!wrongQuestions.some(item => item.title === q.title)) {
+    wrongQuestions.push({
+      subject: (LESSON_CATALOG[currentSubject] ? currentSubject : "綜合"),
+      title: q.title,
+      explain: q.explain
+    });
+  }
+}
+
+function nextQuestion() {
+  currentIndex++;
+  renderQuestion();
+}
+
+function openNotebook() {
+  document.getElementById('mainPanel').style.display = 'none';
+  document.getElementById('lessonBar').style.display = 'none';
+  document.getElementById('notebookPanel').style.display = 'block';
+
+  const container = document.getElementById('wrongList');
+  if (wrongQuestions.length === 0) {
+    container.innerHTML = "<p style='color:#059669; font-weight:bold; padding:20px 0;'>太厲害了！目前沒有任何錯題喔！</p>";
+    return;
+  }
+
+  let html = "";
+  wrongQuestions.forEach((item, idx) => {
+    html += `
+      <div class="nb-card">
+        <div style="font-size:12px; color:#2563eb; font-weight:bold;">錯題 ${idx+1}</div>
+        <div style="font-weight:700; margin:6px 0;">${item.title}</div>
+        <div style="font-size:13px; color:#dc2626; background:#fef2f2; padding:8px; border-radius:8px;">
+          📌 核心考點解析：${item.explain}
+        </div>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+}
+
+function closeNotebook() {
+  document.getElementById('notebookPanel').style.display = 'none';
+  document.getElementById('mainPanel').style.display = 'block';
+  document.getElementById('lessonBar').style.display = 'flex';
+}
+
+window.onload = init;
+</script>
+</body>
+</html>
