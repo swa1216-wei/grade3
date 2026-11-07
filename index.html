@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>國小三年級期末大考・108課綱全科真題與國語島冒險系統</title>
+<title>國小三年級期末大考・108課綱全真模擬與國語島系統</title>
 <style>
   :root {
     --primary: #2563eb;
@@ -133,7 +133,7 @@
     color: #1e40af;
   }
 
-  /* 國語島專屬子模式導航列 */
+  /* 國語島專屬七大闖關子導航列 */
   .chinese-sub-bar {
     display: flex;
     background: #fdfbf7;
@@ -234,7 +234,7 @@
   }
   .choice-btn:hover { border-color: var(--primary); background: #eff6ff; }
 
-  /* 國語島：成語大卡片 (橘色大按鈕，匹配截圖4) */
+  /* 國語島：成語大卡片 (橘色大按鈕，精確對標截圖) */
   .idiom-choice-list {
     display: flex;
     gap: 16px;
@@ -262,7 +262,7 @@
   .idiom-btn:active { transform: scale(0.97); }
   .idiom-btn:hover { background: #d97706; }
 
-  /* 國語島：句子重組積木機 (匹配截圖3) */
+  /* 國語島：句子重組積木機 (精確對標截圖) */
   .unscramble-target-box {
     min-height: 75px;
     border: 2px dashed #94a3b8;
@@ -314,7 +314,7 @@
   .btn-reset-blocks { background: #f1f5f9; color: #475569; }
   .btn-submit-blocks { background: #059669; color: white; border: none; }
 
-  /* 國語島：生字字典寶箱卡 (匹配截圖2) */
+  /* 國語島：生字字典寶箱卡 (精確對標截圖) */
   .char-chest-display {
     background: white;
     border: 2px solid #cbd5e1;
@@ -362,6 +362,32 @@
   }
   .char-tile-btn .c-main { font-size: 24px; font-weight: 800; color: #0f172a; }
   .char-tile-btn .c-zy { font-size: 12px; color: #64748b; margin-top: 2px; }
+
+  /* 閱讀測驗文章卡片 */
+  .reading-passage-card {
+    background: #fffbeb;
+    border: 2px solid #fde68a;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.08);
+  }
+  .reading-passage-title {
+    font-size: 19px;
+    font-weight: 800;
+    color: #92400e;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #fcd34d;
+    padding-bottom: 8px;
+  }
+  .reading-passage-text {
+    font-size: 17px;
+    line-height: 1.85;
+    color: #451a03;
+    letter-spacing: 0.5px;
+    text-align: justify;
+    text-indent: 2em;
+  }
 
   /* 數學計算機按鈕機 */
   .math-display-container {
@@ -491,33 +517,6 @@
     margin-bottom: 12px;
     background: #fff;
   }
-
-  /* 閱讀測驗文章卡片 */
-  .reading-passage-card {
-    background: #fffbeb;
-    border: 2px solid #fde68a;
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.08);
-  }
-  .reading-passage-title {
-    font-size: 19px;
-    font-weight: 800;
-    color: #92400e;
-    margin-bottom: 12px;
-    border-bottom: 2px solid #fcd34d;
-    padding-bottom: 8px;
-  }
-  .reading-passage-text {
-    font-size: 17px;
-    line-height: 1.85;
-    color: #451a03;
-    letter-spacing: 0.5px;
-    text-align: justify;
-    text-indent: 2em;
-  }
-
 </style>
 </head>
 <body>
@@ -525,7 +524,7 @@
 <div class="app-container">
   <header>
     <h1>國小三年級期末大考・108課綱全真全科模擬系統</h1>
-    <p>📐 數學5~9單元(動態繪圖) ｜ 📖 國語島冒險(生字寶箱・句子重組・成語填空・課文測驗) ｜ 🌱 自然3~4單元 ｜ 🔤 英文Dino3</p>
+    <p>📖 國語島(生字寶箱・句子重組・成語・譬喻・句意・閱讀) ｜ 📐 數學實驗室 ｜ 🌱 自然科學 ｜ 🔤 英文闖關</p>
   </header>
 
   <div class="status-bar">
@@ -534,15 +533,15 @@
   </div>
 
   <div class="subject-nav">
-    <button class="sub-btn active" onclick="switchSubject('math')">🔢 數學實驗室</button>
-    <button class="sub-btn" onclick="switchSubject('chinese')">📖 國語島冒險</button>
+    <button class="sub-btn active" onclick="switchSubject('chinese')">📖 國語島冒險</button>
+    <button class="sub-btn" onclick="switchSubject('math')">🔢 數學實驗室</button>
     <button class="sub-btn" onclick="switchSubject('nature')">🌱 自然科學</button>
     <button class="sub-btn" onclick="switchSubject('english')">🔤 英文闖關</button>
     <button class="sub-btn" onclick="openNotebook()" style="color:#d97706;">📝 錯題筆記</button>
   </div>
 
   <div class="lesson-bar" id="lessonBar">
-    <label for="lessonSelect">選擇測驗單元：</label>
+    <label for="lessonSelect">選擇單元課別：</label>
     <select id="lessonSelect" class="lesson-select" onchange="onLessonChange()"></select>
     <button class="action-btn" onclick="loadQuestions()">🎲 換一批全新題目</button>
     <span class="mode-badge" id="poolBadge">載入中...</span>
@@ -589,7 +588,6 @@
   </div>
 </div>
 
-
 <script>
 const SPREADSHEET_ID = "13lCIn_XK-f-PMHsBGJHiW3Wvv6JEeLJQheN-7-08_fM";
 const SHEET_NAME = "題庫資料表";
@@ -599,571 +597,446 @@ function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + m
 function sample(arr) { return arr[rand(0, arr.length - 1)]; }
 const NAMES = ["小明", "小華", "小美", "小宇", "晴晴", "安安", "宸宸", "雨彤", "睿睿", "心怡"];
 
+// ==========================================
+// 繪圖引擎
+// ==========================================
 const DrawEngine = {
-  // 繪製單一角度圖形（含頂點、射線邊、弧度記號）
-  drawAngle: function(canvas, deg, showLabel = true, isRight = false) {
+  drawAngleParts: function(canvas) {
     const ctx = canvas.getContext('2d');
-    const w = canvas.width = 320;
-    const h = canvas.height = 200;
+    const w = canvas.width = 340, h = canvas.height = 200;
     ctx.clearRect(0, 0, w, h);
-
-    const ox = 70;
-    const oy = 150;
-    const len = 140;
-
-    // 基準底邊（水平向右）
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = "#1e293b";
-    ctx.beginPath();
-    ctx.moveTo(ox, oy);
-    ctx.lineTo(ox + len, oy);
-    ctx.stroke();
-
-    // 箭頭
-    DrawEngine.drawArrowHead(ctx, ox + len, oy, 0);
-
-    // 夾角射線
-    const rad = -deg * Math.PI / 180;
-    const ex = ox + len * Math.cos(rad);
-    const ey = oy + len * Math.sin(rad);
-
-    ctx.beginPath();
-    ctx.moveTo(ox, oy);
-    ctx.lineTo(ex, ey);
-    ctx.stroke();
-    DrawEngine.drawArrowHead(ctx, ex, ey, rad);
-
-    // 畫弧線或直角方框
-    if (deg === 90 || isRight) {
-      ctx.lineWidth = 2.5;
-      ctx.strokeStyle = "#ef4444";
-      ctx.beginPath();
-      ctx.moveTo(ox + 22, oy);
-      ctx.lineTo(ox + 22, oy - 22);
-      ctx.lineTo(ox, oy - 22);
-      ctx.stroke();
-    } else {
-      ctx.lineWidth = 2.5;
-      ctx.strokeStyle = "#2563eb";
-      ctx.beginPath();
-      ctx.arc(ox, oy, 38, rad, 0);
-      ctx.stroke();
-    }
-
-    // 標記頂點與度數
-    ctx.fillStyle = "#ef4444";
-    ctx.beginPath();
-    ctx.arc(ox, oy, 4, 0, Math.PI * 2);
-    ctx.fill();
-
+    const bx = 60, by = 140, px = 240, py = 140, mx = 180, my = 40;
+    ctx.lineWidth = 3; ctx.strokeStyle = "#1e293b";
+    ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(px, py); ctx.stroke();
+    DrawEngine.drawArrow(ctx, px, py, 0);
+    ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(mx, my); ctx.stroke();
+    const rad = Math.atan2(my - by, mx - bx);
+    DrawEngine.drawArrow(ctx, mx, my, rad);
+    ctx.lineWidth = 2.5; ctx.strokeStyle = "#2563eb";
+    ctx.beginPath(); ctx.arc(bx, by, 40, rad, 0); ctx.stroke();
     ctx.font = "bold 16px sans-serif";
-    ctx.fillStyle = "#1e3a8a";
-    if (showLabel) {
-      const midRad = rad / 2;
-      const tx = ox + 55 * Math.cos(midRad);
-      const ty = oy + 55 * Math.sin(midRad);
-      ctx.fillText(deg + "°", tx + 5, ty);
+    ctx.fillStyle = "#ef4444"; ctx.beginPath(); ctx.arc(bx, by, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillText("ㄅ (頂點)", bx - 50, by + 5);
+    ctx.fillStyle = "#2563eb"; ctx.beginPath(); ctx.arc(px, py, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillText("ㄆ", px + 10, py + 5);
+    ctx.beginPath(); ctx.arc(mx, my, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillText("ㄇ", mx + 10, my - 5);
+  },
+  drawCutCorner: function(canvas, cutType) {
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width = 340, h = canvas.height = 210;
+    ctx.clearRect(0, 0, w, h);
+    const rx = 50, ry = 40, rw = 220, rh = 130;
+    ctx.lineWidth = 2; ctx.strokeStyle = "#94a3b8"; ctx.setLineDash([5, 5]);
+    ctx.strokeRect(rx, ry, rw, rh); ctx.setLineDash([]);
+    ctx.lineWidth = 3; ctx.strokeStyle = "#1e293b"; ctx.fillStyle = "#e0f2fe";
+    ctx.beginPath();
+    if (cutType === 5) {
+      ctx.moveTo(rx, ry); ctx.lineTo(rx + rw - 60, ry); ctx.lineTo(rx + rw, ry + 60); ctx.lineTo(rx + rw, ry + rh); ctx.lineTo(rx, ry + rh);
     } else {
-      const midRad = rad / 2;
-      const tx = ox + 50 * Math.cos(midRad);
-      const ty = oy + 50 * Math.sin(midRad);
-      ctx.fillText("？", tx + 5, ty);
+      ctx.moveTo(rx, ry); ctx.lineTo(rx + rw, ry + rh); ctx.lineTo(rx, ry + rh);
+    }
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "#ef4444"; ctx.font = "bold 14px sans-serif";
+    ctx.fillText("✂️ 剪切線", rx + rw - 70, ry + 25);
+  },
+  drawRulerTest: function(canvas, type) {
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width = 340, h = canvas.height = 210;
+    ctx.clearRect(0, 0, w, h);
+    const ox = 70, oy = 160;
+    ctx.lineWidth = 4; ctx.strokeStyle = "#ef4444";
+    ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox + 160, oy); ctx.stroke();
+    let deg = (type === 'acute') ? 50 : 125;
+    const rad = -deg * Math.PI / 180;
+    ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox + 160 * Math.cos(rad), oy + 160 * Math.sin(rad)); ctx.stroke();
+    ctx.lineWidth = 2.5; ctx.strokeStyle = "#059669"; ctx.fillStyle = "rgba(16, 185, 129, 0.25)";
+    ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox + 130, oy); ctx.lineTo(ox, oy - 130); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.lineWidth = 2; ctx.strokeRect(ox, oy - 20, 20, 20);
+    ctx.font = "bold 14px sans-serif"; ctx.fillStyle = "#059669"; ctx.fillText("三角板的直角", ox + 15, oy - 60);
+    ctx.fillStyle = "#ef4444"; ctx.fillText("紅色：待測角", ox + 140, oy - 120);
+  },
+  drawPolygon: function(canvas, type) {
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width = 300, h = canvas.height = 200;
+    ctx.clearRect(0, 0, w, h);
+    ctx.lineWidth = 3; ctx.strokeStyle = "#1e293b"; ctx.fillStyle = "#e0f2fe";
+    ctx.beginPath();
+    if (type === 'right_trapezoid') {
+      ctx.moveTo(60, 160); ctx.lineTo(240, 160); ctx.lineTo(170, 50); ctx.lineTo(60, 50); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.lineWidth = 2; ctx.strokeStyle = "#ef4444"; ctx.strokeRect(60, 140, 20, 20); ctx.strokeRect(60, 50, 20, 20);
+    } else if (type === 'right_triangle') {
+      ctx.moveTo(50, 160); ctx.lineTo(250, 160); ctx.lineTo(50, 40); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.lineWidth = 2; ctx.strokeStyle = "#ef4444"; ctx.strokeRect(50, 140, 20, 20);
+    } else if (type === 'obtuse_triangle') {
+      ctx.moveTo(110, 160); ctx.lineTo(270, 160); ctx.lineTo(40, 60); ctx.closePath(); ctx.fill(); ctx.stroke();
     }
   },
-
-  // 繪製兩個角度對比圖（甲角 vs 乙角）
-  drawTwoAngles: function(canvas, deg1, deg2, len1, len2) {
+  drawLetterAngle: function(canvas, letter) {
     const ctx = canvas.getContext('2d');
-    const w = canvas.width = 460;
-    const h = canvas.height = 200;
+    const w = canvas.width = 240, h = canvas.height = 180;
     ctx.clearRect(0, 0, w, h);
-
-    // 左邊：甲角
-    DrawEngine.renderSingleSubAngle(ctx, 40, 150, deg1, len1, "甲角", "#2563eb");
-    // 右邊：乙角
-    DrawEngine.renderSingleSubAngle(ctx, 260, 150, deg2, len2, "乙角", "#d97706");
+    ctx.lineWidth = 14; ctx.strokeStyle = "#1e3a8a"; ctx.lineCap = "square";
+    const ox = 70, oy = 30, sz = 110;
+    ctx.beginPath();
+    if (letter === 'E') {
+      ctx.moveTo(ox + sz - 30, oy); ctx.lineTo(ox, oy); ctx.lineTo(ox, oy + sz); ctx.lineTo(ox + sz - 30, oy + sz);
+      ctx.moveTo(ox, oy + sz / 2); ctx.lineTo(ox + sz - 45, oy + sz / 2);
+    } else {
+      ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + sz); ctx.lineTo(ox + sz - 20, oy + sz);
+    }
+    ctx.stroke();
   },
-
-  renderSingleSubAngle: function(ctx, ox, oy, deg, len, label, color) {
-    const rad = -deg * Math.PI / 180;
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = "#1e293b";
-
-    // 底邊
-    ctx.beginPath();
-    ctx.moveTo(ox, oy);
-    ctx.lineTo(ox + len, oy);
-    ctx.stroke();
-    DrawEngine.drawArrowHead(ctx, ox + len, oy, 0);
-
-    // 斜邊
-    const ex = ox + len * Math.cos(rad);
-    const ey = oy + len * Math.sin(rad);
-    ctx.beginPath();
-    ctx.moveTo(ox, oy);
-    ctx.lineTo(ex, ey);
-    ctx.stroke();
-    DrawEngine.drawArrowHead(ctx, ex, ey, rad);
-
-    // 弧度
-    ctx.lineWidth = 2.5;
-    ctx.strokeStyle = color;
-    ctx.beginPath();
-    ctx.arc(ox, oy, 30, rad, 0);
-    ctx.stroke();
-
-    // 標籤
-    ctx.font = "bold 15px sans-serif";
-    ctx.fillStyle = color;
-    ctx.fillText(label, ox + 15, oy - 45);
-  },
-
-  // 繪製鐘面指針圖
   drawClock: function(canvas, hour, min = 0) {
     const ctx = canvas.getContext('2d');
     const size = canvas.width = canvas.height = 220;
     ctx.clearRect(0, 0, size, size);
-
-    const cx = size / 2;
-    const cy = size / 2;
-    const r = 90;
-
-    // 鐘盤外圈
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = "#1e293b";
-    ctx.fillStyle = "#ffffff";
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
-
-    // 刻度與數字
-    ctx.font = "bold 14px sans-serif";
-    ctx.fillStyle = "#334155";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
+    const cx = size / 2, cy = size / 2, r = 90;
+    ctx.lineWidth = 4; ctx.strokeStyle = "#1e293b"; ctx.fillStyle = "#ffffff";
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.font = "bold 14px sans-serif"; ctx.fillStyle = "#334155"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
     for (let i = 1; i <= 12; i++) {
       const a = (i * 30 - 90) * Math.PI / 180;
-      const nx = cx + (r - 18) * Math.cos(a);
-      const ny = cy + (r - 18) * Math.sin(a);
-      ctx.fillText(i, nx, ny);
+      ctx.fillText(i, cx + (r - 18) * Math.cos(a), cy + (r - 18) * Math.sin(a));
     }
-
-    // 分針 (長針)
     const minAngle = (min * 6 - 90) * Math.PI / 180;
-    ctx.lineWidth = 3.5;
-    ctx.strokeStyle = "#2563eb";
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(cx + (r - 28) * Math.cos(minAngle), cy + (r - 28) * Math.sin(minAngle));
-    ctx.stroke();
-
-    // 時針 (短針)
+    ctx.lineWidth = 3.5; ctx.strokeStyle = "#2563eb";
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + (r - 28) * Math.cos(minAngle), cy + (r - 28) * Math.sin(minAngle)); ctx.stroke();
     const hourAngle = ((hour % 12 + min / 60) * 30 - 90) * Math.PI / 180;
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = "#ef4444";
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(cx + (r - 45) * Math.cos(hourAngle), cy + (r - 45) * Math.sin(hourAngle));
-    ctx.stroke();
-
-    // 中心軸
-    ctx.fillStyle = "#0f172a";
-    ctx.beginPath();
-    ctx.arc(cx, cy, 6, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.lineWidth = 5; ctx.strokeStyle = "#ef4444";
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + (r - 45) * Math.cos(hourAngle), cy + (r - 45) * Math.sin(hourAngle)); ctx.stroke();
+    ctx.fillStyle = "#0f172a"; ctx.beginPath(); ctx.arc(cx, cy, 6, 0, Math.PI * 2); ctx.fill();
   },
-
-  // 繪製三角形或多邊形（直角個數判斷）
-  drawPolygon: function(canvas, type) {
+  drawTwoAngles: function(canvas, deg1, deg2, len1, len2) {
     const ctx = canvas.getContext('2d');
-    const w = canvas.width = 300;
-    const h = canvas.height = 200;
+    const w = canvas.width = 460, h = canvas.height = 200;
     ctx.clearRect(0, 0, w, h);
-
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = "#1e293b";
-    ctx.fillStyle = "#e0f2fe";
-
-    ctx.beginPath();
-    if (type === 'right_triangle') {
-      // 直角三角形
-      ctx.moveTo(50, 160);
-      ctx.lineTo(250, 160);
-      ctx.lineTo(50, 40);
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-      // 直角符號
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = "#ef4444";
-      ctx.strokeRect(50, 140, 20, 20);
-    } else if (type === 'acute_triangle') {
-      // 銳角三角形
-      ctx.moveTo(50, 160);
-      ctx.lineTo(250, 160);
-      ctx.lineTo(150, 40);
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-    } else if (type === 'obtuse_triangle') {
-      // 鈍角三角形
-      ctx.moveTo(110, 160);
-      ctx.lineTo(270, 160);
-      ctx.lineTo(40, 60);
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-      // 鈍角標記
-      ctx.strokeStyle = "#ef4444";
-      ctx.beginPath();
-      ctx.arc(110, 160, 25, Math.PI, Math.PI + 0.6);
-      ctx.stroke();
-    } else if (type === 'rectangle') {
-      // 長方形（四個直角）
-      ctx.rect(50, 50, 200, 110);
-      ctx.fill();
-      ctx.stroke();
-      // 四個角標註
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = "#ef4444";
-      ctx.strokeRect(50, 50, 16, 16);
-      ctx.strokeRect(234, 50, 16, 16);
-      ctx.strokeRect(50, 144, 16, 16);
-      ctx.strokeRect(234, 144, 16, 16);
+    DrawEngine.renderSubAngle(ctx, 40, 150, deg1, len1, "甲角", "#2563eb");
+    DrawEngine.renderSubAngle(ctx, 260, 150, deg2, len2, "乙角", "#d97706");
+  },
+  renderSubAngle: function(ctx, ox, oy, deg, len, label, color) {
+    const rad = -deg * Math.PI / 180;
+    ctx.lineWidth = 3; ctx.strokeStyle = "#1e293b";
+    ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox + len, oy); ctx.stroke();
+    DrawEngine.drawArrow(ctx, ox + len, oy, 0);
+    const ex = ox + len * Math.cos(rad), ey = oy + len * Math.sin(rad);
+    ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ex, ey); ctx.stroke();
+    DrawEngine.drawArrow(ctx, ex, ey, rad);
+    ctx.lineWidth = 2.5; ctx.strokeStyle = color;
+    ctx.beginPath(); ctx.arc(ox, oy, 30, rad, 0); ctx.stroke();
+    ctx.font = "bold 15px sans-serif"; ctx.fillStyle = color;
+    ctx.fillText(label, ox + 15, oy - 45);
+  },
+  drawAreaGrid: function(canvas, cols, rows, colored, half) {
+    const ctx = canvas.getContext('2d');
+    const sz = 32;
+    canvas.width = cols * sz + 40; canvas.height = rows * sz + 40;
+    const ox = 20, oy = 20;
+    ctx.lineWidth = 1; ctx.strokeStyle = "#cbd5e1";
+    for (let r = 0; r <= rows; r++) { ctx.beginPath(); ctx.moveTo(ox, oy + r * sz); ctx.lineTo(ox + cols * sz, oy + r * sz); ctx.stroke(); }
+    for (let c = 0; c <= cols; c++) { ctx.beginPath(); ctx.moveTo(ox + c * sz, oy); ctx.lineTo(ox + c * sz, oy + rows * sz); ctx.stroke(); }
+    ctx.fillStyle = "#86efac"; ctx.strokeStyle = "#15803d"; ctx.lineWidth = 2;
+    for (let i = 0; i < colored; i++) {
+      const c = i % cols, r = Math.floor(i / cols);
+      ctx.fillRect(ox + c * sz, oy + r * sz, sz, sz); ctx.strokeRect(ox + c * sz, oy + r * sz, sz, sz);
+    }
+    ctx.fillStyle = "#38bdf8"; ctx.strokeStyle = "#0369a1";
+    for (let i = 0; i < half; i++) {
+      const c = (colored + i) % cols, r = Math.floor((colored + i) / cols);
+      ctx.beginPath(); ctx.moveTo(ox + c * sz, oy + r * sz); ctx.lineTo(ox + (c + 1) * sz, oy + (r + 1) * sz); ctx.lineTo(ox + c * sz, oy + (r + 1) * sz); ctx.closePath(); ctx.fill(); ctx.stroke();
     }
   },
-
-  // 輔助函式：畫射線箭頭
-  drawArrowHead: function(ctx, x, y, rad) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(rad);
-    ctx.fillStyle = "#1e293b";
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(-10, -5);
-    ctx.lineTo(-10, 5);
-    ctx.closePath();
-    ctx.fill();
-    ctx.restore();
+  drawDisplacement: function(canvas, beforeMl, afterMl) {
+    const ctx = canvas.getContext('2d');
+    canvas.width = 380; canvas.height = 220;
+    DrawEngine.renderCyl(ctx, 60, 20, beforeMl, "放入前", false);
+    DrawEngine.renderCyl(ctx, 220, 20, afterMl, "放入鐵球後", true);
+  },
+  renderCyl: function(ctx, x, y, ml, label, hasStone) {
+    const cw = 70, ch = 160;
+    ctx.lineWidth = 3; ctx.strokeStyle = "#334155"; ctx.fillStyle = "#f8fafc";
+    ctx.strokeRect(x, y, cw, ch);
+    const waterH = (ml / 700) * (ch - 20);
+    const wy = y + ch - waterH;
+    ctx.fillStyle = "rgba(56, 189, 248, 0.45)";
+    ctx.fillRect(x + 2, wy, cw - 4, waterH);
+    if (hasStone) {
+      ctx.fillStyle = "#475569"; ctx.beginPath(); ctx.arc(x + cw / 2, y + ch - 22, 16, 0, Math.PI * 2); ctx.fill(); ctx.strokeStyle = "#0f172a"; ctx.stroke();
+    }
+    ctx.font = "bold 13px sans-serif"; ctx.fillStyle = "#0369a1";
+    ctx.fillText(`${ml} mL`, x + cw + 10, wy + 4);
+    ctx.fillStyle = "#0f172a"; ctx.font = "bold 14px sans-serif";
+    ctx.fillText(label, x + 8, y + ch + 22);
+  },
+  drawFractionCircle: function(canvas, totalParts, takenParts) {
+    const ctx = canvas.getContext('2d');
+    const size = canvas.width = canvas.height = 200;
+    const cx = size / 2, cy = size / 2, r = 80;
+    const sliceRad = (2 * Math.PI) / totalParts;
+    ctx.lineWidth = 2.5; ctx.strokeStyle = "#1e293b";
+    for (let i = 0; i < totalParts; i++) {
+      const sRad = i * sliceRad - Math.PI / 2;
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, r, sRad, sRad + sliceRad); ctx.closePath();
+      ctx.fillStyle = (i < takenParts) ? "#f59e0b" : "#fef3c7";
+      ctx.fill(); ctx.stroke();
+    }
+  },
+  drawArrow: function(ctx, x, y, rad) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rad); ctx.fillStyle = "#1e293b";
+    ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-10, -5); ctx.lineTo(-10, 5); ctx.closePath(); ctx.fill(); ctx.restore();
   }
 };
 
-// ==========================================
-// 數學科：多元圖形與動態生成題型產生器
-// ==========================================
-const MathGenerators = {
-  // 1. 【圖解題】給定角度圖形，判斷是直角、銳角還是鈍角
-  m_angle_visual_type: function() {
-    const list = [
-      { deg: 90, type: "直角（剛好 90 度）", isRight: true },
-      { deg: rand(25, 65), type: "銳角（小於 90 度）", isRight: false },
-      { deg: rand(110, 155), type: "鈍角（大於 90 度）", isRight: false }
-    ];
-    const it = sample(list);
+// 16 組角幾何動態生成題
+const AngleQuizGenerators = [
+  function() {
     return {
-      subject: "math",
-      lesson: "m_angle",
-      type: "choice",
-      title: `【看圖判斷題】：請觀察下方繪製的角，請問這個角屬於哪一種角？`,
-      draw: (canvas) => DrawEngine.drawAngle(canvas, it.deg, false, it.isRight),
-      options: [it.type, "平角", "無法判斷", it.deg === 90 ? "銳角" : "直角"],
+      title: "【角的構造】：請觀察下圖，標記了點ㄅ、點ㄆ與點ㄇ。請問這個角的「頂點」是哪一個點？構成這個角的「兩條邊」是哪兩條？",
+      draw: (c) => DrawEngine.drawAngleParts(c),
+      options: ["頂點是「點ㄅ」，兩條邊是「邊ㄅㄆ」和「邊ㄅㄇ」", "頂點是「點ㄆ」，兩條邊是「邊ㄆㄅ」和「邊ㄆㄇ」", "頂點是「點ㄇ」，兩條邊是「邊ㄇㄅ」和「邊ㄇㄆ」", "這個圖形有 3 個頂點和 1 條邊"],
       ans: 0,
-      explain: `比對直角（90°）：張開幅度小於 90° 是「銳角」，剛好 90° 是「直角」，大於 90° 且小於 180° 是「鈍角」。本圖的角度為 ${it.deg}°，因此是${it.type}。`
+      explain: "角的定義：由一個公共頂點和向外延伸的兩條邊所組成。相交點「ㄅ」是頂點，兩條邊為「邊ㄅㄆ」與「邊ㄅㄇ」。"
     };
   },
-
-  // 2. 【圖解題】兩個角的長度迷思比較（甲角邊很長但角度小 vs 乙角邊很短但角度大）
-  m_angle_visual_compare: function() {
-    const deg1 = rand(30, 45); // 甲角較小
-    const deg2 = rand(65, 80); // 乙角較大
-    const len1 = 140; // 甲角畫很長
-    const len2 = 80;  // 乙角畫很短
+  function() {
     return {
-      subject: "math",
-      lesson: "m_angle",
-      type: "choice",
-      title: `【圖形比較題】：下圖中，甲角的兩邊畫得比較長，乙角的兩邊畫得比較短。請問「甲角」和「乙角」哪一個角比較大？`,
-      draw: (canvas) => DrawEngine.drawTwoAngles(canvas, deg1, deg2, len1, len2),
-      options: [
-        `乙角比較大（乙角張開的幅度比甲角寬）`,
-        `甲角比較大（因為甲角的兩條邊畫得比較長）`,
-        `兩個角一樣大`,
-        `因為邊長不一樣所以無法比較`
-      ],
+      title: "【剪角動腦題】：一張長方形色紙原本有 4 個角，如圖中紅線剪去一個角（未穿過頂點）。請問剩下的一張大紙片上一共有幾個角？",
+      draw: (c) => DrawEngine.drawCutCorner(c, 5),
+      options: ["變成了 5 個角（形狀變成五邊形）", "少了一個角，變成 3 個角", "依然是 4 個角", "變成 6 個角"],
       ans: 0,
-      explain: `角的大小觀念核心：角的大小只由「兩邊張開的角度（幅度）」決定，和邊畫得多長完全沒有關係！雖然甲角的邊長很長，但乙角張開的角度（${deg2}°）明顯大於甲角（${deg1}°），所以乙角比較大。`
+      explain: "剪去一個角會多出 2 個新頂角，加上剩下的 3 個舊角，合起來是 3 ＋ 2 ＝ 5 個角！"
     };
   },
-
-  // 3. 【圖解題】三角形與多邊形有幾個直角？
-  m_angle_visual_polygon: function() {
-    const list = [
-      { t: "right_triangle", name: "直角三角形", count: 1, exp: "直角三角形固定擁有 1 個直角和 2 個銳角。" },
-      { t: "acute_triangle", name: "銳角三角形", count: 0, exp: "銳角三角形的三個角都是銳角，共有 0 個直角。" },
-      { t: "obtuse_triangle", name: "鈍角三角形", count: 0, exp: "鈍角三角形有 1 個鈍角和 2 個銳角，共有 0 個直角。" },
-      { t: "rectangle", name: "長方形", count: 4, exp: "長方形的四個角都是標準的 90 度直角，共有 4 個直角。" }
-    ];
-    const it = sample(list);
+  function() {
     return {
-      subject: "math",
-      lesson: "m_angle",
-      type: "choice",
-      title: `【圖形直角計數】：請觀察下方圖形【${it.name}】，請問它內部一共有幾個「直角（90度）」？`,
-      draw: (canvas) => DrawEngine.drawPolygon(canvas, it.t),
-      options: [
-        `${it.count} 個直角`,
-        `${it.count + 1} 個直角`,
-        `${it.count === 0 ? 3 : it.count - 1} 個直角`,
-        `2 個直角`
-      ],
+      title: "【剪角動腦題】：一張長方形色紙，拿剪刀沿著「對角線」剪開成兩張色紙，請問剪開後的其中一張色紙上有幾個角？是什麼形狀？",
+      draw: (c) => DrawEngine.drawCutCorner(c, 3),
+      options: ["有 3 個角（變成直角三角形）", "有 4 個角（變成平行四邊形）", "有 2 個角", "有 5 個角"],
       ans: 0,
-      explain: it.exp
+      explain: "沿對角線剪開剛好將長方形平分成兩個直角三角形，每個三角形都有 3 個角（1 直角、2 銳角）。"
     };
   },
-
-  // 4. 【圖解題】時鐘鐘面指針夾角
-  m_angle_visual_clock: function() {
-    const list = [
-      { h: 3, m: 0, type: "直角（剛好 90 度）", deg: 90 },
-      { h: 9, m: 0, type: "直角（剛好 90 度）", deg: 90 },
-      { h: 6, m: 0, type: "平角（兩針成一直線 180 度）", deg: 180 },
-      { h: 2, m: 0, type: "銳角（約 60 度）", deg: 60 },
-      { h: 1, m: 0, type: "銳角（約 30 度）", deg: 30 },
-      { h: 4, m: 0, type: "鈍角（約 120 度）", deg: 120 },
-      { h: 5, m: 0, type: "鈍角（約 150 度）", deg: 150 }
-    ];
-    const it = sample(list);
+  function() {
     return {
-      subject: "math",
-      lesson: "m_angle",
-      type: "choice",
-      title: `【鐘面夾角題】：請觀察下方時鐘鐘面指針位置（此時為 ${it.h} 點整），請問時針與分針所夾的較小角是什麼角？`,
-      draw: (canvas) => DrawEngine.drawClock(canvas, it.h, it.m),
-      options: [it.type, "不是角", "周角", it.deg === 90 ? "鈍角" : "直角"],
+      title: "【三角板檢驗】：小美拿三角板的直角去量紅色角，發現紅色角的另一條邊落在三角板內側（張開幅度比直角小）。請問紅色角是什麼角？",
+      draw: (c) => DrawEngine.drawRulerTest(c, 'acute'),
+      options: ["銳角（小於 90 度直角）", "直角（剛好 90 度）", "鈍角（大於 90 度直角）", "平角"],
       ans: 0,
-      explain: `時鐘鐘面每大格是 30 度。${it.h} 點整時，兩針張開度數為 ${it.deg} 度，為${it.type}。`
+      explain: "用三角板直角當檢驗標準：張開幅度比直角小、落在三角板內部的角稱為「銳角」。"
     };
   },
-
-  // 5. 三角形能不能有 2 個直角？（觀念題）
-  m_triangle_two_rights: function() {
+  function() {
     return {
-      subject: "math",
-      lesson: "m_angle",
-      type: "choice",
-      title: `數學課時老師問：「一個三角形裡面，可不可能同時出現 2 個直角？」誰的回答完全正確？`,
-      options: [
-        `不可能，因為如果有 2 個直角，兩條邊會平行，根本無法連成一個封閉三角形`,
-        `可能，只要把三角形畫得很大很大就可以有 2 個直角`,
-        `可能，直角三角形裡面就有 2 個直角`,
-        `不一定，正三角形可以有 3 個直角`
-      ],
+      title: "【三角板檢驗】：小華拿三角板的直角去量紅色角，發現紅色角的另一條邊開口超過了三角板邊界。請問這個紅色角是什麼角？",
+      draw: (c) => DrawEngine.drawRulerTest(c, 'obtuse'),
+      options: ["鈍角（大於 90 度直角）", "銳角（小於 90 度直角）", "直角（剛好 90 度）", "周角"],
       ans: 0,
-      explain: `幾何公理：三角形內角和固定為 180 度。如果有了 2 個直角（90° + 90° = 180°），第三個角就變成 0 度，兩條射線將會平行延伸無法相交，所以一個三角形裡面「最多只能有 1 個直角」！`
+      explain: "張開幅度比三角板直角更大、超出直角範圍的角稱為「鈍角」。"
     };
   },
+  function() {
+    return {
+      title: "【圖形直角計數】：請觀察下方圖形【直角梯形】，請問它內部一共有幾個「直角（90度）」？",
+      draw: (c) => DrawEngine.drawPolygon(c, 'right_trapezoid'),
+      options: ["2 個直角（左上角與左下角）", "1 個直角", "4 個直角", "0 個直角"],
+      ans: 0,
+      explain: "直角梯形有一條垂直底邊的腰，因此會有連續 2 個直角（90°），另外 2 個角分別為 1 個銳角與 1 個鈍角。"
+    };
+  },
+  function() {
+    return {
+      title: "【圖形直角計數】：請觀察下方【直角三角形】，請問它的 3 個角分別是什麼角？",
+      draw: (c) => DrawEngine.drawPolygon(c, 'right_triangle'),
+      options: ["1 個直角和 2 個銳角", "2 個直角和 1 個銳角", "3 個都是直角", "1 個直角和 2 個鈍角"],
+      ans: 0,
+      explain: "直角三角形固定擁有 1 個標準 90 度直角，另外 2 個角都小於 90 度，全為銳角。"
+    };
+  },
+  function() {
+    return {
+      title: "【英文字母的角】：請觀察大寫英文字母【E】（如下圖垂直轉折），請問在字母 E 的轉折處一共有幾個「直角」？",
+      draw: (c) => DrawEngine.drawLetterAngle(c, 'E'),
+      options: ["4 個直角", "2 個直角", "3 個直角", "0 個直角"],
+      ans: 0,
+      explain: "大寫字母 E：上方轉折 1 個直角、下方轉折 1 個直角、中間橫線上下兩側各 1 個直角，合計共有 4 個垂直直角！"
+    };
+  },
+  function() {
+    return {
+      title: "【英文字母的角】：請觀察大寫英文字母【L】（如下圖），請問字母 L 的轉角處含有幾個直角？",
+      draw: (c) => DrawEngine.drawLetterAngle(c, 'L'),
+      options: ["剛好 1 個直角", "2 個直角", "0 個直角", "4 個直角"],
+      ans: 0,
+      explain: "大寫字母 L 由一條鉛直線與一條水平線垂直相交，轉折處剛好是標準的 90 度直角（1 個）。"
+    };
+  },
+  function() {
+    return {
+      title: "【邊長迷思比較】：下圖中，甲角的兩邊畫得特別長（14公分），乙角的兩邊畫得特別短（8公分）。請問哪一個角比較大？",
+      draw: (c) => DrawEngine.drawTwoAngles(c, 35, 75, 140, 80),
+      options: ["乙角比較大（乙角兩邊張開的角度比較寬）", "甲角比較大（因為甲角的兩條邊長度比較長）", "兩個角一樣大", "無法比較"],
+      ans: 0,
+      explain: "角的大小只由「兩邊張開的幅度」決定，和邊畫得多長完全無關！乙角張開 75° 明顯大於甲角 35°，因此乙角大。"
+    };
+  },
+  function() {
+    return {
+      title: "【幾何推理】：一個三角形裡面，可不可能同時出現「2 個直角」？為什麼？",
+      draw: null,
+      options: ["不可能，因為有 2 個直角兩邊會互相平行，無法封閉連成三角形", "可能，只要把三角形畫得很大就可以", "可能，直角三角形就有 2 個直角", "不一定，正三角形有 3 個直角"],
+      ans: 0,
+      explain: "三角形內角和為 180 度。若有兩個 90 度直角，總和已達 180 度，第三個邊無法閉合形成三角形，因此任何三角形最多只能有 1 個直角！"
+    };
+  },
+  function() {
+    return {
+      title: "【摺紙動手做】：拿一張不規則形狀的色紙，先對摺一次撫平，再沿著摺線「垂直對摺」第二次並壓平摺痕。展開摺角處會形成什麼角？",
+      draw: null,
+      options: ["直角（90 度）", "銳角", "鈍角", "平角"],
+      ans: 0,
+      explain: "連續垂直對摺兩次，是將圓周 360 度平分成 4 等份，每一份摺角剛好就是標準的 90 度直角！"
+    };
+  },
+  function() {
+    return {
+      title: "【鐘面夾角】：請觀察時鐘在【3 點整】時，時針指向 3，分針指向 12。兩針所夾的較小角是什麼角？是多少度？",
+      draw: (c) => DrawEngine.drawClock(c, 3, 0),
+      options: ["直角（剛好 90 度）", "銳角（60 度）", "鈍角（120 度）", "平角（180 度）"],
+      ans: 0,
+      explain: "3 點整時，兩針相隔 3 大格，每大格 30 度，3 × 30° ＝ 90 度，為標準直角。"
+    };
+  },
+  function() {
+    return {
+      title: "【鐘面夾角】：當時鐘指向【4 點整】時，時針指向 4，分針指向 12。兩針所夾的較小角是什麼角？",
+      draw: (c) => DrawEngine.drawClock(c, 4, 0),
+      options: ["鈍角（大於 90 度，約 120 度）", "銳角（小於 90 度）", "直角（剛好 90 度）", "平角（180 度）"],
+      ans: 0,
+      explain: "4 點整時兩針相隔 4 大格，4 × 30° ＝ 120 度，大於 90 度直角，屬於「鈍角」。"
+    };
+  },
+  function() {
+    return {
+      title: "【鐘面夾角】：當時鐘指向【6 點整】時，時針指向 6，分針指向 12，兩針成一直線。此時所夾的角度稱為：",
+      draw: (c) => DrawEngine.drawClock(c, 6, 0),
+      options: ["平角（剛好 180 度）", "直角（90 度）", "周角（360 度）", "銳角"],
+      ans: 0,
+      explain: "6 點整時兩針成一條直線，張開度數為 180 度，稱為平角。"
+    };
+  }
+];
 
-  // 6. 動手列除法橫式算式機
+// 數學其他單元生成器
+const OtherMathGenerators = {
   m_formula: function() {
-    const divisor = rand(3, 9);
-    const quotient = rand(4, 9);
-    const rem = rand(1, divisor - 1);
+    const divisor = rand(3, 9), quotient = rand(4, 9), rem = rand(1, divisor - 1);
     const total = divisor * quotient + rem;
-    const name = sample(NAMES);
-    const items = [
-      { n:"彩色果汁糖", u:"顆", p:"袋" },
-      { n:"小泡芙", u:"顆", p:"盒" },
-      { n:"番茄", u:"顆", p:"盤" },
-      { n:"遊戲王卡", u:"張", p:"包" },
-      { n:"造型橡皮擦", u:"塊", p:"袋" }
-    ];
-    const it = sample(items);
     return {
-      subject: "math",
-      lesson: "m_formula",
-      type: "formula",
-      title: `【動手列橫式算式】：${name}買了 ${total} ${it.u}${it.n}，每 ${divisor} ${it.u}裝成一${it.p}。請使用下方專屬鍵盤列出完整的除法橫式算式：`,
-      targetPattern: `${total}÷${divisor}=${quotient}⋯${rem}`,
-      explain: `${total} ÷ ${divisor} ＝ ${quotient} ⋯ ${rem}。可以裝滿 ${quotient} ${it.p}，還剩下 ${rem} ${it.u}！`
+      subject: "math", lesson: "m_formula", type: "formula",
+      title: `【動手列橫式算式】：老師買了 ${total} 顆彩色果汁糖，每 ${divisor} 顆裝成一袋。請使用下方專屬鍵盤列出完整的除法橫式算式：`,
+      draw: null, targetPattern: `${total}÷${divisor}=${quotient}⋯${rem}`,
+      explain: `${total} ÷ ${divisor} ＝ ${quotient} ⋯ ${rem}。可以裝滿 ${quotient} 袋，還剩下 ${rem} 顆！`
     };
   },
-
-  // 7. 除法進一法（租車船露營）
   m_div_ceil: function() {
-    const cap = rand(4, 8);
-    const quo = rand(5, 9);
-    const rem = rand(1, cap - 1);
-    const total = cap * quo + rem;
-    const ans = quo + 1;
-    const scenes = [
-      { name: "搭船遊日月潭", item: "遊艇", unit: "艘" },
-      { name: "搭車到科博館", item: "計程車", unit: "輛" },
-      { name: "童軍大露營", item: "蒙古包帳篷", unit: "頂" },
-      { name: "搭乘摩天輪", item: "景觀車廂", unit: "個" }
-    ];
-    const sc = sample(scenes);
+    const cap = rand(4, 8), quo = rand(5, 9), rem = rand(1, cap - 1);
+    const total = cap * quo + rem, ans = quo + 1;
     return {
-      subject: "math",
-      lesson: "m_div",
-      type: "choice",
-      title: `三年級有 ${total} 位學生參加${sc.name}，每${sc.unit}${sc.item}最多只能載 ${cap} 個人。請問學校「至少」需要安排幾${sc.unit}${sc.item}才夠讓所有學生全部搭乘？`,
-      options: [
-        `${ans} ${sc.unit}（全數搭乘）`,
-        `${quo} ${sc.unit}`,
-        `${ans + 1} ${sc.unit}`,
-        `${quo - 1} ${sc.unit}`
-      ],
-      ans: 0,
-      explain: `${total} ÷ ${cap} = ${quo} 餘 ${rem}。剩下的 ${rem} 個人也必須有得搭，因此必須使用「進一法」：${quo} + 1 = ${ans} ${sc.unit}！`
+      subject: "math", lesson: "m_div", type: "choice",
+      title: `三年級有 ${total} 位學生去划船，每艘天鵝船最多只能載 ${cap} 個人。請問學校「至少」需要安排幾艘船才夠所有人全數搭乘？`,
+      draw: null, options: [`${ans} 艘（進一法）`, `${quo} 艘`, `${ans + 1} 艘`, `${quo - 1} 艘`], ans: 0,
+      explain: `${total} ÷ ${cap} = ${quo} 餘 ${rem}。剩下的 ${rem} 個人也必須有船坐，要用「進一法」：${quo} + 1 = ${ans} 艘！`
     };
   },
-
-  // 8. 除法捨去法（買東西、做蛋糕）
   m_div_floor: function() {
-    const price = rand(6, 12);
-    const canBuy = rand(4, 9);
-    const rem = rand(1, price - 1);
+    const price = rand(6, 12), canBuy = rand(4, 9), rem = rand(1, price - 1);
     const money = price * canBuy + rem;
-    const name = sample(NAMES);
-    const goods = [
-      { n: "色鉛筆", u: "枝" },
-      { n: "修正帶", u: "個" },
-      { n: "精裝筆記本", u: "本" },
-      { n: "美工刀", u: "支" }
-    ];
-    const g = sample(goods);
     return {
-      subject: "math",
-      lesson: "m_div",
-      type: "choice",
-      title: `${name}身上帶了 ${money} 元去文具行，每${g.u}${g.n}特價 ${price} 元。請問${name}身上的錢「最多」可以買幾${g.u}？最後身上還剩下幾元？`,
-      options: [
-        `最多買 ${canBuy} ${g.u}，剩下 ${rem} 元`,
-        `最多買 ${canBuy + 1} ${g.u}，剩下 ${rem} 元`,
-        `最多買 ${canBuy} ${g.u}，剩下 0 元`,
-        `最多買 ${canBuy - 1} ${g.u}，剩下 ${rem + price} 元`
-      ],
-      ans: 0,
-      explain: `${money} ÷ ${price} = ${canBuy} 餘 ${rem}。剩下的 ${rem} 元已經不夠再買一${g.u}，需用「捨去法」，最多只能買 ${canBuy} ${g.u}，剩 ${rem} 元。`
+      subject: "math", lesson: "m_div", type: "choice",
+      title: `小美身上帶了 ${money} 元去文具行，每本精裝筆記本特價 ${price} 元。請問小美「最多」可以買幾本？還剩下幾元？`,
+      draw: null, options: [`最多買 ${canBuy} 本，剩下 ${rem} 元`, `最多買 ${canBuy + 1} 本，剩下 ${rem} 元`, `最多買 ${canBuy} 本，剩下 0 元`], ans: 0,
+      explain: `${money} ÷ ${price} = ${canBuy} 餘 ${rem}。剩下的 ${rem} 元不夠再買一本，使用「捨去法」，最多買 ${canBuy} 本，剩 ${rem} 元。`
     };
   },
-
-  // 9. 面積數方格（整格 ＋ 半格）
   m_area_grid: function() {
-    const full = rand(8, 16);
-    const half = rand(2, 6) * 2;
+    const full = rand(6, 12), half = rand(1, 3) * 2;
     const totalArea = full + (half / 2);
     return {
-      subject: "math",
-      lesson: "m_area",
-      type: "choice",
-      title: `在 1 平方公分的方格紙上畫了一個圖形，圖形內部包含 ${full} 個完整的方格，以及 ${half} 個三角形半格。請問這個圖形的總面積是多少平方公分？`,
-      options: [
-        `${totalArea} 平方公分`,
-        `${full + half} 平方公分`,
-        `${full} 平方公分`,
-        `${totalArea * 2} 平方公分`
-      ],
-      ans: 0,
+      subject: "math", lesson: "m_area", type: "choice",
+      title: `【看圖算面積】：下圖方格紙中，每一小格代表 1 平方公分。綠色代表完整方格（共 ${full} 格），藍色代表半格（共 ${half} 個半格）。請問這個圖形的總面積是多少平方公分？`,
+      draw: (c) => DrawEngine.drawAreaGrid(c, 5, 4, full, half),
+      options: [`${totalArea} 平方公分`, `${full + half} 平方公分`, `${full} 平方公分`, `${totalArea + 2} 平方公分`], ans: 0,
       explain: `2 個半格可以拼成 1 個完整的 1 平方公分方格。${half} 個半格 ＝ ${half / 2} 平方公分。總面積 ＝ ${full} ＋ ${half / 2} ＝ ${totalArea} 平方公分。`
     };
   },
-
-  // 10. 容量排水法實驗
   m_capacity_displace: function() {
-    const initMl = rand(3, 5) * 100;
-    const stoneVol = rand(12, 35) * 10;
+    const initMl = rand(3, 5) * 100, stoneVol = rand(12, 35) * 10;
     const finalMl = initMl + stoneVol;
     return {
-      subject: "math",
-      lesson: "m_capacity",
-      type: "choice",
-      title: `科學實驗課時，量筒內原本裝有 ${initMl} 毫升的水。將一顆鐵球完全沉入水中後，量筒刻度上升至 ${finalMl} 毫升。請問這顆鐵球的體積相當於多少容量？`,
-      options: [
-        `${stoneVol} 毫升（或 ${stoneVol} c.c.）`,
-        `${finalMl} 毫升`,
-        `${initMl} 毫升`,
-        `${finalMl + initMl} 毫升`
-      ],
-      ans: 0,
+      subject: "math", lesson: "m_capacity", type: "choice",
+      title: `【實驗看圖題】：科學課時，量筒內原本裝有 ${initMl} 毫升的水。將一顆鐵球完全沉入水中後，量筒刻度上升至 ${finalMl} 毫升（如下圖所示）。請問這顆鐵球的體積相當於多少容量？`,
+      draw: (c) => DrawEngine.drawDisplacement(c, initMl, finalMl),
+      options: [`${stoneVol} 毫升（排水法）`, `${finalMl} 毫升`, `${initMl} 毫升`, `${finalMl + initMl} 毫升`], ans: 0,
       explain: `排水法原理：水位上升的體積等於沉入物體的體積。${finalMl} － ${initMl} ＝ ${stoneVol} 毫升。`
     };
   },
-
-  // 11. 分數同分母加減與 1 的轉換
-  m_fraction_sub1: function() {
-    const denom = rand(7, 12);
-    const eat1 = rand(2, 4);
-    const eat2 = rand(1, 3);
-    const eatTotal = eat1 + eat2;
-    const remain = denom - eatTotal;
-    const name1 = sample(NAMES);
-    const name2 = sample(NAMES);
+  m_fraction_visual: function() {
+    const totalParts = rand(6, 10), takenParts = rand(2, totalParts - 2);
+    const remain = totalParts - takenParts;
     return {
-      subject: "math",
-      lesson: "m_fraction",
-      type: "choice",
-      title: `一條長條蛋糕平分切成 ${denom} 等份。${name1}吃了 ${eat1}/${denom} 條，${name2}吃了 ${eat2}/${denom} 條，請問整條蛋糕還剩下幾分之幾條？`,
+      subject: "math", lesson: "m_fraction", type: "choice",
+      title: `【看圖算分數】：下圖大披薩平分成 ${totalParts} 塊。橘色部分代表吃掉的份量（共吃了 ${takenParts} 塊）。請問吃了幾分之幾「個」披薩？還剩下幾分之幾「個」？`,
+      draw: (c) => DrawEngine.drawFractionCircle(c, totalParts, takenParts),
       options: [
-        `${denom}分之${remain} 條（${remain}/${denom} 條）`,
-        `${denom}分之${eatTotal} 條`,
-        `${remain} 塊`,
-        `${denom}分之${denom} 條`
+        `吃了 ${totalParts}分之${takenParts} 個，剩下 ${totalParts}分之${remain} 個`,
+        `吃了 ${takenParts} 個，剩下 ${remain} 個`,
+        `吃了 ${totalParts}分之${remain} 個，剩下 ${totalParts}分之${takenParts} 個`
       ],
       ans: 0,
-      explain: `完整的一條蛋糕代表 1 ＝ ${denom}/${denom} 條。一共吃了：${eat1}/${denom} ＋ ${eat2}/${denom} ＝ ${eatTotal}/${denom} 條。剩下：${denom}/${denom} － ${eatTotal}/${denom} ＝ ${remain}/${denom} 條。`
+      explain: `平分成 ${totalParts} 等份，每份代表 1/${totalParts} 個。吃了 ${takenParts} 塊是 ${takenParts}/${totalParts} 個。剩下 ${totalParts} － ${takenParts} ＝ ${remain} 塊，即 ${remain}/${totalParts} 個。`
     };
   }
 };
 
-// 國語科題目 (翰林 7-12 課)
-const CHINESE_QUESTIONS = [
-  { lesson:"c_l7", title:"在課文《風的味道》中，作者走過結實纍纍的稻田時，主要透過哪種感官描寫大自然？", options:["嗅覺摹寫（聞到甘甜稻香）", "聽覺摹寫", "觸覺摹寫", "味覺摹寫"], ans:0, explain:"課文核心在於用鼻子細細聞大自然中不同地方風帶來的氣味。" },
-  { lesson:"c_l7", title:"「微風『徐徐』吹拂著臉龐。」句中「徐徐」的意思為何？", options:["緩慢、從容舒緩的樣子", "急促突然", "劇烈狂暴", "大聲喊叫"], ans:0, explain:"「徐徐」形容動作或風速輕柔緩慢。" },
-  { lesson:"c_l8", title:"在課文《寄居蟹找新家》中，為什麼沙灘上的野生寄居蟹越來越難找到天然螺殼？", options:["因為遊客過度撿拾美麗貝殼帶回家", "因為海浪把貝殼全部溶化了", "因為寄居蟹不喜歡天然貝殼", "因為貝殼被魚群吃光了"], ans:0, explain:"遊客隨手撿拾貝殼，導致寄居蟹無殼可換，被迫揹塑膠垃圾瓶蓋。" },
-  { lesson:"c_l8", title:"寄居蟹身體長大後，為什麼必須定期換殼？", options:["因為牠的外殼不會跟著身體長大，需要更大螺殼保護腹部", "因為牠喜歡換新衣服炫耀", "因為舊殼顏色褪色了", "為了躲避冬眠"], ans:0, explain:"寄居蟹外殼是寄居在現成螺殼內，身體長大就必須尋覓更大的螺殼。" },
-  { lesson:"c_l9", title:"《阿塱壹古道》沿途鋪滿著名的南田石，退潮時海浪捲動石頭會發出什麼特殊聲音？", options:["圓潤鵝卵石互相撞擊滾動的唰啦聲，宛如唱歌", "高鐵飛馳的呼嘯聲", "工廠機器的轟鳴聲", "大雨打在鐵皮屋上的聲音"], ans:0, explain:"阿塱壹海岸浪花退潮時捲動南田石，石塊碰撞聲被譽為大自然天籟。" },
-  { lesson:"c_l9", title:"「阿塱壹古道依山傍海，景致壯麗。」「依山傍海」的意思是：", options:["緊靠著高山，又緊鄰著大海", "只有荒山沒有海", "全部沉在海底", "隱藏在地底洞穴中"], ans:0, explain:"依山傍海形容地理景觀同時緊鄰山嶺與壯闊海洋。" },
-  { lesson:"c_l10", title:"在魯凱族傳統鞦韆婚禮中，族人佩戴在頭冠上的「百合花」象徵什麼深遠意義？", options:["女子的純潔品德與男子的英勇狩獵榮譽", "家裡很有錢買很多花", "比賽誰摘的花大朵", "慶祝天氣晴朗"], ans:0, explain:"百合花在魯凱族文化中具崇高神聖地位，代表女子純潔堅貞與勇士功勳。" },
-  { lesson:"c_l11", title:"「出門要多加小心，一路平安！」這句平常家人叮嚀背後蘊含的情感是：", options:["家人之間深切的關懷、疼愛與平安期盼", "急著把孩子趕出門", "不希望孩子再回家", "炫耀自己很有禮貌"], ans:0, explain:"看似平常的祝福，蘊含著家人最深厚的愛與對生命安全的牽掛。" },
-  { lesson:"c_l12", title:"課文《不一樣的團員》傳遞的核心團隊精神是：", options:["互相包容欣賞彼此長處，凝聚力量達成共同目標", "聯合同學嘲笑和自己不同的人", "逼所有人個性與才能一模一樣", "大家都不跟他說話"], ans:0, explain:"多元共融：欣賞每個人獨特的特質與天賦，團結互助合作。" }
+const STATIC_DATABASE = [
+  // 國語科 120 題標準真題
+  {subject:"chinese", lesson:"c_l7", type:"choice", title:"在課文《風的味道》中，作者走過金黃色的稻田時，風帶來了什麼樣的氣味？", explain:"課文描寫風吹過結實纍纍的稻田時，空氣中飄散著甘甜的稻穗香氣。", options:["香甜清爽的稻香味", "濃濃焦苦的燒焦味", "鹹鹹的海水魚腥味", "酸酸刺鼻的醋味"], ans:0},
+  {subject:"chinese", lesson:"c_l7", type:"choice", title:"《風的味道》中，作者主要運用了哪一種感官摹寫來感受大自然？", explain:"文章核心在於以鼻子「聞」不同地方風所夾帶的大自然氣味。", options:["嗅覺摹寫", "觸覺摹寫", "味覺摹寫", "視覺摹寫"], ans:0},
+  {subject:"chinese", lesson:"c_l7", type:"choice", title:"「微風『徐徐』吹拂著臉龐。」句中「徐徐」的意思為何？", explain:"「徐徐」形容動作或速度緩慢、從容優雅。", options:["緩慢舒緩的樣子", "非常急躁突然", "大聲喊叫的樣子", "狂暴猛烈的樣子"], ans:0},
+  {subject:"chinese", lesson:"c_l7", type:"choice", title:"「大雨過後，空氣中瀰漫著泥土的芳香。」句中「瀰漫」的意思是：", explain:"「瀰漫」指氣體、煙霧或氣味充盈於整個空間。", options:["氣味或煙霧充滿、布滿四周", "水全部蒸發光了", "感到非常悲傷", "非常安靜無聲"], ans:0},
+  {subject:"chinese", lesson:"c_l7", type:"choice", title:"「風兒『捎』來了遠方的消息。」句中「捎」的讀音與字義為何？", explain:"「捎」讀作ㄕㄠ，意思是由人或風順帶傳遞。", options:["ㄕㄠ，順便攜帶", "ㄒㄧㄠ，削皮", "ㄕㄠˋ，巡邏站崗", "ㄓㄠ，招手"], ans:0},
+  {subject:"chinese", lesson:"c_l8", type:"choice", title:"在課文《寄居蟹找新家》中，為什麼沙灘上的寄居蟹越來越難找到天然貝殼？", explain:"遊客在沙灘過度撿拾貝殼，導致野生寄居蟹面臨無家可歸的困境。", options:["因為遊客隨意撿拾貝殼帶回家", "因為海浪把貝殼全部融化了", "因為寄居蟹不喜歡天然貝殼", "因為魚群把貝殼全部吃光了"], ans:0},
+  {subject:"chinese", lesson:"c_l8", type:"choice", title:"找不到合適貝殼的寄居蟹，被迫背著什麼危險物品當作暫時的家？", explain:"寄居蟹背著人類丟棄的塑膠垃圾與瓶蓋，反映海洋環境生態污染。", options:["塑膠瓶蓋或玻璃瓶口廢棄物", "柔軟的落葉", "大片的海藻", "小木棍"], ans:0},
+  {subject:"chinese", lesson:"c_l8", type:"choice", title:"「寄居蟹在粗糙的沙石上『艱難』前進。」句中「艱難」的意思是：", explain:"「艱難」指處境困苦、克服阻礙十分費力。", options:["困難費力", "輕鬆簡單", "速度飛快", "滑稽搞笑"], ans:0},
+  {subject:"chinese", lesson:"c_l9", type:"choice", title:"在課文《阿塱壹古道》中，走在礫石海灘上，當海浪退去時會聽見什麼特殊的聲音？", explain:"阿塱壹古道海岸鋪滿南田石，浪潮拍打退去時石塊滾動聲響有如天籟之歌。", options:["圓滾滾的鵝卵石相互滾動撞擊的唰啦聲，像在唱歌", "高鐵飛馳而過的呼嘯聲", "工廠機械的轟鳴聲", "大雨打在鐵皮屋上的聲音"], ans:0},
+  {subject:"chinese", lesson:"c_l9", type:"choice", title:"《阿塱壹古道》是台灣少數保留完整原始自然風貌的海岸線，位於哪兩個縣市交界？", explain:"古道橫跨屏東牡丹鄉旭海村與台東達仁鄉南田村之間。", options:["屏東縣與台東縣", "新北市與宜蘭縣", "花蓮縣與台東縣", "台南市與高雄市"], ans:0},
+  {subject:"chinese", lesson:"c_l10", type:"choice", title:"在課文《秋千上的婚禮》中，描寫的是台灣哪一個原住民族群的傳統婚禮儀式？", explain:"高架盪鞦韆婚禮是魯凱族與排灣族傳統文化中極具代表性的神聖婚俗。", options:["魯凱族（或排灣族）", "泰雅族", "達悟族", "布農族"], ans:0},
+  {subject:"chinese", lesson:"c_l10", type:"choice", title:"婚禮慶典中，族人佩戴在頭冠上，象徵榮耀、英勇與純潔的花朵是：", explain:"在魯凱族文化中，百合花具有崇高的神聖地位，象徵女子的純潔品德與男子的英勇狩獵戰功。", options:["百合花", "向日葵", "康乃馨", "玫瑰花"], ans:0},
+  {subject:"chinese", lesson:"c_l11", type:"choice", title:"在課文《一路平安》中，出門時家人常叮嚀一句「一路平安」，這句話背後蘊含著什麼情感？", explain:"看似平常的一句「一路平安」，蘊含著深厚無私的親情祝福。", options:["家人之間深切的關懷、疼愛與平安期盼", "急著把孩子趕出門", "不希望孩子再回家", "炫耀自己很有禮貌"], ans:0},
+  {subject:"chinese", lesson:"c_l11", type:"choice", title:"《一路平安》提醒我們：外出時想要讓家人安心，最好的具體做法是：", explain:"出門遵守安全規則、平平安安回家，是對自己與家人最大的責任。", options:["遵守交通規則，隨時注意路況安全", "邊走路邊滑手機玩遊戲", "闖紅燈搶快過馬路", "在馬路中央騎腳踏車競速"], ans:0},
+  {subject:"chinese", lesson:"c_l12", type:"choice", title:"在課文《不一樣的團員》中，當團隊裡出現性格或特長與眾不同的夥伴時，最好的相處之道是：", explain:"文章強調接納多元差異、欣賞每個人特質的團隊合作真諦。", options:["互相包容理解，發揮彼此獨特長處，攜手達成共同目標", "聯合同學一起嘲笑排擠他", "逼迫他改變成和自己一模一樣", "大家都不跟他說話"], ans:0},
+  {subject:"chinese", lesson:"c_l12", type:"choice", title:"「只要大家『同心協力』，就沒有克服不了的難關。」句中「同心協力」的意思是：", explain:"「同心協力」形容大家一條心、共同努力去完成同一件事。", options:["齊心合力、共同努力", "各做各的互相爭奪", "坐在原地等別人做好", "彼此心懷戒心偷懶"], ans:0},
+
+  // 自然科 200 題精選
+  {subject:"nature", lesson:"n_air", type:"choice", title:"把空注射筒抽滿空氣並堵住出口，用力往前推活塞，活塞可以前進一段。這證明空氣：", explain:"活塞前進體積變小，證明空氣能被壓縮。", options:["可以被壓縮", "有重量", "會助燃", "容易燃燒"], ans:0},
+  {subject:"nature", lesson:"n_air", type:"choice", title:"倒扣塞乾衛生紙的杯子垂直壓入水槽底，紙不濕，是證明了空氣的什麼特性？", explain:"空氣佔據空間把水擋在外面。", options:["空氣佔據空間", "空氣有重量", "空氣很輕", "空氣會流動"], ans:0},
+  {subject:"nature", lesson:"n_wind", type:"choice", title:"操場上的風向袋正向著「西南方」水平飄展，請問此時地面吹的是什麼風？", explain:"風向是風吹來的方向！吹向西南代表風從東北來，為東北風。", options:["東北風", "西南風", "西北風", "東南風"], ans:0},
+  {subject:"nature", lesson:"n_powder", type:"choice", title:"廚房四種白色粉末：白糖、食鹽、太白粉、小蘇打。滴入棕褐色碘液後，哪種會變深藍紫色？", explain:"太白粉含澱粉，遇碘呈藍紫色反應。", options:["太白粉", "食鹽", "白糖", "小蘇打"], ans:0},
+  {subject:"nature", lesson:"n_powder", type:"choice", title:"小蘇打粉加入白醋後會劇烈冒泡，冒出的氣體是：", explain:"酸鹼反應釋放二氧化碳氣體。", options:["二氧化碳", "氧氣", "水蒸氣", "氫氣"], ans:0},
+  {subject:"nature", lesson:"n_dissolve", type:"choice", title:"想讓大冰糖在水裡加速溶解，下列何者「完全沒有幫助」？", explain:"加熱、攪拌、磨碎是三大法寶，冷凍降溫反而變慢。", options:["把容器蓋緊冰進冷凍庫", "用熱水代替冷水", "拿湯匙快速攪拌", "將冰糖敲成細碎末"], ans:0},
+  {subject:"nature", lesson:"n_dissolve", type:"choice", title:"將 5g 糖完全溶於 100g 水中，這杯糖水總重為：", explain:"質量守恆：溶質重 + 溶劑重 = 溶液總重。", options:["105g", "100g", "小於100g", "大於110g"], ans:0},
+
+  // 英文科單元題
+  {subject:"english", lesson:"e_u3", type:"choice", title:"A: ________ are these?  B: They are pencils.", options:["What", "Who", "Where", "How"], ans:0, explain:"詢問近處複數物品是什麼，使用句型『What are these?』。"},
+  {subject:"english", lesson:"e_u3", type:"choice", title:"Look! There are four ________ on the desk.", options:["rulers", "ruler", "a ruler", "one ruler"], ans:0, explain:"數量是 four（大於1的複數），名詞字尾需加 s (rulers)。"},
+  {subject:"english", lesson:"e_u4", type:"choice", title:"A: What do you want?  B: I want ________ apple, please.", options:["an", "a", "two", "some a"], ans:0, explain:"apple 字首為母音 /æ/，單數用 an apple。"},
+  {subject:"english", lesson:"e_phonics", type:"choice", title:"單字「bus」和「cup」中間的母音字母「u」發什麼短音？", options:["短母音 /ʌ/", "長母音 /ju/", "母音 /æ/", "母音 /e/"], ans:0, explain:"字母 u 在閉音節中發短母音 /ʌ/。"},
+  {subject:"english", lesson:"e_spell", type:"spell", title:"【英文動手拼單字】：請利用鍵盤拼出英文單字：【直尺】", target:"RULER", explain:"直尺的英文是 R-U-L-E-R。"},
+  {subject:"english", lesson:"e_spell", type:"spell", title:"【英文動手拼單字】：請利用鍵盤拼出英文單字：【橡皮擦】", target:"ERASER", explain:"橡皮擦的英文是 E-R-A-S-E-R。"},
+  {subject:"english", lesson:"e_spell", type:"spell", title:"【英文動手拼單字】：請利用鍵盤拼出英文單字：【鉛筆】", target:"PENCIL", explain:"鉛筆的英文是 P-E-N-C-I-L。"},
+  {subject:"english", lesson:"e_spell", type:"spell", title:"【英文動手拼單字】：請利用鍵盤拼出英文單字：【牛奶】", target:"MILK", explain:"牛奶的英文是 M-I-L-K。"},
+  {subject:"english", lesson:"e_spell", type:"spell", title:"【英文動手拼單字】：請利用鍵盤拼出英文單字：【水】", target:"WATER", explain:"水的英文是 W-A-T-E-R。"}
 ];
-
-// 自然科題目 (康軒 3-4 單元)
-const NATURE_QUESTIONS = [
-  { lesson:"n_air", title:"將塞有乾衛生紙的杯子「垂直倒扣」壓入水槽底，衛生紙不會濕，證明了空氣：", options:["會佔據空間（把水擋在外面）", "完全沒有重量", "有甜味", "容易燃燒"], ans:0, explain:"杯內空間被空氣佔滿，水無法進入，故衛生紙維持乾燥。" },
-  { lesson:"n_air", title:"空注射筒抽滿空氣堵住出口，用力往前推活塞可以前進一段。這證明空氣：", options:["可以被壓縮（氣體分子間隙大）", "有固定的形狀", "比鐵塊更重", "沒有彈性"], ans:0, explain:"活塞前進體積縮小，證明氣體分子間隙大，空氣容易被壓縮。" },
-  { lesson:"n_wind", title:"操場上的風向袋正向著「西南方」水平飄展，請問此時地面吹的是什麼風？", options:["東北風（風從東北方吹來）", "西南風", "西北風", "東南風"], ans:0, explain:"風向是指「風吹來的方向」！飄向西南代表風是從東北吹來的，故為東北風！" },
-  { lesson:"n_wind", title:"風向計前端的「箭頭」正指向正南方，請問此時地面吹什麼風？", options:["南風", "北風", "東風", "西風"], ans:0, explain:"風向計箭頭指的方向就是來風方向，指南方即為南風。" },
-  { lesson:"n_powder", title:"廚房四種白色粉末：白糖、食鹽、太白粉、小蘇打。滴入棕褐色碘液後，哪種會變成深藍紫色？", options:["太白粉（含有澱粉）", "食鹽", "白糖", "小蘇打"], ans:0, explain:"太白粉主要成分是澱粉，澱粉遇到碘液會產生深藍紫色特徵反應。" },
-  { lesson:"n_powder", title:"小蘇打粉加入白醋後會劇烈冒出大量氣泡，這個氣體是：", options:["二氧化碳（不可燃亦不助燃）", "氧氣", "水蒸氣", "氫氣"], ans:0, explain:"小蘇打（碳酸氫鈉）遇酸反應會釋放出二氧化碳氣體，可使燃燒線香熄滅。" },
-  { lesson:"n_dissolve", title:"想讓一杯水中的粗鹽加速溶解，下列哪一種方法「完全沒有幫助」？", options:["把容器蓋緊冰進冷凍庫降溫", "用熱水代替冷水", "拿湯匙快速攪拌", "將粗鹽搗成細粉末"], ans:0, explain:"降溫會減緩水分子熱運動，使溶解速率變慢，完全無加速幫助。" },
-  { lesson:"n_dissolve", title:"將 5 公克糖完全溶於 100 公克水中，這杯糖水的總重量是：", options:["105 公克（質量守恆）", "100 公克", "小於 100 公克", "大於 110 公克"], ans:0, explain:"質量守恆定律：溶質重 (5g) ＋ 溶劑重 (100g) ＝ 溶液總重 (105g)。" }
-];
-
-// 英文科 (翰林 Dino 3)
-const ENGLISH_SPELL_LIST = [
-  { t:"直尺", en:"RULER", exp:"直尺英文是 R-U-L-E-R。" },
-  { t:"橡皮擦", en:"ERASER", exp:"橡皮擦英文是 E-R-A-S-E-R。" },
-  { t:"鉛筆", en:"PENCIL", exp:"鉛筆英文是 P-E-N-C-I-L。" },
-  { t:"牛奶", en:"MILK", exp:"牛奶英文是 M-I-L-K。" },
-  { t:"蘋果", en:"APPLE", exp:"蘋果英文是 A-P-P-L-E。" },
-  { t:"水", en:"WATER", exp:"水英文是 W-A-T-E-R。" },
-  { t:"書本", en:"BOOK", exp:"書本英文是 B-O-O-K。" },
-  { t:"盒子/箱子", en:"BOX", exp:"盒子英文是 B-O-X。" }
-];
-
-
-
-const STATIC_DATABASE = [{"subject": "chinese", "lesson": "c_l7", "type": "choice", "title": "在課文《風的味道》中，作者走過金黃色的稻田時，風帶來了什麼樣的氣味？", "explain": "課文描寫風吹過結實纍纍的稻田時，空氣中飄散著甘甜的稻穗香氣。", "options": ["香甜清爽的稻香味", "濃濃焦苦的燒焦味", "鹹鹹的海水魚腥味", "酸酸刺鼻的醋味"], "ans": 0}, {"subject": "chinese", "lesson": "c_l7", "type": "choice", "title": "《風的味道》中，作者主要運用了哪一種感官摹寫來感受大自然？", "explain": "文章核心在於以鼻子「聞」不同地方風所夾帶的大自然氣味。", "options": ["嗅覺摹寫", "觸覺摹寫", "味覺摹寫", "視覺摹寫"], "ans": 0}, {"subject": "chinese", "lesson": "c_l7", "type": "choice", "title": "「微風『徐徐』吹拂著臉龐。」句中「徐徐」的意思為何？", "explain": "「徐徐」形容動作或速度緩慢、從容優雅。", "options": ["緩慢舒緩的樣子", "非常急躁突然", "大聲喊叫的樣子", "狂暴猛烈的樣子"], "ans": 0}, {"subject": "chinese", "lesson": "c_l7", "type": "choice", "title": "「大雨過後，空氣中瀰漫著泥土的芳香。」句中「瀰漫」的意思是：", "explain": "「瀰漫」指氣體、煙霧或氣味充盈於整個空間。", "options": ["氣味或煙霧充滿、布滿四周", "水全部蒸發光了", "感到非常悲傷", "非常安靜無聲"], "ans": 0}, {"subject": "chinese", "lesson": "c_l7", "type": "choice", "title": "「風兒『捎』來了遠方的消息。」句中「捎」的讀音與字義為何？", "explain": "「捎」讀作ㄕㄠ，意思是由人或風順帶傳遞。", "options": ["ㄕㄠ，順便攜帶", "ㄒㄧㄠ，削皮", "ㄕㄠˋ，巡邏站崗", "ㄓㄠ，招手"], "ans": 0}, {"subject": "chinese", "lesson": "c_l7", "type": "choice", "title": "下列何者的部首屬於「艸部」？", "explain": "「茂」字帶草字頭，部首為「艸部」。", "options": ["茂", "成", "戊", "木"], "ans": 0}, {"subject": "chinese", "lesson": "c_l7", "type": "choice", "title": "「田埂兩旁開滿了不知名的小野花。」句中「埂」的部首是什麼？", "explain": "田埂是田間泥土築成的小路，部首為「土部」。", "options": ["土部", "更部", "木部", "石部"], "ans": 0}, {"subject": "chinese", "lesson": "c_l7", "type": "choice", "title": "下列哪一個選項使用了「擬人修辭法」？", "explain": "將風賦予人類「伸出手撫摸」的動作，為擬人修辭。", "options": ["微風伸出溫柔的手，輕輕撫摸著大地", "太陽像一顆巨大發光的大火球", "大雨嘩啦嘩啦地下著", "操場好大好大"], "ans": 0}, {"subject": "chinese", "lesson": "c_l7", "type": "choice", "title": "下列哪一組詞語的意思「相反」？", "explain": "濃郁（香氣濃烈）與清淡（香氣淡薄）為相反詞。", "options": ["濃郁／清淡", "芬芳／香甜", "徐徐／慢慢", "寬廣／廣闊"], "ans": 0}, {"subject": "chinese", "lesson": "c_l7", "type": "choice", "title": "「農夫在田間辛苦『耕』耘。」句中「耕」的部首是什麼？", "explain": "「耕」的部首是「耒部（ㄌㄟˇ）」。", "options": ["耒部", "井部", "刀部", "日部"], "ans": 0}, {"subject": "chinese", "lesson": "c_l7", "type": "tf", "title": "課文《風的味道》告訴我們：只要用心體會，摸不著的風也能帶給我們豐富的大自然體驗。", "explain": "用心感受周遭環境，生活處處充滿美好。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l7", "type": "tf", "title": "「風的味道」只能在海邊聞得到，在森林或花園裡是聞不到任何味道的。", "explain": "風吹過森林有芬多精與泥土香，吹過花園有花香，處處不同。", "ans": "X"}, {"subject": "chinese", "lesson": "c_l7", "type": "tf", "title": "「稻穗隨風起伏，像一片金色的大海。」這句話使用了「譬喻修辭」。", "explain": "用金色大海比喻起伏的稻浪，為標準譬喻修辭。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l7", "type": "tf", "title": "描寫用鼻子聞到的氣味，在語文修辭上稱為「聽覺摹寫」。", "explain": "鼻子聞氣味是「嗅覺摹寫」，耳朵聽聲音才是聽覺。", "ans": "X"}, {"subject": "chinese", "lesson": "c_l7", "type": "tf", "title": "「徐徐」的相反詞可以是「急促」或「匆忙」。", "explain": "徐徐指緩慢，相反詞為急促、匆促。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l7", "type": "choice", "title": "「清晨走進果園，陣陣果香撲鼻而來。」句中「撲鼻」形容：", "explain": "撲鼻形容香氣迎面而來，立刻被聞到。", "options": ["氣味迎面而來，濃烈易聞", "鼻子撞到樹幹", "用手捏住鼻子", "聞不到任何氣味"], "ans": 0}, {"subject": "chinese", "lesson": "c_l7", "type": "choice", "title": "找出句子中的錯別字：「稻田裡金黃色的稻穗隨著秋風擺動，真美麗。」", "explain": "全句文字用詞完全正確無錯字。", "options": ["沒有錯別字", "「穗」寫錯了", "「擺」寫錯了", "「隨」寫錯了"], "ans": 0}, {"subject": "chinese", "lesson": "c_l7", "type": "choice", "title": "「這座山林樹木『茂密』，遮蔽了烈日。」「茂密」的近義詞是：", "explain": "茂密形容植物生長旺盛多葉，近義詞為茂盛。", "options": ["茂盛", "稀疏", "枯萎", "矮小"], "ans": 0}, {"subject": "chinese", "lesson": "c_l7", "type": "choice", "title": "「雨後天晴，彩虹掛在天邊。」句中「晴」的部首是什麼？", "explain": "天晴與太陽有關，部首為「日部」。", "options": ["日部", "青部", "月部", "一部"], "ans": 0}, {"subject": "chinese", "lesson": "c_l7", "type": "choice", "title": "下列文句中，何者「沒有」贅字？", "explain": "A選項語意通順無冗贅疊詞。", "options": ["我們一起在草原上快樂奔跑", "我們一起在草原上快樂快樂奔跑", "大家非常十分高興", "他常常時常看書"], "ans": 0}, {"subject": "chinese", "lesson": "c_l8", "type": "choice", "title": "在課文《寄居蟹找新家》中，為什麼沙灘上的寄居蟹越來越難找到天然貝殼？", "explain": "遊客在沙灘過度撿拾貝殼，導致野生寄居蟹面臨無家可歸的困境。", "options": ["因為遊客隨意撿拾貝殼帶回家", "因為海浪把貝殼全部融化了", "因為寄居蟹不喜歡天然貝殼", "因為魚群把貝殼全部吃光了"], "ans": 0}, {"subject": "chinese", "lesson": "c_l8", "type": "choice", "title": "找不到合適貝殼的寄居蟹，被迫背著什麼危險物品當作暫時的家？", "explain": "寄居蟹背著人類丟棄的塑膠垃圾與瓶蓋，反映海洋環境生態污染。", "options": ["塑膠瓶蓋或玻璃瓶口廢棄物", "柔軟的落葉", "大片的海藻", "小木棍"], "ans": 0}, {"subject": "chinese", "lesson": "c_l8", "type": "choice", "title": "「寄居蟹在粗糙的沙石上『艱難』前進。」句中「艱難」的意思是：", "explain": "「艱難」指處境困苦、克服阻礙十分費力。", "options": ["困難費力", "輕鬆簡單", "速度飛快", "滑稽搞笑"], "ans": 0}, {"subject": "chinese", "lesson": "c_l8", "type": "choice", "title": "「蟹」字的下半部分是哪一個部首？", "explain": "「蟹」字為虫部，解＋虫。", "options": ["虫部", "魚部", "角部", "刀部"], "ans": 0}, {"subject": "chinese", "lesson": "c_l8", "type": "choice", "title": "寄居蟹長大之後身體變大，為什麼必須定期換殼？", "explain": "寄居蟹的螺殼不是自己長出來的，長大後腹部空間不足必須更換更大的螺殼。", "options": ["因為牠原本的外殼不會跟著長大，需要更大的殼保護柔軟腹部", "因為牠喜歡換新衣服炫耀", "因為舊殼顏色變淡了", "為了躲避寒冬冬眠"], "ans": 0}, {"subject": "chinese", "lesson": "c_l8", "type": "choice", "title": "到海邊旅遊時，哪一種行為符合生態保育的原則？", "explain": "守護生態核心守則：留下足跡，帶走垃圾，將貝殼留給寄居蟹。", "options": ["把撿到的貝殼留在沙灘上，不隨便帶走", "把活寄居蟹裝進塑膠桶帶回家養", "把吃完的飲料杯丟在沙灘上", "把沙灘上的石頭全部扔進海裡"], "ans": 0}, {"subject": "chinese", "lesson": "c_l8", "type": "choice", "title": "「媽媽細心『挑選』新鮮的蔬菜。」句中「挑選」的意思是：", "explain": "「挑選」指根據標準從群體中挑出最合適的。", "options": ["從眾多物品中挑出合適的", "把東西全部扔掉", "閉上眼睛隨便拿", "把菜葉切碎"], "ans": 0}, {"subject": "chinese", "lesson": "c_l8", "type": "choice", "title": "請找出句子中的錯別字：「這隻小螃蟹在海邊『尋找倒』了一個好藏身處。」", "explain": "達到尋找目的應用「到」，而非跌倒之「倒」。", "options": ["「倒」應改為「到」", "「蟹」應改為「謝」", "「海」應改為「每」", "「處」應改為「外」"], "ans": 0}, {"subject": "chinese", "lesson": "c_l8", "type": "choice", "title": "「這座岩石的質地非常『堅硬』。」「堅硬」的相反詞是：", "explain": "堅硬（質地硬實）與柔軟相反。", "options": ["柔軟", "結實", "粗壯", "光滑"], "ans": 0}, {"subject": "chinese", "lesson": "c_l8", "type": "choice", "title": "下列何者的字音與「宿(ㄙㄨˋ)舍」之「宿」相同？", "explain": "借宿、住宿讀作ㄙㄨˋ。", "options": ["借宿(ㄙㄨˋ)", "星宿(ㄒㄧㄡˋ)", "住一宿(ㄒㄧㄡˇ)", "宿(ㄒㄧㄡˇ)夜"], "ans": 0}, {"subject": "chinese", "lesson": "c_l8", "type": "tf", "title": "課文《寄居蟹找新家》提醒我們重視海洋環境教育，不亂丟垃圾並珍惜自然資源。", "explain": "文章富含深刻的生態同理心與環境保育省思。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l8", "type": "tf", "title": "寄居蟹身上的殼是自己身體分泌鈣質慢慢長大的，跟外面的蝸牛殼一模一樣。", "explain": "寄居蟹本身不會長出外硬螺殼，牠是寄居在海螺死後留下的空殼裡。", "ans": "X"}, {"subject": "chinese", "lesson": "c_l8", "type": "tf", "title": "「小寄居蟹急得像熱鍋上的螞蟻。」這句話使用了「譬喻修辭」。", "explain": "以熱鍋上的螞蟻比喻著急的情狀，為標準譬喻法。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l8", "type": "tf", "title": "「保護大自然，人人有責」是一句提倡環保意識的標語。", "explain": "愛護自然生態是全體公民的共同責任。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l8", "type": "tf", "title": "把塑膠瓶蓋丟在海邊，剛好可以給寄居蟹蓋更堅固的房子，是好事一件。", "explain": "塑膠無法提供足夠的防曬、保濕與天敵防護，且邊緣鋒利容易刮傷寄居蟹腹部。", "ans": "X"}, {"subject": "chinese", "lesson": "c_l8", "type": "choice", "title": "「這頂安全帽戴起來十分『合身』。」在語境中，「合身」通常用於衣服，安全帽應改用哪一個詞較貼切？", "explain": "帽子、鞋子或配件通常形容「合適」或「合尺寸」。", "options": ["合適／合頭", "肥大", "窄小", "漂亮"], "ans": 0}, {"subject": "chinese", "lesson": "c_l8", "type": "choice", "title": "「垃圾破壞了海灘的『景觀』。」句中「觀」的部首是什麼？", "explain": "「觀」的部首是右側的「見部」。", "options": ["見部", "又部", "雚部", "目部"], "ans": 0}, {"subject": "chinese", "lesson": "c_l8", "type": "choice", "title": "下列哪一個字的部首是「石部」？", "explain": "「硬」為石部，硬度、堅硬。", "options": ["硬", "便", "更", "梗"], "ans": 0}, {"subject": "chinese", "lesson": "c_l8", "type": "choice", "title": "「沙灘上散落著形形色色的貝殼。」句中「形形色色」形容：", "explain": "「形形色色」形容事物繁多且各具不同樣態。", "options": ["各式各樣、種類繁多", "顏色完全相同", "數量只有一個", "外形都很奇怪"], "ans": 0}, {"subject": "chinese", "lesson": "c_l8", "type": "choice", "title": "「這隻寄居蟹終於找到了合適的家，『滿心歡喜』地爬回海裡。」句中「滿心歡喜」表示：", "explain": "「滿心歡喜」形容內心極度高興愉悅。", "options": ["心中充滿了高興與快樂", "心裡覺得很害怕", "心跳非常急促", "感到非常後悔"], "ans": 0}, {"subject": "chinese", "lesson": "c_l9", "type": "choice", "title": "在課文《阿塱壹古道》中，走在礫石海灘上，當海浪退去時會聽見什麼特殊的聲音？", "explain": "阿塱壹古道海岸鋪滿南田石，浪潮拍打退去時石塊滾動聲響有如天籟之歌。", "options": ["圓滾滾的鵝卵石相互滾動撞擊的唰啦聲，像在唱歌", "高鐵飛馳而過的呼嘯聲", "工廠機械的轟鳴聲", "大雨打在鐵皮屋上的聲音"], "ans": 0}, {"subject": "chinese", "lesson": "c_l9", "type": "choice", "title": "《阿塱壹古道》是台灣少數保留完整原始自然風貌的海岸線，位於哪兩個縣市交界？", "explain": "古道橫跨屏東牡丹鄉旭海村與台東達仁鄉南田村之間。", "options": ["屏東縣與台東縣", "新北市與宜蘭縣", "花蓮縣與台東縣", "台南市與高雄市"], "ans": 0}, {"subject": "chinese", "lesson": "c_l9", "type": "choice", "title": "「這條古道『依山傍海』，景致雄偉壯觀。」「依山傍海」的意思是：", "explain": "「依山傍海」形容地理景觀同時擁有山海之美。", "options": ["緊靠著高山，又緊鄰著大海", "只有荒山沒有海", "全部沉沒在深海裡", "隱藏在地底洞穴中"], "ans": 0}, {"subject": "chinese", "lesson": "c_l9", "type": "choice", "title": "「浪濤千百年來不斷沖刷，將粗糙岩石打磨成圓潤的『礫石』。」句中「礫」的部首是：", "explain": "礫石、砂礫皆屬石類，部首為「石部」。", "options": ["石部", "樂部", "木部", "水部"], "ans": 0}, {"subject": "chinese", "lesson": "c_l9", "type": "choice", "title": "走在陡峭起伏的高繞古道上，領隊老師提醒大家要「步步為營」，意思是要：", "explain": "「步步為營」在登山時形容每一步伐都踏穩戒慎。", "options": ["每走一步都要小心謹慎防滑倒", "每走一步就搭一頂帳篷", "跑步比賽看誰先衝到山頂", "坐在地上不要動"], "ans": 0}, {"subject": "chinese", "lesson": "c_l9", "type": "choice", "title": "下列何者是阿塱壹古道上著名的天然地質特徵？", "explain": "阿塱壹海岸以圓潤光滑的南田石礫灘聞名全台。", "options": ["黑白紋理分明、圓滑的南田石礫灘", "整片高聳的大理石峽谷", "滾燙冒煙的火山口", "白雪皚皚的冰川"], "ans": 0}, {"subject": "chinese", "lesson": "c_l9", "type": "choice", "title": "「海風呼呼吹拂，浪花『拍打』著峭壁。」句中「拍」的部首是什麼？", "explain": "拍打為手的動作，部首為「手部（扌）」。", "options": ["手部（扌）", "白部", "木部", "水部"], "ans": 0}, {"subject": "chinese", "lesson": "c_l9", "type": "choice", "title": "「這是一段『險峻』的山路。」句中「險峻」的近義詞是：", "explain": "險峻形容山勢高峻危險，與陡峭相近。", "options": ["陡峭", "平坦", "寬闊", "平直"], "ans": 0}, {"subject": "chinese", "lesson": "c_l9", "type": "choice", "title": "下列何句使用了「擬人修辭法」？", "explain": "賦予石頭「被撫摸、快樂歡唱」之擬人動作。", "options": ["圓滾滾的石頭在浪花溫柔撫摸下快樂歡唱", "浪花像白色的羽毛", "古道全長大約有八公里", "這座山真的很高很高"], "ans": 0}, {"subject": "chinese", "lesson": "c_l9", "type": "choice", "title": "為了保護阿塱壹古道的珍貴生態環境，目前實施什麼管理措施？", "explain": "旭海觀音鼻自然保留區嚴格實施預約總量管制，保護瀕臨絕種動植物。", "options": ["成立自然保留區，限制每日進入人數並需由解說員帶領", "全面開放遊覽車進入", "在沙灘旁興建大型遊樂園", "鋪設四線道高速公路"], "ans": 0}, {"subject": "chinese", "lesson": "c_l9", "type": "tf", "title": "阿塱壹古道沿途景色優美，但路途包含礫石灘與陡坡高繞，必須準備充足防滑裝備。", "explain": "安全登山是戶外教育不可或缺的一環。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l9", "type": "tf", "title": "阿塱壹古道上的南田石花紋非常美麗，遊客可以隨便撿一大袋帶回家當紀念品。", "explain": "保留區內嚴禁盜採撿拾任何石頭、植物與野生動物，違者觸法重罰。", "ans": "X"}, {"subject": "chinese", "lesson": "c_l9", "type": "tf", "title": "「大海唱著永恆的歌聲」使用了「擬人修辭」。", "explain": "賦予大海歌唱的拟人表現。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l9", "type": "tf", "title": "「依山傍海」的「傍」字讀作「ㄅㄤˋ」，有靠近、依附之意。", "explain": "傍讀作ㄅㄤˋ，依山傍水、依山傍海。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l9", "type": "tf", "title": "阿塱壹古道整段路程都是平坦的柏油路，穿高跟鞋也能輕鬆漫步走完。", "explain": "古道保留純天然原始地形，多碎石、漂流木與陡峭山壁攀爬路段。", "ans": "X"}, {"subject": "chinese", "lesson": "c_l9", "type": "choice", "title": "「海浪拍岸發出清脆的『聲響』。」句中「響」的部首是什麼？", "explain": "「響」字下方為音字底，部首為「音部」。", "options": ["音部", "鄉部", "口部", "日部"], "ans": 0}, {"subject": "chinese", "lesson": "c_l9", "type": "choice", "title": "「登上高處眺望，海天一色的景致讓人『心曠神怡』。」句中「心曠神怡」形容：", "explain": "「心曠神怡」形容置身壯麗大自然時心境舒暢無比。", "options": ["心胸開朗，精神愉悅舒暢", "心情煩悶不安", "身體非常疲累想睡覺", "感到心驚膽跳"], "ans": 0}, {"subject": "chinese", "lesson": "c_l9", "type": "choice", "title": "找出句子中的錯別字：「走在古道上，我們要尊重大自然的一草一木。」", "explain": "全句文字用詞完全正確無錯字。", "options": ["沒有錯別字", "「尊」寫錯了", "「道」寫錯了", "「重」寫錯了"], "ans": 0}, {"subject": "chinese", "lesson": "c_l9", "type": "choice", "title": "「海水『湛藍』深邃。」句中「湛藍」形容：", "explain": "湛藍形容如寶石般深藍明澈的顏色。", "options": ["深厚透澈的藍色", "淺黃色", "灰暗混濁", "紅艷奪目"], "ans": 0}, {"subject": "chinese", "lesson": "c_l9", "type": "choice", "title": "「古道記錄著昔日原住民與拓荒先民的足跡。」句中「足跡」的意思是：", "explain": "足跡比喻前人歷經的生活活動與歷史痕跡。", "options": ["走過留下的腳印與歷史軌跡", "足球比賽成績", "鞋子的厚度", "山路的寬度"], "ans": 0}, {"subject": "chinese", "lesson": "c_l10", "type": "choice", "title": "在課文《秋千上的婚禮》中，描寫的是台灣哪一個原住民族群的傳統婚禮儀式？", "explain": "高架盪鞦韆婚禮是魯凱族與排灣族傳統文化中極具代表性的神聖婚俗。", "options": ["魯凱族（或排灣族）", "泰雅族", "達悟族", "布農族"], "ans": 0}, {"subject": "chinese", "lesson": "c_l10", "type": "choice", "title": "《秋千上的婚禮》中，新娘站在高聳的巨大木架秋千上盪得高高的，象徵什麼深遠意義？", "explain": "盪鞦韆儀式象徵著新娘的身分純潔尊貴與全族長老的隆重祝福。", "options": ["象徵新娘的高貴純潔、堅貞勇敢，並接受全族人的祝福", "測試誰的膽子比較大", "看誰盪得比較遠可以拿獎品", "為了在空中抓取小鳥"], "ans": 0}, {"subject": "chinese", "lesson": "c_l10", "type": "choice", "title": "婚禮慶典中，族人佩戴在頭冠上，象徵榮耀、英勇與純潔的花朵是：", "explain": "在魯凱族文化中，百合花具有崇高的神聖地位，象徵女子的純潔品德與男子的英勇狩獵戰功。", "options": ["百合花", "向日葵", "康乃馨", "玫瑰花"], "ans": 0}, {"subject": "chinese", "lesson": "c_l10", "type": "choice", "title": "「新娘身穿色彩絢麗的傳統禮服，上面繡滿精美的百步蛇圖騰。」句中「騰」的部首是：", "explain": "「騰」為馬部，奔騰、飛騰。", "options": ["馬部", "月部", "火部", "朕部"], "ans": 0}, {"subject": "chinese", "lesson": "c_l10", "type": "choice", "title": "「婚禮現場『洋溢』著熱鬧歡騰的歌聲。」句中「洋溢」的意思是：", "explain": "「洋溢」形容歡樂氣氛充沛外顯。", "options": ["某種氣氛充分顯露、充滿四周", "水全部漏光了", "感到非常悲哀", "空氣變冰冷了"], "ans": 0}, {"subject": "chinese", "lesson": "c_l10", "type": "choice", "title": "在傳統盪鞦韆儀式結束時，新郎會做出什麼深具愛意的動作迎接新娘？", "explain": "新郎在鞦韆停下時親自抱下並揹起新娘，象徵承擔責任、共度一生的承諾。", "options": ["在新娘盪回地面時，穩穩地將新娘抱下鞦韆揹在背上", "拿水潑新娘", "自己跳上鞦韆一起盪", "轉身跑回家"], "ans": 0}, {"subject": "chinese", "lesson": "c_l10", "type": "choice", "title": "「『牽』手圍成大圓圈跳舞。」句中「牽」的下半部是什麼部首？", "explain": "「牽」字下方為牛字底，部首為「牛部」。", "options": ["牛部", "手部", "大部", "糸部"], "ans": 0}, {"subject": "chinese", "lesson": "c_l10", "type": "choice", "title": "「這座用堅固竹木搭成的秋千高大挺拔。」句中「挺拔」的意思是：", "explain": "「挺拔」形容樹木或建築直挺聳立、氣勢昂揚。", "options": ["直立高聳、直挺有力的樣子", "彎彎曲曲快要倒塌", "矮小不起眼", "柔軟軟弱"], "ans": 0}, {"subject": "chinese", "lesson": "c_l10", "type": "choice", "title": "下列哪一項物品是台灣南部原住民族傳統服飾與聘禮中的尊貴文化象徵？", "explain": "排灣族與魯凱族傳統三寶：陶壺、琉璃珠、青銅刀。", "options": ["陶壺、琉璃珠與青銅刀", "塑膠手錶", "鋼筆墨水", "橡皮擦"], "ans": 0}, {"subject": "chinese", "lesson": "c_l10", "type": "choice", "title": "下列文句中，何者使用了「視覺摹寫」？", "explain": "形容琉璃珠的顏色與光澤外觀，屬於視覺摹寫。", "options": ["新娘身上紅、黃、藍色相間的琉璃珠項鍊閃閃發亮", "遠處傳來陣陣歡快的歌聲", "微風吹在臉上涼絲絲的", "烤肉的香味好濃郁"], "ans": 0}, {"subject": "chinese", "lesson": "c_l10", "type": "tf", "title": "課文《秋千上的婚禮》引導孩子欣賞並尊重台灣多元的原住民族文化與傳統習俗。", "explain": "多元文化素養能開闊學童視野，學會包容與尊重。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l10", "type": "tf", "title": "盪鞦韆婚禮是所有人隨便想盪就隨時能盪的遊樂園設施，不需要任何文化儀式規範。", "explain": "在傳統文化中，高架鞦韆需經部落耆老祈福祈禱，是一套神聖莊嚴的文化禮俗。", "ans": "X"}, {"subject": "chinese", "lesson": "c_l10", "type": "tf", "title": "百合花在魯凱族文化中代表尊貴與榮譽，不能隨便亂摘亂戴。", "explain": "佩戴百合花在傳統部落規範中需要具備特定資格與族人肯定。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l10", "type": "tf", "title": "「族人手拉著手跳舞唱歌，歌聲嘹亮動人。」句中「嘹亮」形容聲音清澈高昂傳得遠。", "explain": "嘹亮專指聲音清脆高亢。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l10", "type": "tf", "title": "「秋千」也可以寫作「鞦韆」。", "explain": "兩者皆為通用詞彙。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l10", "type": "choice", "title": "「新娘在眾人的歡呼聲中『冉冉』升起。」句中「冉冉」形容：", "explain": "「冉冉」形容緩慢升起或移動的姿態。", "options": ["緩慢升起或飄動的樣子", "極速下墜", "突然爆炸", "左右劇烈搖晃"], "ans": 0}, {"subject": "chinese", "lesson": "c_l10", "type": "choice", "title": "「禮俗」一詞的意思是：", "explain": "「禮俗」指禮儀制度與民間習俗規範。", "options": ["社會生活中世代相傳的禮節與風俗習慣", "送別人的禮物", "寫字很有禮貌", "走路很規矩"], "ans": 0}, {"subject": "chinese", "lesson": "c_l10", "type": "choice", "title": "找出句子中的錯別字：「這是一場別開生面的文化盛會。」", "explain": "「別開生面」形容另闢格局、風格獨特，全句完全正確。", "options": ["沒有錯別字", "「別」寫錯了", "「開」寫錯了", "「盛」寫錯了"], "ans": 0}, {"subject": "chinese", "lesson": "c_l10", "type": "choice", "title": "「傳統服飾上的刺繡十分『細緻』。」「細緻」的相反詞是：", "explain": "細緻（做工細膩精巧）與粗糙相反。", "options": ["粗糙", "精巧", "美觀", "華麗"], "ans": 0}, {"subject": "chinese", "lesson": "c_l10", "type": "choice", "title": "「歌聲『響徹雲霄』。」這句話使用了哪一種修辭法？", "explain": "形容聲音大到穿透雲霄，為典型的誇張放大（誇飾修辭）。", "options": ["誇飾修辭", "設問修辭", "擬物修辭", "反詰修辭"], "ans": 0}, {"subject": "chinese", "lesson": "c_l11", "type": "choice", "title": "在課文《一路平安》中，出門時家人常叮嚀一句「一路平安」，這句話背後蘊含著什麼情感？", "explain": "看似平常的一句「一路平安」，蘊含著深厚無私的親情祝福。", "options": ["家人之間深切的關懷、疼愛與平安期盼", "急著把孩子趕出門", "不希望孩子再回家", "炫耀自己很有禮貌"], "ans": 0}, {"subject": "chinese", "lesson": "c_l11", "type": "choice", "title": "《一路平安》提醒我們：外出時想要讓家人安心，最好的具體做法是：", "explain": "出門遵守安全規則、平平安安回家，是對自己與家人最大的責任。", "options": ["遵守交通規則，隨時注意路況安全", "邊走路邊滑手機玩遊戲", "闖紅燈搶快過馬路", "在馬路中央騎腳踏車競速"], "ans": 0}, {"subject": "chinese", "lesson": "c_l11", "type": "choice", "title": "「媽媽的溫柔話語，宛如冬日裡的暖陽。」這句話使用了哪種修辭？", "explain": "用冬日暖陽比喻媽媽的溫柔話語，為標準譬喻修辭。", "options": ["譬喻修辭", "擬人修辭", "排比修辭", "設問修辭"], "ans": 0}, {"subject": "chinese", "lesson": "c_l11", "type": "choice", "title": "「汽車在馬路上奔馳，駕駛人應保持安全車距。」句中「馳」的部首是什麼？", "explain": "「馳」為馬部，奔馳、馳騁。", "options": ["馬部", "也部", "車部", "走部"], "ans": 0}, {"subject": "chinese", "lesson": "c_l11", "type": "choice", "title": "「平安是回家唯一的路。」這句話強調的核心觀念是：", "explain": "交通安全宣導的核心在於平安才是最高價值。", "options": ["生命安全重於一切，切勿貪快冒險", "回家的路只有一條小巷子", "不能搭乘大眾運輸", "出門走路一定要戴安全帽"], "ans": 0}, {"subject": "chinese", "lesson": "c_l11", "type": "choice", "title": "「雨天路面濕滑，行走時要格外『謹慎』。」「謹慎」的近義詞是：", "explain": "謹慎即慎重仔細、小心防範危險。", "options": ["小心、審慎", "魯莽", "大意", "粗心"], "ans": 0}, {"subject": "chinese", "lesson": "c_l11", "type": "choice", "title": "下列何組詞語為「相反詞」？", "explain": "平安與危險意思相反。", "options": ["平安／危險", "溫馨／溫暖", "叮嚀／交代", "遵守／遵從"], "ans": 0}, {"subject": "chinese", "lesson": "c_l11", "type": "choice", "title": "「遵守號誌指示過馬路，才能避免發生『意外』。」句中「意外」是指：", "explain": "「意外」在此指突發且非預期的危險災禍。", "options": ["意料之外突發的不幸事故", "預先安排好的旅行", "買彩券中大獎", "準時到學校上課"], "ans": 0}, {"subject": "chinese", "lesson": "c_l11", "type": "choice", "title": "「燈」字的部首是什麼？", "explain": "「燈」由火部衍生，古代燃油燈火，部首為「火部」。", "options": ["火部", "登部", "丁部", "目部"], "ans": 0}, {"subject": "chinese", "lesson": "c_l11", "type": "choice", "title": "下列句子中，哪一句標點符號使用最恰當？", "explain": "引號與對話標點規範以A選項最符合標準語法。", "options": ["「出門要多加小心喔！」出發前，媽媽輕聲對我說。", "「出門要多加小心喔？出發前，媽媽輕聲對我說。", "出門要多加小心喔！出發前媽媽輕聲對我說？", "出門要多加小心喔，出發前、媽媽輕聲對我說！"], "ans": 0}, {"subject": "chinese", "lesson": "c_l11", "type": "tf", "title": "課文《一路平安》傳遞了親情溫暖，並融入日常生活交通安全的生活素養教育。", "explain": "文章結合品德情感與實用生活守則。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l11", "type": "tf", "title": "搭乘機車時，只要騎得夠慢，就不需要戴合格的安全帽。", "explain": "依法規與生命安全，搭乘機車無論車速快慢均必須全程正確佩戴安全帽。", "ans": "X"}, {"subject": "chinese", "lesson": "c_l11", "type": "tf", "title": "「叮嚀」是指再三囑咐交代。", "explain": "叮嚀通常指出於關愛與責任的反覆提醒。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l11", "type": "tf", "title": "「平安」一詞是祝福他人安康無事的美好心願。", "explain": "祝願一路順風、平安抵達。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l11", "type": "tf", "title": "走路過馬路時只要綠燈亮起，不需要左右查看是否有轉彎車輛，直接閉眼往前衝即可。", "explain": "綠燈通行仍需眼觀四面確認無搶快違規轉彎車，才是防禦過馬路的好習慣。", "ans": "X"}, {"subject": "chinese", "lesson": "c_l11", "type": "choice", "title": "「夜幕低垂，街燈一一亮起。」句中「低垂」形容：", "explain": "夜幕低垂形容傍晚轉夜、暮色漸深的景象。", "options": ["天色慢慢變暗、夜晚降臨的景況", "頭低低的在哭泣", "燈泡壞掉掉下來", "雨水漏進天花板"], "ans": 0}, {"subject": "chinese", "lesson": "c_l11", "type": "choice", "title": "找出句子中的錯別字：「遵守交通規則，大家都能快快樂樂出門，平平安安回家。」", "explain": "全句文字用詞完全正確無錯字。", "options": ["沒有錯別字", "「遵」寫錯了", "「規」寫錯了", "「則」寫錯了"], "ans": 0}, {"subject": "chinese", "lesson": "c_l11", "type": "choice", "title": "「聽到家人平安抵達的電話，媽媽終於『放下心中的大石頭』。」這句話的意思是：", "explain": "放下心中的大石頭是常用成語比喻，形容心中的焦慮擔憂完全消除。", "options": ["心中不再擔憂牽掛，感到十分踏實安心", "媽媽在搬運大石頭練力氣", "把家裡的石頭搬走", "覺得心情更加沉重"], "ans": 0}, {"subject": "chinese", "lesson": "c_l11", "type": "choice", "title": "下列何者的讀音與「便(ㄅㄧㄢˋ)利」之「便」不同？", "explain": "便宜讀作ㄆㄧㄢˊ，其餘皆讀作ㄅㄧㄢˋ。", "options": ["便(ㄆㄧㄢˊ)宜", "方言便(ㄅㄧㄢˋ)利", "大便(ㄅㄧㄢˋ)小便", "隨便(ㄅㄧㄢˋ)"], "ans": 0}, {"subject": "chinese", "lesson": "c_l11", "type": "choice", "title": "「微風在樹林間穿梭，發出沙沙沙的聲響。」句中「沙沙沙」是哪一種修辭手法？", "explain": "模仿大自然實際聲音的詞彙稱為擬聲詞（摹聲）。", "options": ["摹聲詞（擬聲詞）", "誇飾法", "設問法", "映襯法"], "ans": 0}, {"subject": "chinese", "lesson": "c_l12", "type": "choice", "title": "在課文《不一樣的團員》中，當團隊裡出現性格或特長與眾不同的夥伴時，最好的相處之道是：", "explain": "文章強調接納多元差異、欣賞每個人特質的團隊合作真諦。", "options": ["互相包容理解，發揮彼此獨特長處，攜手達成共同目標", "聯合同學一起嘲笑排擠他", "逼迫他改變成和自己一模一樣", "大家都不跟他說話"], "ans": 0}, {"subject": "chinese", "lesson": "c_l12", "type": "choice", "title": "「只要大家『同心協力』，就沒有克服不了的難關。」句中「同心協力」的意思是：", "explain": "「同心協力」形容大家一條心、共同努力去完成同一件事。", "options": ["齊心合力、共同努力", "各做各的互相爭奪", "坐在原地等別人做好", "彼此心懷戒心偷懶"], "ans": 0}, {"subject": "chinese", "lesson": "c_l12", "type": "choice", "title": "「每個人都是世界上獨一無二的個體。」句中「獨一無二」的意思是：", "explain": "「獨一無二」指獨特珍貴，世上絕無僅有。", "options": ["極其特別，沒有第二個可以相比", "數量只有少數兩個", "隨處可見一點也不稀奇", "個性非常孤僻怪異"], "ans": 0}, {"subject": "chinese", "lesson": "c_l12", "type": "choice", "title": "「『協』調彼此的時間。」句中「協」的部首是什麼？", "explain": "「協」字的部首是左側的「十部」。", "options": ["十部", "力部", "辦部", "三部"], "ans": 0}, {"subject": "chinese", "lesson": "c_l12", "type": "choice", "title": "合唱團在舞台上能唱出和諧動聽的音樂，關鍵原因在於：", "explain": "和諧來自不同聲部的互相聆聽與平衡融合。", "options": ["各部聲調雖然不同，但彼此傾聽配合，融合成優美旋律", "每個人都用最大聲吼叫蓋過別人", "只有主唱一個人唱，其他人都不要出聲", "音響開到最大聲把耳朵震聾"], "ans": 0}, {"subject": "chinese", "lesson": "c_l12", "type": "choice", "title": "「團結就是力量。」這句名言告訴我們：", "explain": "團結合作能化弱為強、克服艱難考驗。", "options": ["凝聚眾人智慧與能力，能發揮遠大於個人的成果", "一個人單打獨鬥速度最快", "越多人在一起越容易吵架", "大家一起睡覺能睡得更香"], "ans": 0}, {"subject": "chinese", "lesson": "c_l12", "type": "choice", "title": "「大家為了共同的目標而『奮鬥』。」句中「奮」的部首是什麼？", "explain": "「奮」字的部首是上方的「大部」。", "options": ["大部", "田部", "隹部", "十部"], "ans": 0}, {"subject": "chinese", "lesson": "c_l12", "type": "choice", "title": "下列哪一組詞語是「近義詞」的關係？", "explain": "和諧與融洽皆形容人際關係或事物協調美好。", "options": ["和諧／融洽", "排擠／接納", "團結／分裂", "特別／普通"], "ans": 0}, {"subject": "chinese", "lesson": "c_l12", "type": "choice", "title": "「看見新同學孤零零坐在一旁，小華主動走上前邀請他加入遊戲。」小華表現出了什麼良好品德？", "explain": "主動關懷新同學是極具同理心與友善包容的表現。", "options": ["友善同理與熱情接納他人", "愛炫耀自己朋友很多", "喜歡命令別人做事", "貪圖別人的玩具"], "ans": 0}, {"subject": "chinese", "lesson": "c_l12", "type": "choice", "title": "下列何句是完整的「因果關係」句子？", "explain": "A選項「因為……所以……」因果推論邏輯最嚴密合宜。", "options": ["因為大家彼此包容體諒，所以演出獲得全場觀眾熱烈掌聲", "雖然今天天氣晴朗，但是大家在操場運動", "如果明天不下雨，我們昨天就去公園玩", "只要努力讀書，明天就會立刻長高十公分"], "ans": 0}, {"subject": "chinese", "lesson": "c_l12", "type": "tf", "title": "課文《不一樣的團員》傳遞的核心品格是：學會欣賞他人優點，擁抱與自己不同的人。", "explain": "多元共榮與包容是現代社會公民的重要價值觀。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l12", "type": "tf", "title": "在一個優秀的團隊裡，所有隊員的才能與個性必須完全一模一樣，絕對不能有任何不同。", "explain": "多元互補的特長（例如有人擅長領導、有人擅長策劃、有人擅長執行）才能激發最佳團隊戰力。", "ans": "X"}, {"subject": "chinese", "lesson": "c_l12", "type": "tf", "title": "「掌聲如雷鳴般響起」使用了「譬喻修辭」。", "explain": "以打雷聲比喻掌聲熱烈，為譬喻手法。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l12", "type": "tf", "title": "「不一樣」並不代表不好，換個角度看可能正是最珍貴的獨特優勢。", "explain": "天生我材必有用，各展所長。", "ans": "O"}, {"subject": "chinese", "lesson": "c_l12", "type": "tf", "title": "在團體活動中，只要自己表現優秀就好，其他隊員遇到困難不需要理會。", "explain": "團隊強調互相扶持救援，榮譽屬於大家共同所有。", "ans": "X"}, {"subject": "chinese", "lesson": "c_l12", "type": "choice", "title": "「經過多次排練，大家的動作終於達到『整齊劃一』的境界。」句中「整齊劃一」形容：", "explain": "「整齊劃一」形容團隊紀律嚴整、步伐整齊一致。", "options": ["步調、動作極為齊整一致", "隊伍排得歪七扭八", "動作各做各的毫不相干", "服裝穿得花花綠綠各不相同"], "ans": 0}, {"subject": "chinese", "lesson": "c_l12", "type": "choice", "title": "找出句子中的錯別字：「大家互相包容，共同努力，終於完成了這項堅難的任務。」", "explain": "艱難、艱苦應為部首「又」之「艱」，非堅強之堅。", "options": ["「堅」應改為「艱」", "「容」應改為「榮」", "「終」應改為「中」", "「任」應改為「仁」"], "ans": 0}, {"subject": "chinese", "lesson": "c_l12", "type": "choice", "title": "「舞台上的燈光聚集在主角身上，他顯得格外『耀眼』。」「耀眼」的近義詞是：", "explain": "耀眼（光芒光亮奪目）與光彩奪目近義。", "options": ["奪目", "昏暗", "黯淡", "平庸"], "ans": 0}, {"subject": "chinese", "lesson": "c_l12", "type": "choice", "title": "「『奏』出動人的樂章。」句中「奏」的部首是什麼？", "explain": "「奏」字的部首是上方的「大部」。", "options": ["大部", "天部", "日部", "春部"], "ans": 0}, {"subject": "chinese", "lesson": "c_l12", "type": "choice", "title": "「雖然遇到了挫折，但他們依然『百折不撓』，堅持到底。」句中「百折不撓」比喻：", "explain": "「百折不撓」形容不畏挫折、堅持不懈的英勇精神。", "options": ["意志堅定，即使遭遇無數失敗也絕不屈服退縮", "骨頭很容易骨折折斷", "做事情只要失敗一次就放棄", "個性非常固執聽不進別人的話"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "將塞有乾衛生紙的杯子「垂直倒扣」壓入水槽底，衛生紙不會濕，是因為杯裡的空氣佔據了空間。", "explain": "空氣佔據空間，把水擋在外面。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "把杯子傾斜放入水中，水會跑進杯子裡，同時會看到冒出氣泡，那是空氣跑出來了。", "explain": "空氣冒出來騰出空間，水才跑進去。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "注射筒抽滿空氣堵住出口，用力往前推活塞，活塞可以前進，證明空氣是可以被壓縮的。", "explain": "氣體分子間隙大，受壓時體積變小。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "注射筒抽滿水並堵住出口，活塞可以像抽滿空氣一樣，輕易被往前壓縮一大段距離。", "explain": "水（液體）幾乎無法被壓縮。", "ans": "X"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "空氣是完全沒有重量的，就算把充氣飽滿的球拿去電子秤秤重，也和沒充氣時完全一樣重。", "explain": "空氣有微小的重量，充氣球會比扁球稍重。", "ans": "X"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "空氣沒有固定的形狀，裝進圓形氣球是圓形，裝進心形氣球就是心形。", "explain": "氣體沒有固定形狀，形狀隨容器改變。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "將漏斗插在塑膠瓶口並用油土將縫隙完全密封，這時把水倒入漏斗，水會非常順暢快速地流入瓶中。", "explain": "瓶內空氣排不出來佔據空間，水流不進去。", "ans": "X"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "平溪天燈會慢慢往天空升起，是因為熱空氣比冷空氣輕。", "explain": "空氣受熱膨脹變輕，產生向上浮力。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "我們日常生活中看似空無一物的空紙箱、空杯子，其實裡面都已經裝滿了空氣。", "explain": "空氣無所不在，佔據所有空間。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "把籃球充飽氣，在地上拍打能彈很高，是因為球內的空氣受壓縮具有彈性。", "explain": "壓縮空氣具有彈力恢復性。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "充氣的救生圈丟進水裡會浮在水面上，是因為裡面的空氣比水輕很多。", "explain": "空氣密度遠小於水，能提供巨大浮力。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "把塞有衛生紙的杯子「斜斜的」壓進水裡，杯底的衛生紙也絕對不會濕掉。", "explain": "傾斜入水空氣會漏出，水跑進去衛生紙就會濕掉。", "ans": "X"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "燃燒線香時，香煙通常會隨著上升的熱空氣一起往上方飄動。", "explain": "熱空氣上升帶動煙霧向上。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "吹泡泡時泡泡大多呈現圓球形，是因為內部的空氣均勻地向四周推開泡泡薄膜。", "explain": "氣體向各個方向均勻施壓。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "冬天開暖氣時，暖氣出風口朝向天花板吹，整個房間會暖得最快最均勻。", "explain": "熱空氣本來就往上升，暖氣出風口應朝下吹，房間對流才均勻。", "ans": "X"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "兩個密封的氣球，一個充滿空氣，一個抽成真空，充滿空氣的氣球在精密秤上比較重。", "explain": "空氣具有重量。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "把充飽氣的塑膠袋綁緊放在太陽下曝曬，塑膠袋會變得更加膨脹緊繃。", "explain": "空氣受熱會膨脹（熱脹冷縮）。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "用吸管吸飲料時，是因為嘴巴把飲料直接吸進去，跟周遭空氣壓力完全無關。", "explain": "嘴巴抽走吸管內空氣，是大氣壓力把飲料推上來的。", "ans": "X"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "寶特瓶蓋緊後放進冰箱冷凍庫，過一段時間拿出來會發現瓶身變凹了，是因為瓶內空氣遇冷收縮。", "explain": "空氣遇冷體積收縮，內部氣壓變小。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "空氣雖然摸不到，但當我們快跑或揮手時，臉上感受到的涼風就是空氣在流動。", "explain": "空氣流動形成風，肌膚能感覺到。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "太空人去月球漫步不需要穿太空衣戴氧氣罩，因為太空中到處都是新鮮空氣。", "explain": "太空中是真空狀態，沒有空氣，必須自備氧氣設備。", "ans": "X"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "腳踏車輪胎如果充氣太飽，在大太陽底下長時間曝曬，可能會因為空氣膨脹而爆胎。", "explain": "氣體受熱膨脹壓力激增，可能引發爆胎。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "把扁平的氣球套在寶特瓶口，將寶特瓶泡進熱水裡，氣球會慢慢自己鼓起來。", "explain": "瓶內空氣受熱膨脹，跑進氣球裡。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "潛水員在水底吐出的氣泡會沉入水底，不會往水面上升。", "explain": "氣泡內的氣體比水輕，一定會向上浮出水面。", "ans": "X"}, {"subject": "nature", "lesson": "n_air", "type": "tf", "title": "將吸盤掛鉤壓在光滑玻璃上，把裡面的空氣擠出來後能牢牢吸住，是大氣壓力的作用。", "explain": "外界大氣壓力把吸盤緊緊壓在玻璃上。", "ans": "O"}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "把空注射筒抽滿空氣並堵住出口，用力往前推活塞，活塞可以前進一段。這證明空氣：", "explain": "活塞前進體積變小，證明空氣能被壓縮。", "options": ["有重量", "可以被壓縮", "會助燃", "容易燃燒"], "ans": 1}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "在水裡將裝滿水的量筒倒立，拿吸管對著量筒口吹氣，量筒內的水位會：", "explain": "吹入的空氣佔據量筒上方空間，將水向下排擠。", "options": ["往上升", "往下降", "完全不變", "結冰"], "ans": 1}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "在密封寶特瓶蓋上插兩根吸管，一根吹氣一根接水，吹氣時水會噴出，是利用什麼原理？", "explain": "吹入空氣增加空間壓力，將水擠壓噴出。", "options": ["空氣佔據空間產生推力", "水受熱膨脹", "水自己逃跑", "重力消失"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "熱氣球和天燈能夠飛上天空，主要利用空氣的哪種自然特性？", "explain": "空氣受熱膨脹密度變小，熱空氣向上飄升。", "options": ["冷空氣下降", "熱空氣比冷空氣輕會上升", "空氣具有磁性", "空氣沒有重量"], "ans": 1}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "下列哪一項「不是」空氣的自然特徵？", "explain": "氣體沒有固定的形狀。", "options": ["無色透明", "沒有氣味", "有固定的形狀", "會佔據空間"], "ans": 2}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "把吹飽氣的氣球鬆開吹氣口，氣球會往反方向衝出去，這是利用：", "explain": "氣體噴出產生反作用推力。", "options": ["噴氣的反作用力", "磁力推動", "空氣變熱", "重力吸引"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "用充氣幫浦給腳踏車輪胎打氣時，輪胎變硬且富有彈性，是因為：", "explain": "充入大量壓縮空氣，向外支撐胎壁。", "options": ["打入大量壓縮空氣產生支撐彈性", "輪胎變重了", "橡膠融化", "打入水分"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "下列何者能直接證明「空氣佔據空間」？", "explain": "水進不去杯子是因為空氣佔據了空間。", "options": ["倒扣塞衛生紙的杯子垂直入水，紙不濕", "風吹動樹葉", "呼吸需要氧氣", "風箏在天空飛"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "把空瓶子垂直壓入水中再傾斜，水面冒出的氣泡是：", "explain": "傾斜時水跑進去，將瓶內空氣擠壓成氣泡冒出。", "options": ["水蒸氣", "瓶內的空氣", "水底的泥土", "純氧氣"], "ans": 1}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "充飽氣的皮球和排空空氣的扁皮球放在精密天平兩端，天平會：", "explain": "空氣有重量，充氣的皮球較重。", "options": ["充氣的一端下沉", "扁球的一端下沉", "完全平衡不動", "無法預測"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "保鮮盒蓋緊微波後放涼，蓋子變得很難打開，是因為盒內空氣：", "explain": "空氣冷卻收縮使內部壓力小於外界大氣壓力。", "options": ["冷卻收縮氣壓降低", "被食物吃掉", "完全消失", "變成冰塊"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "用吸管喝果汁時，能把果汁吸進嘴裡，主要是依靠：", "explain": "嘴巴減小吸管內壓力，外界大氣壓力將液體推進嘴裡。", "options": ["大氣壓力的推擠", "果汁自己往上跳", "吸管具有磁力", "地心引力"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "下列哪種交通工具運行時「不需要」依靠空氣環境？", "explain": "太空中接近真空沒有空氣，衛星靠慣性與引力運行。", "options": ["民航飛機", "直升機", "熱氣球", "太空中運行的人造衛星"], "ans": 3}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "給籃球打氣時越打越費力，是因為球內的空氣：", "explain": "球內壓縮空氣的反抗彈力增強。", "options": ["壓力越來越大", "溫度變冰冷", "體積自動變小", "跑出來了"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "兩個倒立懸掛的紙杯，拿吹風機往中間空隙吹風，兩個紙杯會：", "explain": "中間空氣流速快氣壓降低，外側大氣壓力推擠使其靠攏。", "options": ["向中間靠攏", "向兩側分開", "往下掉落", "向上飛走"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "吹氣球時，氣球會漸漸鼓起變大，這說明空氣具有什麼特性？", "explain": "氣球膨脹代表空氣進入並佔據了內部空間。", "options": ["會佔據空間", "有特殊的甜味", "會燃燒", "顏色是白色的"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "將點燃的蠟燭用透明玻璃杯完全蓋住，過一會兒蠟燭熄滅，是因為：", "explain": "燃燒需要空氣中的氧氣，耗盡即熄滅。", "options": ["杯內助燃的氧氣消耗完畢", "風太大吹熄了", "杯子太冷了", "蠟燭融化光了"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "將注射筒抽滿空氣堵住前端，用力推活塞後再「鬆開手」，活塞會：", "explain": "被壓縮的空氣具有向外彈開的恢復力。", "options": ["自動往後彈回一段", "繼續往前衝", "停在最前面不動", "粉碎破裂"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "把氣球吹大綁緊，放進裝有冰塊的冰水盆中，氣球會：", "explain": "氣體遇冷體積收縮（熱脹冷縮）。", "options": ["稍微縮小變皺", "變得更膨脹", "立刻爆破", "完全沒有任何改變"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "夏天在密閉的冷氣房裡，冷氣吹出來的冷空氣通常會：", "explain": "冷空氣比熱空氣重，會向下沉降。", "options": ["向下沉降", "向上飄到天花板", "停在原地不動", "變成白霧消失"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "水槍能把水噴得又高又遠，通常是利用槍身內部的什麼力量？", "explain": "打氣加壓使內部空氣壓縮，扣板機時壓縮空氣釋放推擠水柱。", "options": ["壓縮空氣產生的推力", "電池的電力", "磁鐵的排斥力", "齒輪轉動"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "在裝滿水的寶特瓶底戳一個小洞，蓋緊瓶蓋時水不太會流出來，打開瓶蓋水立刻噴出，是因為：", "explain": "開蓋後空氣進入上方產生壓力，水便在重力與氣壓下流出。", "options": ["打開瓶蓋後上方空氣進去產生壓力", "水變重了", "瓶底的洞變大了", "水被嚇到了"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "在廚房煮開水時，看到壺嘴上方冒出白煙，而且白煙一直往上飄，這是因為：", "explain": "熱水蒸氣上升帶動周遭氣流向上。", "options": ["熱氣流往上升", "冷氣流往下降", "空氣有重量", "空氣被壓縮"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "下列哪一個物品裡面「沒有」充滿空氣？", "explain": "裝滿開水的地方已經被水佔據，沒有空氣空間。", "options": ["裝滿開水的玻璃杯", "空鉛筆盒", "空書包", "空的餅乾鐵盒"], "ans": 0}, {"subject": "nature", "lesson": "n_air", "type": "choice", "title": "用洗手乳按壓瓶擠出洗手乳時，鬆開壓頭後壓頭會自己彈回來，主要是依靠內部的彈簧和：", "explain": "大氣壓力與機械彈簧協同運作。", "options": ["氣壓平衡與液體回填", "水變輕了", "馬達轉動", "磁力吸引"], "ans": 0}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "大自然中空氣產生流動，就會形成我們感受到的風。", "explain": "空氣流動即為風。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "操場上的風向袋如果完全垂直下垂動也不動，代表目前處於無風狀態。", "explain": "風力極小或無風時風向袋下垂。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "觀測風向與風力時，應該站在高大建築物密集的狹窄走廊測量最客觀準確。", "explain": "應在空曠平坦無障礙處觀測。", "ans": "X"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "操場上的風向袋正向著北方水平展開，代表此時吹的是北風。", "explain": "飄向北方代表風從南方吹來，吹的是南風。", "ans": "X"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "蒲福風級表中，數字級數越大代表風力越強烈。", "explain": "0級無風，級數越高風力越強。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "風箏是靠著迎風面受到氣流向上托起的力量而飛上天空的。", "explain": "迎角受相對氣流托起升空。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "氣象預報中的風向指針，指向哪裡就代表風吹往哪裡。", "explain": "氣象上的風向永遠是指「風吹來的方向」。", "ans": "X"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "夏天海邊白天吹海風（海吹向陸地），晚上吹陸風（陸地吹向海）。", "explain": "陸地吸熱散熱比海水快，產生晝夜溫差氣壓流動。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "風向袋通常漆成鮮豔的橘白相間顏色，是為了讓觀測者在遠處更容易看清風向與風力。", "explain": "高對比警示色便於目視觀察。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "風向計前端箭頭指的方向，就是風吹過來的方向。", "explain": "箭頭迎著風吹來的方向。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "如果今天吹的是「西北風」，代表地面上的落葉會被風吹向東南方。", "explain": "風從西北吹來，將物品推向對面的東南方。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "在室內吹電風扇時，電風扇吹出來的風不是空氣流動產生的。", "explain": "扇葉轉動推動周遭空氣，流動形成人工風。", "ans": "X"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "風力太強時（如颱風天），戶外活動容易發生路樹倒塌與招牌掉落危險。", "explain": "強風具有巨大的破壞力。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "風向計的後端尾翼面積通常做得比前端箭頭大很多。", "explain": "大尾翼受風推向順風處，箭頭便指出來風方向。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "使用指北針測量方位時，指北針的指針靜止時會指向正北方。", "explain": "受地磁吸引指針指南北方向。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "微風吹動時，池塘水面會泛起層層漣漪波紋。", "explain": "空氣流動帶動水表層波動。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "冬天台灣北部經常吹寒冷的西南季風。", "explain": "冬季台灣盛行東北季風。", "ans": "X"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "帆船在大海中航行，只要沒有風也能全速向前衝。", "explain": "傳統帆船完全依靠風力推動船帆前進。", "ans": "X"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "風力發電是利用風力吹動巨大葉片轉動發電機，屬於乾淨的綠色再生能源。", "explain": "風能轉為電能無碳排放。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "拿紙板對著臉用力搧動，臉上感覺涼涼的，是因為搧動產生了氣流。", "explain": "人為帶動空氣流動形成風。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "樹葉輕微搖動時，在蒲福風級中大約屬於 8 級大風。", "explain": "樹葉微動僅為 1~2 級輕風。", "ans": "X"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "風向袋被風吹得完全水平筆直展開，代表此時風力相當強勁。", "explain": "風力越強，風向袋被托起得越平直。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "氣象站觀測風向時，通常會搭配風速計精確測量每秒風速。", "explain": "風向計定方向，風速測定速度。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "在山谷中露營，白天和夜晚因為山坡冷熱變化，常會吹谷風與山風。", "explain": "地形溫差形成規律局部風。", "ans": "O"}, {"subject": "nature", "lesson": "n_wind", "type": "tf", "title": "放風箏時如果完全沒有任何風，不管怎麼逆風快跑，風箏都絕對不可能飛起來。", "explain": "人快跑時會創造相對氣流，風箏仍可短暫升空。", "ans": "X"}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "操場上的風向袋正向著「西南方」水平飄展，請問此時吹的是什麼風？", "explain": "風向是風吹來的方向！吹向西南代表風從東北來，為東北風。", "options": ["西南風", "東北風", "西北風", "東南風"], "ans": 1}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "風向計前端的「箭頭」正指向正南方，請問此時吹什麼風？", "explain": "風向計箭頭指的方向就是來風的方向，指南方即為南風。", "options": ["南風", "北風", "東風", "西風"], "ans": 0}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "氣象報告說今天吹「北風」，代表風是從哪裡吹向哪裡？", "explain": "北風就是從北方吹向南方的風。", "options": ["從北向南吹", "從南向北吹", "從東向西吹", "從西向東吹"], "ans": 0}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "下列哪種校園現象代表風力最強？", "explain": "大樹劇晃傘翻代表強風。", "options": ["煙囪的煙垂直上升", "樹葉微動", "國旗輕飄", "大樹劇烈搖晃且雨傘被吹翻"], "ans": 3}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "利用指北針配合風向計時，指北針的指針會指向哪個方位？", "explain": "地磁指北針指針指向北方。", "options": ["東方", "南方", "西方", "北方"], "ans": 3}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "走到戶外放風箏，想要風箏順利升空，放風箏的人應該：", "explain": "逆風跑能增加相對風速，使風箏產生上升力。", "options": ["順著風跑", "逆著風（迎風）跑", "站著不動", "轉圈跑"], "ans": 1}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "下列哪項「不是」利用風力的生活實例？", "explain": "電梯靠馬達與鋼索運作，不靠風力。", "options": ["風力發電風車", "帆船在海面航行", "公園放風箏", "電梯上下移動"], "ans": 3}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "風向計尾翼面積比箭頭大，其力學作用是：", "explain": "大尾翼受風推向順風處，箭頭便指出來風方向。", "options": ["受風吹推到後方，使箭頭迎向來風", "美觀好看", "讓風向計轉更快", "增加重量"], "ans": 0}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "在操場自製簡易風向觀測工具，何者最靈敏實用？", "explain": "重量輕且受風面積大的紙條最容易隨風飄動。", "options": ["細長輕薄彩帶紙條", "大石頭", "厚鐵尺", "厚字典"], "ans": 0}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "看見學校國旗飄向「西北方」，此時地面吹的風向是：", "explain": "國旗被吹向西北，代表風是從對面的「東南方」吹來的，為東南風。", "options": ["西北風", "東南風", "東北風", "西南風"], "ans": 1}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "颱風來襲時路樹被連根拔起、招牌吹落，這大約相當於幾級以上的風力？", "explain": "10級以上強風能吹倒樹木、毀壞房屋。", "options": ["2級", "5級", "10級以上", "0級"], "ans": 2}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "冬季台灣各地常感受到的季節風主要是：", "explain": "冬季大陸冷高壓南下，台灣盛行東北季風。", "options": ["東北季風", "西南季風", "東南季風", "正南季風"], "ans": 0}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "如果看見炊煙垂直向上升起，幾乎沒有傾斜，代表當時風力約為：", "explain": "0級無風時煙直上。", "options": ["0級（無風）", "3級（微風）", "6級（強風）", "10級（暴風）"], "ans": 0}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "下列何處「最不適合」設置風力發電廠？", "explain": "都會區大樓阻擋風勢且有噪音干擾。", "options": ["風力強勁的濱海地區", "開闊平坦的沿海空地", "高樓大廈密集的市中心住宅區", "風勢穩定的空曠山脊"], "ans": 2}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "觀測風向時，拿著紙條高舉，發現紙條飄向「東方」，吹的是什麼風？", "explain": "紙條飄向東，風是從西方吹來的，故為西風。", "options": ["東風", "西風", "南風", "北風"], "ans": 1}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "大自然中產生風的主要根本原因是：", "explain": "日照不均產生溫差與氣壓差，引發空氣對流。", "options": ["太陽照射使各地受熱不均，冷熱空氣流動", "地球自轉把水攪動", "植物吐出大量氧氣", "海浪拍打岸邊"], "ans": 0}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "騎腳踏車逆風前進時，會感到：", "explain": "迎面而來的強風會產生空氣阻力。", "options": ["非常輕鬆省力", "阻力很大比較費力", "速度自動變快", "完全沒感覺"], "ans": 1}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "下列哪一種工具是專門用來測量「風吹的速度快慢」的？", "explain": "風速計專門測量風速。", "options": ["風向袋", "風速計", "溫度計", "雨量筒"], "ans": 1}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "風向袋通常設置在機場或港口，主要目的是提供什麼即時資訊？", "explain": "提供飛機起降與船隻進出港時的風向風力參考。", "options": ["氣溫與濕度", "風向與風力強弱", "飛機航班時間", "海浪高度"], "ans": 1}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "夏天在操場運動，突然吹來一陣涼風，感覺舒服，這時風力大約是：", "explain": "吹在臉上微涼舒服為輕微風級。", "options": ["1~2級輕風微風", "7~8級大風", "12級狂風", "0級無風"], "ans": 0}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "下列哪一種現象表示「風力比微風更強」？", "explain": "樹枝搖晃、紙片吹起代表風力達到4級和風等級。", "options": ["炊煙輕微晃動", "樹葉飄落", "樹枝整枝搖晃且灰塵紙片飛揚", "水面平靜如鏡"], "ans": 2}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "如果風向計的箭頭指向「東北方」，此時國旗會飄向哪一方？", "explain": "吹東北風，旗幟順著風吹往相反的西南方。", "options": ["東北方", "西南方", "東南方", "西北方"], "ans": 1}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "古時候鄭和下西洋或是哥倫布航海，主要依靠大洋上的什麼前進？", "explain": "古代航海全憑季風與行星風系揚帆。", "options": ["定期盛行的信風季風", "船底的水流推動", "船長施展法術", "蒸汽機推動"], "ans": 0}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "下列關於「風」的敘述何者正確？", "explain": "風向是指風吹來的出發方向。", "options": ["眼睛可以直接看見風的顏色", "風是完全靜止不動的空氣", "風的流動方向就是風向定義的起點", "風不會受到建築物阻擋"], "ans": 2}, {"subject": "nature", "lesson": "n_wind", "type": "choice", "title": "在校園操場做風向實驗，全班測量結果最可能一致的前提是：", "explain": "同時間空曠地點能確保數據客觀準確。", "options": ["在同一時間、同一個空曠開闊地點觀測", "每個人躲在不同教室走廊", "閉上眼睛用手摸泥土", "看教室黑板"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "在科學實驗室中，絕對不可以隨意用舌頭舔嚐未知的白色粉末。", "explain": "實驗室安全第一守則：嚴禁以口嚐藥品。", "ans": "O"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "太白粉加進冷水攪拌均勻後，會形成完全清澈透明的溶液且永不沉澱。", "explain": "太白粉不溶於冷水，呈白濁狀，靜置會沉澱。", "ans": "X"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "食鹽加入白醋中，會像小蘇打粉一樣劇烈冒出大量二氧化碳氣泡。", "explain": "食鹽與醋不會劇烈產生氣體。", "ans": "X"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "棕褐色的碘液遇到太白粉時，會立刻產生深藍紫色的顏色變化。", "explain": "澱粉遇碘產生深藍紫色特徵反應。", "ans": "O"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "白糖加入水裡完全攪拌後，整杯水會維持清澈透明無色。", "explain": "糖完全溶解於水形成真溶液。", "ans": "O"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "手指摸摸看粗鹽結晶，摸起來有明顯硬硬粗粗的顆粒感。", "explain": "粗鹽為顆粒結晶體。", "ans": "O"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "做鬆餅蛋糕時加入小蘇打粉，加熱後會產生二氧化碳使糕點蓬鬆柔軟。", "explain": "小蘇打遇熱分解產生二氧化碳氣孔。", "ans": "O"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "太白粉通常是從馬鈴薯或樹薯等植物中提煉出來的澱粉。", "explain": "太白粉屬於食用澱粉類。", "ans": "O"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "用手直接大把抓取化學藥品是標準且安全的實驗操作動作。", "explain": "應使用藥匙或量匙取用藥品，避免腐蝕或污染。", "ans": "X"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "觀察粉末氣味時，應該把鼻子湊近瓶口用力深吸一口氣。", "explain": "應使用搧氣入鼻法輕輕聞。", "ans": "X"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "食鹽水溶液是弱酸性，滴在舌頭上感覺酸酸的。", "explain": "食鹽水為中性，味道是鹹的。", "ans": "X"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "麵粉也是一種含有豐富澱粉的粉末，滴上碘液也會變成深藍紫色。", "explain": "麵粉含豐富澱粉遇碘變深藍紫。", "ans": "O"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "白糖與食鹽外觀非常相似，放在放大鏡下觀察，食鹽結晶多呈現立方體形狀。", "explain": "食鹽（氯化鈉）晶體為標準立方晶系。", "ans": "O"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "小蘇打粉加水後，可以用來清洗廚房抽油煙機上的油垢，具有清潔效果。", "explain": "弱鹼性小蘇打能乳化油脂助清潔。", "ans": "O"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "所有的白色調味粉末加進水裡，攪拌後都一定能完全溶解消失。", "explain": "太白粉、麵粉、滑石粉等皆不溶於水。", "ans": "X"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "碘液原本的顏色是深綠色的液體。", "explain": "碘液為棕褐色或黃褐色。", "ans": "X"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "白糖滴入碘液之後，也會變成深藍紫色。", "explain": "糖類不是澱粉，遇碘液不變藍紫色。", "ans": "X"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "小蘇打粉遇到酸性液體（如檸檬汁、白醋）會產生劇烈氣泡反應。", "explain": "酸鹼中和產生碳酸釋放二氧化碳氣體。", "ans": "O"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "用手摸太白粉時，會感覺非常滑順細膩，像摸滑石粉一樣。", "explain": "太白粉粉末顆粒極細滑。", "ans": "O"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "把食鹽加熱炒過之後，食鹽會融化變成甜甜的麥芽糖。", "explain": "食鹽熔點高達800℃以上，乾炒不變糖。", "ans": "X"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "在廚房裡，如果白糖罐與食鹽罐標籤掉了，在安全衛生的廚房可以透過嚐味道來分辨。", "explain": "廚房確定為食品級調味料可嚐，實驗室則嚴禁。", "ans": "O"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "太白粉加水勾芡煮湯時，加熱後會變黏稠透明，這叫澱粉糊化現象。", "explain": "澱粉加熱吸水膨脹糊化變稠。", "ans": "O"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "食鹽在常溫下完全燃燒會散發濃烈爆米花香味。", "explain": "食鹽不可燃。", "ans": "X"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "小蘇打粉加白醋冒出的氣體是氧氣，把點燃的線香放進去會燃燒得更劇烈。", "explain": "產生的是二氧化碳，二氧化碳不助燃，會使線香熄滅。", "ans": "X"}, {"subject": "nature", "lesson": "n_powder", "type": "tf", "title": "利用碘液反應可以檢驗食物中是否含有澱粉成分。", "explain": "碘液檢驗法是生物化學標準澱粉鑑定法。", "ans": "O"}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "廚房四種白色粉末：白糖、食鹽、太白粉、小蘇打。滴入棕褐色碘液後，哪種會變深藍紫色？", "explain": "太白粉含澱粉，遇碘呈藍紫色反應。", "options": ["食鹽", "白糖", "太白粉", "小蘇打"], "ans": 2}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "小蘇打粉加入白醋後會劇烈冒泡，冒出的氣體是：", "explain": "酸鹼反應釋放二氧化碳氣體。", "options": ["氧氣", "二氧化碳", "水蒸氣", "氫氣"], "ans": 1}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "手指觸摸下列白色粉末，何者顆粒感最明顯、最粗硬？", "explain": "粗鹽為顆粒結晶，觸感粗糙硬實。", "options": ["粗鹽結晶", "太白粉", "麵粉", "奶粉"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "想辨別杯中白色粉末是小蘇打還是太白粉，滴入哪種液體最適合快速判別？", "explain": "太白粉遇碘變藍紫，小蘇打遇醋劇烈冒泡。", "options": ["白醋或碘液", "沙拉油", "純酒精", "醬油"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "實驗室中聞未知氣味的正確安全操作方式是：", "explain": "搧氣入鼻法是標準安全操作。", "options": ["鼻子湊近深吸", "用手在容器上方輕輕搧聞", "大口吸氣", "用吸管吸入"], "ans": 1}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "做鬆餅蛋糕加入小蘇打粉的主要目的是：", "explain": "受熱產生二氧化碳氣孔讓口感鬆軟。", "options": ["產生二氧化碳使糕點蓬鬆柔軟", "增加甜味", "防發霉", "染成雪白"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "下列哪一種粉末摸起來最滑膩細柔？", "explain": "太白粉為極細澱粉顆粒，觸感極滑。", "options": ["粗鹽", "太白粉", "冰糖粒", "晶冰糖"], "ans": 1}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "白糖加水完全溶解後，整杯水呈現：", "explain": "糖完全溶解形成透明水溶液。", "options": ["混濁白色", "透明無色清澈", "淡藍色", "結凍硬化"], "ans": 1}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "下列哪一種調味粉末加白醋「會」產生大量冒泡反應？", "explain": "小蘇打遇酸反應產生二氧化碳。", "options": ["食鹽", "白糖", "小蘇打粉", "麵粉"], "ans": 2}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "在熟米飯、白吐司上滴加棕褐色碘液，顏色會：", "explain": "米飯吐司皆富含澱粉，遇碘呈藍紫色。", "options": ["變深藍紫色", "變亮黃色", "完全沒變色", "變綠色"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "太白粉倒入冷水中攪拌後靜置十分鐘，杯底會出現：", "explain": "太白粉不溶於冷水，靜置會沉澱於底。", "options": ["白色沉澱物", "氣泡全部浮出", "金黃色結晶", "冰塊"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "將小蘇打加醋產生的氣體導入澄清石灰水中，澄清石灰水會：", "explain": "二氧化碳與石灰水反應生成碳酸鈣白色沉澱。", "options": ["變成白濁色", "變成鮮紅色", "完全透明不變", "結成冰塊"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "下列哪一種食材滴入碘液「不會」變成深藍紫色？", "explain": "肥肉主要成分是油脂，不含澱粉。", "options": ["白蘿蔔片", "馬鈴薯片", "肥豬肉片", "煮熟的麵條"], "ans": 2}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "利用放大鏡觀察食鹽，會發現它的顆粒形狀大多是：", "explain": "食鹽為立方體結晶。", "options": ["細長針狀", "扁平圓形", "立方體結晶", "五角星形"], "ans": 2}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "料理煮酸辣湯時想讓湯汁變得濃稠滑順，通常會加入哪種粉調水勾芡？", "explain": "太白粉水加熱糊化具有增稠勾芡效果。", "options": ["太白粉水", "食鹽水", "小蘇打水", "砂糖水"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "烘焙麵包時，為了讓麵糰發酵膨脹，除了小蘇打有時還會加入：", "explain": "酵母菌發酵產生二氧化碳使麵糰膨起。", "options": ["酵母菌", "粗鹽", "醬油", "太白粉"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "小蘇打加白醋產生的氣體，拿燃燒的線香靠近檢驗，線香會：", "explain": "二氧化碳不助燃亦不可燃，使火焰熄滅。", "options": ["燃燒得更旺盛", "立刻熄滅", "發出藍色火花", "爆炸"], "ans": 1}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "下列何者是食鹽在生活中的主要用途？", "explain": "食鹽是重要調味料且能高滲透壓抑菌防腐。", "options": ["調味增鮮與醃製防腐", "當作洗髮精", "製造氣球", "當水泥蓋房子"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "取用粉末藥品時，下列何種工具最適當？", "explain": "乾淨乾燥藥匙避免污染或受潮。", "options": ["乾淨乾燥的小藥匙", "剛洗過濕漉漉的雙手", "鉛筆筆尖", "橡皮擦"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "小蘇打水溶液用紅色石蕊試紙測試，試紙會變成：", "explain": "小蘇打呈弱鹼性，使紅試紙變藍。", "options": ["藍色（弱鹼性）", "紅色（強酸性）", "綠色", "黑色"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "白糖加水溶解後，如果喝一小口，味道是：", "explain": "白糖溶解後具蔗糖特有甜味。", "options": ["甜甜的", "鹹鹹的", "酸酸的", "苦澀的"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "如果不小心把大量食鹽灑到地板上，最衛生的處理方法是：", "explain": "掉地上受污染食品應丟棄不可再食用。", "options": ["用掃把掃起丟進垃圾桶", "抓起來放回鹽罐煮湯", "用水沖進客廳地毯", "用吹風機吹跑"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "下列哪一種調味料在高溫加熱乾燒時，最容易燒焦發黑並發出焦糖香？", "explain": "糖受熱脫水焦糖化變黑。", "options": ["砂糖", "食鹽", "小蘇打", "太白粉"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "為了防止廚房裡的調味粉受潮結塊，保存時應該放在：", "explain": "密封防潮保持乾燥是最佳保存法。", "options": ["陰涼乾燥密封處", "水龍頭正下方", "大太陽下曝曬", "冰箱冷凍庫敞開"], "ans": 0}, {"subject": "nature", "lesson": "n_powder", "type": "choice", "title": "在「粉末溶解與辨識」實驗結束後，桌面上的殘留藥品與廢液應該：", "explain": "妥善清理與廢液分類是良好實驗習慣。", "options": ["依老師指示分類倒入廢液桶，並清洗乾淨收拾", "全部抹在隔壁同學衣服上", "偷偷倒在書包裡", "不用管它直接下課"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "固定量的水中，食鹽可以無限量地完全溶化不見。", "explain": "固定水量的溶解量有上限，達飽和即不再溶解。", "ans": "X"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "把冰糖敲碎能加快溶解速度，是因為顆粒變小，與水接觸的表面積變大了。", "explain": "接觸面積越大，溶解擴散速度越快。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "飽和食鹽水放在平盤上曬乾，水分蒸發後，原本溶在水裡的食鹽結晶會重新出現。", "explain": "水分蒸發後溶質結晶析出。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "把沙子倒進水裡用力攪拌，靜置後沙子沉在杯底，這算是沙子溶解在水中。", "explain": "混濁沉澱非溶解，溶解需均勻透明且不沉澱。", "ans": "X"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "大部分固體溶質在水溫升高時，能溶解的總量通常會增加。", "explain": "多數固體在熱水中的溶解度大於冷水。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "完全溶解的食鹽水，如果放在密閉瓶中放三天，食鹽會自己慢慢沉澱回瓶底。", "explain": "真溶液在密閉或水未蒸發時極為穩定，不會自行沉澱。", "ans": "X"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "「溶解」是指溶質顆粒均勻分散在溶劑中，肉眼看不到顆粒且清澈透明。", "explain": "此為科學上溶解之標準定義。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "將 5g 食鹽溶於 100g 水中，食鹽水總重量剛好是 105g，符合質量守恆。", "explain": "溶質重 + 溶劑重 = 溶液總重。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "在進行溶解快慢對比實驗時，只能有一個條件不一樣，其餘條件必須完全相同。", "explain": "控制變因科學方法的核心原則。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "用熱水泡奶粉通常比用冰水泡奶粉溶解得更快且更不易結塊。", "explain": "溫度高分子運動劇烈加速溶解。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "杯底已經出現沉澱鹽粒的飽和食鹽水，只要再加水攪拌，沉澱的鹽就可以繼續溶解。", "explain": "增加溶劑量能提高可容納溶質量。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "攪拌只能加快溶解速度，不能改變該溫度下這杯水能溶解的最大總量。", "explain": "攪拌只改變速率，不改變飽和溶解度。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "把糖倒入水中不攪拌，糖就永遠絕對不可能在水中溶解。", "explain": "分子自然擴散仍會慢慢溶解，只是速度極慢。", "ans": "X"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "在比較不同水溫溶解量的實驗中，水量的多寡屬於必須嚴格相同的「控制變因」。", "explain": "水量必須維持一致才能公平比較。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "飽和食鹽水喝起來的鹹度，已經達到該水溫下的最鹹極限濃度。", "explain": "達到最大飽和濃度。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "不管加多少水，一顆大冰糖都絕對不可能在水中完全溶化。", "explain": "只要水量足夠，大冰糖也能完全溶解。", "ans": "X"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "用量匙取鹽做比較實驗時，每匙都必須用刮板刮平（平匙），確保每次加入量相同。", "explain": "維持添加份量一致的標準操作。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "喝熱咖啡加方糖，拿湯匙攪拌可以讓方糖更快溶化消失。", "explain": "攪拌帶動液體對流加速溶解。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "海水之所以鹹鹹的，是因為海水中溶解了大量的食鹽等礦物質鹽類。", "explain": "天然海水為多種鹽類之水溶液。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "把飽和糖水放進冰箱冷卻，原本溶在裡面的糖可能會因為溫度降低而沉澱析出。", "explain": "降溫溶解度降低，多餘溶質析出結晶。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "將胡椒粉撒入熱湯中攪拌，整碗湯變濁，代表胡椒粉完全溶解在湯裡。", "explain": "胡椒為植物顆粒不溶於水，沉澱懸浮非溶解。", "ans": "X"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "在實驗中，被水溶解的物質（如糖、鹽）稱為「溶質」，水稱為「溶劑」。", "explain": "化學專有名詞定義。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "冰水裡溶解食鹽的速度通常比溫熱水慢很多。", "explain": "低溫分子動能小擴散慢。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "洗衣服時洗衣粉如果倒太多水太少，衣服洗完可能會殘留未溶解的洗衣粉顆粒。", "explain": "超過飽和量無法完全溶解。", "ans": "O"}, {"subject": "nature", "lesson": "n_dissolve", "type": "tf", "title": "糖完全溶解在水裡後，拿濾紙過濾，所有的糖都會被濾紙攔截下來留給我們。", "explain": "溶解的分子極細小，能穿透濾紙孔隙。", "ans": "X"}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "想讓大冰糖在水裡加速溶解，下列何者「完全沒有幫助」？", "explain": "加熱、攪拌、磨碎是三大法寶，加鹽無效。", "options": ["用熱水代替冷水", "拿湯匙快速攪拌", "將冰糖敲成細碎末", "在水裡加一大匙食鹽"], "ans": 3}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "想研究「水溫對溶解快慢的影響」，實驗時哪項條件必須保持「不一樣」？", "explain": "實驗目的為操縱變因，測水溫則只有水溫不同。", "options": ["兩杯水的水溫", "兩杯水的水量", "加入的糖量", "攪拌的速度"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "已飽和且底部有沉澱的食鹽水，想讓沉澱的鹽繼續完全溶解，可以：", "explain": "增加水量能增加溶質溶解量。", "options": ["加入更多純水", "放冰箱冷凍", "倒掉一半水", "放入冰塊"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "將 5g 糖完全溶於 100g 水中，這杯糖水總重為：", "explain": "質量守恆：溶質重 + 溶劑重 = 溶液總重。", "options": ["100g", "105g", "小於100g", "大於110g"], "ans": 1}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "對比實驗中用量匙舀取食鹽，必須用刮板「刮成平匙」是為了：", "explain": "控制變因，維持每次添加量一致。", "options": ["確保每次加入的份量都一樣多", "讓鹽更快溶化", "防止鹽撒出", "讓鹽顆粒變小"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "下列關於「完全溶解」的敘述何者正確？", "explain": "水溶液具均質性，各部位濃度甜度完全均勻。", "options": ["完全溶解的糖水各處甜度均勻一致", "底部有沉澱才叫溶解", "熱水能無限溶解所有物品", "沙子攪拌變濁算溶解"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "在 100ml 水中加入一平匙食鹽完全溶解，再加一平匙又溶解，直到第五匙時底部留有鹽粒，此時溶液處於：", "explain": "出現無法溶解的溶質沉澱時即達飽和。", "options": ["未飽和狀態", "飽和狀態", "過冷狀態", "沸騰狀態"], "ans": 1}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "台灣傳統的「曬鹽場」是利用什麼原理將海水變成食鹽？", "explain": "日照風吹蒸發水分，使食鹽過飽和結晶。", "options": ["太陽照射讓水分蒸發，食鹽結晶析出", "用火煮乾海水", "用濾網把鹽撈起來", "加冰塊冷凍"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "喝檸檬紅茶想多加點砂糖，怎樣做溶得最快？", "explain": "高溫 + 細顆粒 + 攪拌為最快溶解組合。", "options": ["趁茶熱時加入細砂糖並快速攪拌", "等茶冰鎮後放大冰糖塊不攪拌", "放冰箱等一小時", "丟進去靜置"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "將粗鹽搗碎成細鹽再倒入水中，溶解變快的主因是：", "explain": "磨碎增加反應接觸面積。", "options": ["增加鹽與水的接觸表面積", "鹽的重量變輕了", "水溫自動上升了", "鹽變成別種物質"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "在 20℃ 的 100 毫升水中加了 6 平匙糖開始沉澱飽和。若把這杯水加熱到 60℃，通常會：", "explain": "多數固體隨溫度升高溶解度增加。", "options": ["杯底原本沉澱的糖會繼續溶解消失", "杯底冒出更多沉澱", "水變成固體", "糖跳出杯外"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "下列哪一種粉末倒入水中攪拌後「無法」完全溶解成透明溶液？", "explain": "麵粉為不溶性澱粉與蛋白質混合物。", "options": ["白糖", "食鹽", "麵粉", "味精"], "ans": 2}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "拿湯匙快速攪拌水中的砂糖，主要的作用是：", "explain": "攪拌促進液體對流擴散。", "options": ["加速糖分子向外擴散溶解", "把水分子打碎", "改變糖的化學成分", "讓水變甜十倍"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "在相同水量與水溫下，食鹽與砂糖能溶解的最大平匙數量：", "explain": "不同物質在水中各有不同的溶解度。", "options": ["通常不一樣多", "每一種東西都剛好是10匙", "絕對完全相同", "完全無法測量"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "把飽和食鹽水倒一半掉，剩下的半杯食鹽水濃度：", "explain": "溶液具均質性，倒掉一部分濃度維持不變。", "options": ["跟原本一樣鹹", "變得比較不鹹", "變得超級鹹", "變成淡水"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "夏天泡冰蜂蜜水，通常先用什麼水把蜂蜜化開比較省力？", "explain": "溫水溶解速率快，化開後再降溫調配。", "options": ["先用少許溫水化開再加冰塊", "直接倒進大冰塊裡攪拌", "用冰牛奶硬攪", "放在太陽下曬三天"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "煮綠豆湯時，如果一開始綠豆還沒煮軟就加大量砂糖，綠豆容易煮不爛，這是因為：", "explain": "高濃度糖水滲透壓阻礙豆粒吸水軟化。", "options": ["高糖度使豆子內部水分被滲透壓吸出變硬", "糖把綠豆壓碎了", "水溫會無法上升", "綠豆不喜歡吃糖"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "用滴管吸取完全溶解的食鹽水滴在乾淨玻璃片上烘乾，玻璃片上會留下：", "explain": "水分蒸發留下溶質食鹽。", "options": ["白色的食鹽結晶痕跡", "彩色的泡泡", "黑色的煤灰", "什麼都沒留下"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "下列何者「不是」加速固體溶解的有效方法？", "explain": "冷凍降溫會使溶解速率變慢。", "options": ["攪拌溶液", "提高水溫", "將固體研磨成細粉", "把容器蓋緊冰進冷凍庫"], "ans": 3}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "在進行「攪拌是否會加快溶解」實驗時，兩杯水哪一個條件「必須一樣」？", "explain": "水溫、水量、溶質種類與重量都需相同（控制變因）。", "options": ["水溫與水量都要一樣", "只有一杯可以倒水", "一杯用糖一杯用鹽", "攪拌速度一杯快一杯慢"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "喝完甜湯後杯底留下一層厚厚的砂糖，這代表剛才這杯甜湯處於：", "explain": "杯底有未溶溶質殘留即達飽和。", "options": ["未飽和狀態", "飽和狀態", "沸騰狀態", "過冷狀態"], "ans": 1}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "在相同水量中，方糖、細砂糖和糖粉哪一種溶解得最快？", "explain": "粉末顆粒最小，表面積最大溶解最快。", "options": ["糖粉（顆粒最細小）", "方糖（整塊大塊）", "細砂糖", "三種速度完全一樣"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "下列哪一項生活實例是利用「溶解」現象？", "explain": "沖泡粉末均勻溶解於水中。", "options": ["沖泡熱阿華田或熱可可飲用", "用石頭在地上畫圖", "拿磁鐵吸迴紋針", "用紙折紙飛機"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "把 10 毫升的酒精倒入 90 毫升的水中完全混合均勻，這也是一種：", "explain": "液體與液體互溶現象。", "options": ["液體在液體中的溶解混合現象", "固體溶解", "氣體壓縮", "化學爆炸"], "ans": 0}, {"subject": "nature", "lesson": "n_dissolve", "type": "choice", "title": "在溶解實驗中，若想客觀記錄「哪一杯溶得比較快」，最好的計量指標是：", "explain": "以碼錶記錄完全溶解時間最精確客觀。", "options": ["測量從開始到全部顆粒消失所花費的時間（秒數）", "用眼睛隨便看一眼", "猜拳決定", "看哪杯顏色比較好看"], "ans": 0}, {"subject": "english", "lesson": "e_u3", "type": "choice", "title": "A: ________ are these?  B: They are pencils.", "options": ["What", "Who", "Where", "How"], "ans": 0, "explain": "詢問近處複數物品是什麼，使用句型『What are these?』。"}, {"subject": "english", "lesson": "e_u3", "type": "choice", "title": "A: What are those?  B: ________ are rulers.", "options": ["They", "It", "These", "That"], "ans": 0, "explain": "回答複數問句 What are those? 時，主詞用代名詞 They。"}, {"subject": "english", "lesson": "e_phonics", "type": "choice", "title": "Look! There are four ________ on the desk.", "options": ["rulers", "ruler", "a ruler", "one ruler"], "ans": 0, "explain": "數量是 four（超過 1 個）時，名詞後面要加複數 s (rulers)。"}, {"subject": "english", "lesson": "e_phonics", "type": "choice", "title": "下列哪一個單字的字尾加上「es」形成複數？", "options": ["box (boxes)", "pen (pens)", "book (books)", "ruler (rulers)"], "ans": 0, "explain": "以 x, s, ch, sh 結尾的名詞，複數加 es (box -> boxes)。"}, {"subject": "english", "lesson": "e_u3", "type": "choice", "title": "A: Are these your markers?  B: Yes, ________.", "options": ["they are", "it is", "I am", "you are"], "ans": 0, "explain": "複數問句 Are these...? 肯定回答用 Yes, they are。"}, {"subject": "english", "lesson": "e_phonics", "type": "choice", "title": "A: Are those your notebooks?  B: No, ________.", "options": ["they are not", "it is not", "I am not", "they do not"], "ans": 0, "explain": "複數問句否定回答用 No, they are not (No, they aren't)。"}, {"subject": "english", "lesson": "e_phonics", "type": "choice", "title": "單字 eraser 前面如果要加「一個」，要使用哪一個冠詞？", "options": ["an", "a", "two", "the one"], "ans": 0, "explain": "eraser 以母音 e 發音開頭，單數冠詞用 an (an eraser)。"}, {"subject": "english", "lesson": "e_phonics", "type": "choice", "title": "桌上有兩把剪刀，英文應該如何表達？", "options": ["two pairs of scissors", "two scissors", "two scissor", "a scissors"], "ans": 0, "explain": "剪刀是成對名詞，用 two pairs of scissors。"}, {"subject": "english", "lesson": "e_u3", "type": "choice", "title": "A: How many pens do you have?  B: I have ________ pens.", "options": ["five", "a", "one", "an"], "ans": 0, "explain": "pens 是複數，修飾詞數量大於 1，選 five。"}, {"subject": "english", "lesson": "e_phonics", "type": "choice", "title": "下列何者為不可數名詞，通常「不加 s」？", "options": ["water (水)", "book (書本)", "pencil (鉛筆)", "desk (書桌)"], "ans": 0, "explain": "液體水（water）為不可數名詞，不加複數 s。"}, {"subject": "english", "lesson": "e_u3", "type": "tf", "title": "名詞 bus 的複數形是 buses。", "ans": "O", "explain": "字尾為 s，複數加 es (buses)。"}, {"subject": "english", "lesson": "e_u3", "type": "tf", "title": "單數是一枝筆 a pencil，複數三枝筆是 three pencils。", "ans": "O", "explain": "名詞變複數在字尾加 s。"}, {"subject": "english", "lesson": "e_u3", "type": "tf", "title": "What is this? 是問單數物品，What are these? 是問複數物品。", "ans": "O", "explain": "this 對應單數，these 對應複數。"}, {"subject": "english", "lesson": "e_u4", "type": "choice", "title": "A: What do you want?  B: I want some ________.", "options": ["juice", "a juice", "many juice", "juices"], "ans": 0, "explain": "果汁（juice）為不可數名詞，使用 some juice。"}, {"subject": "english", "lesson": "e_u4", "type": "choice", "title": "A: What do you want?  B: I want ________ apple, please.", "options": ["an", "a", "two", "some a"], "ans": 0, "explain": "apple 以母音開頭，單數用 an apple。"}, {"subject": "english", "lesson": "e_u4", "type": "choice", "title": "A: Do you want some milk?  B: Yes, ________.", "options": ["please", "I do not", "thank you", "I am fine"], "ans": 0, "explain": "接受對方提供的飲食提議，禮貌回答 Yes, please。"}, {"subject": "english", "lesson": "e_u4", "type": "choice", "title": "A: Do you want an egg?  B: No, ________.", "options": ["thank you", "please", "I want", "you are welcome"], "ans": 0, "explain": "禮貌婉拒對方的食物提議，回答 No, thank you。"}, {"subject": "english", "lesson": "e_phonics", "type": "choice", "title": "單字「h-a-m-b-u-r-g-e-r」是指哪一種常見食物？", "options": ["漢堡", "披薩", "三明治", "熱狗"], "ans": 0, "explain": "hamburger 為漢堡。"}, {"subject": "english", "lesson": "e_u4", "type": "choice", "title": "A: I am thirsty (口渴了).  B: Here is some ________ for you.", "options": ["water", "bread", "cake", "hamburger"], "ans": 0, "explain": "口渴時需要喝水（water）。"}, {"subject": "english", "lesson": "e_phonics", "type": "choice", "title": "A: I am hungry (肚子餓了).  B: Let's have a ________.", "options": ["sandwich", "tea", "water", "juice"], "ans": 0, "explain": "肚子餓時吃三明治（sandwich）。"}, {"subject": "english", "lesson": "e_u4", "type": "tf", "title": "牛奶 milk、水 water 和果汁 juice 都是液體，通常不用 a/an 直接修飾。", "ans": "O", "explain": "液體為不可數名詞，用 some milk 或 a glass of milk。"}, {"subject": "english", "lesson": "e_u4", "type": "tf", "title": "想禮貌向服務生點餐時，可以說：I want a hamburger, please.", "ans": "O", "explain": "加上 please 是標準禮貌用語。"}, {"subject": "english", "lesson": "e_phonics", "type": "choice", "title": "單字「bus」和「cup」中間的母音字母「u」發什麼短音？", "options": ["短母音 /ʌ/", "長母音 /ju/", "母音 /æ/", "母音 /e/"], "ans": 0, "explain": "字母 u 在閉音節中發短母音 /ʌ/。"}, {"subject": "english", "lesson": "e_phonics", "type": "choice", "title": "單字「pot」和「hot」中間的母音字母「o」發什麼短音？", "options": ["短母音 /ɑ/", "長母音 /o/", "母音 /u/", "母音 /ɪ/"], "ans": 0, "explain": "字母 o 在閉音節中發短母音 /ɑ/。"}, {"subject": "english", "lesson": "e_phonics", "type": "choice", "title": "單字「cat」和「cap」的字首字母「c」發什麼自然發音？", "options": ["/k/", "/s/", "/tʃ/", "/d/"], "ans": 0, "explain": "字母 c 在 a 前面發硬音 /k/。"}, {"subject": "english", "lesson": "e_phonics", "type": "choice", "title": "單字「dog」和「duck」的字首字母發音是什麼？", "options": ["/d/", "/b/", "/t/", "/g/"], "ans": 0, "explain": "字母 d 發自然發音 /d/。"}, {"subject": "english", "lesson": "e_phonics", "type": "choice", "title": "下列哪一個單字的字首發音為 /b/？", "options": ["banana", "apple", "cat", "dog"], "ans": 0, "explain": "banana 字首字母為 b，發 /b/。"}, {"subject": "english", "lesson": "e_phonics", "type": "tf", "title": "單字 pen 和 pet 的母音 e 發短母音 /e/。", "ans": "O", "explain": "字母 e 在此處發短音 /e/。"}, {"subject": "english", "lesson": "e_spell", "type": "spell", "title": "請利用鍵盤拼出英文單字：【直尺】", "target": "RULER", "explain": "直尺的英文是 R-U-L-E-R。"}, {"subject": "english", "lesson": "e_spell", "type": "spell", "title": "請利用鍵盤拼出英文單字：【橡皮擦】", "target": "ERASER", "explain": "橡皮擦的英文是 E-R-A-S-E-R。"}, {"subject": "english", "lesson": "e_spell", "type": "spell", "title": "請利用鍵盤拼出英文單字：【鉛筆】", "target": "PENCIL", "explain": "鉛筆的英文是 P-E-N-C-I-L。"}, {"subject": "english", "lesson": "e_spell", "type": "spell", "title": "請利用鍵盤拼出英文單字：【盒子/箱子】", "target": "BOX", "explain": "盒子的英文是 B-O-X。"}, {"subject": "english", "lesson": "e_spell", "type": "spell", "title": "請利用鍵盤拼出英文單字：【書本】", "target": "BOOK", "explain": "書本的英文是 B-O-O-K。"}, {"subject": "english", "lesson": "e_spell", "type": "spell", "title": "請利用鍵盤拼出英文單字：【牛奶】", "target": "MILK", "explain": "牛奶的英文是 M-I-L-K。"}, {"subject": "english", "lesson": "e_spell", "type": "spell", "title": "請利用鍵盤拼出英文單字：【水】", "target": "WATER", "explain": "水的英文是 W-A-T-E-R。"}, {"subject": "english", "lesson": "e_spell", "type": "spell", "title": "請利用鍵盤拼出英文單字：【蘋果】", "target": "APPLE", "explain": "蘋果的英文是 A-P-P-L-E。"}, {"subject": "english", "lesson": "e_spell", "type": "spell", "title": "請利用鍵盤拼出英文單字：【數字 8】", "target": "EIGHT", "explain": "數字 8 的英文是 E-I-G-H-T。"}, {"subject": "english", "lesson": "e_spell", "type": "spell", "title": "請利用鍵盤拼出英文單字：【數字 7】", "target": "SEVEN", "explain": "數字 7 的英文是 S-E-V-E-N。"}];
-const CHINESE_CHARACTERS = {"c_l7": [{"char": "閉", "zhuyin": "ㄅㄧˋ", "radical": "門", "strokes": 11, "words": "閉上、關閉、閉目養神"}, {"char": "鹹", "zhuyin": "ㄒㄧㄢˊ", "radical": "鹵", "strokes": 20, "words": "鹹味、鹹魚、鹹淡"}, {"char": "蔚", "zhuyin": "ㄨㄟˋ", "radical": "艸", "strokes": 15, "words": "蔚藍、蔚為風氣"}, {"char": "航", "zhuyin": "ㄏㄤˊ", "radical": "舟", "strokes": 10, "words": "航行、起航、航空"}, {"char": "乘", "zhuyin": "ㄔㄥˊ", "radical": "丿", "strokes": 10, "words": "乘坐、乘風破浪、乘客"}, {"char": "橇", "zhuyin": "ㄑㄧㄠ", "radical": "木", "strokes": 16, "words": "雪橇、冰橇"}, {"char": "坡", "zhuyin": "ㄆㄛ", "radical": "土", "strokes": 8, "words": "山坡、上坡、斜坡"}, {"char": "野", "zhuyin": "ㄧㄝˇ", "radical": "里", "strokes": 11, "words": "原野、田野、野外"}, {"char": "深", "zhuyin": "ㄕㄣ", "radical": "水", "strokes": 11, "words": "深呼吸、深厚、深度"}, {"char": "吸", "zhuyin": "ㄒㄧ", "radical": "口", "strokes": 6, "words": "吸氣、吸收、吸引"}, {"char": "欣", "zhuyin": "ㄒㄧㄣ", "radical": "欠", "strokes": 8, "words": "欣賞、欣喜、欣欣向榮"}, {"char": "賞", "zhuyin": "ㄕㄤˇ", "radical": "貝", "strokes": 15, "words": "欣賞、賞賜、觀賞"}, {"char": "稻", "zhuyin": "ㄉㄠˋ", "radical": "禾", "strokes": 15, "words": "稻穀、水稻、稻香"}, {"char": "穗", "zhuyin": "ㄙㄨㄟˋ", "radical": "禾", "strokes": 17, "words": "稻穗、麥穗、穀穗"}], "c_l8": [{"char": "寄", "zhuyin": "ㄐㄧˋ", "radical": "宀", "strokes": 11, "words": "寄託、寄信、寄居"}, {"char": "居", "zhuyin": "ㄐㄩ", "radical": "尸", "strokes": 8, "words": "居住、故居、居民"}, {"char": "蟹", "zhuyin": "ㄒㄧㄝˋ", "radical": "虫", "strokes": 19, "words": "螃蟹、寄居蟹、蟹黃"}, {"char": "軟", "zhuyin": "ㄖㄨㄢˇ", "radical": "車", "strokes": 11, "words": "柔軟、軟弱、鬆軟"}, {"char": "腹", "zhuyin": "ㄈㄨˋ", "radical": "肉", "strokes": 13, "words": "腹部、捧腹大笑、心腹"}, {"char": "挑", "zhuyin": "ㄊㄧㄠ", "radical": "手", "strokes": 9, "words": "挑選、挑剔、挑撥"}, {"char": "螺", "zhuyin": "ㄌㄨㄛˊ", "radical": "虫", "strokes": 17, "words": "海螺、螺絲、陀螺"}, {"char": "殼", "zhuyin": "ㄎㄜˊ", "radical": "殳", "strokes": 12, "words": "貝殼、外殼、蛋殼"}, {"char": "塑", "zhuyin": "ㄙㄨˋ", "radical": "土", "strokes": 13, "words": "塑膠、雕塑、塑造"}, {"char": "瓶", "zhuyin": "ㄆㄧㄥˊ", "radical": "瓦", "strokes": 11, "words": "瓶子、瓶蓋、花瓶"}, {"char": "粗", "zhuyin": "ㄘㄨ", "radical": "米", "strokes": 11, "words": "粗糙、粗心、粗壯"}, {"char": "糙", "zhuyin": "ㄘㄠ", "radical": "米", "strokes": 17, "words": "粗糙、糙米"}], "c_l9": [{"char": "塱", "zhuyin": "ㄌㄤˇ", "radical": "土", "strokes": 13, "words": "阿塱壹"}, {"char": "壹", "zhuyin": "ㄧ", "radical": "士", "strokes": 12, "words": "阿塱壹、專壹"}, {"char": "礫", "zhuyin": "ㄌㄧˋ", "radical": "石", "strokes": 20, "words": "礫石、砂礫、礫灘"}, {"char": "傍", "zhuyin": "ㄅㄤˋ", "radical": "人", "strokes": 12, "words": "依山傍海、傍晚"}, {"char": "濤", "zhuyin": "ㄊㄠˊ", "radical": "水", "strokes": 17, "words": "波濤、驚濤駭浪、松濤"}, {"char": "峭", "zhuyin": "ㄑㄧㄠˋ", "radical": "山", "strokes": 10, "words": "陡峭、峭壁、險峭"}, {"char": "陡", "zhuyin": "ㄉㄡˇ", "radical": "阜", "strokes": 10, "words": "陡坡、陡峭、陡立"}, {"char": "營", "zhuyin": "ㄧㄥˊ", "radical": "火", "strokes": 17, "words": "步步為營、露營、營地"}, {"char": "踏", "zhuyin": "ㄊㄚˋ", "radical": "足", "strokes": 15, "words": "腳踏實地、踏青、踐踏"}, {"char": "痕", "zhuyin": "ㄏㄣˊ", "radical": "疒", "strokes": 11, "words": "痕跡、傷痕、淚痕"}], "c_l10": [{"char": "秋", "zhuyin": "ㄑㄧㄡ", "radical": "禾", "strokes": 9, "words": "秋千、秋天、秋風"}, {"char": "千", "zhuyin": "ㄑㄧㄢ", "radical": "十", "strokes": 3, "words": "秋千、千里、千挑萬選"}, {"char": "婚", "zhuyin": "ㄏㄨㄣ", "radical": "女", "strokes": 11, "words": "婚禮、婚姻、求婚"}, {"char": "禮", "zhuyin": "ㄌㄧˇ", "radical": "示", "strokes": 18, "words": "禮貌、禮物、婚禮"}, {"char": "儀", "zhuyin": "ㄧˊ", "radical": "人", "strokes": 15, "words": "儀式、威儀、儀表"}, {"char": "冠", "zhuyin": "ㄍㄨㄢ", "radical": "冖", "strokes": 9, "words": "頭冠、皇冠、王冠"}, {"char": "榮", "zhuyin": "ㄖㄨㄥˊ", "radical": "木", "strokes": 14, "words": "榮譽、光榮、繁榮"}, {"char": "挺", "zhuyin": "ㄊㄧㄥˇ", "radical": "手", "strokes": 10, "words": "挺拔、堅挺、挺立"}, {"char": "騰", "zhuyin": "ㄊㄥˊ", "radical": "馬", "strokes": 20, "words": "圖騰、奔騰、歡騰"}, {"char": "嘹", "zhuyin": "ㄌㄧㄠˊ", "radical": "口", "strokes": 15, "words": "嘹亮、音韻"}, {"char": "牽", "zhuyin": "ㄑㄧㄢ", "radical": "牛", "strokes": 11, "words": "牽手、牽引、牽掛"}], "c_l11": [{"char": "叮", "zhuyin": "ㄉㄧㄥ", "radical": "口", "strokes": 5, "words": "叮嚀、叮囑"}, {"char": "嚀", "zhuyin": "ㄋㄧㄥˊ", "radical": "口", "strokes": 17, "words": "叮嚀"}, {"char": "違", "zhuyin": "ㄨㄟˊ", "radical": "辵", "strokes": 13, "words": "違規、違背、違反"}, {"char": "規", "zhuyin": "ㄍㄨㄟ", "radical": "見", "strokes": 11, "words": "規定、規則、常規"}, {"char": "駛", "zhuyin": "ㄕˇ", "radical": "馬", "strokes": 15, "words": "駕駛、行駛、開駛"}, {"char": "謹", "zhuyin": "ㄐㄧㄣˇ", "radical": "言", "strokes": 18, "words": "謹慎、謹記、嚴謹"}, {"char": "慎", "zhuyin": "ㄕㄣˋ", "radical": "心", "strokes": 13, "words": "慎重、審慎、謹慎"}, {"char": "意", "zhuyin": "ㄧˋ", "radical": "心", "strokes": 13, "words": "意外、注意、意見"}, {"char": "守", "zhuyin": "ㄕㄡˇ", "radical": "宀", "strokes": 6, "words": "遵守、看守、守護"}], "c_l12": [{"char": "團", "zhuyin": "ㄊㄨㄢˊ", "radical": "囗", "strokes": 14, "words": "團員、團結、團隊"}, {"char": "諧", "zhuyin": "ㄒㄧㄝˊ", "radical": "言", "strokes": 16, "words": "和諧、和諧動聽"}, {"char": "獨", "zhuyin": "ㄉㄨˊ", "radical": "犬", "strokes": 16, "words": "獨特、獨一無二、獨立"}, {"char": "協", "zhuyin": "ㄒㄧㄝˊ", "radical": "十", "strokes": 8, "words": "協調、同心協力、協助"}, {"char": "奏", "zhuyin": "ㄗㄡˋ", "radical": "大", "strokes": 9, "words": "演奏、伴奏、前奏"}, {"char": "融", "zhuyin": "ㄖㄨㄥˊ", "radical": "虫", "strokes": 16, "words": "融合、融洽、融化"}, {"char": "互", "zhuyin": "ㄏㄨˋ", "radical": "二", "strokes": 4, "words": "互相、互助、互補"}, {"char": "容", "zhuyin": "ㄖㄨㄥˊ", "radical": "宀", "strokes": 10, "words": "包容、寬容、容量"}]};
-const CHINESE_SENTENCES = {"c_l7": [{"blocks": ["我們", "站在山坡上", "欣賞", "風景。"], "target": "我們站在山坡上欣賞風景。"}, {"blocks": ["微風", "輕輕吹過", "金黃色的", "稻田。"], "target": "微風輕輕吹過金黃色的稻田。"}, {"blocks": ["空氣中", "瀰漫著", "泥土與花草的", "芳香。"], "target": "空氣中瀰漫著泥土與花草的芳香。"}, {"blocks": ["風兒", "為大地", "捎來了遠方的", "甜美氣息。"], "target": "風兒為大地捎來了遠方的甜美氣息。"}], "c_l8": [{"blocks": ["小寄居蟹", "在沙灘上", "努力尋找", "合適的新家。"], "target": "小寄居蟹在沙灘上努力尋找合適的新家。"}, {"blocks": ["請把美麗的貝殼", "留在海邊，", "留給寄居蟹", "當作房子。"], "target": "請把美麗的貝殼留在海邊，留給寄居蟹當作房子。"}, {"blocks": ["遊客隨手", "丟棄的垃圾，", "嚴重破壞了", "海洋的生態環境。"], "target": "遊客隨手丟棄的垃圾，嚴重破壞了海洋的生態環境。"}, {"blocks": ["柔軟的腹部", "需要堅硬的螺殼", "好好保護，", "才能防禦敵人。"], "target": "柔軟的腹部需要堅硬的螺殼好好保護，才能防禦敵人。"}], "c_l9": [{"blocks": ["阿塱壹古道", "依山傍海，", "風景", "非常雄偉壯麗。"], "target": "阿塱壹古道依山傍海，風景非常雄偉壯麗。"}, {"blocks": ["圓滾滾的石頭", "在海浪拍打下", "唱著", "動聽的歌。"], "target": "圓滾滾的石頭在海浪拍打下唱著動聽的歌。"}, {"blocks": ["走在險峻的山路上，", "每一步", "都要小心謹慎", "步步為營。"], "target": "走在險峻的山路上，每一步都要小心謹慎步步為營。"}, {"blocks": ["旭海觀音鼻保留區", "嚴格管制人數，", "守護了瀕臨絕種的", "珍貴動植物。"], "target": "旭海觀音鼻保留區嚴格管制人數，守護了瀕臨絕種的珍貴動植物。"}], "c_l10": [{"blocks": ["新娘", "站在高聳的竹木秋千上", "迎風盪得", "高高的。"], "target": "新娘站在高聳的竹木秋千上迎風盪得高高的。"}, {"blocks": ["部落族人", "手牽著手", "圍成圓圈", "跳著傳統舞蹈。"], "target": "部落族人手牽著手圍成圓圈跳著傳統舞蹈。"}, {"blocks": ["美麗純潔的百合花，", "是族人心中", "最高榮譽的", "文化象徵。"], "target": "美麗純潔的百合花，是族人心中最高榮譽的文化象徵。"}, {"blocks": ["新郎", "在秋千停穩時，", "深情揹起新娘", "接受長老的祝福。"], "target": "新郎在秋千停穩時，深情揹起新娘接受長老的祝福。"}], "c_l11": [{"blocks": ["出門前，", "家人總會", "溫柔叮嚀我", "一句一路平安。"], "target": "出門前，家人總會溫柔叮嚀我一句一路平安。"}, {"blocks": ["遵守交通號誌與規則，", "大家才能", "快快樂樂出門，", "平平安安回家。"], "target": "遵守交通號誌與規則，大家才能快快樂樂出門，平平安安回家。"}, {"blocks": ["得知孩子平安抵達，", "父母終於", "放下了心中的", "大石頭。"], "target": "得知孩子平安抵達，父母終於放下了心中的大石頭。"}, {"blocks": ["生命安全", "比什麼都重要，", "千萬不能貪快", "搶黃燈違規。"], "target": "生命安全比什麼都重要，千萬不能貪快搶黃燈違規。"}], "c_l12": [{"blocks": ["只要大家", "同心協力，", "就沒有", "克服不了的難關。"], "target": "只要大家同心協力，就沒有克服不了的難關。"}, {"blocks": ["每個人", "都是世界上", "獨一無二且尊貴的", "個體。"], "target": "每個人都是世界上獨一無二且尊貴的個體。"}, {"blocks": ["不同的樂器和聲部，", "融合成", "最美妙和諧的", "動人樂章。"], "target": "不同的樂器和聲部，融合成最美妙和諧的動人樂章。"}, {"blocks": ["欣賞別人的優點，", "包容彼此的不同，", "是團隊合作", "成功的祕訣。"], "target": "欣賞別人的優點，包容彼此的不同，是團隊合作成功的祕訣。"}]};
-const CHINESE_IDIOMS = {"c_l7": [{"q": "老師問誰想去郊遊，全班 _?_ 地說：「我！」", "options": ["異口同聲", "自言自語", "東張西望"], "ans": 0, "exp": "「異口同聲」指眾人說出完全相同的話，意見完全一致。"}, {"q": "剛出爐的烤麵包散發出濃郁香味，令人 _?_。", "options": ["垂涎三尺", "撲鼻而來", "食不下嚥"], "ans": 0, "exp": "「垂涎三尺」形容極其渴望享用美味食物。"}, {"q": "站在高山頂端眺望金黃色稻田，令人感到 _?_。", "options": ["心曠神怡", "心驚肉跳", "心不在焉"], "ans": 0, "exp": "「心曠神怡」形容置身開闊自然，精神極度舒暢愉快。"}], "c_l8": [{"q": "沙灘上散落著 _?_ 的貝殼與美麗小石頭。", "options": ["形形色色", "一成不變", "寥寥無幾"], "ans": 0, "exp": "「形形色色」形容種類多樣、樣態各不相同。"}, {"q": "小明找不到心愛的作業本，急得像 _?_ 直跳腳。", "options": ["熱鍋上的螞蟻", "井底之蛙", "亡羊補牢"], "ans": 0, "exp": "「熱鍋上的螞蟻」比喻處境焦急恐慌、束手無策。"}, {"q": "這隻小寄居蟹終於換到新螺殼，_?_ 地爬回海裡。", "options": ["滿心歡喜", "怒氣衝衝", "垂頭喪氣"], "ans": 0, "exp": "「滿心歡喜」形容內心充滿了喜悅高興。"}], "c_l9": [{"q": "這座海濱古道 _?_，一邊是巍峨高山，一邊是浩瀚汪洋。", "options": ["依山傍海", "跋山涉水", "水土不服"], "ans": 0, "exp": "「依山傍海」形容地理景觀同時緊鄰山嶺與壯麗海洋。"}, {"q": "走在陡峭險峻的懸崖邊，登山隊員無不小心翼翼、_?_。", "options": ["步步為營", "大步流星", "漫不經心"], "ans": 0, "exp": "「步步為營」比喻行動每一步都極其謹慎防範危險。"}, {"q": "站在觀景台遠眺，海面與晴空連成一線，真是 _?_ 的奇景。", "options": ["海天一色", "井底之蛙", "草木皆兵"], "ans": 0, "exp": "「海天一色」形容大海與天空顏色融合無際的浩瀚美景。"}], "c_l10": [{"q": "婚禮慶典上大家牽手歌唱，嘹亮的歌聲 _?_。", "options": ["響徹雲霄", "竊竊私語", "無聲無息"], "ans": 0, "exp": "「響徹雲霄」形容聲音宏大高昂，直透天空深處。"}, {"q": "部落長老為新人舉辦了一場 _?_ 的傳統文化慶典。", "options": ["別開生面", "千篇一律", "粗製濫造"], "ans": 0, "exp": "「別開生面」比喻另闢新格局、形式風格獨特別致。"}, {"q": "全村族人盛裝出席，圍著營火 _?_，熱鬧極了。", "options": ["載歌載舞", "啞口無言", "各自為政"], "ans": 0, "exp": "「載歌載舞」形容人們邊唱歌邊跳舞、歡慶至極的情狀。"}], "c_l11": [{"q": "聽到家人順利下飛機報平安的電話，媽媽終於 _?_。", "options": ["放下心中的大石頭", "火上加油", "雪上加霜"], "ans": 0, "exp": "「放下心中的大石頭」形容焦慮牽掛完全消除，心情重歸安適。"}, {"q": "雨天路面濕滑，開車的駕駛人必須 _?_、減速慢行。", "options": ["小心翼翼", "大搖大擺", "盲人摸象"], "ans": 0, "exp": "「小心翼翼」形容極度謹慎小心、絲毫不敢疏忽大意。"}, {"q": "遵守交通規則，大家才能快樂出門、_?_。", "options": ["一路平安", "半途而廢", "危機四伏"], "ans": 0, "exp": "「一路平安」祝願出門在外旅途順遂安好。"}], "c_l12": [{"q": "這項任務非常艱鉅，必須全班同學 _?_ 才能順利達成。", "options": ["同心協力", "各奔前程", "自私自利"], "ans": 0, "exp": "「同心協力」形容齊聚心力、共同為同一目標打拼努力。"}, {"q": "運動會進場時，同學們的步伐踏得 _?_，贏得滿堂喝采。", "options": ["整齊劃一", "參差不齊", "凌亂不堪"], "ans": 0, "exp": "「整齊劃一」形容團隊步伐或動作極其齊整協調。"}, {"q": "天生我材必有用，每個人都是世界上 _?_ 的寶貝。", "options": ["獨一無二", "隨處可見", "微不足道"], "ans": 0, "exp": "「獨一無二」指極其特別尊貴，世上絕無僅有。"}]};
-const CHINESE_METAPHORS = {"c_l7": [{"q": "「稻穗隨風起伏，像一片金色的大海。」在這句譬喻句中，作者把「稻穗起伏的樣子」比喻成什麼？", "options": ["金色的大海", "奔馳的火車", "蔚藍的天空", "金黃色的落葉"], "ans": 0, "exp": "譬喻分析：本句中的「喻體」是起伏的稻穗，「喻詞」是「像」，「喻依」是「金色的大海」。"}, {"q": "下列哪一個句子使用了標準的「譬喻修辭法」？", "options": ["太陽像一顆巨大發光的大火球", "微風伸出溫柔的手撫摸大地", "小鳥在枝頭快樂地唱歌", "大雨嘩啦嘩啦地下著"], "ans": 0, "exp": "「太陽像一顆大火球」用了喻詞「像」，是標準譬喻修辭；其餘選項分別為擬人與摹聲修辭。"}, {"q": "「白雲是一群溫柔的小綿羊，在藍天草原上漫步。」這句話使用了哪一種形式的譬喻（暗喻）？", "options": ["譬喻修辭（用「是」連結比喻）", "擬人修辭", "設問修辭", "誇飾修辭"], "ans": 0, "exp": "暗喻形式：用「是」或「成了」代替「好像」，本句將白雲比喻為小綿羊，屬於譬喻法。"}], "c_l8": [{"q": "「找不到新家的小寄居蟹，急得像熱鍋上的螞蟻。」這句話把「著急的寄居蟹」比喻成什麼？", "options": ["熱鍋上的螞蟻", "堅硬的石頭", "大海裡的鯊魚", "沙灘上的漂流木"], "ans": 0, "exp": "句中以「熱鍋上的螞蟻」生動比喻寄居蟹焦急不安的心情。"}, {"q": "下列文句中，哪一句「不是」譬喻句？", "options": ["小華長得真像他的哥哥", "露珠宛如一顆顆晶瑩剔透的珍珠", "月亮好比一艘彎彎的小船", "平靜的湖水像一面大鏡子"], "ans": 0, "exp": "「長得像哥哥」只是單純人物長相相似的比較陳述，兩者本質相同，不是修辭學上的譬喻法！"}], "c_l9": [{"q": "「浪花拍打岩石激起的白色泡沫，宛如漫天飛舞的雪花。」句中的「喻詞」是哪一個詞？", "options": ["宛如", "浪花", "岩石", "雪花"], "ans": 0, "exp": "常用的喻詞有：像、好像、宛如、宛若、彷彿、好比。本句用「宛如」連接浪花與雪花。"}, {"q": "「圓滾滾的南田石像一顆顆發光的大珍珠。」這句話強調了南田石的什麼特點？", "options": ["圓潤光滑且富有光澤的外觀", "非常沉重拿不起來", "溫度冰冷像冰塊", "很容易被踩碎"], "ans": 0, "exp": "作者借珍珠圓潤光亮的特質，生動描寫被海水長期沖刷打磨的南田石。"}], "c_l10": [{"q": "「高架秋千上的新娘隨風擺盪，宛如一隻翩翩起舞的美麗彩蝶。」這句話使用了哪種修辭？", "options": ["譬喻修辭", "排比修辭", "映襯修辭", "設問修辭"], "ans": 0, "exp": "以翩翩起舞的彩蝶比喻高空盪鞦韆的新娘，兼具動態美感，為典型譬喻。"}], "c_l11": [{"q": "「媽媽的溫柔話語，宛如冬日裡的暖陽。」這句譬喻傳達了什麼樣的感受？", "options": ["親情的溫暖與安心關懷", "天氣非常炎熱乾燥", "肚子非常飢餓", "出門上班很著急"], "ans": 0, "exp": "以「冬日暖陽」比喻母親溫柔話語帶給孩子內心的溫暖踏實。"}], "c_l12": [{"q": "「演出成功後，全場爆發出如雷鳴般的熱烈掌聲。」這句話中的譬喻本體是：", "options": ["全場觀眾的熱烈掌聲", "天空中真正的大雷雨", "舞台上的燈光", "演員的服裝"], "ans": 0, "exp": "以打雷的轟鳴巨響比喻掌聲的熱烈與響亮。"}]};
-const CHINESE_SENTENCE_UNDERSTANDING = {"c_l7": [{"q": "「雖然風是摸不著也抓不住的，但是只要我們用心感受，就能在大自然中發現它留下的芳香痕跡。」這句話主要想表達什麼主旨？", "options": ["用心體會周遭環境，生活處處充滿美好發現", "風非常危險，出門要特別小心", "風只有在晴天才能被聞到", "空氣污染非常嚴重"], "ans": 0, "exp": "文章強調以開放豐富的感官與細膩心靈去感受大自然的存在。"}, {"q": "「走過田埂，空氣中瀰漫著濃濃的稻穗甜香。」句中「瀰漫」一詞說明了什麼情況？", "options": ["整片田野的空間都充滿了稻香", "只有鼻子湊在稻穀前才聞得到", "稻田已經枯萎乾涸", "風把氣味全部吹跑了"], "ans": 0, "exp": "「瀰漫」指氣體、氣味或煙霧充盈分佈於整個空間。"}], "c_l8": [{"q": "「小寄居蟹背著破舊鋒利的塑膠瓶蓋，在沙石上艱難地爬行著。」這句話背後深層的寫作目的為何？", "options": ["喚起讀者重視海洋垃圾污染與自然保育的迫切性", "稱讚寄居蟹很聰明會利用廢物", "介紹瓶蓋的材質比貝殼輕便", "描寫沙灘上的石頭很堅硬"], "ans": 0, "exp": "透過寄居蟹被迫以人造垃圾為家的殘酷現實，喚醒大眾愛護海洋、不亂丟垃圾的環保意識。"}, {"q": "「請留下你的足跡，帶走你的垃圾，把貝殼留給大海的子民。」這句話所說的「大海的子民」指的是誰？", "options": ["寄居蟹等依賴貝殼棲息的海洋生物", "在海邊巡邏的救生員", "到海邊玩水度假的遊客", "出海捕魚的漁民"], "ans": 0, "exp": "代稱海洋裡的野生生物，強調貝殼是寄居蟹賴以維生的天然房屋。"}], "c_l9": [{"q": "「走在阿塱壹古道上，領隊老師叮嚀大家要『步步為營』。」句中「步步為營」在情境中最合適的解釋是：", "options": ["每一步都要踩穩踏實、小心謹慎防止滑倒摔傷", "每走一步就要在旁邊搭一頂帳篷", "跑步比賽看誰先衝到山頂", "坐在地上休息不要前進"], "ans": 0, "exp": "登山安全用語：形容原始陡坡與礫石路面行走時格外戒備審慎。"}, {"q": "「南田石經過千百萬年浪濤的反覆沖刷，身上的菱角都磨成了圓潤的曲線。」這句話告訴我們什麼道理？", "options": ["長時間的歷練與環境磨礪能造就成熟溫潤的品質", "石頭在水裡泡太久會融化消失", "海浪的力量只能打碎石頭", "南田石原本就是人工做成的圓球"], "ans": 0, "exp": "藉物喻理：自然風化磨礪比喻時間與歷練帶來的沉澱蛻變。"}], "c_l10": [{"q": "「在魯凱族的傳統規範中，只有品德純潔高尚的女子與英勇的部落獵人，才有資格佩戴聖潔的百合花。」這段文字強調了百合花的什麼特點？", "options": ["百合花象徵著神聖崇高的榮譽與道德認可", "百合花在市場上價錢非常昂貴", "百合花摘下來很容易枯萎", "只有長老才能種植百合花"], "ans": 0, "exp": "百合花在原住民族文化中是崇高的精神圖騰，代表嚴謹的社會德行與榮耀肯定。"}], "c_l11": [{"q": "「平安是回家唯一的路。」這句日常交通安全名句最核心的深意是：", "options": ["沒有任何事情比珍惜生命、平安健康回家更重要", "回家的巷子只有單行道一條", "不能搭乘大眾交通工具", "走路回家必須全程跑步才能避免危險"], "ans": 0, "exp": "點出交通安全的本質在於珍惜生命，平平安安就是對家人最大的承諾。"}], "c_l12": [{"q": "「合唱團裡有高亢清脆的高音，也有厚重沉穩的低音，正是因為彼此傾聽融合，才激盪出令人動容的和諧旋律。」這句話的主要寓意是：", "options": ["團隊中不同才能特長的人互相補位配合，能創造最佳成果", "每個人都應該爭搶當主唱展現自己", "只要找聲音最大的人唱歌就可以", "樂團只需要一種樂器就夠了"], "ans": 0, "exp": "團隊合作核心：接納差異、傾聽互補、共同成就和諧大局。"}]};
-const CHINESE_READINGS = {"c_l7": [{"passageTitle": "【閱讀素養題組】：尋找大自然的風鈴", "passage": "清晨，晨曦穿透薄霧灑在綠油油的稻浪上。小宇跟著外公漫步在鄉間田埂旁，迎面吹來一陣陣帶著微甜稻香的涼風。外公笑著問：「小宇，你有聽見大自然的風鈴在響嗎？」小宇閉上眼睛，靜靜聆聽。果然，微風拂過結實纍纍的稻穗，發出沙沙沙的輕柔細語；樹梢上的麻雀也跟著輕快啼鳴，宛如一場熱鬧的大自然交響樂。這時，小宇深吸了一口氣，空氣中除了稻香，還夾雜著泥土經朝露潤澤後的芬芳芬多精。原來，只要放下匆忙的腳步、打開心靈的窗戶，摸不著的風也能帶來最動人的詩篇。", "questions": [{"q": "文章中，外公所說的「大自然的風鈴聲」實際上是指什麼聲音？", "options": ["微風吹過稻穗時發出的沙沙細語聲與鳥鳴", "真正的金屬金屬門鈴聲", "遠處工廠火車發出的汽笛聲", "大雨打在鐵皮屋上的轟隆聲"], "ans": 0, "exp": "從文章中「微風拂過結實纍纍的稻穗，發出沙沙沙的輕柔細語」可明確得知。"}, {"q": "小宇透過閉上眼睛與深呼吸，主要運用了哪兩種感官來體會大自然的美好？", "options": ["聽覺與嗅覺", "視覺與觸覺", "味覺與視覺", "只有嗅覺"], "ans": 0, "exp": "小宇「靜靜聆聽（聽覺）」風鈴鳥鳴，並「深吸一口氣聞到稻香與泥土芳香（嗅覺）」。"}, {"q": "讀完這篇短文，作者最想要告訴讀者的核心啟示是什麼？", "options": ["放慢腳步用心體會，就能在大自然中獲得豐盛的心靈感動", "稻穗成熟時必須趕快採收防麻雀偷吃", "清晨的鄉下非常危險不要隨便散步", "金黃色的稻米煮成飯最美味"], "ans": 0, "exp": "文章末段點出主旨：放慢腳步、打開心靈窗戶，就能感受生活周遭的大自然美好。"}]}], "c_l8": [{"passageTitle": "【閱讀素養題組】：海灘上的小房客", "passage": "夏天熱鬧的墾丁海灘上，遊客們享受著陽光與浪花。在岩石縫隙中，一隻小寄居蟹正急促地爬行著。牠原本居住的螺殼因為身體長大而顯得緊繃侷促，柔軟的腹部甚至露在殼外，隨時有被天敵海鳥啄食的危險。然而，牠在炙熱的沙灘上找了大半天，卻一顆天然海螺殼也找不到，因為美麗的貝殼早已被來往的遊客拾撿一空。最後，小寄居蟹只能無奈地鑽進一個破碎的黃色塑膠瓶蓋裡。瓶蓋邊緣銳利，不但無法隔絕烈日高溫，還不時刮傷牠幼嫩的腹部。海風吹拂著沙灘，似乎也在為這隻找不到真正家園的小生物嘆息。", "questions": [{"q": "小寄居蟹為什麼必須在沙灘上急切尋找新螺殼？", "options": ["因為身體長大原本螺殼太小，柔軟腹部露在外面有生存危險", "因為舊外殼顏色不好看想換新衣服", "因為牠想把貝殼拿去市場賣錢", "為了儲存過冬的食物"], "ans": 0, "exp": "文章第二句提及：原本螺殼因長大而緊繃侷促，腹部外露面臨被天敵啄食的威脅。"}, {"q": "沙灘上的寄居蟹之所以「無殼可換」，根本原因是什麼？", "options": ["遊客過度撿拾沙灘上的貝殼帶回家", "海浪把貝殼全部溶化成海水", "海鳥把所有的螺殼全部吃光了", "寄居蟹不喜歡天然的螺殼"], "ans": 0, "exp": "文章明確指出：「因為美麗的貝殼早已被來往的遊客拾撿一空」。"}, {"q": "這篇文章帶給我們最重要的環境保育行動省思是：", "options": ["到海邊旅遊時，帶走垃圾、留下貝殼，讓自然資源回歸生態", "把海邊的寄居蟹全部抓回家養在玻璃箱中", "在沙灘上丟棄更多塑膠瓶蓋幫助寄居蟹蓋房子", "禁止所有人靠近大海"], "ans": 0, "exp": "愛護海洋生態的核心原則是留下自然之物、帶走人造垃圾，守護生物棲地。"}]}], "c_l9": [{"passageTitle": "【閱讀素養題組】：走進千古傳唱的阿塱壹", "passage": "阿塱壹古道橫跨屏東牡丹旭海與台東達仁南田之間，是台灣少數未開闢環島公路的原始海岸秘境。走在圓潤光滑的南田石礫灘上，耳邊不斷傳來陣陣清脆的「唰啦、唰啦」聲響，那是潮水拍岸退去時，成千上萬顆南田石相互滾動撞擊合奏出的自然樂章。沿途山海交錯、懸崖峭壁高聳入雲，登山者必須抓緊繩索攀爬高繞，每一步都踏穩踩實，展現對大自然的敬畏。如今，這裡劃設為旭海觀音鼻自然保留區，每天實施入山總量管制，讓綠蠵龜、椰子蟹與珍貴海岸植被得以在不受干擾的淨土中世代繁衍。", "questions": [{"q": "阿塱壹海岸上著名的「唰啦、唰啦」美妙樂章是怎麼產生的？", "options": ["潮水拍岸退去時捲動南田石互相碰撞滾動發出的聲響", "遊客拿石頭丟向大海的聲音", "高鐵列車通過海邊鐵軌的呼嘯聲", "海風吹動大片樹林的沙沙聲"], "ans": 0, "exp": "文中指出：成千上萬顆南田石在潮水退去時相互滾動撞擊合奏出的自然樂章。"}, {"q": "為了保護阿塱壹的珍貴生態環境，政府實施了什麼管理措施？", "options": ["劃設自然保留區，實施每日預約總量管制與專業解說員引導", "全面開放遊覽車進駐興建大型遊樂區", "鋪設四線道高速公路貫穿海岸", "禁止所有人類得知這個地方的存在"], "ans": 0, "exp": "末段明確說明：劃設旭海觀音鼻保留區並實施嚴格總量管制。"}]}], "c_l10": [{"passageTitle": "【閱讀素養題組】：高聳秋千上的神聖祝福", "passage": "在魯凱族陽光普照的部落廣場中央，族人合力用四根高大挺拔的巨木搭建起雄偉的傳統秋千。今天是一年一度的部落慶典婚禮，美麗的新娘身穿手工細緻、繡滿百步蛇圖騰的傳統禮服，頭戴象徵純潔品德的聖潔百合花冠。在全族長老悠揚的祈福歌聲中，新娘緩緩站上秋千踏板，族人奮力拉動藤索，秋千如彩蝶展翅般迎風向著藍天高高盪起。當秋千逐漸停穩時，英勇的新郎健步上前，穩穩抱下新娘並親自將她揹在寬厚背上。這一刻，不僅代表兩位新人誓約相守一生，更象徵著新郎對新娘全族家庭許下永不背棄的責任與承諾。", "questions": [{"q": "婚禮中新娘頭戴的「百合花冠」，在部落文化中象徵著什麼意義？", "options": ["女子高貴堅貞與純潔無瑕的美好品德", "家裡擁有豐厚的金錢財富", "比賽看誰採集的花朵最鮮豔", "慶祝當天放晴沒有下雨"], "ans": 0, "exp": "第二句明示：頭戴象徵純潔品德的聖潔百合花冠。"}, {"q": "秋千盪完後，新郎做出「抱下新娘並親自揹在背上」的動作象徵著什麼？", "options": ["承擔照料家庭責任、共度一生的堅定承諾", "測試新郎的力氣有多大", "要揹著新娘賽跑拿第一名", "模仿外國婚禮的表演動作"], "ans": 0, "exp": "文末總結：象徵新郎承擔責任、共度一生的鄭重許諾。"}]}], "c_l11": [{"passageTitle": "【閱讀素養題組】：最溫暖的護身符", "passage": "每當早晨背起書包準備跨出家門時，玄關總會傳來媽媽熟悉的聲音：「路上走路要看車，一路平安喔！」小時候，小敏總覺得這句話就像時鐘嘀嗒聲一樣平常嘮叨。直到某天下大雨放學，校門口車水馬龍、雨傘遮蔽了視線，小敏看見一輛轉彎機車差點擦撞到一位只顧低頭看手機的同學。那驚險的一幕讓小敏瞬間想起出門前媽媽的叮嚀。她連忙收斂心神，嚴格遵守交通號誌與停看聽規則，安全地踏進溫暖的家門。看見媽媽迎上前接過濕雨傘的那一刻，小敏才深深體會到，看似平常的一句「一路平安」，正是世界上最深厚、最靈驗的愛之護身符。", "questions": [{"q": "小敏經歷了雨天校門口的驚險事件後，對媽媽的叮嚀有了什麼心態轉變？", "options": ["體會到叮嚀背後深切的關愛，並養成防禦與遵守交通的好習慣", "覺得媽媽越來越愛嘮叨", "決定以後下雨天都不去學校上課", "認為出門走路可以隨便邊走邊滑手機"], "ans": 0, "exp": "經歷危險後，小敏領悟「一路平安」蘊含無私親情，並落實遵守號誌與安全。"}, {"q": "為什麼作者在文章最後將「一路平安」形容為「最靈驗的護身符」？", "options": ["因為它時刻提醒我們警惕危險、珍惜生命，保護我們平安回家", "因為這句話可以像魔法一樣把車子變不見", "因為只要講這句話就不需要戴安全帽", "因為這是一張可以用錢買到的平安符紙"], "ans": 0, "exp": "深層寓意：母親的叮嚀化為心中的警惕指引，時刻守護孩子平安歸來。"}]}], "c_l12": [{"passageTitle": "【閱讀素養題組】：奇妙的交響森林", "passage": "在森林音樂會上，動物合唱團正在加緊排練期末大曲。小松鼠嗓音高亢尖銳，常常被嫌太刺耳；老黑熊嗓門低沉沙啞，常常被抱怨太笨重。一開始，團員們互相抱怨指責，練習氣氛非常糟糕。直到貓頭鷹指揮老師敲了敲指揮棒說：「孩子們，世界上沒有完全相同的樹葉。音樂之所以動聽，正因為有高音的明亮，也有低音的渾厚。如果大家都唱得一模一樣，那該有多單調無聊！」大家聽了若有所思。接下來的練習中，松鼠學會在高音處收斂音量、展現靈巧；黑熊則在低音部穩定節奏、提供渾厚支撐。當最後正式演出落幕時，全場響起了長達數分鐘雷鳴般的掌聲與喝采。", "questions": [{"q": "合唱團剛開始排練不順利、氣氛糟糕的主因是什麼？", "options": ["團員們只看見彼此聲音的缺點，互相抱怨排擠", "指揮老師完全不會看樂譜", "大家都不想參加音樂會", "森林突然下起暴風雨把舞台吹垮"], "ans": 0, "exp": "第一段指出：團員互相抱怨指責聲音刺耳或笨重，缺乏包容合作。"}, {"q": "貓頭鷹指揮所說的「世界上沒有完全相同的樹葉」，意思是：", "options": ["每個人都是獨特的個體，擁抱多元差異才能融合成最美成果", "樹葉生病了需要澆水施肥", "合唱團應該改去收集樹葉比賽", "唱歌跟樹葉沒有任何關係"], "ans": 0, "exp": "比喻多元共榮：接納每個人天生的獨特性，透過調和互補展現團結力量。"}]}]};
 
 const LESSON_CATALOG = {
   chinese: [
@@ -1193,7 +1066,10 @@ const LESSON_CATALOG = {
   ],
   english: [
     { id: "all", name: "🔥 英文期末全範圍大挑戰" },
-    { id: "e_spell", name: "🔤 26鍵字母全螢幕動手拼字機" }
+    { id: "e_spell", name: "🔤 26鍵字母全螢幕動手拼字機" },
+    { id: "e_u3", name: "Unit 3: What Are These? (文具單字與單複數)" },
+    { id: "e_u4", name: "Unit 4: What Do You Want? (飲食單字與想要)" },
+    { id: "e_phonics", name: "Phonics: 自然發音母音拼讀 (u / o)" }
   ]
 };
 
@@ -1213,7 +1089,6 @@ let wrongQuestions = [];
 
 function init() {
   switchSubject('chinese');
-  fetchCloudSheet();
 }
 
 function switchSubject(sub) {
@@ -1332,10 +1207,6 @@ function handleChineseLoad(lKey) {
     document.getElementById('statusRow').style.display = 'flex';
     document.getElementById('typeBadge').innerText = "課文生字測驗";
     let pool = STATIC_DATABASE.filter(q => q.subject === 'chinese');
-    if (CLOUD_QUESTIONS.length > 0) {
-      const cloudP = CLOUD_QUESTIONS.filter(q => q.subject.includes("國語"));
-      if (cloudP.length > 0) pool = cloudP;
-    }
     if (currentLesson !== 'all') {
       pool = pool.filter(q => q.lesson === currentLesson);
     }
@@ -1707,10 +1578,6 @@ function handleMathLoad() {
 function handleNatureLoad() {
   document.getElementById('statusRow').style.display = 'flex';
   let pool = STATIC_DATABASE.filter(q => q.subject === 'nature');
-  if (CLOUD_QUESTIONS.length > 0) {
-    const cloudP = CLOUD_QUESTIONS.filter(q => q.subject.includes("自然"));
-    if (cloudP.length > 0) pool = cloudP;
-  }
   if (currentLesson !== 'all') pool = pool.filter(q => q.lesson === currentLesson);
   const shuffled = [...pool].sort(() => Math.random() - 0.5);
   currentQuestions = shuffled.slice(0, Math.min(shuffled.length, 10));
@@ -1996,52 +1863,6 @@ function closeNotebook() {
   document.getElementById('mainPanel').style.display = 'block';
   document.getElementById('lessonBar').style.display = 'flex';
   if (currentSubject === 'chinese') document.getElementById('chineseSubBar').style.display = 'flex';
-}
-
-function fetchCloudSheet() {
-  const syncText = document.getElementById('syncStatusText');
-  const syncBadge = document.getElementById('syncBadge');
-
-  window.googleDocCallback = function(data) {
-    try {
-      const rows = data.table.rows;
-      const parsed = [];
-      rows.forEach(r => {
-        const c = r.c;
-        if (!c || !c[1] || !c[4]) return;
-        const subject = c[1] && c[1].v ? String(c[1].v).trim() : "";
-        const lesson = c[2] && c[2].v ? String(c[2].v).trim() : "";
-        const qType = c[3] && c[3].v ? String(c[3].v).trim() : "單選題";
-        const title = c[4] && c[4].v ? String(c[4].v).trim() : "";
-        const optA = c[5] && c[5].v ? String(c[5].v).trim() : "";
-        const optB = c[6] && c[6].v ? String(c[6].v).trim() : "";
-        const optC = c[7] && c[7].v ? String(c[7].v).trim() : "";
-        const optD = c[8] && c[8].v ? String(c[8].v).trim() : "";
-        const ans = c[9] && c[9].v ? String(c[9].v).trim().toUpperCase() : "A";
-        const explain = c[10] && c[10].v ? String(c[10].v).trim() : "";
-
-        if (title === "題目" && optA.includes("文字選項")) return;
-        if (!title) return;
-
-        parsed.push({ subject, lesson, qType, title, options: [optA, optB, optC, optD].filter(Boolean), ans, explain });
-      });
-
-      if (parsed.length > 0) {
-        CLOUD_QUESTIONS = parsed;
-        syncText.innerText = "✅ 雲端試算表同步成功！已連線載入 " + CLOUD_QUESTIONS.length + " 題外部題庫";
-        syncBadge.className = "badge-status";
-        syncBadge.innerText = "雲端即時連線";
-      } else {
-        syncText.innerText = "💡 系統運行中（內建官方真題與國語島全能引擎）";
-      }
-    } catch (e) {
-      console.warn("解析試算表錯誤：", e);
-    }
-  };
-
-  const script = document.createElement('script');
-  script.src = "https://docs.google.com/spreadsheets/d/" + SPREADSHEET_ID + "/gviz/tq?tqx=responseHandler:googleDocCallback&sheet=" + encodeURIComponent(SHEET_NAME) + "&tq=" + encodeURIComponent('select *');
-  document.body.appendChild(script);
 }
 
 window.onload = init;
