@@ -304,6 +304,21 @@
     background: white; text-align: left; font-size: 16.5px; font-weight: 700; cursor: pointer; color: #1e293b;
   }
   .choice-btn:hover { border-color: var(--primary); background: #eff6ff; }
+  .choice-btn.selected-correct, .idiom-btn.selected-correct {
+    border-color: #10b981 !important;
+    background: #ecfdf5 !important;
+    color: #065f46 !important;
+    font-weight: 900 !important;
+    box-shadow: 0 0 0 2px #6ee7b7 !important;
+  }
+  .choice-btn.selected-wrong, .idiom-btn.selected-wrong {
+    border-color: #ef4444 !important;
+    background: #fef2f2 !important;
+    color: #991b1b !important;
+    font-weight: 900 !important;
+    box-shadow: 0 0 0 2px #fca5a5 !important;
+  }
+
 
   /* ==============================================================
      📜 正統段考試卷長卷模式 (完全對標截圖 13: 咖啡色側邊條、圓角是非、虛線分隔)
@@ -1279,33 +1294,92 @@ function renderStandardQuiz() {
 function checkTF(userChoice) {
   const q = currentQuestions[currentIndex];
   const isCorrect = (userChoice === q.ans);
+
+  const buttons = document.querySelectorAll('.choice-btn');
+  buttons.forEach(btn => {
+    btn.disabled = true;
+    const isBtnO = btn.innerText.includes('⭕') || btn.innerText.includes('正確');
+    const isBtnX = btn.innerText.includes('❌') || btn.innerText.includes('錯誤');
+    if ((isBtnO && q.ans === 'O') || (isBtnX && q.ans === 'X')) {
+      btn.classList.add('selected-correct');
+      btn.innerHTML = "✅ " + btn.innerHTML;
+    } else if (((isBtnO && userChoice === 'O') || (isBtnX && userChoice === 'X')) && !isCorrect) {
+      btn.classList.add('selected-wrong');
+      btn.innerHTML = "❌ " + btn.innerHTML;
+    }
+  });
+
   if (isCorrect) score += 10;
   else recordWrong(q);
-  showOwlFeedback({
-    detail: q.explain || "",
-    trap: "是非題要特別留心「一定」、「絕對」等過於絕對的關鍵字！"
-  }, isCorrect);
-  document.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
+
+  const scoreEl = document.getElementById('scoreText');
+  if (scoreEl) scoreEl.innerText = "得分：" + score;
+
+  showOwlFeedback(q, isCorrect, userChoice);
 }
 
 function onSelectChineseChoice(selectedIdx) {
   const q = currentQuestions[currentIndex];
   const isCorrect = (selectedIdx === q.ans);
-  document.querySelectorAll('.choice-btn, .idiom-btn').forEach(b => b.disabled = true);
+
+  // 立即在按鈕上顯示綠色 (答對) 或紅色 (答錯)
+  const buttons = document.querySelectorAll('.choice-btn, .idiom-btn');
+  buttons.forEach((btn, idx) => {
+    btn.disabled = true;
+    if (idx === q.ans) {
+      btn.classList.add('selected-correct');
+      btn.innerHTML = "✅ " + btn.innerHTML;
+    } else if (idx === selectedIdx && !isCorrect) {
+      btn.classList.add('selected-wrong');
+      btn.innerHTML = "❌ " + btn.innerHTML;
+    }
+  });
+
   if (isCorrect) score += 10;
   else recordWrong(q);
-  showOwlFeedback({
-    detail: q.explain || q.exp || (q.options ? "正確答案是：" + q.options[q.ans] : ""),
-    trap: isCorrect ? "概念掌握十分清晰！" : "注意題目中的關鍵細節與單位換算。"
-  }, isCorrect);
+
+  // 立即更新分數
+  const scoreEl = document.getElementById('scoreText');
+  if (scoreEl) scoreEl.innerText = "得分：" + score;
+
+  showOwlFeedback(q, isCorrect, selectedIdx);
 }
 
-function showOwlFeedback(q, isCorrect) {
+function showOwlFeedback(q, isCorrect, userChoice) {
   const card = document.getElementById('feedbackCard');
   const dText = document.getElementById('fbDetailText');
   const tBox = document.getElementById('fbTrapBox');
-  dText.innerHTML = `📖 <b>詳解：</b>${q.detail || q.explain || ""}`;
-  tBox.innerHTML = `⚠️ <b>小心陷阱：</b>${q.trap || "看清題意條件，避免直覺掉入陷阱！"}`;
+
+  // 明確顯示「⭕ 答對了」或「❌ 答錯了」巨大醒目標籤！
+  let statusBanner = '';
+  if (isCorrect) {
+    statusBanner = `<div style="font-size:20px; font-weight:900; color:#059669; background:#ecfdf5; border:2px solid #6ee7b7; border-radius:14px; padding:12px 18px; margin-bottom:14px; display:flex; align-items:center; gap:10px;">
+      <span style="font-size:26px;">🎉</span> <span>太棒了！回答完全正確！(+10分)</span>
+    </div>`;
+  } else {
+    let wrongText = "";
+    if (q.options && typeof userChoice === 'number') {
+      wrongText = `你選擇了【${['A','B','C','D'][userChoice] || ''}. ${q.options[userChoice] || ''}】`;
+    } else if (userChoice) {
+      wrongText = `你選擇了【${userChoice === 'O' ? '⭕ 正確' : '❌ 錯誤'}】`;
+    }
+    let correctText = "";
+    if (q.options && typeof q.ans === 'number') {
+      correctText = `正確答案是【${['A','B','C','D'][q.ans]}. ${q.options[q.ans]}】`;
+    } else if (q.ans) {
+      correctText = `正確答案是【${q.ans === 'O' ? '⭕ 正確' : '❌ 錯誤'}】`;
+    }
+    statusBanner = `<div style="font-size:18px; font-weight:900; color:#dc2626; background:#fef2f2; border:2px solid #fca5a5; border-radius:14px; padding:12px 18px; margin-bottom:14px;">
+      <div style="margin-bottom:6px;"><span style="font-size:22px;">❌</span> 哎呀答錯了！${wrongText}</div>
+      <div style="font-size:16px; color:#15803d; font-weight:800; background:#f0fdf4; padding:6px 12px; border-radius:8px; border:1px solid #86efac; margin-top:6px;">👉 ${correctText}</div>
+    </div>`;
+  }
+
+  const detailContent = q.detail || q.explain || q.exp || "";
+  const trapContent = q.trap || (isCorrect ? "概念掌握十分清晰！" : "注意題目中的關鍵細節與定義，避免直覺掉入陷阱！");
+
+  dText.innerHTML = statusBanner + `<div style="font-size:16px; line-height:1.6; color:#1e293b; margin-top:8px;">📖 <b>詳解：</b>${detailContent}</div>`;
+  tBox.innerHTML = `⚠️ <b>小心陷阱：</b>${trapContent}`;
   card.style.display = 'block';
   card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
