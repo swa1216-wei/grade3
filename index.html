@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小學三年級英文・星際大冒險與任務學習系統</title>
+    <title>小學三年級英語・星際任務系統 (v6.0 最新完整版)</title>
     <style>
         :root {
             --primary: #38bdf8;
-            --primary-dark: #0284c7;
             --accent: #f59e0b;
             --success: #22c55e;
             --danger: #ef4444;
@@ -32,7 +31,6 @@
             padding: 16px 12px 60px;
         }
 
-        /* 頂部全域桌面版寬版導航列 */
         .desktop-nav-wrap {
             width: 100%;
             max-width: 1100px;
@@ -57,7 +55,6 @@
             font-size: 19px;
             font-weight: 900;
             color: #bae6fd;
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
         }
         .user-status-strip {
             display: flex;
@@ -75,9 +72,7 @@
             align-items: center;
             gap: 6px;
         }
-        .streak-highlight { color: #fde047; border-color: #eab308; box-shadow: 0 0 10px rgba(234, 179, 8, 0.3); }
 
-        /* 主導航分頁 Tab 按鈕 (比照英文任務系統) */
         .mission-tab-bar {
             width: 100%;
             max-width: 1100px;
@@ -96,9 +91,6 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
         .mission-tab:hover { background: #334155; color: #fff; border-color: var(--primary); }
         .mission-tab.active {
@@ -108,7 +100,6 @@
             box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
         }
 
-        /* 視圖主要展示大畫布容器 */
         .workspace-panel {
             width: 100%;
             max-width: 1100px;
@@ -122,22 +113,16 @@
             flex-direction: column;
             overflow: hidden;
         }
-        .workspace-panel.active { display: flex; }
+        .workspace-panel.active { display: flex !important; }
 
-        /* ==================== 1. 航線星圖 (RPG 闖關地圖) ==================== */
         #panel-map {
             background: url('assets/map_bg.jfif') center/cover no-repeat;
             position: relative;
             padding: 24px;
         }
-        .map-overlay-layer { position: absolute; inset: 0; background: rgba(10, 15, 30, 0.4); pointer-events: none; }
-        .map-banner {
-            position: relative;
-            z-index: 5;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .map-banner h2 { font-size: 26px; font-weight: 900; color: #e0f2fe; text-shadow: 0 2px 14px rgba(56, 189, 248, 0.8); }
+        .map-overlay-layer { position: absolute; inset: 0; background: rgba(10, 15, 30, 0.35); pointer-events: none; }
+        .map-banner { position: relative; z-index: 5; text-align: center; margin-bottom: 20px; }
+        .map-banner h2 { font-size: 26px; font-weight: 900; color: #e0f2fe; }
         .map-banner p { font-size: 14px; color: #7dd3fc; margin-top: 4px; }
         
         .stage-grid-pc {
@@ -152,17 +137,15 @@
             background: rgba(15, 23, 42, 0.88);
             border: 2px solid var(--border-ui);
             border-radius: 16px;
-            padding: 16px;
+            padding: 18px 14px;
             display: flex;
             flex-direction: column;
             align-items: center;
             cursor: pointer;
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(8px);
             transition: all 0.25s;
-            position: relative;
         }
         .stage-card-pc:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 8px 24px rgba(56, 189, 248, 0.5); }
-        .stage-card-pc.cleared { border-color: var(--success); background: rgba(6, 78, 59, 0.8); }
         .stage-card-pc.boss { border-color: var(--danger); box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
         .stage-badge-icon {
             width: 64px;
@@ -173,20 +156,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 26px;
+            font-size: 28px;
             margin-bottom: 10px;
         }
-        .stage-card-pc.boss .stage-badge-icon { border-color: var(--danger); width: 72px; height: 72px; font-size: 30px; }
-        .stage-card-pc.cleared .stage-badge-icon { border-color: var(--success); }
+        .stage-card-pc.boss .stage-badge-icon { border-color: var(--danger); width: 72px; height: 72px; font-size: 32px; }
         .stage-name-text { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 4px; }
         .stage-desc-text { font-size: 12px; color: #94a3b8; text-align: center; }
 
-        /* ==================== 2. RPG 戰鬥畫面 ==================== */
-        #panel-battle {
-            background: #090e17;
-            display: none;
-            flex-direction: column;
-        }
         .battle-arena-pc {
             height: 260px;
             background: url('assets/map_bg.jfif') center/cover no-repeat;
@@ -218,25 +194,12 @@
         }
         .fighter-pic-frame.enemy { border-color: var(--danger); border-radius: 20px; width: 110px; height: 110px; }
         .fighter-pic-frame img { width: 100%; height: 100%; object-fit: cover; }
-        .hp-bar-outer {
-            width: 100%;
-            height: 12px;
-            background: #1e293b;
-            border-radius: 6px;
-            overflow: hidden;
-            border: 1px solid #475569;
-        }
-        .hp-bar-inner-hero { height: 100%; background: #06b6d4; transition: width 0.3s; }
-        .hp-bar-inner-enemy { height: 100%; background: var(--success); transition: width 0.3s; }
+        .hp-bar-outer { width: 100%; height: 12px; background: #1e293b; border-radius: 6px; overflow: hidden; border: 1px solid #475569; }
+        .hp-bar-inner-hero { height: 100%; background: #06b6d4; transition: width 0.3s; width: 100%; }
+        .hp-bar-inner-enemy { height: 100%; background: var(--success); transition: width 0.3s; width: 100%; }
         .fighter-meta { font-size: 13px; font-weight: 800; background: rgba(0,0,0,0.7); padding: 4px 10px; border-radius: 12px; }
 
-        .battle-body-pc {
-            flex-grow: 1;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+        .battle-body-pc { flex-grow: 1; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; }
         .q-prompt-box-pc {
             background: var(--card-sub);
             border-left: 6px solid var(--primary);
@@ -259,18 +222,9 @@
             font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s;
         }
-        .btn-audio-pc:hover { background: #475569; border-color: var(--primary); }
 
-        .answers-grid-pc {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
+        .answers-grid-pc { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .btn-ans-pc {
             background: #1e293b;
             color: #fff;
@@ -287,7 +241,6 @@
         .btn-ans-pc.correct { background: #166534 !important; border-color: var(--success) !important; }
         .btn-ans-pc.wrong { background: #991b1b !important; border-color: var(--danger) !important; }
 
-        /* 詳解底卡 (答對/答錯皆有完整中文解說) */
         .explanation-pc-card {
             display: none;
             background: var(--card-sub);
@@ -295,11 +248,7 @@
             border-radius: 14px;
             padding: 18px 22px;
             margin-top: 14px;
-            animation: fadeIn 0.25s ease-out;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .exp-head-pc { font-size: 17px; font-weight: 900; margin-bottom: 6px; }
-        .exp-body-pc { font-size: 15px; color: #cbd5e1; line-height: 1.6; margin-bottom: 14px; }
         .btn-next-pc {
             background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
             color: #fff;
@@ -311,7 +260,6 @@
             cursor: pointer;
         }
 
-        /* ==================== 3. 單字閃卡 (Flashcards) ==================== */
         #panel-flashcard { padding: 30px; align-items: center; }
         .flashcard-stage {
             width: 100%;
@@ -324,20 +272,16 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             margin: 20px 0;
-            min-height: 380px;
+            min-height: 360px;
             justify-content: center;
         }
-        .flash-word { font-size: 42px; font-weight: 900; color: #bae6fd; letter-spacing: 1px; margin-bottom: 8px; }
+        .flash-word { font-size: 42px; font-weight: 900; color: #bae6fd; margin-bottom: 8px; }
         .flash-phonics { font-size: 18px; color: #38bdf8; font-weight: bold; margin-bottom: 16px; }
         .flash-meaning { font-size: 26px; font-weight: 800; color: #fde047; margin-bottom: 14px; }
-        .flash-example { font-size: 16px; color: #cbd5e1; background: #1e293b; padding: 12px 18px; border-radius: 12px; margin-top: 10px; }
-        .flash-controls { display: flex; gap: 14px; align-items: center; }
+        .flash-example { font-size: 16px; color: #cbd5e1; background: #1e293b; padding: 12px 18px; border-radius: 12px; }
 
-        /* ==================== 4. 是非測驗 (True / False) ==================== */
-        #panel-tf { padding: 30px; }
-        .tf-head-banner { margin-bottom: 20px; }
+        #panel-tf, #panel-vocab-quiz, #panel-scramble, #panel-cabin, #panel-shop, #panel-defense { padding: 30px; }
         .tf-btn-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
         .btn-tf-pc {
             padding: 28px;
@@ -348,30 +292,10 @@
             background: var(--card-sub);
             color: #fff;
             cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
         }
         .btn-tf-pc.true:hover { border-color: var(--success); background: #064e3b; }
         .btn-tf-pc.false:hover { border-color: var(--danger); background: #450a0a; }
 
-        /* ==================== 5. 單字測驗 (英選中) ==================== */
-        #panel-vocab-quiz { padding: 30px; }
-        .vocab-question-hero {
-            text-align: center;
-            background: var(--card-sub);
-            border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 20px;
-            border: 2px solid var(--border-ui);
-        }
-        .vocab-big-en { font-size: 38px; font-weight: 900; color: #38bdf8; margin-bottom: 10px; }
-        .vocab-options-list { display: flex; flex-direction: column; gap: 12px; }
-
-        /* ==================== 6. 句型重組 (Scramble) ==================== */
-        #panel-scramble { padding: 30px; }
         .scramble-dropzone {
             min-height: 70px;
             background: #0b1120;
@@ -391,8 +315,6 @@
             border-radius: 20px;
             font-size: 18px;
             font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
         }
         .word-bank-pc { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 14px; }
         .word-btn-pc {
@@ -407,8 +329,6 @@
         }
         .word-btn-pc.used { opacity: 0.25; pointer-events: none; }
 
-        /* ==================== 7. 月球小屋 (Cabin) ==================== */
-        #panel-cabin { padding: 30px; }
         .cabin-layout-pc { display: grid; grid-template-columns: 320px 1fr; gap: 24px; }
         .cabin-avatar-card {
             background: var(--card-sub);
@@ -431,43 +351,7 @@
             margin: 16px 0;
         }
         .cabin-avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .cabin-controls-wrap {
-            background: var(--card-sub);
-            border: 2px solid var(--border-ui);
-            border-radius: 20px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .carpet-area-pc {
-            background: rgba(30, 41, 59, 0.7);
-            border: 2px dashed #475569;
-            border-radius: 16px;
-            padding: 16px;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            overflow-x: auto;
-        }
-        .patrol-pet-pc {
-            width: 58px;
-            height: 58px;
-            border-radius: 50%;
-            border: 3px solid var(--primary);
-            background: #fff;
-            overflow: hidden;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            animation: petBounce 2s infinite ease-in-out;
-            flex-shrink: 0;
-        }
-        @keyframes petBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-        .patrol-pet-pc img { width: 100%; height: 100%; object-fit: cover; }
-
-        .aura-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+        .aura-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin: 12px 0; }
         .aura-item {
             height: 42px;
             border-radius: 10px;
@@ -479,13 +363,27 @@
             font-size: 13px;
             font-weight: bold;
         }
-        .aura-item.active { border-color: #fff; box-shadow: 0 0 14px #fff; }
+        .carpet-area-pc {
+            background: rgba(30, 41, 59, 0.7);
+            border: 2px dashed #475569;
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .patrol-pet-pc {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            background: #fff;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .patrol-pet-pc img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* ==================== 8. 補給商店 (Shop) ==================== */
-        #panel-shop { padding: 30px; overflow-y: auto; }
-        .shop-sec-pc { margin-bottom: 26px; }
-        .shop-sec-title { font-size: 18px; font-weight: 800; color: #bae6fd; margin-bottom: 12px; }
-        .shop-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .shop-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
         .shop-item-card {
             background: var(--card-sub);
             border: 1px solid var(--border-ui);
@@ -516,99 +414,99 @@
             font-size: 14px;
             font-weight: 800;
             cursor: pointer;
-            transition: all 0.2s;
         }
-        .btn-buy-pc:hover { filter: brightness(1.1); }
         .btn-buy-pc.active-use { background: #334155; color: #94a3b8; cursor: default; }
-        .btn-buy-pc.owned { background: #0284c7; color: #fff; }
-
-        /* ==================== 9. 單字防禦戰 (Word Defense) ==================== */
-        #panel-defense { padding: 30px; }
-        .defense-canvas-pc {
-            height: 380px;
-            background: #0b1120;
-            border: 2px solid var(--border-ui);
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 20px;
-            margin-bottom: 16px;
-        }
-        .falling-drop-word {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #dc2626;
-            color: #fff;
-            padding: 10px 24px;
-            border-radius: 16px;
-            font-size: 24px;
-            font-weight: 900;
-            box-shadow: 0 0 20px rgba(220, 38, 38, 0.8);
-            transition: top 0.4s linear;
-        }
-        .defense-input-row { display: flex; gap: 12px; }
-        .defense-txt-input {
-            flex-grow: 1;
-            background: var(--card-sub);
-            border: 2px solid #475569;
-            color: #fff;
-            padding: 14px 20px;
-            border-radius: 12px;
-            font-size: 18px;
-            outline: none;
-        }
-        .defense-txt-input:focus { border-color: var(--primary); }
     </style>
 </head>
 <body>
 
-    <!-- 頂部全域桌面版狀態列 -->
     <div class="desktop-nav-wrap">
         <div class="app-brand">
             <span>🚀</span>
-            <span>三年級英語・星際任務學習系統</span>
+            <span>三年級英語・星際任務系統</span>
+            <span style="font-size: 11px; background: #0284c7; padding: 2px 8px; border-radius: 10px; margin-left: 6px;">v6.0 最新完整版</span>
         </div>
         <div class="user-status-strip">
             <div class="status-pill">⭐ 星幣: <span id="val-coins">120</span></div>
-            <div class="status-pill streak-highlight">🔥 連勝: <span id="val-streak">0</span> 題</div>
+            <div class="status-pill" style="color: #fde047;">🔥 連勝: <span id="val-streak">0</span> 題</div>
             <div class="status-pill" id="val-rank">Lv.1 見習者</div>
             <div class="status-pill" id="val-hearts" style="color: #f43f5e;">❤️❤️❤️</div>
         </div>
     </div>
 
-    <!-- 任務選單分頁切換列 (比照英文任務系統) -->
     <div class="mission-tab-bar">
-        <button class="mission-tab active" onclick="navTo('panel-map')">🗺️ 航線星圖 (RPG打怪)</button>
-        <button class="mission-tab" onclick="navTo('panel-vocab-quiz')">📝 單字測驗 (英選中)</button>
-        <button class="mission-tab" onclick="navTo('panel-tf')">⭕❌ 是非觀念題</button>
-        <button class="mission-tab" onclick="navTo('panel-flashcard')">🗂️ 單字閃卡 (含例句與發音)</button>
-        <button class="mission-tab" onclick="navTo('panel-scramble')">🧩 句型重組排列</button>
-        <button class="mission-tab" onclick="navTo('panel-cabin')">🏠 月球小屋 (立繪換裝)</button>
-        <button class="mission-tab" onclick="navTo('panel-shop')">🎒 補給商店 (裝備與寵物)</button>
-        <button class="mission-tab" onclick="navTo('panel-defense')">👾 單字防禦戰</button>
+        <button class="mission-tab active" id="tab-btn-map" onclick="navTo('panel-map')">🗺️ 航線星圖 (RPG打怪)</button>
+        <button class="mission-tab" id="tab-btn-vocab" onclick="navTo('panel-vocab-quiz')">📝 單字測驗 (英選中)</button>
+        <button class="mission-tab" id="tab-btn-tf" onclick="navTo('panel-tf')">⭕❌ 是非觀念題</button>
+        <button class="mission-tab" id="tab-btn-fc" onclick="navTo('panel-flashcard')">🗂️ 單字閃卡 (含例句與發音)</button>
+        <button class="mission-tab" id="tab-btn-scramble" onclick="navTo('panel-scramble')">🧩 句型重組排列</button>
+        <button class="mission-tab" id="tab-btn-cabin" onclick="navTo('panel-cabin')">🏠 月球小屋 (立繪換裝)</button>
+        <button class="mission-tab" id="tab-btn-shop" onclick="navTo('panel-shop')">🎒 補給商店 (裝備與寵物)</button>
+        <button class="mission-tab" id="tab-btn-defense" onclick="navTo('panel-defense')">👾 單字防禦戰</button>
     </div>
 
-    <!-- ==================== 1. 航線星圖 (8 大關卡選關) ==================== -->
+    <!-- 1. 航線星圖 (直接內建 8 大關卡) -->
     <div id="panel-map" class="workspace-panel active">
         <div class="map-overlay-layer"></div>
         <div class="map-banner">
             <h2>星際英文航線・冒險地圖</h2>
-            <p>108 課綱國小三年級核心進度 ｜ 點選各關卡啟動三人小隊 RPG 討伐戰！</p>
+            <p>108 課綱國小三年級核心進度 ｜ 點選下方任一關卡直接進入 RPG 討伐戰！</p>
         </div>
         <div class="stage-grid-pc" id="stage-grid-pc">
-            <!-- 動態注入 8 大關卡卡片 -->
+            <div class="stage-card-pc" onclick="startRPGCombat(0)">
+                <div class="stage-badge-icon">🚀</div>
+                <div class="stage-name-text">Starter</div>
+                <div class="stage-desc-text">字母 A~E 與數字 1~5</div>
+                <div style="font-size: 11px; color: #7dd3fc; margin-top: 8px;">👾 首領: 果凍史萊姆 (HP: 45)</div>
+            </div>
+            <div class="stage-card-pc" onclick="startRPGCombat(1)">
+                <div class="stage-badge-icon">⭐</div>
+                <div class="stage-name-text">Unit 1</div>
+                <div class="stage-desc-text">About Me・自我介紹問答</div>
+                <div style="font-size: 11px; color: #7dd3fc; margin-top: 8px;">👾 首領: 機械飛行蝠 (HP: 55)</div>
+            </div>
+            <div class="stage-card-pc" onclick="startRPGCombat(2)">
+                <div class="stage-badge-icon">🎂</div>
+                <div class="stage-name-text">Unit 2</div>
+                <div class="stage-desc-text">How Old Are You? 年齡問答</div>
+                <div style="font-size: 11px; color: #7dd3fc; margin-top: 8px;">👾 首領: 調皮南瓜怪 (HP: 65)</div>
+            </div>
+            <div class="stage-card-pc boss" onclick="startRPGCombat(3)">
+                <div class="stage-badge-icon">🏆</div>
+                <div class="stage-name-text">期中考</div>
+                <div class="stage-desc-text">🎖️ 巨石守門員・全真真題</div>
+                <div style="font-size: 11px; color: #fca5a5; margin-top: 8px;">👾 首領: 裝甲巨石怪 (HP: 120)</div>
+            </div>
+            <div class="stage-card-pc" onclick="startRPGCombat(4)">
+                <div class="stage-badge-icon">🎒</div>
+                <div class="stage-name-text">Unit 3</div>
+                <div class="stage-desc-text">What's This? 教室文具用品</div>
+                <div style="font-size: 11px; color: #7dd3fc; margin-top: 8px;">👾 首領: 果凍史萊姆・狂暴 (HP: 75)</div>
+            </div>
+            <div class="stage-card-pc" onclick="startRPGCombat(5)">
+                <div class="stage-badge-icon">🎨</div>
+                <div class="stage-name-text">Unit 4</div>
+                <div class="stage-desc-text">What Color Is It? 顏色調色</div>
+                <div style="font-size: 11px; color: #7dd3fc; margin-top: 8px;">👾 首領: 夜行機械蝠・改 (HP: 85)</div>
+            </div>
+            <div class="stage-card-pc" onclick="startRPGCombat(6)">
+                <div class="stage-badge-icon">🎃</div>
+                <div class="stage-name-text">節慶專題</div>
+                <div class="stage-desc-text">Halloween 萬聖節不給糖就搗蛋</div>
+                <div style="font-size: 11px; color: #7dd3fc; margin-top: 8px;">👾 首領: 狂暴南瓜魔王 (HP: 100)</div>
+            </div>
+            <div class="stage-card-pc boss" onclick="startRPGCombat(7)">
+                <div class="stage-badge-icon">👑</div>
+                <div class="stage-name-text">期末考</div>
+                <div class="stage-desc-text">👑 星際魔龍全真大滿貫</div>
+                <div style="font-size: 11px; color: #fca5a5; margin-top: 8px;">👾 首領: 星際霸王魔龍 (HP: 180)</div>
+            </div>
         </div>
     </div>
 
-    <!-- ==================== 2. RPG 戰鬥畫面 ==================== -->
+    <!-- 2. RPG 戰鬥畫面 -->
     <div id="panel-battle" class="workspace-panel">
         <div class="battle-arena-pc">
-            <!-- 玩家主角卡片 -->
             <div class="fighter-col">
                 <div class="fighter-pic-frame">
                     <img id="battle-hero-pic" src="assets/hero_warrior.jfif" alt="Hero">
@@ -618,35 +516,41 @@
                 <div style="font-size: 12px; color: #7dd3fc;" id="hero-pet-label">🐕 柴犬跟班 (星幣+20%)</div>
             </div>
 
-            <!-- 關卡怪獸卡片 -->
             <div class="fighter-col">
                 <div class="fighter-pic-frame enemy">
                     <img id="battle-enemy-pic" src="assets/boss_slime.jfif" alt="Monster">
                 </div>
                 <div class="hp-bar-outer"><div class="hp-bar-inner-enemy" id="enemy-hp-fill"></div></div>
-                <div class="fighter-meta" id="enemy-hp-label">果凍史萊姆 HP: 50/50</div>
-                <div style="font-size: 12px; color: #fca5a5;" id="enemy-title-label">Stage 1 守門怪</div>
+                <div class="fighter-meta" id="enemy-hp-label">果凍史萊姆 HP: 45/45</div>
+                <div style="font-size: 12px; color: #fca5a5;" id="enemy-title-label">Starter 守門怪</div>
             </div>
         </div>
 
         <div class="battle-body-pc">
             <div>
                 <div class="q-prompt-box-pc">
-                    <span id="battle-q-text">題目載入中...</span>
-                    <button class="btn-audio-pc" onclick="speakText(currentBattleQ.q)">🔊 朗讀</button>
+                    <span id="battle-q-text">What letter comes after C in the alphabet?</span>
+                    <button class="btn-audio-pc" onclick="speakBattleQ()">🔊 朗讀</button>
                 </div>
-                <div class="answers-grid-pc" id="battle-options-box"></div>
+                <div class="answers-grid-pc" id="battle-options-box">
+                    <button class="btn-ans-pc" onclick="submitBattleAns(0, this)">A. B</button>
+                    <button class="btn-ans-pc" onclick="submitBattleAns(1, this)">B. D</button>
+                    <button class="btn-ans-pc" onclick="submitBattleAns(2, this)">C. E</button>
+                    <button class="btn-ans-pc" onclick="submitBattleAns(3, this)">D. F</button>
+                </div>
             </div>
 
             <div class="explanation-pc-card" id="battle-exp-card">
                 <div class="exp-head-pc" id="battle-exp-title">✅ 答對了！</div>
-                <div class="exp-body-pc" id="battle-exp-body"></div>
+                <div class="exp-body-pc" id="battle-exp-body">字母表裡 C 後面接著哪個字母？ -> D</div>
                 <button class="btn-next-pc" onclick="nextBattleTurn()">繼續挑戰下一題 ➔</button>
             </div>
+            
+            <button class="btn-ans-pc" style="text-align: center; margin-top: 14px;" onclick="navTo('panel-map')">返回航線地圖</button>
         </div>
     </div>
 
-    <!-- ==================== 3. 單字閃卡 (Flashcards) ==================== -->
+    <!-- 3. 單字閃卡 -->
     <div id="panel-flashcard" class="workspace-panel">
         <h2 style="font-size: 24px; color: #bae6fd;">🗂️ 三年級核心字彙閃卡</h2>
         <p style="color: #94a3b8; font-size: 14px; margin-top: 4px;">先看單字發音、中文意思與例句，打好基礎再出戰！</p>
@@ -654,27 +558,25 @@
         <div class="flashcard-stage">
             <div class="flash-word" id="fc-word">apple</div>
             <div class="flash-phonics" id="fc-phonics">[ /æ/ 短母音 a ]</div>
-            <div class="flash-meaning" id="fc-meaning">蘋果 (名詞)</div>
-            <div class="flash-example" id="fc-example">"I want an apple." (我想要一顆蘋果。)</div>
+            <div class="flash-meaning" id="fc-meaning">蘋果</div>
+            <div class="flash-example" id="fc-example">"It is a red apple."</div>
         </div>
 
-        <div class="flash-controls">
+        <div style="display: flex; gap: 14px; align-items: center;">
             <button class="btn-ans-pc" onclick="prevFlashcard()" style="padding: 10px 24px;">⬅️ 上一個</button>
             <button class="btn-audio-pc" onclick="speakCurrentFlashcard()" style="padding: 10px 24px;">🔊 播放發音</button>
             <button class="btn-ans-pc" onclick="nextFlashcard()" style="padding: 10px 24px;">下一個 ➡️</button>
         </div>
     </div>
 
-    <!-- ==================== 4. 是非觀念題 (O/X 快問快答) ==================== -->
+    <!-- 4. 是非測驗 -->
     <div id="panel-tf" class="workspace-panel">
-        <div class="tf-head-banner">
-            <h2 style="font-size: 24px; color: #bae6fd;">⭕❌ 觀念是非測驗 (國小段考防坑題)</h2>
-            <p style="color: #94a3b8; font-size: 14px; margin-top: 4px;">仔細檢查題目文法、發音或情境對話是否正確！</p>
-        </div>
+        <h2 style="font-size: 24px; color: #bae6fd;">⭕❌ 觀念是非測驗 (國小段考防坑題)</h2>
+        <p style="color: #94a3b8; font-size: 14px; margin-top: 4px; margin-bottom: 20px;">仔細檢查題目文法、發音或情境對話是否正確！</p>
         
         <div class="q-prompt-box-pc">
-            <span id="tf-statement-text">題目載入中...</span>
-            <button class="btn-audio-pc" onclick="speakText(currentTF.statement)">🔊 朗讀</button>
+            <span id="tf-statement-text">1. 在英文中，eraser (橡皮擦) 前面應該使用冠詞 an，說成 an eraser。</span>
+            <button class="btn-audio-pc" onclick="speakTF()">🔊 朗讀</button>
         </div>
 
         <div class="tf-btn-pair">
@@ -689,20 +591,23 @@
         </div>
     </div>
 
-    <!-- ==================== 5. 單字測驗 (英選中) ==================== -->
+    <!-- 5. 單字測驗 (英選中) -->
     <div id="panel-vocab-quiz" class="workspace-panel">
-        <div class="tf-head-banner">
-            <h2 style="font-size: 24px; color: #bae6fd;">📝 單字測驗・英選中 (認識單字大挑戰)</h2>
-            <p style="color: #94a3b8; font-size: 14px; margin-top: 4px;">看到英文單字，選出最適當的中文意思！連對有額外星幣！</p>
-        </div>
+        <h2 style="font-size: 24px; color: #bae6fd;">📝 單字測驗・英選中 (認識單字大挑戰)</h2>
+        <p style="color: #94a3b8; font-size: 14px; margin-top: 4px; margin-bottom: 20px;">看到英文單字，選出最適當的中文意思！</p>
 
-        <div class="vocab-question-hero">
+        <div style="text-align: center; background: var(--card-sub); border-radius: 20px; padding: 24px; margin-bottom: 20px; border: 2px solid var(--border-ui);">
             <div style="font-size: 14px; color: #94a3b8; margin-bottom: 6px;">這個字是什麼意思？</div>
-            <div class="vocab-big-en" id="vq-word">ruler</div>
-            <button class="btn-audio-pc" style="margin: 0 auto;" onclick="speakText(currentVQ.en)">🔊 播放發音</button>
+            <div style="font-size: 38px; font-weight: 900; color: #38bdf8; margin-bottom: 10px;" id="vq-word">pencil</div>
+            <button class="btn-audio-pc" style="margin: 0 auto;" onclick="speakVQ()">🔊 播放發音</button>
         </div>
 
-        <div class="vocab-options-list" id="vq-options-list"></div>
+        <div style="display: flex; flex-direction: column; gap: 12px;" id="vq-options-list">
+            <button class="btn-ans-pc" onclick="submitVQ('鉛筆', this)">鉛筆</button>
+            <button class="btn-ans-pc" onclick="submitVQ('書本', this)">書本</button>
+            <button class="btn-ans-pc" onclick="submitVQ('尺', this)">尺</button>
+            <button class="btn-ans-pc" onclick="submitVQ('橡皮擦', this)">橡皮擦</button>
+        </div>
 
         <div class="explanation-pc-card" id="vq-exp-card">
             <div class="exp-head-pc" id="vq-exp-title"></div>
@@ -711,22 +616,25 @@
         </div>
     </div>
 
-    <!-- ==================== 6. 句型重組排列 ==================== -->
+    <!-- 6. 句型重組 -->
     <div id="panel-scramble" class="workspace-panel">
-        <div class="tf-head-banner">
-            <h2 style="font-size: 24px; color: #bae6fd;">🧩 英語句型重組大挑戰</h2>
-            <p style="color: #94a3b8; font-size: 14px; margin-top: 4px;">點選下方單字氣泡，依照英語文法順序組出完整句子！</p>
-        </div>
+        <h2 style="font-size: 24px; color: #bae6fd;">🧩 英語句型重組大挑戰</h2>
+        <p style="color: #94a3b8; font-size: 14px; margin-top: 4px; margin-bottom: 20px;">點選下方單字氣泡，依照英語文法順序組出完整句子！</p>
 
         <div class="q-prompt-box-pc">
-            <span id="scramble-hint-text">重組提示...</span>
+            <span id="scramble-hint-text">題目提示：詢問對方的名字</span>
         </div>
 
         <div class="scramble-dropzone" id="scramble-slot-box">
             <span style="color: #64748b; font-size: 15px;">點選下方氣泡排列句子...</span>
         </div>
 
-        <div class="word-bank-pc" id="scramble-bank-box"></div>
+        <div class="word-bank-pc" id="scramble-bank-box">
+            <button class="word-btn-pc" onclick="addScrambleWord('your', this)">your</button>
+            <button class="word-btn-pc" onclick="addScrambleWord('What\'s', this)">What's</button>
+            <button class="word-btn-pc" onclick="addScrambleWord('?', this)">?</button>
+            <button class="word-btn-pc" onclick="addScrambleWord('name', this)">name</button>
+        </div>
 
         <div class="explanation-pc-card" id="scramble-exp-card">
             <div class="exp-head-pc" id="scramble-exp-title"></div>
@@ -735,10 +643,9 @@
         </div>
     </div>
 
-    <!-- ==================== 7. 月球小屋 (Cabin) ==================== -->
+    <!-- 7. 月球小屋 -->
     <div id="panel-cabin" class="workspace-panel">
         <div class="cabin-layout-pc">
-            <!-- 左側角色伸展台 (無毀容濾鏡，純色清晰立繪) -->
             <div class="cabin-avatar-card">
                 <div style="font-size: 14px; color: #fde047; font-weight: bold;" id="cabin-user-title">🌟 銀河守護神</div>
                 <div class="cabin-avatar-circle" id="cabin-aura-circle">
@@ -749,840 +656,365 @@
                 <button class="btn-ans-pc" style="margin-top: 14px; width: 100%; text-align: center;" onclick="gachaTitle()">🎲 50 ⭐ 抽稀有稱號</button>
             </div>
 
-            <!-- 右側戰鬥光環與地毯巡邏夥伴 -->
-            <div class="cabin-controls-wrap">
-                <h3 style="font-size: 17px; color: #bae6fd;">🎨 戰鬥能量光環 (更換外圍戰鬥氣場)</h3>
+            <div>
+                <h3 style="font-size: 17px; color: #bae6fd;">🎨 戰鬥能量光環</h3>
                 <div class="aura-grid">
-                    <div class="aura-item active" style="border-color: #38bdf8; color: #38bdf8;" onclick="setAura('#38bdf8', 0)">天藍</div>
-                    <div class="aura-item" style="border-color: #ef4444; color: #ef4444;" onclick="setAura('#ef4444', 1)">赤焰</div>
-                    <div class="aura-item" style="border-color: #22c55e; color: #22c55e;" onclick="setAura('#22c55e', 2)">翡翠</div>
-                    <div class="aura-item" style="border-color: #f59e0b; color: #f59e0b;" onclick="setAura('#f59e0b', 3)">黃金</div>
-                    <div class="aura-item" style="border-color: #a855f7; color: #a855f7;" onclick="setAura('#a855f7', 4)">紫電</div>
-                    <div class="aura-item" style="border-color: #ffffff; color: #ffffff;" onclick="setAura('#ffffff', 5)">純白</div>
+                    <div class="aura-item" style="border-color: #38bdf8; color: #38bdf8;" onclick="setAura('#38bdf8')">天藍</div>
+                    <div class="aura-item" style="border-color: #ef4444; color: #ef4444;" onclick="setAura('#ef4444')">赤焰</div>
+                    <div class="aura-item" style="border-color: #22c55e; color: #22c55e;" onclick="setAura('#22c55e')">翡翠</div>
+                    <div class="aura-item" style="border-color: #f59e0b; color: #f59e0b;" onclick="setAura('#f59e0b')">黃金</div>
+                    <div class="aura-item" style="border-color: #a855f7; color: #a855f7;" onclick="setAura('#a855f7')">紫電</div>
+                    <div class="aura-item" style="border-color: #ffffff; color: #ffffff;" onclick="setAura('#ffffff')">純白</div>
                 </div>
 
-                <h3 style="font-size: 17px; color: #bae6fd; margin-top: 10px;">🐾 地毯漫步巡邏夥伴 (點擊聽英語問候)</h3>
-                <div class="carpet-area-pc" id="carpet-pets-container">
-                    <!-- 動態注入巡邏寵物 -->
+                <h3 style="font-size: 17px; color: #bae6fd; margin-top: 16px;">🐾 地毯漫步巡邏夥伴 (點擊互動)</h3>
+                <div class="carpet-area-pc" style="margin-top: 8px;">
+                    <div class="patrol-pet-pc" onclick="alert('🐕 太空柴犬：「Woof woof! 主人加油！」')"><img src="assets/pet_dog.jfif" alt="柴犬"></div>
+                    <div class="patrol-pet-pc" onclick="alert('🐈 橘貓：「Meow! 喵喵祝你連勝！」')"><img src="assets/pet_cat.jfif" alt="橘貓"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ==================== 8. 補給商店 (Shop) ==================== -->
+    <!-- 8. 補給商店 -->
     <div id="panel-shop" class="workspace-panel">
         <h2 style="font-size: 24px; color: #bae6fd; margin-bottom: 16px;">🎒 太空補給商店</h2>
         
-        <!-- 職業夥伴購買 -->
-        <div class="shop-sec-pc">
-            <div class="shop-sec-title">🧙‍♂️ 解鎖冒險夥伴小隊</div>
-            <div class="shop-cards-grid">
-                <div class="shop-item-card">
-                    <div class="shop-item-thumb"><img src="assets/hero_warrior.jfif" alt="Warrior"></div>
-                    <div><b>星際劍士</b><br><span style="font-size: 12px; color: #94a3b8;">專攻發音與拼字</span></div>
-                    <button class="btn-buy-pc active-use" id="btn-shop-warrior" onclick="equipHero('warrior')">出戰中</button>
-                </div>
-                <div class="shop-item-card">
-                    <div class="shop-item-thumb"><img src="assets/hero_mage.jfif" alt="Mage"></div>
-                    <div><b>星空魔法師</b><br><span style="font-size: 12px; color: #94a3b8;">400 ⭐ 解鎖 ｜ 專攻對話</span></div>
-                    <button class="btn-buy-pc" id="btn-shop-mage" onclick="buyHero('mage', 400)">400 ⭐ 解鎖</button>
-                </div>
-                <div class="shop-item-card">
-                    <div class="shop-item-thumb"><img src="assets/hero_healer.jfif" alt="Healer"></div>
-                    <div><b>時空治療師</b><br><span style="font-size: 12px; color: #94a3b8;">700 ⭐ 解鎖 ｜ 答對全隊回血</span></div>
-                    <button class="btn-buy-pc" id="btn-shop-healer" onclick="buyHero('healer', 700)">700 ⭐ 解鎖</button>
-                </div>
+        <h3 style="font-size: 17px; color: #bae6fd; margin-bottom: 12px;">🧙‍♂️ 解鎖冒險夥伴小隊</h3>
+        <div class="shop-cards-grid">
+            <div class="shop-item-card">
+                <div class="shop-item-thumb"><img src="assets/hero_warrior.jfif" alt="Warrior"></div>
+                <div><b>星際劍士</b><br><span style="font-size: 12px; color: #94a3b8;">專攻發音與拼字</span></div>
+                <button class="btn-buy-pc active-use" id="btn-shop-warrior" onclick="equipHero('warrior')">出戰中</button>
+            </div>
+            <div class="shop-item-card">
+                <div class="shop-item-thumb"><img src="assets/hero_mage.jfif" alt="Mage"></div>
+                <div><b>星空魔法師</b><br><span style="font-size: 12px; color: #94a3b8;">400 ⭐ 解鎖 ｜ 專攻對話</span></div>
+                <button class="btn-buy-pc" id="btn-shop-mage" onclick="buyHero('mage', 400)">400 ⭐ 解鎖</button>
+            </div>
+            <div class="shop-item-card">
+                <div class="shop-item-thumb"><img src="assets/hero_healer.jfif" alt="Healer"></div>
+                <div><b>時空治療師</b><br><span style="font-size: 12px; color: #94a3b8;">700 ⭐ 解鎖 ｜ 答對全隊回血</span></div>
+                <button class="btn-buy-pc" id="btn-shop-healer" onclick="buyHero('healer', 700)">700 ⭐ 解鎖</button>
             </div>
         </div>
 
-        <!-- 裝備升級 -->
-        <div class="shop-sec-pc">
-            <div class="shop-sec-title">⚔️ 武器與防具強化庫</div>
-            <div class="shop-cards-grid">
-                <div class="shop-item-card">
-                    <div><b>光刃武器 Lv.<span id="ui-weap-lvl">1</span></b><br><span style="font-size: 12px; color: #94a3b8;">傷害: <span id="ui-weap-dmg">18</span> HP</span></div>
-                    <button class="btn-buy-pc" onclick="upgradeItem('weap')">升級 (50 ⭐)</button>
-                </div>
-                <div class="shop-item-card">
-                    <div><b>防護甲裝 Lv.<span id="ui-armor-lvl">1</span></b><br><span style="font-size: 12px; color: #94a3b8;">最大生命: <span id="ui-armor-hp">100</span> HP</span></div>
-                    <button class="btn-buy-pc" onclick="upgradeItem('armor')">升級 (50 ⭐)</button>
-                </div>
+        <h3 style="font-size: 17px; color: #bae6fd; margin-bottom: 12px;">⚔️ 武器與防具強化庫</h3>
+        <div class="shop-cards-grid">
+            <div class="shop-item-card">
+                <div><b>光刃武器 Lv.<span id="ui-weap-lvl">1</span></b><br><span style="font-size: 12px; color: #94a3b8;">傷害: <span id="ui-weap-dmg">18</span> HP</span></div>
+                <button class="btn-buy-pc" onclick="upgradeItem('weap')">升級 (50 ⭐)</button>
             </div>
-        </div>
-
-        <!-- 寵物解鎖 -->
-        <div class="shop-sec-pc">
-            <div class="shop-sec-title">🐾 萌寵收養庫 (專屬被動技能)</div>
-            <div class="shop-cards-grid" id="shop-pets-grid"></div>
+            <div class="shop-item-card">
+                <div><b>防護甲裝 Lv.<span id="ui-armor-lvl">1</span></b><br><span style="font-size: 12px; color: #94a3b8;">最大生命: <span id="ui-armor-hp">100</span> HP</span></div>
+                <button class="btn-buy-pc" onclick="upgradeItem('armor')">升級 (50 ⭐)</button>
+            </div>
         </div>
     </div>
 
-    <!-- ==================== 9. 單字防禦戰 (Word Defense) ==================== -->
+    <!-- 9. 單字防禦戰 -->
     <div id="panel-defense" class="workspace-panel">
         <h2 style="font-size: 24px; color: #bae6fd;">👾 單字雷射防禦戰</h2>
-        <p style="color: #94a3b8; font-size: 14px; margin-top: 4px;">中文單字快速下墜！在觸底前打出對應英文單字發射光束！</p>
+        <p style="color: #94a3b8; font-size: 14px; margin-top: 4px; margin-bottom: 16px;">中文單字下墜！輸入對應英文單字發射光束！</p>
         
-        <div class="defense-canvas-pc">
-            <div class="falling-drop-word" id="defense-drop-word">蘋果</div>
+        <div style="height: 380px; background: #0b1120; border: 2px solid var(--border-ui); border-radius: 20px; position: relative; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 16px;">
+            <div style="align-self: center; background: #dc2626; color: #fff; padding: 10px 24px; border-radius: 16px; font-size: 24px; font-weight: 900;" id="defense-drop-word">蘋果</div>
             <div style="text-align: center; color: #64748b; font-size: 14px;">防禦防線 ──────────────</div>
         </div>
 
-        <div class="defense-input-row">
-            <input type="text" class="defense-txt-input" id="defense-input-box" placeholder="在此輸入英文單字並按發射 (例如 apple)..." autocomplete="off">
+        <div style="display: flex; gap: 12px;">
+            <input type="text" style="flex-grow: 1; background: var(--card-sub); border: 2px solid #475569; color: #fff; padding: 14px 20px; border-radius: 12px; font-size: 18px; outline: none;" id="defense-input-box" placeholder="輸入英文並按發射 (例如 apple)...">
             <button class="btn-next-pc" onclick="submitDefenseAction()">發射 🚀</button>
         </div>
     </div>
 
 <script>
-    /* ==================== 遊戲核心狀態與本地存檔 ==================== */
-    const STORAGE_KEY = 'STAR_ENG_G3_PC_V4';
-    let state = {
-        coins: 120,
-        hearts: 3,
-        streak: 0,
-        userLevel: 1,
-        userRank: 'Lv.1 見習者',
-        activeHero: 'warrior',
-        auraColor: '#38bdf8',
-        unlockedHeroes: ['warrior'],
-        weapLvl: 1,
-        armorLvl: 1,
-        activePet: 'dog',
-        unlockedPets: ['dog'],
-        clearedStages: []
-    };
-
-    function loadState() {
-        try {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            if (raw) Object.assign(state, JSON.parse(raw));
-        } catch(e) {}
-    }
-    function saveState() {
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
-        updateTopHUD();
-    }
-
-    /* ==================== 108 課綱三年級豐富大題庫 ==================== */
-    // 1. 單字閃卡與詞彙庫 (40+ 核心單字)
     const VOCAB_BANK = [
         { en: "apple", zh: "蘋果", phonics: "[ /æ/ 短母音 a ]", ex: "It is a red apple." },
         { en: "book", zh: "書本", phonics: "[ /ʊ/ 短母音 oo ]", ex: "Open your book." },
         { en: "cat", zh: "貓咪", phonics: "[ /æ/ 短母音 a ]", ex: "The cat is cute." },
         { en: "dog", zh: "狗狗", phonics: "[ /ɒ/ 短母音 o ]", ex: "I have a happy dog." },
-        { en: "egg", zh: "雞蛋", phonics: "[ /e/ 短母音 e ]", ex: "An egg is on the table." },
-        { en: "fish", zh: "魚", phonics: "[ /ɪ/ 短母音 i ]", ex: "Fish can swim in the water." },
         { en: "pencil", zh: "鉛筆", phonics: "[ /pɛnsəl/ ]", ex: "This is my pencil." },
         { en: "eraser", zh: "橡皮擦", phonics: "[ /ɪˈreɪsər/ ]", ex: "It is an eraser." },
         { en: "ruler", zh: "尺", phonics: "[ /ˈruːlər/ ]", ex: "Where is my ruler?" },
-        { en: "desk", zh: "書桌", phonics: "[ /dɛsk/ ]", ex: "Put your bag on the desk." },
-        { en: "chair", zh: "椅子", phonics: "[ /tʃɛər/ ]", ex: "Please sit on the chair." },
-        { en: "hello", zh: "你好", phonics: "[ /həˈloʊ/ ]", ex: "Hello, Miss Chen!" },
-        { en: "name", zh: "名字", phonics: "[ /neɪm/ 長母音 a ]", ex: "What's your name?" },
-        { en: "teacher", zh: "老師", phonics: "[ /ˈtiːtʃər/ ]", ex: "Good morning, teacher." },
-        { en: "friend", zh: "朋友", phonics: "[ /frɛnd/ ]", ex: "You are my good friend." },
-        { en: "one", zh: "一 (1)", phonics: "[ /wʌn/ ]", ex: "I have one sister." },
-        { en: "two", zh: "二 (2)", phonics: "[ /tuː/ ]", ex: "Two cats are sleeping." },
-        { en: "three", zh: "三 (3)", phonics: "[ /θriː/ th 咬舌音 ]", ex: "Three books are here." },
-        { en: "four", zh: "四 (4)", phonics: "[ /fɔːr/ ]", ex: "I am four years old." },
-        { en: "five", zh: "五 (5)", phonics: "[ /faɪv/ 長母音 i ]", ex: "High five!" },
-        { en: "ten", zh: "十 (10)", phonics: "[ /tɛn/ ]", ex: "I can count to ten." },
-        { en: "red", zh: "紅色", phonics: "[ /rɛd/ ]", ex: "The apple is red." },
-        { en: "blue", zh: "藍色", phonics: "[ /bluː/ ]", ex: "The sky is blue." },
-        { en: "yellow", zh: "黃色", phonics: "[ /ˈjɛloʊ/ ]", ex: "The sun is yellow." },
-        { en: "green", zh: "綠色", phonics: "[ /ɡriːn/ ]", ex: "The tree is green." },
-        { en: "orange", zh: "橘色/柳橙", phonics: "[ /ˈɔːrɪndʒ/ ]", ex: "It is an orange." },
-        { en: "witch", zh: "女巫", phonics: "[ /wɪtʃ/ ]", ex: "The witch flies on a broom." },
-        { en: "pumpkin", zh: "南瓜", phonics: "[ /ˈpʌmpkɪn/ ]", ex: "We make pumpkin lanterns." },
-        { en: "ghost", zh: "幽靈", phonics: "[ /ɡoʊst/ ]", ex: "Say boo to the ghost." },
-        { en: "candy", zh: "糖果", phonics: "[ /ˈkændi/ ]", ex: "Trick or treat, give me candy!" }
+        { en: "desk", zh: "書桌", phonics: "[ /dɛsk/ ]", ex: "Put your bag on the desk." }
     ];
 
-    // 2. 是非觀念題庫 (True / False - 20+ 題)
     const TF_BANK = [
-        {
-            statement: "在英文中，"eraser" (橡皮擦) 前面應該使用冠詞 "an"，說成 "an eraser"。",
-            ans: true,
-            trans: "an eraser (一塊橡皮擦)",
-            note: "正確！eraser 是母音開頭發音（/ɪ/），因此不定冠詞必須用 an，不可用 a。"
-        },
-        {
-            statement: "下午放學離開學校跟同學說再見時，應該說 "Good morning!"。",
-            ans: false,
-            trans: "放學離開應說 Goodbye! 或 See you tomorrow!",
-            note: "錯誤！Good morning 是「早安」，放學道別要說 Goodbye、Bye-bye 或 See you！"
-        },
-        {
-            statement: "文法檢查：第三人稱單數句子 "She have two pens." 是正確的句子。",
-            ans: false,
-            trans: "正確文法應為：She has two pens. (她有兩枝筆)",
-            note: "錯誤！主詞是 He / She / It 時，動詞「有」必須變形為 has，不能用原形 have！"
-        },
-        {
-            statement: "單字 "box" (盒子) 變成多個時，複數規則是後面直接加上 -es 變成 "boxes"。",
-            ans: true,
-            trans: "one box ➔ two boxes (盒子複數加 -es)",
-            note: "正確！名詞字尾為 s, x, ch, sh 時，複數規則都是加上 -es！"
-        },
-        {
-            statement: "素養調色魔法：英文常識中，Yellow (黃) + Blue (藍) 調配出來的顏色是 Purple (紫)。",
-            ans: false,
-            trans: "黃色 + 藍色 = 綠色 (Green)",
-            note: "錯誤！黃色加藍色會變成 Green (綠色)；紅色加藍色才會變成 Purple (紫色)！"
-        },
-        {
-            statement: "別人對你說 "Thank you very much." 時，你可以禮貌回答 "You're welcome."。",
-            ans: true,
-            trans: "You're welcome. (不客氣)",
-            note: "正確！標準禮貌用語。注意是 You're (You are)，不是所有格 Your！"
-        },
-        {
-            statement: "句子 "It is a red." 文法完全正確。",
-            ans: false,
-            trans: "應為：It is red. 或 It is a red apple.",
-            note: "錯誤！顏色是形容詞，若後面沒有接單數名詞，前面絕對不可以加冠詞 a！"
-        },
-        {
-            statement: "英文數字中，"Ten" (10) 的前一個數字是 "Nine" (9)。",
-            ans: true,
-            trans: "數字順序：Eight (8) ➔ Nine (9) ➔ Ten (10)",
-            note: "正確！Nine 是 9，Ten 是 10。"
-        }
+        { statement: "在英文中，eraser 前面應該使用冠詞 an，說成 an eraser。", ans: true, trans: "an eraser (一塊橡皮擦)", note: "正確！eraser 為母音開頭發音，冠詞須用 an。" },
+        { statement: "下午放學離開學校跟同學說再見時，應該說 Good morning!。", ans: false, trans: "放學離開應說 Goodbye! 或 See you!", note: "錯誤！Good morning 是早安，放學道別要說 Goodbye。" },
+        { statement: "文法檢查：第三人稱單數句子 She have two pens. 是正確的。", ans: false, trans: "應為：She has two pens.", note: "錯誤！主詞為 She 時，動詞「有」須用 has。" },
+        { statement: "單字 box 變成多個時，複數規則是後面直接加上 -es 變成 boxes。", ans: true, trans: "one box -> two boxes", note: "正確！字尾為 x 複數加 -es。" }
     ];
 
-    // 3. 句型重組排列題庫 (Scramble - 10+ 題)
     const SCRAMBLE_BANK = [
-        {
-            hint: "重組句子：詢問對方的名字",
-            words: ["What's", "your", "name", "?"],
-            ans: "What's your name ?",
-            trans: "What's your name? (你叫什麼名字？)",
-            note: "疑問代名詞 What's 置於首位，接所有格 your 與名詞 name。"
-        },
-        {
-            hint: "重組句子：回答早安，陳老師！",
-            words: ["Good", "morning", "Miss", "Chen", "!"],
-            ans: "Good morning Miss Chen !",
-            trans: "Good morning, Miss Chen! (早安，陳老師！)",
-            note: "問候語在句首，姓氏與稱謂首字母必須大寫。"
-        },
-        {
-            hint: "重組句子：這是一本藍色的書。",
-            words: ["It", "is", "a", "blue", "book", "."],
-            ans: "It is a blue book .",
-            trans: "It is a blue book. (它是一本藍色的書。)",
-            note: "主詞 It 搭配 is，形容詞 blue 放在名詞 book 之前。"
-        },
-        {
-            hint: "重組句子：我今年八歲。",
-            words: ["I", "am", "eight", "years", "old", "."],
-            ans: "I am eight years old .",
-            trans: "I am eight years old. (我八歲。)",
-            note: "年齡標準答句：主詞 I + am + 數字 + years old。"
-        }
+        { hint: "重組句子：詢問對方的名字", words: ["What's", "your", "name", "?"], ans: "What's your name ?", trans: "What's your name? (你叫什麼名字？)", note: "疑問代名詞 What's 置於首位。" },
+        { hint: "重組句子：回答早安，陳老師！", words: ["Good", "morning", "Miss", "Chen", "!"], ans: "Good morning Miss Chen !", trans: "Good morning, Miss Chen! (早安，陳老師！)", note: "問候語在句首，稱謂首字母大寫。" }
     ];
 
-    // 4. 8 大關卡配置 (對應 108 課綱)
     const STAGES_DATA = [
-        {
-            id: 0, title: "Starter", subtitle: "字母 A~E 與數字 1~5", icon: "🚀",
-            enemy: { name: "果凍史萊姆", img: "assets/boss_slime.jfif", hp: 45 },
-            questions: [
-                { q: "What letter comes after "C" in the alphabet?", opts: ["B", "D", "E", "F"], ans: 1, trans: "字母表裡 C 後面接著哪個字母？ ➔ D", note: "字母順序 A ➔ B ➔ C ➔ D ➔ E。" },
-                { q: "請填入缺少的短母音字母拼出「蘋果」：[ ? ] p p l e", opts: ["A", "E", "I", "O"], ans: 0, trans: "Apple (蘋果)", note: "短母音字母 A 發 /æ/ 音。" },
-                { q: "請問英文單字 "Three" 代表的數字是哪一個？", opts: ["1", "2", "3", "5"], ans: 2, trans: "Three = 3", note: "One=1, Two=2, Three=3, Four=4, Five=5。" }
-            ]
-        },
-        {
-            id: 1, title: "Unit 1", subtitle: "About Me・自我介紹問答", icon: "⭐",
-            enemy: { name: "機械飛行蝠", img: "assets/boss_bat.jfif", hp: 55 },
-            questions: [
-                { q: "A: "What's your name?" B: "________"", opts: ["I am nine.", "My name is Mia.", "It is a dog.", "I'm fine."], ans: 1, trans: "你叫什麼名字？ ➔ 我叫 Mia。", note: "課綱規範姓名標準回答為 My name is..." },
-                { q: "A: "Nice to meet you." B: "________"", opts: ["Good night.", "Nice to meet you, too.", "Thank you.", "Goodbye."], ans: 1, trans: "很高興認識你。 ➔ 我也很高興認識你。", note: "初次見面打招呼標準禮貌回應加 too。" }
-            ]
-        },
-        {
-            id: 2, title: "Unit 2", subtitle: "How Old Are You? 年齡問答", icon: "🎂",
-            enemy: { name: "調皮南瓜怪", img: "assets/boss_pumpkin.jfif", hp: 65 },
-            questions: [
-                { q: "A: "How old are you?" B: "________"", opts: ["I am fine.", "I am eight years old.", "My name is Tom.", "You are welcome."], ans: 1, trans: "你幾歲？ ➔ 我八歲。", note: "How old 問年齡，千萬別跟 How are you (問近況) 搞混！" },
-                { q: "請問英文單字 "Ten" 是哪一個數字？", opts: ["7", "8", "9", "10"], ans: 3, trans: "Ten = 10", note: "Seven=7, Eight=8, Nine=9, Ten=10。" }
-            ]
-        },
-        {
-            id: 3, title: "期中考", subtitle: "🎖️ 巨石守門員・全真真題", icon: "🏆", isBoss: true,
-            enemy: { name: "【期中考】裝甲巨石怪", img: "assets/boss_golem.jfif", hp: 120 },
-            questions: [
-                { q: "【真題檢定】小明借書證號碼是 "123"，英文朗讀應為：", opts: ["One-two-three", "Ten-twenty-three", "First-second-third", "Three-two-one"], ans: 0, trans: "證件編號單獨報讀：One, two, three。", note: "電話號碼、編號都是單一數字分開唸。" },
-                { q: "字母小寫接龍：c ➔ d ➔ [ ? ] ➔ f", opts: ["b", "e", "g", "h"], ans: 1, trans: "字母小寫順序：c ➔ d ➔ e ➔ f", note: "期中考核心考點：字母接龍排列！" }
-            ]
-        },
-        {
-            id: 4, title: "Unit 3", subtitle: "What's This? 教室文具用品", icon: "🎒",
-            enemy: { name: "果凍史萊姆・狂暴", img: "assets/boss_slime.jfif", hp: 75 },
-            questions: [
-                { q: "Look at the desk! "It is ________ eraser."", opts: ["a", "an", "two", "the a"], ans: 1, trans: "它是一塊橡皮擦。 ➔ It is an eraser.", note: "eraser 是母音開頭發音，冠詞必須使用 an！" },
-                { q: "當你想要詢問「這是什麼？」時，英文句子應該說：", opts: ["What's this?", "How are you?", "Who are you?", "How old are you?"], ans: 0, trans: "這是什麼？ ➔ What's this?", note: "詢問身邊近處物品標準句型。" }
-            ]
-        },
-        {
-            id: 5, title: "Unit 4", subtitle: "What Color Is It? 顏色調色", icon: "🎨",
-            enemy: { name: "夜行機械蝠・改", img: "assets/boss_bat.jfif", hp: 85 },
-            questions: [
-                { q: "【跨領域調色魔法】：Yellow + Blue = ________", opts: ["Red", "Green", "Orange", "Purple"], ans: 1, trans: "黃色 ＋ 藍色 ＝ 綠色 (Green)。", note: "三原色調色常識：黃配藍變成綠色！" },
-                { q: "What color is an apple usually? (蘋果通常是什麼顏色？)", opts: ["Red", "Blue", "Black", "Pink"], ans: 0, trans: "蘋果通常是 Red (紅色)。", note: "日常生活顏色常識搭配。" }
-            ]
-        },
-        {
-            id: 6, title: "節慶專題", subtitle: "Halloween 萬聖節不給糖就搗蛋", icon: "🎃",
-            enemy: { name: "狂暴南瓜魔王", img: "assets/boss_pumpkin.jfif", hp: 100 },
-            questions: [
-                { q: "小朋友在萬聖節敲門要糖果時會說：", opts: ["Happy Birthday!", "Trick or treat!", "Good afternoon!", "See you later!"], ans: 1, trans: "不給糖就搗蛋！ (Trick or treat!)", note: "萬聖節最核心的經典招呼句型。" },
-                { q: "騎著掃帚飛在空中的神祕角色是：", opts: ["Ghost", "Pumpkin", "Witch", "Cat"], ans: 2, trans: "Witch (女巫，複數為 witches)。", note: "Witch 是女巫，複數加 -es！" }
-            ]
-        },
-        {
-            id: 7, title: "期末考", subtitle: "👑 星際魔龍全真大滿貫", icon: "👑", isBoss: true,
-            enemy: { name: "【終極 Boss】星際霸王魔龍", img: "assets/boss_dragon.jfif", hp: 180 },
-            questions: [
-                { q: "【跨單元全真題】A: "Is this your ruler?" B: "________"", opts: ["Yes, this is.", "Yes, it is.", "No, it is.", "It is ten."], ans: 1, trans: "這是你的尺嗎？ ➔ 是的，它是。 (Yes, it is.)", note: "以 Is this 提問時，簡答代名詞必須回歸使用 it！" },
-                { q: "下列哪一個單字的發音含有短母音 /æ/？", opts: ["cake", "cat", "lake", "make"], ans: 1, trans: "cat (短母音 /æ/)", note: "cat 是短母音，cake/lake 是長母音 /eɪ/。" }
-            ]
-        }
+        { id: 0, title: "Starter", subtitle: "字母 A~E 與數字 1~5", enemy: { name: "果凍史萊姆", img: "assets/boss_slime.jfif", hp: 45 }, questions: [
+            { q: "What letter comes after C in the alphabet?", opts: ["B", "D", "E", "F"], ans: 1, trans: "字母表裡 C 後面接著 D", note: "字母順序 A -> B -> C -> D。" },
+            { q: "請填入缺少的短母音字母拼出「蘋果」：[ ? ] p p l e", opts: ["A", "E", "I", "O"], ans: 0, trans: "Apple (蘋果)", note: "短母音字母 A 發 /æ/ 音。" }
+        ]},
+        { id: 1, title: "Unit 1", subtitle: "About Me・自我介紹問答", enemy: { name: "機械飛行蝠", img: "assets/boss_bat.jfif", hp: 55 }, questions: [
+            { q: "A: What's your name? B: ________", opts: ["I am nine.", "My name is Mia.", "It is a dog.", "I'm fine."], ans: 1, trans: "你叫什麼名字？ -> 我叫 Mia。", note: "姓名標準回答為 My name is..." }
+        ]},
+        { id: 2, title: "Unit 2", subtitle: "How Old Are You? 年齡問答", enemy: { name: "調皮南瓜怪", img: "assets/boss_pumpkin.jfif", hp: 65 }, questions: [
+            { q: "A: How old are you? B: ________", opts: ["I am fine.", "I am eight years old.", "My name is Tom.", "You are welcome."], ans: 1, trans: "你幾歲？ -> 我八歲。", note: "How old 問年齡。" }
+        ]},
+        { id: 3, title: "期中考", subtitle: "🎖️ 巨石守門員・全真真題", enemy: { name: "【期中考】裝甲巨石怪", img: "assets/boss_golem.jfif", hp: 120 }, questions: [
+            { q: "【真題檢定】小明借書證號碼是 123，英文朗讀應為：", opts: ["One-two-three", "Ten-twenty-three", "First-second-third", "Three-two-one"], ans: 0, trans: "證件編號單獨報讀：One, two, three。", note: "編號為單一數字分開唸。" }
+        ]},
+        { id: 4, title: "Unit 3", subtitle: "What's This? 教室文具用品", enemy: { name: "果凍史萊姆・狂暴", img: "assets/boss_slime.jfif", hp: 75 }, questions: [
+            { q: "Look at the desk! It is ________ eraser.", opts: ["a", "an", "two", "the a"], ans: 1, trans: "它是一塊橡皮擦。 -> It is an eraser.", note: "eraser 前須用 an。" }
+        ]},
+        { id: 5, title: "Unit 4", subtitle: "What Color Is It? 顏色調色", enemy: { name: "夜行機械蝠・改", img: "assets/boss_bat.jfif", hp: 85 }, questions: [
+            { q: "【調色魔法】：Yellow + Blue = ________", opts: ["Red", "Green", "Orange", "Purple"], ans: 1, trans: "黃色 + 藍色 = 綠色 (Green)", note: "三原色調色常識。" }
+        ]},
+        { id: 6, title: "節慶專題", subtitle: "Halloween 萬聖節不給糖就搗蛋", enemy: { name: "狂暴南瓜魔王", img: "assets/boss_pumpkin.jfif", hp: 100 }, questions: [
+            { q: "小朋友在萬聖節敲門要糖果時會說：", opts: ["Happy Birthday!", "Trick or treat!", "Good afternoon!", "See you later!"], ans: 1, trans: "不給糖就搗蛋！ (Trick or treat!)", note: "萬聖節核心招呼語。" }
+        ]},
+        { id: 7, title: "期末考", subtitle: "👑 星際魔龍全真大滿貫", enemy: { name: "【終極 Boss】星際霸王魔龍", img: "assets/boss_dragon.jfif", hp: 180 }, questions: [
+            { q: "【全真題】A: Is this your ruler? B: ________", opts: ["Yes, this is.", "Yes, it is.", "No, it is.", "It is ten."], ans: 1, trans: "這是你的尺嗎？ -> 是的，它是。", note: "代名詞回歸使用 it。" }
+        ]}
     ];
 
-    // 寵物定義
-    const PET_MAP = {
-        dog: { name: "太空柴犬", icon: "🐕", desc: "星幣結算掉落 +20%", img: "assets/pet_dog.jfif", cost: 0, voice: "Woof woof! Let's win this adventure!" },
-        cat: { name: "浮空橘貓", icon: "🐈", desc: "連勝 Combo 額外獎勵", img: "assets/pet_cat.jfif", cost: 150, voice: "Meow! Keep answering correctly!" },
-        otter: { name: "呆萌水獺", icon: "🦦", desc: "每場免死抵擋 1 次失誤", img: "assets/pet_otter.jfif", cost: 200, voice: "Squeak! I will protect you with my shield!" },
-        rabbit: { name: "垂耳白兔", icon: "🐇", desc: "通關經驗值大幅提升 30%", img: "assets/pet_rabbit.jfif", cost: 250, voice: "Hop hop! Level up super fast!" },
-        penguin: { name: "太空企鵝", icon: "🐧", desc: "怪獸反擊傷害減免 30%", img: "assets/pet_penguin.jfif", cost: 300, voice: "Stay cool and focused!" },
-        bot: { name: "浮空機械球", icon: "🤖", desc: "自動排除 1 個錯誤選項", img: "assets/pet_bot.jfif", cost: 350, voice: "Beep boop! Trap option eliminated!" }
+    let state = {
+        coins: 120,
+        hearts: 3,
+        streak: 0,
+        activeHero: 'warrior',
+        weapLvl: 1,
+        armorLvl: 1
     };
 
-    /* ==================== 頁面導航與分頁切換 ==================== */
     function navTo(panelId) {
-        document.querySelectorAll('.workspace-panel').forEach(p => p.classList.remove('active'));
+        const panels = document.querySelectorAll('.workspace-panel');
+        panels.forEach(p => { p.classList.remove('active'); p.style.display = 'none'; });
         const target = document.getElementById(panelId);
-        if (target) target.classList.add('active');
+        if (target) { target.classList.add('active'); target.style.display = 'flex'; }
 
         document.querySelectorAll('.mission-tab').forEach(t => t.classList.remove('active'));
-        const btnMap = {
-            'panel-map': 0, 'panel-vocab-quiz': 1, 'panel-tf': 2, 'panel-flashcard': 3,
-            'panel-scramble': 4, 'panel-cabin': 5, 'panel-shop': 6, 'panel-defense': 7
+        const tabMap = {
+            'panel-map': 'tab-btn-map', 'panel-vocab-quiz': 'tab-btn-vocab', 'panel-tf': 'tab-btn-tf',
+            'panel-flashcard': 'tab-btn-fc', 'panel-scramble': 'tab-btn-scramble', 'panel-cabin': 'tab-btn-cabin',
+            'panel-shop': 'tab-btn-shop', 'panel-defense': 'tab-btn-defense'
         };
-        const idx = btnMap[panelId];
-        if (idx !== undefined) document.querySelectorAll('.mission-tab')[idx].classList.add('active');
+        const activeTab = document.getElementById(tabMap[panelId]);
+        if (activeTab) activeTab.classList.add('active');
     }
 
-    function updateTopHUD() {
-        document.getElementById('val-coins').innerText = state.coins;
-        document.getElementById('val-streak').innerText = state.streak;
-        document.getElementById('val-rank').innerText = state.userRank;
-        document.getElementById('val-hearts').innerText = "❤️".repeat(Math.max(0, state.hearts)) + "🖤".repeat(Math.max(0, 3 - state.hearts));
+    /* 戰鬥與題目邏輯 */
+    let curStage = STAGES_DATA[0];
+    let curQIdx = 0;
+    let curQ = curStage.questions[0];
+    let hHp = 100, eHp = 45;
 
-        // 小屋更新
-        document.getElementById('cabin-dmg-bonus').innerText = (state.weapLvl - 1) * 6;
-        document.getElementById('cabin-hp-bonus').innerText = (state.armorLvl - 1) * 25;
-        const heroLabels = { warrior: "星際劍士 (物理斬擊)", mage: "星空魔法師 (元素隕石)", healer: "時空治療師 (神聖光環)" };
-        document.getElementById('cabin-hero-label').innerText = heroLabels[state.activeHero] || "星際劍士";
-        document.getElementById('cabin-hero-display').src = `assets/hero_${state.activeHero}.jfif`;
-
-        // 商店更新
-        document.getElementById('ui-weap-lvl').innerText = state.weapLvl;
-        document.getElementById('ui-weap-dmg').innerText = 18 + (state.weapLvl * 6);
-        document.getElementById('ui-armor-lvl').innerText = state.armorLvl;
-        document.getElementById('ui-armor-hp').innerText = 100 + (state.armorLvl - 1) * 25;
-
-        // 商店夥伴狀態
-        ['warrior', 'mage', 'healer'].forEach(h => {
-            const btn = document.getElementById(`btn-shop-${h}`);
-            if (!btn) return;
-            if (state.activeHero === h) {
-                btn.className = "btn-buy-pc active-use"; btn.innerText = "出戰中";
-            } else if (state.unlockedHeroes.includes(h)) {
-                btn.className = "btn-buy-pc owned"; btn.innerText = "切換出戰";
-            }
-        });
-    }
-
-    /* ==================== 1. 航線星圖渲染與戰鬥啟動 ==================== */
-    function renderMapGrid() {
-        const grid = document.getElementById('stage-grid-pc');
-        grid.innerHTML = '';
-        STAGES_DATA.forEach(st => {
-            const isCleared = state.clearedStages.includes(st.id);
-            const card = document.createElement('div');
-            card.className = `stage-card-pc ${st.isBoss ? 'boss' : ''} ${isCleared ? 'cleared' : ''}`;
-            card.onclick = () => startRPGCombat(st.id);
-            card.innerHTML = `
-                <div class="stage-badge-icon">${isCleared ? '✔' : st.icon}</div>
-                <div class="stage-name-text">${st.title}</div>
-                <div class="stage-desc-text">${st.subtitle}</div>
-                <div style="font-size: 11px; color: ${st.isBoss ? '#fca5a5' : '#7dd3fc'}; margin-top: 8px;">
-                    👾 首領: ${st.enemy.name} (HP: ${st.enemy.hp})
-                </div>
-            `;
-            grid.appendChild(card);
-        });
-    }
-
-    /* RPG 戰鬥變數 */
-    let currentBattleStage = null;
-    let currentBattleQIdx = 0;
-    let currentBattleQ = null;
-    let heroHp = 100, heroMaxHp = 100;
-    let enemyHp = 50, enemyMaxHp = 50;
-    let otterProtectedThisBattle = false;
-
-    function startRPGCombat(stageId) {
-        currentBattleStage = STAGES_DATA.find(s => s.id === stageId);
-        currentBattleQIdx = 0;
-        otterProtectedThisBattle = false;
-
-        heroMaxHp = 100 + (state.armorLvl - 1) * 25;
-        heroHp = heroMaxHp;
-
-        enemyMaxHp = currentBattleStage.enemy.hp;
-        enemyHp = enemyMaxHp;
-
+    function startRPGCombat(id) {
+        curStage = STAGES_DATA[id] || STAGES_DATA[0];
+        curQIdx = 0;
+        hHp = 100 + (state.armorLvl - 1) * 25;
+        eHp = curStage.enemy.hp;
         document.getElementById('battle-hero-pic').src = `assets/hero_${state.activeHero}.jfif`;
-        document.getElementById('battle-enemy-pic').src = currentBattleStage.enemy.img;
-        document.getElementById('enemy-title-label').innerText = `${currentBattleStage.title} 守門怪`;
-        document.getElementById('hero-pet-label').innerText = `${PET_MAP[state.activePet].icon} ${PET_MAP[state.activePet].name}`;
-
-        updateCombatMeters();
-        loadBattleQuestion();
+        document.getElementById('battle-enemy-pic').src = curStage.enemy.img;
+        document.getElementById('enemy-title-label').innerText = curStage.title + " 守門怪";
+        updateCombatUI();
+        loadBattleQ();
         navTo('panel-battle');
     }
 
-    function updateCombatMeters() {
-        const hPct = Math.max(0, (heroHp / heroMaxHp) * 100);
-        const ePct = Math.max(0, (enemyHp / enemyMaxHp) * 100);
-        document.getElementById('hero-hp-fill').style.width = hPct + '%';
-        document.getElementById('enemy-hp-fill').style.width = ePct + '%';
-        document.getElementById('hero-hp-label').innerText = `勇者 HP: ${heroHp}/${heroMaxHp}`;
-        document.getElementById('enemy-hp-label').innerText = `${currentBattleStage.enemy.name} HP: ${enemyHp}/${enemyMaxHp}`;
+    function updateCombatUI() {
+        document.getElementById('hero-hp-fill').style.width = Math.max(0, (hHp / (100 + (state.armorLvl - 1) * 25)) * 100) + '%';
+        document.getElementById('enemy-hp-fill').style.width = Math.max(0, (eHp / curStage.enemy.hp) * 100) + '%';
+        document.getElementById('hero-hp-label').innerText = `勇者 HP: ${hHp}/${100 + (state.armorLvl - 1) * 25}`;
+        document.getElementById('enemy-hp-label').innerText = `${curStage.enemy.name} HP: ${eHp}/${curStage.enemy.hp}`;
     }
 
-    function loadBattleQuestion() {
+    function loadBattleQ() {
         document.getElementById('battle-exp-card').style.display = 'none';
-        const qList = currentBattleStage.questions;
-        currentBattleQ = qList[currentBattleQIdx % qList.length];
-
-        document.getElementById('battle-q-text').innerText = `Q${currentBattleQIdx + 1}: ${currentBattleQ.q}`;
-        const optBox = document.getElementById('battle-options-box');
-        optBox.innerHTML = '';
-
-        let opts = [...currentBattleQ.opts];
-        let removeIdx = -1;
-        if (state.activePet === 'bot' && opts.length > 2) {
-            removeIdx = (currentBattleQ.ans === 0) ? 1 : 0;
-        }
-
-        opts.forEach((opt, idx) => {
-            if (idx === removeIdx) return;
+        curQ = curStage.questions[curQIdx % curStage.questions.length];
+        document.getElementById('battle-q-text').innerText = `Q${curQIdx + 1}: ${curQ.q}`;
+        const box = document.getElementById('battle-options-box');
+        box.innerHTML = '';
+        curQ.opts.forEach((opt, idx) => {
             const btn = document.createElement('button');
             btn.className = 'btn-ans-pc';
             btn.innerText = `${String.fromCharCode(65 + idx)}. ${opt}`;
             btn.onclick = () => submitBattleAns(idx, btn);
-            optBox.appendChild(btn);
+            box.appendChild(btn);
         });
     }
 
-    function submitBattleAns(chosenIdx, btn) {
+    function submitBattleAns(idx, btn) {
         document.querySelectorAll('.btn-ans-pc').forEach(b => b.disabled = true);
-        const isRight = chosenIdx === currentBattleQ.ans;
-
-        if (isRight) {
+        const right = idx === curQ.ans;
+        if (right) {
             btn.classList.add('correct');
+            eHp = Math.max(0, eHp - (18 + state.weapLvl * 6));
+            state.coins += 15;
             state.streak++;
-            const dmg = 18 + (state.weapLvl * 6);
-            enemyHp = Math.max(0, enemyHp - dmg);
-
-            if (state.activeHero === 'healer') heroHp = Math.min(heroMaxHp, heroHp + 15);
-
-            let bonusCoins = 15;
-            if (state.activePet === 'dog') bonusCoins = Math.round(bonusCoins * 1.2);
-            state.coins += bonusCoins;
-
-            showBattleExplanation(true, "✅ 答對了！全隊聯手發動光刃爆擊！");
+            document.getElementById('battle-exp-title').innerText = "✅ 答對了！全隊發動斬擊！";
         } else {
             btn.classList.add('wrong');
+            hHp = Math.max(0, hHp - 25);
             state.streak = 0;
-
-            if (state.activePet === 'otter' && !otterProtectedThisBattle) {
-                otterProtectedThisBattle = true;
-                showBattleExplanation(false, "🦦 答錯了！但跟班水獺發動護盾，為你抵擋了本次傷害！");
-            } else {
-                let monsterDmg = 25;
-                if (state.activePet === 'penguin') monsterDmg = Math.round(monsterDmg * 0.7);
-                heroHp = Math.max(0, heroHp - monsterDmg);
-
-                state.hearts--;
-                if (state.hearts <= 0) state.hearts = 3;
-                showBattleExplanation(false, "❌ 答錯了！受到怪獸反擊衝撞！");
-            }
+            document.getElementById('battle-exp-title').innerText = "❌ 答錯了！受到怪獸反擊！";
         }
-
-        saveState();
-        updateCombatMeters();
-    }
-
-    function showBattleExplanation(isRight, title) {
-        const card = document.getElementById('battle-exp-card');
-        const titleEl = document.getElementById('battle-exp-title');
-        titleEl.innerText = title;
-        titleEl.style.color = isRight ? '#4ade80' : '#f87171';
-
-        document.getElementById('battle-exp-body').innerHTML = `
-            <p><b>📖 中文釋義：</b>${currentBattleQ.trans}</p>
-            <p style="margin-top: 6px;"><b>💡 考點防坑觀念：</b>${currentBattleQ.note}</p>
-        `;
-        card.style.display = 'block';
+        document.getElementById('val-coins').innerText = state.coins;
+        document.getElementById('val-streak').innerText = state.streak;
+        document.getElementById('battle-exp-body').innerHTML = `<p><b>釋義：</b>${curQ.trans}</p><p><b>解析：</b>${curQ.note}</p>`;
+        document.getElementById('battle-exp-card').style.display = 'block';
+        updateCombatUI();
     }
 
     function nextBattleTurn() {
-        if (enemyHp <= 0) {
-            alert(`🎉 恭喜討伐成功！順利通關【${currentBattleStage.title}】！獎勵 50 星幣！`);
-            if (!state.clearedStages.includes(currentBattleStage.id)) {
-                state.clearedStages.push(currentBattleStage.id);
-            }
+        if (eHp <= 0) {
+            alert(`🎉 成功擊敗 ${curStage.title} 首領！獎勵 50 星幣！`);
             state.coins += 50;
-            saveState();
-            renderMapGrid();
+            document.getElementById('val-coins').innerText = state.coins;
             navTo('panel-map');
             return;
         }
-
-        if (heroHp <= 0) {
-            alert("💔 體力耗盡！先回到月球小屋補給並強化裝備吧！");
+        if (hHp <= 0) {
+            alert("💔 體力耗盡！先回星圖整備裝備再戰！");
             navTo('panel-map');
             return;
         }
-
-        currentBattleQIdx++;
-        loadBattleQuestion();
+        curQIdx++;
+        loadBattleQ();
     }
 
-    /* ==================== 2. 單字閃卡 (Flashcards) ==================== */
-    let fcIndex = 0;
+    /* 閃卡 */
+    let fcIdx = 0;
     function renderFlashcard() {
-        const fc = VOCAB_BANK[fcIndex];
+        const fc = VOCAB_BANK[fcIdx];
         document.getElementById('fc-word').innerText = fc.en;
         document.getElementById('fc-phonics').innerText = fc.phonics;
         document.getElementById('fc-meaning').innerText = fc.zh;
         document.getElementById('fc-example').innerText = fc.ex;
     }
-    function prevFlashcard() { fcIndex = (fcIndex - 1 + VOCAB_BANK.length) % VOCAB_BANK.length; renderFlashcard(); }
-    function nextFlashcard() { fcIndex = (fcIndex + 1) % VOCAB_BANK.length; renderFlashcard(); }
-    function speakCurrentFlashcard() { speakText(VOCAB_BANK[fcIndex].en); }
+    function prevFlashcard() { fcIdx = (fcIdx - 1 + VOCAB_BANK.length) % VOCAB_BANK.length; renderFlashcard(); }
+    function nextFlashcard() { fcIdx = (fcIdx + 1) % VOCAB_BANK.length; renderFlashcard(); }
 
-    /* ==================== 3. 是非觀念測驗 ==================== */
-    let currentTFIndex = 0;
-    let currentTF = null;
+    /* 是非題 */
+    let tfIdx = 0;
+    function submitTF(val) {
+        document.querySelectorAll('.btn-tf-pc').forEach(b => b.disabled = true);
+        const item = TF_BANK[tfIdx % TF_BANK.length];
+        const right = val === item.ans;
+        const card = document.getElementById('tf-exp-card');
+        document.getElementById('tf-exp-title').innerText = right ? "⭕ 答對了！" : "❌ 觀念錯誤！";
+        document.getElementById('tf-exp-body').innerHTML = `<p><b>解析：</b>${item.trans}</p><p>${item.note}</p>`;
+        card.style.display = 'block';
+    }
     function loadNextTF() {
         document.getElementById('tf-exp-card').style.display = 'none';
         document.querySelectorAll('.btn-tf-pc').forEach(b => b.disabled = false);
-        currentTF = TF_BANK[currentTFIndex % TF_BANK.length];
-        document.getElementById('tf-statement-text').innerText = `${currentTFIndex + 1}. ${currentTF.statement}`;
+        tfIdx++;
+        const item = TF_BANK[tfIdx % TF_BANK.length];
+        document.getElementById('tf-statement-text').innerText = `${tfIdx + 1}. ${item.statement}`;
     }
-    function submitTF(userBool) {
-        document.querySelectorAll('.btn-tf-pc').forEach(b => b.disabled = true);
-        const isRight = userBool === currentTF.ans;
-        const card = document.getElementById('tf-exp-card');
-        const title = document.getElementById('tf-exp-title');
 
-        if (isRight) {
-            title.innerText = "⭕ 觀念正確！答對了！";
-            title.style.color = "#4ade80";
-            state.streak++;
-            state.coins += 10;
-        } else {
-            title.innerText = "❌ 答錯了！注意陷阱！";
-            title.style.color = "#f87171";
-            state.streak = 0;
-        }
-
-        document.getElementById('tf-exp-body').innerHTML = `
-            <p><b>📖 答案解析：</b>${currentTF.trans}</p>
-            <p style="margin-top: 6px;"><b>💡 觀念說明：</b>${currentTF.note}</p>
-        `;
+    /* 單字測驗 */
+    function submitVQ(val, btn) {
+        document.querySelectorAll('#vq-options-list .btn-ans-pc').forEach(b => b.disabled = true);
+        const card = document.getElementById('vq-exp-card');
+        document.getElementById('vq-exp-title').innerText = val === '鉛筆' ? "✅ 答對了！" : "❌ 答錯了！";
+        document.getElementById('vq-exp-body').innerText = "pencil 代表鉛筆。";
         card.style.display = 'block';
-        currentTFIndex++;
-        saveState();
     }
-
-    /* ==================== 4. 單字測驗 (英選中) ==================== */
-    let currentVQ = null;
     function loadNextVocabQ() {
         document.getElementById('vq-exp-card').style.display = 'none';
-        currentVQ = VOCAB_BANK[Math.floor(Math.random() * VOCAB_BANK.length)];
-        document.getElementById('vq-word').innerText = currentVQ.en;
-
-        // 隨機選 3 個錯誤中文
-        let wrongPool = VOCAB_BANK.filter(v => v.zh !== currentVQ.zh).map(v => v.zh);
-        wrongPool.sort(() => Math.random() - 0.5);
-        let choices = [currentVQ.zh, wrongPool[0], wrongPool[1], wrongPool[2]].sort(() => Math.random() - 0.5);
-
-        const list = document.getElementById('vq-options-list');
-        list.innerHTML = '';
-        choices.forEach(c => {
-            const btn = document.createElement('button');
-            btn.className = 'btn-ans-pc';
-            btn.innerText = c;
-            btn.onclick = () => submitVQ(c, btn);
-            list.appendChild(btn);
-        });
+        document.querySelectorAll('#vq-options-list .btn-ans-pc').forEach(b => b.disabled = false);
     }
 
-    function submitVQ(chosenZh, btn) {
-        document.querySelectorAll('#vq-options-list .btn-ans-pc').forEach(b => b.disabled = true);
-        const isRight = chosenZh === currentVQ.zh;
-        const card = document.getElementById('vq-exp-card');
-        const title = document.getElementById('vq-exp-title');
-
-        if (isRight) {
-            btn.classList.add('correct');
-            title.innerText = "✅ 答對了！字彙力提升！";
-            title.style.color = "#4ade80";
-            state.streak++;
-            state.coins += 10;
-        } else {
-            btn.classList.add('wrong');
-            title.innerText = "❌ 答錯囉！再看一眼這個單字！";
-            title.style.color = "#f87171";
-            state.streak = 0;
+    /* 句型重組 */
+    let scrambleSeq = [];
+    function addScrambleWord(w, btn) {
+        const slot = document.getElementById('scramble-slot-box');
+        if (scrambleSeq.length === 0) slot.innerHTML = '';
+        scrambleSeq.push(w);
+        btn.classList.add('used');
+        const b = document.createElement('div');
+        b.className = 'word-bubble-pc';
+        b.innerText = w;
+        slot.appendChild(b);
+        if (scrambleSeq.length === 4) {
+            const card = document.getElementById('scramble-exp-card');
+            const right = scrambleSeq.join(' ') === "What's your name ?";
+            document.getElementById('scramble-exp-title').innerText = right ? "✅ 語序完全正確！" : "❌ 語序有誤！";
+            document.getElementById('scramble-exp-body').innerText = "標準句子：What's your name? (你叫什麼名字？)";
+            card.style.display = 'block';
         }
-
-        document.getElementById('vq-exp-body').innerHTML = `
-            <p><b>單字：</b>${currentVQ.en} ➔ <b>中文：</b>${currentVQ.zh}</p>
-            <p style="margin-top: 6px;"><b>發音拼讀：</b>${currentVQ.phonics}</p>
-            <p style="margin-top: 6px;"><b>例句：</b>${currentVQ.ex}</p>
-        `;
-        card.style.display = 'block';
-        saveState();
     }
-
-    /* ==================== 5. 句型重組 (Scramble) ==================== */
-    let currentScrambleIdx = 0;
-    let currentScramble = null;
-    let userScrambleSeq = [];
-
     function loadNextScramble() {
         document.getElementById('scramble-exp-card').style.display = 'none';
-        currentScramble = SCRAMBLE_BANK[currentScrambleIdx % SCRAMBLE_BANK.length];
-        userScrambleSeq = [];
-
-        document.getElementById('scramble-hint-text').innerText = `題目提示：${currentScramble.hint}`;
-        const slot = document.getElementById('scramble-slot-box');
-        slot.innerHTML = '<span style="color: #64748b; font-size: 15px;">點選下方氣泡排列句子...</span>';
-
-        const bank = document.getElementById('scramble-bank-box');
-        bank.innerHTML = '';
-        const shuffled = [...currentScramble.words].sort(() => Math.random() - 0.5);
-
-        shuffled.forEach(w => {
-            const btn = document.createElement('button');
-            btn.className = 'word-btn-pc';
-            btn.innerText = w;
-            btn.onclick = () => {
-                if (userScrambleSeq.length === 0) slot.innerHTML = '';
-                userScrambleSeq.push(w);
-                btn.classList.add('used');
-
-                const bubble = document.createElement('div');
-                bubble.className = 'word-bubble-pc';
-                bubble.innerText = w;
-                slot.appendChild(bubble);
-
-                if (userScrambleSeq.length === currentScramble.words.length) {
-                    checkScrambleResult();
-                }
-            };
-            bank.appendChild(btn);
-        });
+        document.querySelectorAll('.word-btn-pc').forEach(b => b.classList.remove('used'));
+        document.getElementById('scramble-slot-box').innerHTML = '<span style="color: #64748b; font-size: 15px;">點選下方氣泡排列句子...</span>';
+        scrambleSeq = [];
     }
 
-    function checkScrambleResult() {
-        const userSent = userScrambleSeq.join(' ');
-        const isRight = userSent === currentScramble.ans;
-        const card = document.getElementById('scramble-exp-card');
-        const title = document.getElementById('scramble-exp-title');
-
-        if (isRight) {
-            title.innerText = "✅ 語序完全正確！排得太棒了！";
-            title.style.color = "#4ade80";
-            state.streak++;
-            state.coins += 15;
-        } else {
-            title.innerText = "❌ 語序有誤！請參考正確句型：";
-            title.style.color = "#f87171";
-            state.streak = 0;
-        }
-
-        document.getElementById('scramble-exp-body').innerHTML = `
-            <p><b>標準句子：</b>${currentScramble.trans}</p>
-            <p style="margin-top: 6px;"><b>💡 文法結構：</b>${currentScramble.note}</p>
-        `;
-        card.style.display = 'block';
-        currentScrambleIdx++;
-        saveState();
+    /* 小屋與商店功能 */
+    function setAura(c) {
+        document.documentElement.style.setProperty('--aura-color', c);
     }
-
-    /* ==================== 6. 月球小屋與稱號 ==================== */
-    function setAura(color, idx) {
-        state.auraColor = color;
-        document.documentElement.style.setProperty('--aura-color', color);
-        document.querySelectorAll('.aura-item').forEach((item, i) => {
-            if (i === idx) item.classList.add('active');
-            else item.classList.remove('active');
-        });
-        saveState();
-    }
-
-    const TITLE_POOL = ["🌟 銀河守護神", "🚀 星際先鋒", "👑 英語傳奇大師", "⚡ 離子光刃勇者", "🌌 宇宙探險隊長"];
     function gachaTitle() {
         if (state.coins >= 50) {
             state.coins -= 50;
-            const t = TITLE_POOL[Math.floor(Math.random() * TITLE_POOL.length)];
-            state.userRank = t;
+            document.getElementById('val-coins').innerText = state.coins;
+            const titles = ["🌟 銀河守護神", "🚀 星際先鋒", "👑 英語傳奇大師"];
+            const t = titles[Math.floor(Math.random() * titles.length)];
             document.getElementById('cabin-user-title').innerText = t;
             alert(`🎰 恭喜獲得稱號：【${t}】！`);
-            saveState();
-        } else alert("❌ 星幣不足 50 點！多做測驗賺取星幣吧！");
+        } else alert("❌ 星幣不足 50 點！");
     }
-
-    function renderCabinPatrol() {
-        const carpet = document.getElementById('carpet-pets-container');
-        carpet.innerHTML = '';
-        state.unlockedPets.forEach(k => {
-            const p = PET_MAP[k];
-            const el = document.createElement('div');
-            el.className = 'patrol-pet-pc';
-            el.innerHTML = `<img src="${p.img}" alt="${p.name}">`;
-            el.title = `${p.name} (點擊發聲)`;
-            el.onclick = () => {
-                speakText(p.voice);
-                alert(`🐾 ${p.name}：「${p.voice}」`);
-            };
-            carpet.appendChild(el);
-        });
+    function equipHero(h) {
+        state.activeHero = h;
+        document.getElementById('cabin-hero-display').src = `assets/hero_${h}.jfif`;
+        alert("已切換出戰角色！");
     }
-
-    /* ==================== 7. 補給商店 (夥伴、裝備、寵物) ==================== */
-    function buyHero(heroKey, cost) {
+    function buyHero(h, cost) {
         if (state.coins >= cost) {
             state.coins -= cost;
-            state.unlockedHeroes.push(heroKey);
-            state.activeHero = heroKey;
-            alert("✨ 成功解鎖夥伴！已切換為出戰角色！");
-            saveState();
+            state.activeHero = h;
+            document.getElementById('val-coins').innerText = state.coins;
+            document.getElementById('cabin-hero-display').src = `assets/hero_${h}.jfif`;
+            alert("✨ 成功解鎖夥伴！");
         } else alert(`❌ 星幣不足！需要 ${cost} 星幣。`);
     }
-
-    function equipHero(heroKey) {
-        state.activeHero = heroKey;
-        alert("已切換出戰角色！");
-        saveState();
-    }
-
     function upgradeItem(type) {
         if (state.coins >= 50) {
             state.coins -= 50;
-            if (type === 'weap') {
-                state.weapLvl++;
-                alert(`⚔️ 武器升級至 Lv.${state.weapLvl}！攻擊力大幅提升！`);
-            } else {
-                state.armorLvl++;
-                alert(`🛡️ 防具升級至 Lv.${state.armorLvl}！最大 HP 提升！`);
-            }
-            saveState();
+            if (type === 'weap') { state.weapLvl++; document.getElementById('ui-weap-lvl').innerText = state.weapLvl; }
+            else { state.armorLvl++; document.getElementById('ui-armor-lvl').innerText = state.armorLvl; }
+            document.getElementById('val-coins').innerText = state.coins;
+            alert("✨ 升級成功！");
         } else alert("❌ 星幣不足 50 點！");
     }
-
-    function renderShopPets() {
-        const grid = document.getElementById('shop-pets-grid');
-        grid.innerHTML = '';
-        Object.keys(PET_MAP).forEach(k => {
-            const p = PET_MAP[k];
-            const isOwned = state.unlockedPets.includes(k);
-            const isEquipped = state.activePet === k;
-
-            const card = document.createElement('div');
-            card.className = 'shop-item-card';
-            card.innerHTML = `
-                <div class="shop-item-thumb"><img src="${p.img}" alt="${p.name}"></div>
-                <div><b>${p.icon} ${p.name}</b><br><span style="font-size: 12px; color: #94a3b8;">${p.desc}</span></div>
-                <button class="btn-buy-pc ${isEquipped ? 'active-use' : isOwned ? 'owned' : ''}" onclick="handlePetShop('${k}', ${p.cost})">
-                    ${isEquipped ? '跟隨中' : isOwned ? '切換帶出' : `${p.cost} ⭐ 收養`}
-                </button>
-            `;
-            grid.appendChild(card);
-        });
-    }
-
-    function handlePetShop(petKey, cost) {
-        if (state.activePet === petKey) return;
-        if (state.unlockedPets.includes(petKey)) {
-            state.activePet = petKey;
-            alert(`🐾 已帶上跟班：${PET_MAP[petKey].name}！`);
-        } else {
-            if (state.coins >= cost) {
-                state.coins -= cost;
-                state.unlockedPets.push(petKey);
-                state.activePet = petKey;
-                alert(`🎉 成功收養跟班：${PET_MAP[petKey].name}！`);
-            } else {
-                alert(`❌ 星幣不足！需要 ${cost} 星幣。`);
-            }
-        }
-        saveState();
-        renderShopPets();
-        renderCabinPatrol();
-    }
-
-    /* ==================== 8. 單字防禦戰 ==================== */
-    let currentDrop = VOCAB_BANK[0];
     function submitDefenseAction() {
-        const input = document.getElementById('defense-input-box');
-        const val = input.value.trim().toLowerCase();
-        if (val === currentDrop.en) {
-            alert(`💥 擊碎成功！答對單字 ${currentDrop.en}！獎勵 10 星幣！`);
+        const inp = document.getElementById('defense-input-box');
+        if (inp.value.trim().toLowerCase() === "apple") {
+            alert("💥 擊碎成功！獎勵 10 星幣！");
             state.coins += 10;
-            saveState();
-            input.value = '';
-            currentDrop = VOCAB_BANK[Math.floor(Math.random() * VOCAB_BANK.length)];
-            document.getElementById('defense-drop-word').innerText = currentDrop.zh;
-        } else {
-            alert("❌ 拼字錯誤！再試一次！");
+            document.getElementById('val-coins').innerText = state.coins;
+            inp.value = '';
+        } else alert("❌ 拼字錯誤，再試一次！");
+    }
+
+    /* 語音 */
+    function speakText(t) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(t);
+            u.lang = 'en-US';
+            window.speechSynthesis.speak(u);
         }
     }
-
-    /* ==================== 真人語音發音 (Web Speech API) ==================== */
-    function speakText(text) {
-        if (!('speechSynthesis' in window)) return;
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'en-US';
-        u.rate = 0.85;
-        window.speechSynthesis.speak(u);
-    }
-
-    /* ==================== 初始化 ==================== */
-    window.onload = function() {
-        loadState();
-        document.documentElement.style.setProperty('--aura-color', state.auraColor || '#38bdf8');
-        renderMapGrid();
-        renderFlashcard();
-        loadNextTF();
-        loadNextVocabQ();
-        loadNextScramble();
-        renderCabinPatrol();
-        renderShopPets();
-        updateTopHUD();
-    };
+    function speakBattleQ() { speakText(curQ.q); }
+    function speakCurrentFlashcard() { speakText(VOCAB_BANK[fcIdx].en); }
+    function speakTF() { speakText(TF_BANK[tfIdx % TF_BANK.length].statement); }
+    function speakVQ() { speakText("pencil"); }
 </script>
 </body>
 </html>
