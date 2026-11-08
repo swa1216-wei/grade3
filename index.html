@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小學三年級英語・浮空島冒險任務系統</title>
+    <title>小學三年級英語・星際冒險任務系統</title>
     <style>
         :root {
             --sky-bg: #e0f2fe;
@@ -25,50 +25,50 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 14px 12px 60px;
+            padding: 12px 10px 50px;
             overflow-x: hidden;
         }
 
-        /* 頂部全域桌面導航列 (無遮擋、清晰明瞭) */
+        /* 頂部全域桌面導航列 (零遮擋) */
         .desktop-nav-wrap {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1120px;
             background: rgba(255, 255, 255, 0.98);
             border: 2px solid var(--card-border);
             border-radius: 18px;
-            padding: 12px 24px;
+            padding: 10px 22px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 4px 20px rgba(2, 132, 199, 0.15);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             z-index: 100;
         }
-        .app-brand { font-size: 21px; font-weight: 900; color: #0369a1; display: flex; align-items: center; gap: 8px; }
-        .user-status-strip { display: flex; align-items: center; gap: 10px; }
+        .app-brand { font-size: 20px; font-weight: 900; color: #0369a1; display: flex; align-items: center; gap: 8px; }
+        .user-status-strip { display: flex; align-items: center; gap: 8px; }
         .status-pill {
-            background: #f0f9ff; border: 1.5px solid #bae6fd; padding: 6px 14px;
-            border-radius: 20px; font-size: 14px; font-weight: 800; color: #0369a1;
+            background: #f0f9ff; border: 1.5px solid #bae6fd; padding: 5px 12px;
+            border-radius: 20px; font-size: 13.5px; font-weight: 800; color: #0369a1;
             display: flex; align-items: center; gap: 6px;
         }
 
         /* 任務分頁切換列 (9 個完整功能分頁！) */
         .mission-tab-bar {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1120px;
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 14px;
+            gap: 7px;
+            margin-bottom: 12px;
             z-index: 90;
         }
         .mission-tab {
             background: rgba(255, 255, 255, 0.92);
             border: 1.5px solid #bae6fd;
             color: #475569;
-            padding: 10px 16px;
-            border-radius: 14px;
-            font-size: 14.5px;
+            padding: 8px 15px;
+            border-radius: 12px;
+            font-size: 14px;
             font-weight: 800;
             cursor: pointer;
             transition: all 0.2s;
@@ -82,92 +82,83 @@
             box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
         }
 
-        /* 主工作面板 (避免頂部被遮擋，內距充足) */
+        /* 主工作面板 */
         .workspace-panel {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1120px;
             background: rgba(255, 255, 255, 0.97);
             border: 2px solid #bae6fd;
-            border-radius: 24px;
-            min-height: 680px;
+            border-radius: 22px;
+            min-height: 700px;
             position: relative;
             box-shadow: 0 10px 35px rgba(2, 132, 199, 0.12);
             display: none;
             flex-direction: column;
             overflow-y: auto;
-            max-height: 85vh;
+            max-height: 86vh;
         }
         .workspace-panel.active { display: flex !important; }
 
-        /* 1. 浮空島嶼地圖 (支援宇宙/星空/海天背景圖，島嶼自然分布) */
+        /* 1. 浮空島嶼地圖 (支援 map_bg2 全圖自適應！) */
         #panel-map {
-            background-color: #e0f2fe;
-            background-image: url('assets/map_bg.jfif'), url('assets/map_bg.png'), linear-gradient(180deg, #bae6fd 0%, #e0f2fe 50%, #f0fdf4 100%);
+            background-color: #bae6fd;
+            background-image: url('assets/map_bg2.jfif'), url('assets/map_bg2.jpg'), url('assets/map_bg2.png'), url('assets/map_bg.jfif'), linear-gradient(180deg, #bae6fd 0%, #e0f2fe 50%, #f0fdf4 100%);
             background-size: cover;
             background-position: center;
             position: relative;
-            min-height: 720px;
+            min-height: 700px;
+            height: 700px;
             overflow: hidden;
-            border-radius: 24px;
-            padding: 20px;
+            border-radius: 22px;
+            padding: 0;
         }
-        .map-banner {
-            text-align: center;
-            margin: 10px 0 16px;
-            position: relative;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.88);
-            border: 1.5px solid #bae6fd;
-            border-radius: 16px;
-            padding: 10px 20px;
-            display: inline-block;
-            margin-left: auto;
-            margin-right: auto;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-        }
-        .map-banner h2 { font-size: 24px; font-weight: 900; color: #0369a1; }
-        .map-banner p { font-size: 13.5px; color: #475569; margin-top: 4px; font-weight: 700; }
-        
-        #map-canvas-line {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 4;
-        }
+
+        /* 關卡節點按鈕 (完全對應 map_bg2 上的 8 個區域！) */
         .island-node {
             position: absolute;
             transform: translate(-50%, -50%);
             display: flex; flex-direction: column; align-items: center;
-            cursor: pointer; z-index: 10;
+            cursor: pointer; z-index: 15;
             transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .island-node:hover { transform: translate(-50%, -50%) scale(1.18); }
-        .island-badge {
-            width: 68px; height: 68px; border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #86efac 0%, #22c55e 60%, #15803d 100%);
-            border: 3px solid #ffffff; display: flex; justify-content: center; align-items: center;
-            font-size: 30px; box-shadow: 0 8px 20px rgba(22, 163, 74, 0.45);
+        .island-node:hover { transform: translate(-50%, -50%) scale(1.15); }
+        .island-card-tag {
+            background: rgba(255, 255, 255, 0.92);
+            border: 2px solid #0284c7;
+            border-radius: 14px;
+            padding: 5px 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            font-size: 13px;
+            font-weight: 900;
+            color: #0369a1;
+            white-space: nowrap;
         }
-        .island-badge.boss {
-            width: 78px; height: 78px;
-            background: radial-gradient(circle at 35% 35%, #fca5a5 0%, #ef4444 60%, #991b1b 100%);
-            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.5);
-            border-color: #fef08a;
+        .island-card-tag.midterm {
+            border-color: #d97706;
+            color: #b45309;
+            background: #fffbeb;
+            box-shadow: 0 4px 18px rgba(217, 119, 6, 0.3);
         }
-        .island-title {
-            margin-top: 6px; font-size: 13px; font-weight: 800;
-            background: #ffffff; color: #0f172a; padding: 4px 12px; border-radius: 14px;
-            border: 2px solid #bae6fd; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        .island-card-tag.final {
+            border-color: #dc2626;
+            color: #991b1b;
+            background: #fef2f2;
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
         }
 
-        /* 2. RPG 雙向回合制對決舞台 (金屬卡牌邊框・零白邊・寵物在旁！) */
+        /* 2. RPG 雙向回合制對決舞台 */
         .battle-arena-pc {
             min-height: 310px;
             background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 60%, #f8fafc 100%);
             position: relative; display: flex; justify-content: space-around; align-items: center;
-            padding: 20px 30px; border-bottom: 2px solid #bae6fd;
+            padding: 18px 30px; border-bottom: 2px solid #bae6fd;
         }
         .wave-badge-top {
             position: absolute; top: 12px; background: #0284c7; color: #fff;
-            padding: 5px 20px; border-radius: 16px; font-size: 14px; font-weight: 900;
+            padding: 4px 18px; border-radius: 14px; font-size: 13.5px; font-weight: 900;
             box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3); z-index: 10;
         }
         .hero-combat-group {
@@ -175,12 +166,12 @@
             align-items: center;
             gap: 14px;
         }
-        .fighter-col { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 160px; }
+        .fighter-col { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 155px; }
 
-        /* 實體立體金屬卡牌邊框 (零白邊滿版貼合，對標參考圖) */
+        /* 實體立體金屬卡牌邊框 (零白邊滿版貼合) */
         .trading-card-frame {
-            width: 150px;
-            height: 200px;
+            width: 145px;
+            height: 195px;
             background: #090e1a;
             border: 3.5px solid #d97706;
             border-radius: 16px;
@@ -198,10 +189,10 @@
         .card-header-bar {
             background: linear-gradient(180deg, #d97706 0%, #78350f 100%);
             color: #fff;
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 900;
             text-align: center;
-            padding: 4px 0;
+            padding: 3.5px 0;
             border-bottom: 1.5px solid rgba(255,255,255,0.2);
             white-space: nowrap;
         }
@@ -233,8 +224,8 @@
 
         /* 隨行萌寵獨立卡牌 (並排放在英雄身旁) */
         .companion-pet-card {
-            width: 95px;
-            height: 140px;
+            width: 92px;
+            height: 135px;
             background: #0b1322;
             border: 2.5px solid #10b981;
             border-radius: 12px;
@@ -293,7 +284,7 @@
         .hp-bar-inner-enemy { height: 100%; background: linear-gradient(90deg, #22c55e, #16a34a); transition: width 0.3s; width: 100%; }
         .fighter-meta { font-size: 13px; font-weight: 900; color: #0f172a; margin-top: 2px; }
 
-        .battle-body-pc { flex-grow: 1; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; background: #ffffff; }
+        .battle-body-pc { flex-grow: 1; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; background: #ffffff; }
         .q-prompt-box-pc {
             background: #f0f9ff; border-left: 6px solid #0284c7; padding: 18px 22px;
             border-radius: 14px; font-size: 20px; font-weight: 800; line-height: 1.5; color: #0f172a;
@@ -313,12 +304,14 @@
             border-radius: 14px; font-size: 17px; font-weight: 800; text-align: left; cursor: pointer; transition: all 0.2s;
         }
         .btn-ans-pc:hover { background: #e0f2fe; border-color: #38bdf8; }
-        .btn-ans-pc.correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #15803d !important; }
-        .btn-ans-pc.wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #b91c1c !important; }
+        
+        /* 雙色高對比反饋：答錯紅底，正確答案翠綠色底！ */
+        .btn-ans-pc.correct-reveal { background: #dcfce7 !important; border-color: #22c55e !important; color: #15803d !important; font-weight: 900; }
+        .btn-ans-pc.user-wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #b91c1c !important; }
 
         .btn-return-action {
-            background: #f1f5f9; color: #475569; border: 2px solid #cbd5e1; padding: 12px 28px;
-            border-radius: 14px; font-size: 15px; font-weight: 800; cursor: pointer; align-self: center; margin-top: 16px;
+            background: #f1f5f9; color: #475569; border: 2px solid #cbd5e1; padding: 10px 26px;
+            border-radius: 14px; font-size: 14.5px; font-weight: 800; cursor: pointer; align-self: center; margin-top: 14px;
         }
         .btn-return-action:hover { background: #e2e8f0; color: #0f172a; }
 
@@ -332,21 +325,34 @@
             font-size: 16px; font-weight: 800; cursor: pointer;
         }
 
+        /* 練習單元切換過濾條 */
+        .practice-unit-filter-bar {
+            display: flex; gap: 6px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 14px;
+            border-bottom: 1.5px solid #e2e8f0;
+        }
+        .btn-filter-chip {
+            background: #f8fafc; border: 1.5px solid #cbd5e1; color: #475569;
+            padding: 6px 13px; border-radius: 12px; font-size: 13px; font-weight: 800;
+            cursor: pointer; white-space: nowrap; transition: all 0.15s;
+        }
+        .btn-filter-chip:hover { background: #e0f2fe; color: #0284c7; }
+        .btn-filter-chip.active { background: #0284c7; color: #fff; border-color: #0284c7; }
+
         /* 10 題專項練習頭部資訊列 */
         .practice-header-strip {
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 18px;
+            border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 14px;
         }
         .practice-progress { font-size: 16px; font-weight: 900; color: #0284c7; }
         .btn-exit-practice {
-            background: #ef4444; color: #fff; border: none; padding: 7px 18px;
-            border-radius: 12px; font-size: 14px; font-weight: 900; cursor: pointer;
+            background: #ef4444; color: #fff; border: none; padding: 6px 16px;
+            border-radius: 12px; font-size: 13.5px; font-weight: 900; cursor: pointer;
         }
 
         /* 句型重組 */
         .scramble-dropzone {
             min-height: 80px; background: #f8fafc; border: 2px dashed #94a3b8; border-radius: 18px;
-            padding: 14px 18px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 20px 0;
+            padding: 14px 18px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 18px 0;
         }
         .word-bubble-pc {
             background: #0284c7; color: #fff; padding: 10px 20px; border-radius: 20px;
@@ -361,35 +367,35 @@
         .word-btn-pc.punct-btn { background: #fff7ed; border-color: #fb923c; color: #c2410c; }
         .word-btn-pc.used { opacity: 0.25; pointer-events: none; }
 
-        /* 自然發音積木 (支援 26 鍵全鍵盤與打散積木雙模) */
+        /* 自然發音積木 (點擊按鍵只發清脆點擊音，絕不唸 c, u, p！只在最後唸完整單字！) */
         .spell-display-box {
             font-size: 40px; font-weight: 900; letter-spacing: 12px; color: #0284c7;
-            background: #f0f9ff; padding: 20px; border-radius: 18px; text-align: center;
-            border: 2px dashed #38bdf8; margin: 20px auto; min-height: 85px; max-width: 600px;
+            background: #f0f9ff; padding: 18px; border-radius: 18px; text-align: center;
+            border: 2px dashed #38bdf8; margin: 16px auto; min-height: 85px; max-width: 600px;
         }
-        .letters-block-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+        .letters-block-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px; }
         .btn-letter-block {
             width: 58px; height: 58px; font-size: 26px; font-weight: 900; border-radius: 14px;
             background: #0284c7; color: #fff; border: 2px solid #38bdf8; cursor: pointer;
         }
         .btn-letter-block.used { opacity: 0.25; pointer-events: none; }
 
-        /* 3. 是非觀念題 */
+        /* 是非觀念題 */
         .tf-btn-pair { display: flex; gap: 20px; margin: 24px 0; }
         .btn-tf-pc {
             flex: 1; padding: 22px; font-size: 24px; font-weight: 900; border-radius: 18px;
             background: #f8fafc; border: 3px solid #cbd5e1; cursor: pointer; transition: all 0.2s;
         }
 
-        /* 4. 📖 各單元重點全覽 (一頁展開！全書 98 個核心單字＋句子＋避坑指南，頂部不遮擋！) */
-        #panel-flashcard { padding: 30px; }
+        /* 📖 各單元重點全覽 (頂部跳轉零遮擋，全書 98 個核心單字＋句子＋避坑指南) */
+        #panel-flashcard { padding: 28px; }
         .guide-jump-nav {
-            display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 20px;
-            border-bottom: 2px solid #e2e8f0;
+            display: flex; gap: 8px; overflow-x: auto; padding: 6px 0 14px; margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0; position: sticky; top: 0; background: rgba(255,255,255,0.98); z-index: 20;
         }
         .btn-jump-pill {
             background: #f0f9ff; border: 1.5px solid #bae6fd; color: #0369a1;
-            padding: 8px 16px; border-radius: 12px; font-size: 13.5px; font-weight: 800;
+            padding: 7px 14px; border-radius: 12px; font-size: 13px; font-weight: 800;
             cursor: pointer; white-space: nowrap; text-decoration: none;
         }
         .btn-jump-pill:hover { background: #0284c7; color: #fff; }
@@ -418,9 +424,9 @@
             padding: 14px 18px;
         }
 
-        /* 5. 🎒 冒險補給商店 (完整保留原本所有角色、裝備強化、HP、寵物！) */
-        #panel-shop, #panel-scramble, #panel-spelling, #panel-vocab-quiz, #panel-tf, #panel-listening, #panel-defense { padding: 30px; }
-        .shop-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 26px; }
+        /* 🎒 冒險補給商店 (原裝全部保留！) */
+        #panel-shop, #panel-scramble, #panel-spelling, #panel-vocab-quiz, #panel-tf, #panel-listening, #panel-defense { padding: 26px; }
+        .shop-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
         .shop-item-card {
             background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 20px;
             padding: 18px 14px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;
@@ -436,7 +442,7 @@
         }
         .btn-buy-pc.active-use { background: #e2e8f0; color: #64748b; cursor: default; }
 
-        /* 6. 👾 單字雷射防禦戰 */
+        /* 👾 單字雷射防禦戰 (隨機橫向坐標生成、光箭射擊向上浮起爆裂、暫停功能) */
         .defense-layout { display: grid; grid-template-columns: 1fr 280px; gap: 20px; }
         .defense-canvas-wrap {
             height: 440px; background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 70%, #ffffff 100%);
@@ -444,11 +450,19 @@
         }
         .falling-word-balloon {
             position: absolute; background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
-            color: #fff; padding: 8px 20px; border-radius: 20px; font-size: 19px; font-weight: 900;
+            color: #fff; padding: 8px 20px; border-radius: 20px; font-size: 18px; font-weight: 900;
+            white-space: nowrap; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+            transition: transform 0.25s, opacity 0.25s, background 0.2s;
+        }
+        .falling-word-balloon.popping {
+            background: #22c55e !important;
+            transform: translateY(-40px) scale(1.25) !important;
+            opacity: 0 !important;
         }
         .laser-arrow {
             position: absolute; width: 6px; height: 40px; background: linear-gradient(180deg, #38bdf8, #0284c7);
-            border-radius: 3px; display: none; z-index: 15;
+            border-radius: 3px; display: none; z-index: 25;
+            box-shadow: 0 0 12px #38bdf8;
         }
         .defense-redline {
             position: absolute; bottom: 25px; left: 0; right: 0;
@@ -502,48 +516,32 @@
         <button class="mission-tab" id="tab-btn-defense" onclick="navTo('panel-defense')">👾 單字雷射防禦戰</button>
     </div>
 
-    <!-- 1. 浮空島嶼地圖 -->
+    <!-- 1. 浮空島嶼地圖 (完全對應 map_bg2 上的 8 個區域！) -->
     <div id="panel-map" class="workspace-panel active">
-        <div style="text-align: center; margin-bottom: 10px;">
-            <div class="map-banner">
-                <h2>星際英文航線・浮空群島</h2>
-                <p>108 課綱三年級 ｜ 雙向回合制！每關 3 波怪獸連續討伐（小怪 ➔ 菁英 ➔ 關卡首領），答對進攻，怪獸會反擊！</p>
-            </div>
+        <!-- 8 個區域的點擊節點 (對標 map_bg2 插畫位置) -->
+        <div class="island-node" style="left: 14%; top: 78%;" onclick="startRPGCombat(0)">
+            <div class="island-card-tag">🚀 Starter: 字母與數字</div>
         </div>
-
-        <svg id="map-canvas-line"></svg>
-
-        <div class="island-node" id="island-0" style="top: 230px; left: 110px;" onclick="startRPGCombat(0)">
-            <div class="island-badge">🚀</div>
-            <div class="island-title">Starter 字母</div>
+        <div class="island-node" style="left: 16%; top: 46%;" onclick="startRPGCombat(1)">
+            <div class="island-card-tag">👋 Unit 1: 自我介紹</div>
         </div>
-        <div class="island-node" id="island-1" style="top: 150px; left: 240px;" onclick="startRPGCombat(1)">
-            <div class="island-badge">⭐</div>
-            <div class="island-title">Unit 1 招呼</div>
+        <div class="island-node" style="left: 38%; top: 56%;" onclick="startRPGCombat(2)">
+            <div class="island-card-tag">🎂 Unit 2: 年齡與禮貌</div>
         </div>
-        <div class="island-node" id="island-2" style="top: 260px; left: 380px;" onclick="startRPGCombat(2)">
-            <div class="island-badge">🎂</div>
-            <div class="island-title">Unit 2 年齡</div>
+        <div class="island-node" style="left: 49%; top: 78%;" onclick="startRPGCombat(3)">
+            <div class="island-card-tag midterm">🎖️ 期中考: 巨石守門員</div>
         </div>
-        <div class="island-node" id="island-3" style="top: 160px; left: 520px;" onclick="startRPGCombat(3)">
-            <div class="island-badge boss">🏆</div>
-            <div class="island-title" style="color: #b91c1c;">期中考 巨石怪</div>
+        <div class="island-node" style="left: 63%; top: 56%;" onclick="startRPGCombat(4)">
+            <div class="island-card-tag">🎒 Unit 3: 校園文具用品</div>
         </div>
-        <div class="island-node" id="island-4" style="top: 280px; left: 660px;" onclick="startRPGCombat(4)">
-            <div class="island-badge">🎒</div>
-            <div class="island-title">Unit 3 文具</div>
+        <div class="island-node" style="left: 68%; top: 28%;" onclick="startRPGCombat(5)">
+            <div class="island-card-tag">🎨 Unit 4: 顏色與調色</div>
         </div>
-        <div class="island-node" id="island-5" style="top: 170px; left: 780px;" onclick="startRPGCombat(5)">
-            <div class="island-badge">🎨</div>
-            <div class="island-title">Unit 4 顏色</div>
+        <div class="island-node" style="left: 88%; top: 46%;" onclick="startRPGCombat(6)">
+            <div class="island-card-tag">🎃 Festival: 萬聖節不給糖</div>
         </div>
-        <div class="island-node" id="island-6" style="top: 290px; left: 890px;" onclick="startRPGCombat(6)">
-            <div class="island-badge">🎃</div>
-            <div class="island-title">Halloween 萬聖</div>
-        </div>
-        <div class="island-node" id="island-7" style="top: 520px; left: 760px;" onclick="startRPGCombat(7)">
-            <div class="island-badge boss">👑</div>
-            <div class="island-title" style="color: #b91c1c;">期末考 魔龍</div>
+        <div class="island-node" style="left: 87%; top: 82%;" onclick="startRPGCombat(7)">
+            <div class="island-card-tag final">👑 期末考: 星際魔龍大滿貫</div>
         </div>
     </div>
 
@@ -602,11 +600,11 @@
                 <button class="btn-next-pc" onclick="nextBattleTurn()">繼續推進下一回合 ➔</button>
             </div>
             
-            <button class="btn-return-action" onclick="navTo('panel-map')">⬅️ 暫停並返回浮空島地圖</button>
+            <button class="btn-return-action" onclick="navTo('panel-map')">⬅️ 暫停並返回地圖</button>
         </div>
     </div>
 
-    <!-- 3. 段考聽力測驗 (10 題隨機挑戰) -->
+    <!-- 3. 段考聽力測驗 (10 題隨機挑戰，支援單元切換) -->
     <div id="panel-listening" class="workspace-panel">
         <div class="practice-header-strip">
             <div>
@@ -615,12 +613,15 @@
             </div>
             <div style="display: flex; align-items: center; gap: 14px;">
                 <span class="practice-progress" id="listening-progress">第 1 / 10 題</span>
-                <button class="btn-exit-practice" onclick="navTo('panel-map')">✖ 結束離開</button>
+                <button class="btn-exit-practice" onclick="exitChallengePrematurely('listening')">✖ 結束結算</button>
             </div>
         </div>
 
+        <!-- 單元切換條 -->
+        <div class="practice-unit-filter-bar" id="lis-unit-filter-bar"></div>
+
         <div style="text-align: center; background: #f0f9ff; border-radius: 20px; padding: 26px; margin-bottom: 20px; border: 2px solid #bae6fd;">
-            <div style="font-size: 17px; font-weight: 800; color: #0369a1; margin-bottom: 12px;" id="lis-prompt">請點擊下方按鈕聽題目聲音：</div>
+            <div style="font-size: 17px; font-weight: 800; color: #0369a1; margin-bottom: 12px;" id="lis-prompt">🎧 請點擊按鈕仔細聆聽對話或單字：</div>
             <button class="btn-next-pc" style="margin: 0 auto; display: flex; align-items: center; gap: 8px; font-size: 18px;" onclick="playCurrentListening()">
                 🔊 播放聽力音檔
             </button>
@@ -644,7 +645,7 @@
             </div>
             <div style="display: flex; align-items: center; gap: 14px;">
                 <span class="practice-progress" id="scramble-progress">第 1 / 10 題</span>
-                <button class="btn-exit-practice" onclick="navTo('panel-map')">✖ 結束離開</button>
+                <button class="btn-exit-practice" onclick="exitChallengePrematurely('scramble')">✖ 結束結算</button>
             </div>
         </div>
 
@@ -666,16 +667,16 @@
         </div>
     </div>
 
-    <!-- 5. 自然發音積木拼字 (10 題挑戰) -->
+    <!-- 5. 自然發音積木拼字 (點按鍵只出音效，不發 c,u,p 雜音！拼完才唸單字！) -->
     <div id="panel-spelling" class="workspace-panel">
         <div class="practice-header-strip">
             <div>
                 <h2 style="font-size: 22px; color: #0369a1;">🔤 自然發音積木拼字 (含混淆字母)</h2>
-                <p style="color: #64748b; font-size: 13.5px; margin-top: 4px;">聽發音從打散的積木中挑出正確字母！</p>
+                <p style="color: #64748b; font-size: 13.5px; margin-top: 4px;">聽發音從打散的積木中挑出正確字母！點按鍵不發單音，拼對才發完整單字音！</p>
             </div>
             <div style="display: flex; align-items: center; gap: 14px;">
                 <span class="practice-progress" id="spelling-progress">第 1 / 10 題</span>
-                <button class="btn-exit-practice" onclick="navTo('panel-map')">✖ 結束離開</button>
+                <button class="btn-exit-practice" onclick="exitChallengePrematurely('spelling')">✖ 結束結算</button>
             </div>
         </div>
 
@@ -707,7 +708,7 @@
             </div>
             <div style="display: flex; align-items: center; gap: 14px;">
                 <span class="practice-progress" id="vocab-progress">第 1 / 10 題</span>
-                <button class="btn-exit-practice" onclick="navTo('panel-map')">✖ 結束離開</button>
+                <button class="btn-exit-practice" onclick="exitChallengePrematurely('vocab')">✖ 結束結算</button>
             </div>
         </div>
 
@@ -734,7 +735,7 @@
             </div>
             <div style="display: flex; align-items: center; gap: 14px;">
                 <span class="practice-progress" id="tf-progress">第 1 / 10 題</span>
-                <button class="btn-exit-practice" onclick="navTo('panel-map')">✖ 結束離開</button>
+                <button class="btn-exit-practice" onclick="exitChallengePrematurely('tf')">✖ 結束結算</button>
             </div>
         </div>
         
@@ -755,7 +756,7 @@
         </div>
     </div>
 
-    <!-- 8. 📖 各單元重點全覽 (一頁展開！全書 98 個單字＋句子＋避坑指南，頂部絕不遮擋！) -->
+    <!-- 8. 📖 各單元重點全覽 (頂部跳轉零遮擋，全書 98 個核心單字＋句子＋避坑指南) -->
     <div id="panel-flashcard" class="workspace-panel">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
             <div>
@@ -772,7 +773,7 @@
         <div id="all-units-content-list" style="display: flex; flex-direction: column; gap: 16px;"></div>
     </div>
 
-    <!-- 9. 冒險補給商店 (原裝全部保留：劍士/法師/治療師、裝備強化、HP上限、6大萌寵！) -->
+    <!-- 9. 冒險補給商店 (原裝全部保留！) -->
     <div id="panel-shop" class="workspace-panel">
         <h2 style="font-size: 24px; color: #0369a1; margin-bottom: 16px;">🎒 冒險補給商店 (分開養成)</h2>
         
@@ -850,19 +851,22 @@
         </div>
     </div>
 
-    <!-- 10. 單字雷射防禦戰 (多單字持續飄落 + Enter 光箭) -->
+    <!-- 10. 👾 單字雷射防禦戰 (隨機橫向位置、向上浮起爆裂、支援暫停) -->
     <div id="panel-defense" class="workspace-panel">
         <h2 style="font-size: 24px; color: #0369a1; margin-bottom: 4px;">👾 單字雷射防禦戰 (多字飄落)</h2>
         <p style="color: #64748b; font-size: 14px; margin-bottom: 16px;">
-            在中文單字抵達底線前，在輸入框輸入對應英文並按 <b>Enter</b> 發射光束擊碎！
+            在中文單字抵達底線前，在輸入框輸入對應英文並按 <b>Enter</b> 發射光束擊碎！答對氣泡會被光箭射中並向上浮起爆開！
         </p>
 
         <div class="defense-layout">
             <div>
                 <div class="defense-canvas-wrap" id="defense-arena">
-                    <div style="position: absolute; top: 10px; left: 16px; right: 16px; display: flex; justify-content: space-between; align-items: center; z-index: 10;">
-                        <span style="font-size: 14px; font-weight: 800; color: #0369a1;">防禦積分: <b id="defense-score">0</b> 分</span>
-                        <button class="btn-exit-practice" onclick="stopDefenseGame(true)">✖ 結束離開</button>
+                    <div style="position: absolute; top: 10px; left: 16px; right: 16px; display: flex; justify-content: space-between; align-items: center; z-index: 30;">
+                        <span style="font-size: 14.5px; font-weight: 800; color: #0369a1;">防禦積分: <b id="defense-score">0</b> 分</span>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn-exit-practice" style="background:#0284c7;" id="btn-defense-pause" onclick="toggleDefensePause()">⏸ 暫停</button>
+                            <button class="btn-exit-practice" onclick="exitDefensePrematurely()">✖ 結束結算</button>
+                        </div>
                     </div>
 
                     <div id="defense-words-container"></div>
@@ -871,7 +875,7 @@
                 </div>
 
                 <div style="display: flex; gap: 12px; margin-top: 14px;">
-                    <input type="text" style="flex-grow: 1; background: #ffffff; border: 2px solid #cbd5e1; color: #0f172a; padding: 14px 20px; border-radius: 14px; font-size: 18px; outline: none; font-weight: 700;" id="defense-input-box" placeholder="輸入英文並按 Enter 發射 (例如 apple)..." autocomplete="off">
+                    <input type="text" style="flex-grow: 1; background: #ffffff; border: 2px solid #cbd5e1; color: #0f172a; padding: 14px 20px; border-radius: 14px; font-size: 18px; outline: none; font-weight: 700;" id="defense-input-box" placeholder="看中文提示，輸入英文按 Enter 發射光箭 (例如 apple)..." autocomplete="off">
                     <button class="btn-next-pc" onclick="fireLaser()">發射 🚀</button>
                 </div>
             </div>
@@ -904,6 +908,74 @@
     </div>
 
 <script>
+    /* ==================== 乾淨單字防禦庫 (徹底剔除分類標籤、非單詞項目與括號答案) ==================== */
+    const PURE_DEFENSE_VOCAB = [
+        { en: "apple", zh: "蘋果" }, { en: "ant", zh: "螞蟻" }, { en: "book", zh: "書本" },
+        { en: "box", zh: "盒子" }, { en: "bus", zh: "公車" }, { en: "bat", zh: "蝙蝠" },
+        { en: "cat", zh: "貓咪" }, { en: "cup", zh: "杯子" }, { en: "chair", zh: "椅子" },
+        { en: "dog", zh: "小狗" }, { en: "desk", zh: "書桌" }, { en: "duck", zh: "鴨子" },
+        { en: "egg", zh: "雞蛋" }, { en: "elephant", zh: "大象" }, { en: "eraser", zh: "橡皮擦" },
+        { en: "fish", zh: "小魚" }, { en: "fox", zh: "狐狸" }, { en: "girl", zh: "女孩" },
+        { en: "boy", zh: "男孩" }, { en: "hat", zh: "帽子" }, { en: "hand", zh: "手" },
+        { en: "key", zh: "鑰匙" }, { en: "kite", zh: "風箏" }, { en: "lion", zh: "獅子" },
+        { en: "milk", zh: "牛奶" }, { en: "marker", zh: "彩色筆" }, { en: "pen", zh: "原子筆" },
+        { en: "pencil", zh: "鉛筆" }, { en: "pig", zh: "小豬" }, { en: "ruler", zh: "直尺" },
+        { en: "red", zh: "紅色" }, { en: "blue", zh: "藍色" }, { en: "yellow", zh: "黃色" },
+        { en: "green", zh: "綠色" }, { en: "black", zh: "黑色" }, { en: "white", zh: "白色" },
+        { en: "witch", zh: "女巫" }, { en: "pumpkin", zh: "南瓜" }, { en: "ghost", zh: "幽靈" },
+        { en: "candy", zh: "糖果" }, { en: "one", zh: "一" }, { en: "two", zh: "二" },
+        { en: "three", zh: "三" }, { en: "four", zh: "四" }, { en: "five", zh: "五" },
+        { en: "six", zh: "六" }, { en: "seven", zh: "七" }, { en: "eight", zh: "八" },
+        { en: "nine", zh: "九" }, { en: "ten", zh: "十" }, { en: "teacher", zh: "老師" },
+        { en: "friend", zh: "朋友" }, { en: "vest", zh: "背心" }, { en: "watch", zh: "手錶" },
+        { en: "window", zh: "窗戶" }, { en: "zebra", zh: "斑馬" }
+    ];
+
+    /* ==================== 題目反劇透修復器 (徹底移除 dog, cat, fingers 等直接洩題文字) ==================== */
+    function sanitizeQuestionText(qStr) {
+        if (!qStr) return "";
+        let s = qStr;
+        s = s.replace(/單字\s*["'“”]dog["'“”]\s*\(狗\)/gi, "【小狗 🐕】");
+        s = s.replace(/單字\s*["'“”]cat["'“”]\s*\(貓咪?\)/gi, "【小貓 🐱】");
+        s = s.replace(/單字\s*["'“”]cat["'“”]/gi, "【小貓 🐱】");
+        s = s.replace(/單字\s*["'“”]dog["'“”]/gi, "【小狗 🐕】");
+        s = s.replace(/\(Five fingers\)/gi, "");
+        s = s.replace(/\(witches\)/gi, "");
+        s = s.replace(/\(eraser\)/gi, "");
+        s = s.replace(/\(buses\)/gi, "");
+        return s.trim();
+    }
+
+    /* ==================== 音效引擎 ==================== */
+    const AudioEngine = {
+        ctx: null,
+        init() {
+            if (!this.ctx) {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (AudioCtx) this.ctx = new AudioCtx();
+            }
+        },
+        playTone(freq, type, duration) {
+            try {
+                this.init();
+                if (!this.ctx) return;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+                gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + duration);
+            } catch(e){}
+        },
+        playClick() { this.playTone(700, 'sine', 0.04); },
+        playLaser() { this.playTone(550, 'sawtooth', 0.08); setTimeout(()=>this.playTone(320, 'sine', 0.1), 50); },
+        playPop() { this.playTone(880, 'triangle', 0.09); setTimeout(()=>this.playTone(1320, 'sine', 0.15), 60); }
+    };
+
     /* ==================== 題庫動態讀取與即時保底 ==================== */
     let ACTIVE_DATA = null;
 
@@ -916,7 +988,6 @@
             ACTIVE_DATA = data;
             document.getElementById('db-source-tag').innerText = `已載入題庫 (${data.vocab ? data.vocab.length : 98}字/8關卡)`;
             initPanels();
-            drawIslandLines();
         })
         .catch(err => {
             console.log("使用備援機制:", err);
@@ -951,54 +1022,22 @@
         const activeTab = document.getElementById(tabMap[panelId]);
         if (activeTab) activeTab.classList.add('active');
 
-        if (panelId === 'panel-map') {
-            setTimeout(drawIslandLines, 50);
-        } else if (panelId === 'panel-defense') {
+        if (panelId === 'panel-defense') {
             startDefenseGame();
         } else if (panelId === 'panel-flashcard') {
             renderAllUnitsGuide();
         }
     }
 
-    /* 動態繪製連接島嶼正中心的金色軌道 */
-    function drawIslandLines() {
-        const svg = document.getElementById('map-canvas-line');
-        const mapPanel = document.getElementById('panel-map');
-        if (!svg || !mapPanel) return;
-
-        const w = mapPanel.clientWidth || 1000;
-        const h = mapPanel.clientHeight || 720;
-        svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
-        svg.innerHTML = '';
-
-        let d = '';
-        for (let i = 0; i <= 7; i++) {
-            const el = document.getElementById(`island-${i}`);
-            if (!el) continue;
-            const x = el.offsetLeft;
-            const y = el.offsetTop;
-            d += (i === 0 ? `M ${x} ${y}` : ` L ${x} ${y}`);
-        }
-
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', d);
-        path.setAttribute('stroke', '#f59e0b');
-        path.setAttribute('stroke-width', '4');
-        path.setAttribute('stroke-dasharray', '8 6');
-        path.setAttribute('fill', 'none');
-        path.setAttribute('opacity', '0.9');
-        svg.appendChild(path);
-    }
-    window.addEventListener('resize', drawIslandLines);
-
     function initPanels() {
         if (!ACTIVE_DATA) return;
-        initListeningChallenge();
+        initListeningChallenge(null);
         initScrambleChallenge();
         initSpellingChallenge();
         initVocabChallenge();
         initTFChallenge();
         renderAllUnitsGuide();
+        renderListeningUnitFilters();
     }
 
     /* ==================== 1. RPG 雙向回合制戰鬥 ==================== */
@@ -1040,7 +1079,7 @@
         document.getElementById('card-hero-role').innerText = heroRoles[state.activeHero] || "【星際劍士】";
         document.getElementById('battle-hero-pic').src = "assets/hero_" + state.activeHero + ".jfif";
 
-        // 更新身側隨行萌寵卡牌 (放旁邊！)
+        // 身側隨行萌寵卡牌 (放旁邊！)
         const petInfo = {
             dog: { name: "🐕 太空柴犬", img: "assets/pet_dog.jfif", perk: "星幣 +20%" },
             cat: { name: "🐈 浮空橘貓", img: "assets/pet_cat.jfif", perk: "雙倍Combo" },
@@ -1073,7 +1112,7 @@
         }
         curQ = fightQueue.pop();
 
-        document.getElementById('battle-q-text').innerText = curQ.q;
+        document.getElementById('battle-q-text').innerText = sanitizeQuestionText(curQ.q);
         const box = document.getElementById('battle-options-box');
         box.innerHTML = '';
 
@@ -1087,6 +1126,7 @@
             if (idx === removeIdx) return;
             const btn = document.createElement('button');
             btn.className = 'btn-ans-pc';
+            btn.id = `battle-opt-btn-${idx}`;
             btn.innerText = String.fromCharCode(65 + idx) + ". " + opt;
             btn.onclick = () => submitBattleAns(idx, btn);
             box.appendChild(btn);
@@ -1104,8 +1144,9 @@
         const heroCard = document.getElementById('heroCardFrame');
         const enemyCard = document.getElementById('enemyCardFrame');
 
+        // 雙色高對比反饋：答錯時，被選的按鈕變紅底，正確答案按鈕亮翠綠底！
         if (right) {
-            btn.classList.add('correct');
+            btn.classList.add('correct-reveal');
             heroCard.classList.add('attack');
             enemyCard.classList.add('hit');
             setTimeout(() => { heroCard.classList.remove('attack'); enemyCard.classList.remove('hit'); }, 350);
@@ -1135,12 +1176,16 @@
                 document.getElementById('battle-exp-title').innerText = `💥 致命爆擊！成功消滅 ${curWave.name}！${healText}`;
             }
 
-            const earned = (state.activePet === 'dog') ? 15 : 12;
+            const earned = (state.activePet === 'dog') ? 12 : 10;
             state.coins += earned;
             combatCoinsEarnedThisSession += earned;
             state.streak++;
         } else {
-            btn.classList.add('wrong');
+            btn.classList.add('user-wrong');
+            // 將正確按鈕亮綠色
+            const correctBtn = document.getElementById(`battle-opt-btn-${curQ.ans}`);
+            if (correctBtn) correctBtn.classList.add('correct-reveal');
+
             enemyCard.classList.add('attack');
             heroCard.classList.add('hit');
             setTimeout(() => { enemyCard.classList.remove('attack'); heroCard.classList.remove('hit'); }, 350);
@@ -1167,7 +1212,7 @@
 
     function nextBattleTurn() {
         if (hHp <= 0) {
-            alert("💔 勇者體力耗盡！先回到浮空島嶼整備，升級防具或更換治療師再來挑戰！");
+            alert("💔 勇者體力耗盡！先回到地圖整備，升級防具或更換治療師再來挑戰！");
             navTo('panel-map');
             return;
         }
@@ -1178,7 +1223,6 @@
                 setupWave(curWaveIdx + 1);
                 return;
             } else {
-                // 3 波全勝，結算彈窗！
                 state.coins += 50;
                 combatCoinsEarnedThisSession += 50;
                 document.getElementById('val-coins').innerText = state.coins;
@@ -1191,30 +1235,61 @@
     }
     function speakBattleQ() { if (curQ) speakText(curQ.audio || curQ.q); }
 
-    /* ==================== 2. 段考聽力測驗 (10 題挑戰) ==================== */
+    /* ==================== 2. 段考聽力測驗 (支援單元篩選、題幹隱藏、清晰慢速) ==================== */
     let lisQueue = [];
     let curLis = null;
     let lisRound = 0;
     let lisScore = 0;
     let lisCoinsEarned = 0;
 
-    function initListeningChallenge() {
+    const RAW_LISTENING_BANK = [
+        { unit: "u3", audio: "an eraser", prompt: "請聽音檔，選出對應的文具：", opts: ["橡皮擦 (eraser)", "直尺 (ruler)", "鉛筆 (pencil)", "原子筆 (pen)"], ans: 0, trans: "an eraser = 一塊橡皮擦", note: "HWG1 U3 考卷 Track 20 聽力真題" },
+        { unit: "final", audio: "What's that? It's a ruler.", prompt: "請聽對話，選出對應的問答意思：", opts: ["那是什麼？它是一把尺。", "這是什麼？它是一枝鉛筆。", "你幾歲？我八歲。", "它是什麼顏色？它是紅色。"], ans: 0, trans: "What's that? It's a ruler.", note: "HWG1 期末考 Track 08 聽力真題" },
+        { unit: "u4", audio: "The pen is blue. What color is the pen?", prompt: "請聽對話並回答問題：What color is the pen?", opts: ["It is blue.", "It is black.", "It is white.", "It is green."], ans: 0, trans: "原子筆是藍色的 (blue)。", note: "HWG1 U4 考卷 Track 30 聽力真題" },
+        { unit: "u4", audio: "I'm Mandy. I'm seven. How old is the girl?", prompt: "請聽對話並回答問題：How old is the girl?", opts: ["seven (7歲)", "eight (8歲)", "nine (9歲)", "six (6歲)"], ans: 0, trans: "女孩七歲 (seven)。", note: "HWG1 U4 綜合卷 B 聽力真題" },
+        { unit: "u3", audio: "queen", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["q", "p", "r", "s"], ans: 0, trans: "queen 開頭是 q [kw]", note: "HWG1 U3 Track 19 聽力真題" },
+        { unit: "u3", audio: "sun", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["s", "c", "z", "t"], ans: 0, trans: "sun 開頭是 s [s]", note: "HWG1 U3 Track 19 聽力真題" },
+        { unit: "final", audio: "vest", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["v", "w", "f", "b"], ans: 0, trans: "vest 開頭是 v [v]", note: "HWG1 期末考 Track 11 聽力真題" },
+        { unit: "final", audio: "zebra", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["z", "s", "c", "j"], ans: 0, trans: "zebra 開頭是 z [z]", note: "HWG1 期末考 Track 11 聽力真題" },
+        { unit: "final", audio: "Good morning.", prompt: "請聽問候語，選出最適當的應答：", opts: ["Good morning.", "Good afternoon.", "Good night.", "Good job!"], ans: 0, trans: "早安對應早安。", note: "HWG1 期末考 C 卷真題" },
+        { unit: "final", audio: "What's this? It's a pencil.", prompt: "請聽對話，選出對應的文具物品：", opts: ["鉛筆 (pencil)", "原子筆 (pen)", "直尺 (ruler)", "書桌 (desk)"], ans: 0, trans: "pencil = 鉛筆", note: "HWG1 期末考 Track 12 真題" },
+        { unit: "u1", audio: "What's your name? My name is Mia.", prompt: "請聽對話，選出女孩的名字：", opts: ["Mia", "Amber", "Tina", "Rocky"], ans: 0, trans: "My name is Mia.", note: "Unit 1 自我介紹聽辨" },
+        { unit: "u2", audio: "How old are you? I am eight years old.", prompt: "請聽對話，選出男孩的年齡：", opts: ["8 歲 (eight)", "7 歲 (seven)", "9 歲 (nine)", "10 歲 (ten)"], ans: 0, trans: "I am eight years old.", note: "Unit 2 年齡聽辨" }
+    ];
+
+    function renderListeningUnitFilters() {
+        const bar = document.getElementById('lis-unit-filter-bar');
+        bar.innerHTML = '';
+        const units = [
+            { id: "all", label: "全部綜合" },
+            { id: "u1", label: "Unit 1 招呼" },
+            { id: "u2", label: "Unit 2 年齡" },
+            { id: "u3", label: "Unit 3 文具" },
+            { id: "u4", label: "Unit 4 顏色" },
+            { id: "final", label: "期末真題" }
+        ];
+        units.forEach(u => {
+            const btn = document.createElement('button');
+            btn.className = `btn-filter-chip ${u.id === 'all' ? 'active' : ''}`;
+            btn.innerText = u.label;
+            btn.onclick = () => {
+                document.querySelectorAll('.btn-filter-chip').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                initListeningChallenge(u.id === 'all' ? null : u.id);
+            };
+            bar.appendChild(btn);
+        });
+    }
+
+    function initListeningChallenge(filterUnit) {
         lisRound = 0;
         lisScore = 0;
         lisCoinsEarned = 0;
-        const rawListeningBank = [
-            { audio: "an eraser", prompt: "請聽音檔，選出對應的文具：", opts: ["一枝鉛筆", "一塊橡皮擦", "一本書", "一把尺"], ans: 1, trans: "an eraser = 一塊橡皮擦", note: "HWG1 U3 考卷 Track 20 聽力真題" },
-            { audio: "What's that? It's a ruler.", prompt: "請聽對話，選出對應的問答意思：", opts: ["這是什麼？它是一把尺。", "那是什麼？它是一把尺。", "你幾歲？我八歲。", "它是什麼顏色？它是紅色。"], ans: 1, trans: "What's that? It's a ruler.", note: "HWG1 期末考 Track 08 聽力真題" },
-            { audio: "The pen is blue. What color is the pen?", prompt: "請聽對話並回答問題：What color is the pen?", opts: ["It is black.", "It is blue.", "It is white.", "It is green."], ans: 1, trans: "筆是藍色的 (blue)。", note: "HWG1 U4 考卷 Track 30 聽力真題" },
-            { audio: "I'm Mandy. I'm seven. How old is the girl?", prompt: "請聽對話並回答問題：How old is the girl?", opts: ["seven", "eight", "nine", "six"], ans: 0, trans: "女孩七歲 (seven)。", note: "HWG1 U4 綜合卷 B 聽力真題" },
-            { audio: "queen", prompt: "請聽自然發音代表字，選出開頭讀音字母：", opts: ["p", "q", "r", "s"], ans: 1, trans: "queen 開頭是 q [kw]", note: "HWG1 U3 Track 19 聽力真題" },
-            { audio: "sun", prompt: "請聽自然發音代表字，選出開頭讀音字母：", opts: ["s", "c", "z", "t"], ans: 0, trans: "sun 開頭是 s [s]", note: "HWG1 U3 Track 19 聽力真題" },
-            { audio: "vest", prompt: "請聽自然發音代表字，選出開頭讀音字母：", opts: ["w", "v", "f", "b"], ans: 1, trans: "vest 開頭是 v [v]", note: "HWG1 期末考 Track 11 聽力真題" },
-            { audio: "zebra", prompt: "請聽自然發音代表字，選出開頭讀音字母：", opts: ["s", "z", "c", "j"], ans: 1, trans: "zebra 開頭是 z [z]", note: "HWG1 期末考 Track 11 聽力真題" },
-            { audio: "Good morning.", prompt: "請聽問候語，選出最適當的應答：", opts: ["Good morning.", "Good afternoon.", "Good night.", "Good job!"], ans: 0, trans: "早安對應早安。", note: "HWG1 期末考 C 卷真題" },
-            { audio: "What's this? It's a pencil.", prompt: "請聽對話，選出對應的文具物品：", opts: ["鉛筆 (pencil)", "原子筆 (pen)", "尺 (ruler)", "書桌 (desk)"], ans: 0, trans: "pencil = 鉛筆", note: "HWG1 期末考 Track 12 真題" }
-        ];
-        lisQueue = [...rawListeningBank].sort(() => Math.random() - 0.5).slice(0, 10);
+        let pool = [...RAW_LISTENING_BANK];
+        if (filterUnit) {
+            pool = pool.filter(item => item.unit === filterUnit);
+        }
+        lisQueue = pool.sort(() => Math.random() - 0.5).slice(0, 10);
         loadNextListeningQ();
     }
 
@@ -1228,6 +1303,7 @@
         curLis = lisQueue.pop();
         lisRound++;
         document.getElementById('listening-progress').innerText = `第 ${lisRound} / 10 題 (已得 ${lisScore}分)`;
+        // 題幹絕對不提前顯示英文，防止洩題！
         document.getElementById('lis-prompt').innerText = curLis.prompt;
 
         const box = document.getElementById('lis-options-box');
@@ -1235,6 +1311,7 @@
         curLis.opts.forEach((opt, idx) => {
             const btn = document.createElement('button');
             btn.className = 'btn-ans-pc';
+            btn.id = `lis-opt-btn-${idx}`;
             btn.innerText = `${String.fromCharCode(65 + idx)}. ${opt}`;
             btn.onclick = () => submitListeningAns(idx, btn);
             box.appendChild(btn);
@@ -1251,7 +1328,7 @@
         document.querySelectorAll('#lis-options-box .btn-ans-pc').forEach(b => b.disabled = true);
         const right = idx === curLis.ans;
         if (right) {
-            btn.classList.add('correct');
+            btn.classList.add('correct-reveal');
             lisScore += 10;
             const reward = (state.activePet === 'dog') ? 12 : 10;
             state.coins += reward;
@@ -1259,7 +1336,9 @@
             document.getElementById('val-coins').innerText = state.coins;
             document.getElementById('lis-exp-title').innerText = "✅ 聽力理解完全正確！";
         } else {
-            btn.classList.add('wrong');
+            btn.classList.add('user-wrong');
+            const correctBtn = document.getElementById(`lis-opt-btn-${curLis.ans}`);
+            if (correctBtn) correctBtn.classList.add('correct-reveal');
             document.getElementById('lis-exp-title').innerText = "❌ 聽力選錯囉！請看文本解析：";
         }
         document.getElementById('lis-exp-body').innerHTML = `<p><b>聽力原句：</b>${curLis.audio}</p><p><b>中文釋義：</b>${curLis.trans}</p><p><b>💡 考點解析：</b>${curLis.note}</p>`;
@@ -1267,7 +1346,7 @@
     }
     function nextListeningQ() { loadNextListeningQ(); }
 
-    /* ==================== 3. 句型重組 (10 題挑戰) ==================== */
+    /* ==================== 3. 句型重組 ==================== */
     let scrambleQueue = [];
     let curScramble = null;
     let scrambleRound = 0;
@@ -1308,6 +1387,7 @@
             btn.innerText = tok;
             btn.id = "scramble-token-btn-" + i;
             btn.onclick = () => {
+                AudioEngine.playClick();
                 userTokens.push({ token: tok, originId: btn.id });
                 btn.classList.add('used');
                 renderScrambleSlot();
@@ -1333,6 +1413,7 @@
             bubble.className = "word-bubble-pc " + (isPunct ? "punct" : "");
             bubble.innerHTML = `${item.token} <span style="font-size: 12px; opacity: 0.8;">✕</span>`;
             bubble.onclick = () => {
+                AudioEngine.playClick();
                 const originBtn = document.getElementById(item.originId);
                 if (originBtn) originBtn.classList.remove('used');
                 userTokens.splice(index, 1);
@@ -1344,6 +1425,7 @@
 
     function popLastScrambleToken() {
         if (userTokens.length === 0) return;
+        AudioEngine.playClick();
         const last = userTokens.pop();
         const originBtn = document.getElementById(last.originId);
         if (originBtn) originBtn.classList.remove('used');
@@ -1351,6 +1433,7 @@
     }
 
     function resetCurrentScramble() {
+        AudioEngine.playClick();
         document.querySelectorAll('.word-btn-pc').forEach(b => b.classList.remove('used'));
         userTokens = [];
         renderScrambleSlot();
@@ -1377,7 +1460,7 @@
     }
     function nextScrambleQ() { loadNextScramble(); }
 
-    /* ==================== 4. 自然發音積木 (10 題挑戰) ==================== */
+    /* ==================== 4. 自然發音積木 (點擊不出音效，拼完才唸單字！) ==================== */
     let spellQueue = [];
     let curSp = null;
     let spellRound = 0;
@@ -1426,10 +1509,11 @@
             btn.innerText = letter;
             btn.id = "spell-btn-" + i;
             btn.onclick = () => {
+                // 點擊只發出清脆點擊音，絕不唸 c, u, p！
+                AudioEngine.playClick();
                 userSpelled.push({ letter: letter, btnId: btn.id });
                 btn.classList.add('used');
                 renderSpellingSlots();
-                speakText(letter);
 
                 if (userSpelled.length === curSp.en.length) {
                     const finalWord = userSpelled.map(x => x.letter).join('');
@@ -1442,6 +1526,7 @@
                         state.coins += reward;
                         spellCoinsEarned += reward;
                         state.streak++;
+                        // 拼對才朗讀完整單字發音！
                         speakText(curSp.en);
                     } else {
                         document.getElementById('sp-exp-title').innerText = "❌ 字母選錯或順序有誤，請看正確拼法：";
@@ -1470,6 +1555,7 @@
 
     function popLastSpellingLetter() {
         if (userSpelled.length === 0) return;
+        AudioEngine.playClick();
         const last = userSpelled.pop();
         const originBtn = document.getElementById(last.btnId);
         if (originBtn) originBtn.classList.remove('used');
@@ -1478,7 +1564,7 @@
     function speakSpellingWord() { if (curSp) speakText(curSp.en); }
     function nextSpellingQ() { loadNextSpelling(); }
 
-    /* ==================== 5. 單字測驗 (10 題挑戰) ==================== */
+    /* ==================== 5. 單字測驗 ==================== */
     let vocabQueue = [];
     let curVQ = null;
     let vocabRound = 0;
@@ -1508,22 +1594,35 @@
 
         const list = document.getElementById('vq-options-list');
         list.innerHTML = '';
-        choices.forEach(c => {
+        choices.forEach((c, idx) => {
             const btn = document.createElement('button');
             btn.className = 'btn-ans-pc';
+            btn.id = `vq-opt-btn-${idx}`;
             btn.innerText = c;
             btn.onclick = () => {
                 document.querySelectorAll('#vq-options-list .btn-ans-pc').forEach(b => b.disabled = true);
                 const right = c === curVQ.zh;
-                document.getElementById('vq-exp-title').innerText = right ? "✅ 答對了！字彙力提升！" : "❌ 答錯囉！";
-                document.getElementById('vq-exp-body').innerText = `${curVQ.en} 代表「${curVQ.zh}」｜ 例句: ${curVQ.ex}`;
-                document.getElementById('vq-exp-card').style.display = 'block';
                 if (right) {
+                    btn.classList.add('correct-reveal');
+                    document.getElementById('vq-exp-title').innerText = "✅ 答對了！字彙力提升！";
                     const reward = (state.activePet === 'dog') ? 12 : 10;
                     state.coins += reward;
                     vqCoinsEarned += reward;
                     state.streak++;
-                } else { state.streak = 0; }
+                } else {
+                    btn.classList.add('user-wrong');
+                    // 標記正確選項
+                    choices.forEach((ch, i) => {
+                        if (ch === curVQ.zh) {
+                            const cb = document.getElementById(`vq-opt-btn-${i}`);
+                            if (cb) cb.classList.add('correct-reveal');
+                        }
+                    });
+                    document.getElementById('vq-exp-title').innerText = "❌ 答錯囉！";
+                    state.streak = 0;
+                }
+                document.getElementById('vq-exp-body').innerText = `${curVQ.en} 代表「${curVQ.zh}」｜ 例句: ${curVQ.ex}`;
+                document.getElementById('vq-exp-card').style.display = 'block';
                 document.getElementById('val-coins').innerText = state.coins;
                 document.getElementById('val-streak').innerText = state.streak;
             };
@@ -1532,7 +1631,7 @@
     }
     function nextVocabQ() { loadNextVocabQ(); }
 
-    /* ==================== 6. 是非題 (10 題挑戰) ==================== */
+    /* ==================== 6. 是非題 ==================== */
     let tfQueue = [];
     let curTF = null;
     let tfRound = 0;
@@ -1589,7 +1688,6 @@
             const g = ACTIVE_DATA.study_guides[id];
             totalWords += g.vocab.length;
 
-            // 頂部快速錨點
             const link = document.createElement('a');
             link.className = 'btn-jump-pill';
             link.href = `#unit-sec-${id}`;
@@ -1601,7 +1699,6 @@
             };
             jumpBox.appendChild(link);
 
-            // 單元完整卡片
             const card = document.createElement('div');
             card.className = 'unit-study-card';
             card.id = `unit-sec-${id}`;
@@ -1716,21 +1813,25 @@
         } else alert("❌ 星幣不足！多做練習題挑戰賺取星幣吧！");
     }
 
-    /* ==================== 9. 單字雷射防禦戰 ==================== */
+    /* ==================== 9. 👾 單字雷射防禦戰 (隨機橫向位置、向上浮起爆裂、支援暫停) ==================== */
     let defenseScore = 0;
     let defenseActive = false;
+    let defensePaused = false;
     let activeBalloons = [];
     let balloonSpawnTimer = null;
     let balloonMoveTimer = null;
+    let defenseCoinsEarned = 0;
 
     function startDefenseGame() {
-        if (!ACTIVE_DATA) return;
         stopDefenseGame(false);
         defenseActive = true;
+        defensePaused = false;
         defenseScore = 0;
+        defenseCoinsEarned = 0;
         document.getElementById('defense-score').innerText = defenseScore;
         document.getElementById('defense-history-list').innerHTML = '';
         document.getElementById('defense-words-container').innerHTML = '';
+        document.getElementById('btn-defense-pause').innerText = '⏸ 暫停';
         activeBalloons = [];
 
         const inp = document.getElementById('defense-input-box');
@@ -1741,14 +1842,15 @@
 
         spawnBalloon();
         balloonSpawnTimer = setInterval(() => {
-            if (!defenseActive) return;
-            if (activeBalloons.length < 3) spawnBalloon();
-        }, 2800);
+            if (!defenseActive || defensePaused) return;
+            if (activeBalloons.length < 4) spawnBalloon();
+        }, 2600);
 
         balloonMoveTimer = setInterval(() => {
-            if (!defenseActive) return;
+            if (!defenseActive || defensePaused) return;
             for (let i = activeBalloons.length - 1; i >= 0; i--) {
                 const b = activeBalloons[i];
+                if (b.popping) continue;
                 b.y += b.speed;
                 b.el.style.top = b.y + 'px';
 
@@ -1765,8 +1867,15 @@
         }, 30);
     }
 
+    function toggleDefensePause() {
+        if (!defenseActive) return;
+        defensePaused = !defensePaused;
+        document.getElementById('btn-defense-pause').innerText = defensePaused ? '▶ 繼續' : '⏸ 暫停';
+    }
+
     function stopDefenseGame(returnToMap) {
         defenseActive = false;
+        defensePaused = false;
         if (balloonSpawnTimer) { clearInterval(balloonSpawnTimer); balloonSpawnTimer = null; }
         if (balloonMoveTimer) { clearInterval(balloonMoveTimer); balloonMoveTimer = null; }
         activeBalloons.forEach(b => b.el.remove());
@@ -1774,39 +1883,46 @@
         if (returnToMap) navTo('panel-map');
     }
 
+    function exitDefensePrematurely() {
+        stopDefenseGame(false);
+        showSettlementCard(`單字防禦戰結束！防禦得分：${defenseScore} 分`, defenseCoinsEarned);
+    }
+
     function spawnBalloon() {
-        if (!ACTIVE_DATA || !defenseActive) return;
-        const w = ACTIVE_DATA.vocab[Math.floor(Math.random() * ACTIVE_DATA.vocab.length)];
+        if (!defenseActive) return;
+        // 只從純淨過濾庫抽選單字，絕不出現題庫分類標籤！
+        const w = PURE_DEFENSE_VOCAB[Math.floor(Math.random() * PURE_DEFENSE_VOCAB.length)];
         const container = document.getElementById('defense-words-container');
         
         const el = document.createElement('div');
         el.className = 'falling-word-balloon';
         el.innerText = w.zh;
         
-        const lanes = [20, 45, 70];
-        const laneX = lanes[Math.floor(Math.random() * lanes.length)];
-        el.style.left = laneX + '%';
+        // 隨機橫向位置分布在 10% ~ 78% 之間，不再擠在同一條通道！
+        const randX = 10 + Math.random() * 68;
+        el.style.left = randX + '%';
         el.style.top = '40px';
         container.appendChild(el);
 
         activeBalloons.push({
             el: el,
             word: w,
-            x: laneX,
+            x: randX,
             y: 40,
-            speed: 0.55 + Math.random() * 0.25
+            speed: 0.5 + Math.random() * 0.25,
+            popping: false
         });
     }
 
     function fireLaser() {
-        if (!defenseActive) return;
+        if (!defenseActive || defensePaused) return;
         const inp = document.getElementById('defense-input-box');
         const val = inp.value.trim().toLowerCase();
         if (!val) return;
 
         let hitIdx = -1;
         for (let i = 0; i < activeBalloons.length; i++) {
-            if (activeBalloons[i].word.en === val) {
+            if (!activeBalloons[i].popping && activeBalloons[i].word.en.toLowerCase() === val) {
                 hitIdx = i;
                 break;
             }
@@ -1814,26 +1930,36 @@
 
         if (hitIdx !== -1) {
             const b = activeBalloons[hitIdx];
+            b.popping = true;
+
+            // 光箭發射軌跡動畫
+            AudioEngine.playLaser();
             const laser = document.getElementById('defense-laser');
             laser.style.display = 'block';
             laser.style.left = b.x + '%';
             laser.style.top = b.y + 'px';
             laser.style.height = (400 - b.y) + 'px';
             
-            setTimeout(() => { laser.style.display = 'none'; }, 150);
+            setTimeout(() => { laser.style.display = 'none'; }, 160);
+
+            // 被擊中氣泡變成綠色、向上浮起爆開！
+            AudioEngine.playPop();
+            b.el.classList.add('popping');
 
             defenseScore += 10;
             const reward = (state.activePet === 'dog') ? 12 : 10;
             state.coins += reward;
+            defenseCoinsEarned += reward;
             document.getElementById('val-coins').innerText = state.coins;
             document.getElementById('defense-score').innerText = defenseScore;
             logDefenseEvent(`${b.word.zh} (${b.word.en})`, true);
 
-            b.el.style.transform = 'scale(1.3)';
-            b.el.style.background = '#22c55e';
-            setTimeout(() => { b.el.remove(); }, 100);
+            setTimeout(() => {
+                b.el.remove();
+                const idx = activeBalloons.indexOf(b);
+                if (idx !== -1) activeBalloons.splice(idx, 1);
+            }, 250);
 
-            activeBalloons.splice(hitIdx, 1);
             inp.value = '';
         } else {
             inp.style.borderColor = '#ef4444';
@@ -1851,7 +1977,7 @@
         list.prepend(item);
     }
 
-    /* ==================== 🏆 結算彈窗系統 (明確告知賺到幾個星幣！) ==================== */
+    /* ==================== 🏆 通用結算獎勵彈窗 ==================== */
     function showSettlementCard(summaryText, coinsEarned) {
         const modal = document.getElementById('settlementModalOverlay');
         document.getElementById('settle-summary-txt').innerText = summaryText;
@@ -1866,14 +1992,22 @@
         navTo('panel-map');
     }
 
-    /* 語音輔助 (Web Speech API) */
+    function exitChallengePrematurely(type) {
+        if (type === 'listening') showSettlementCard(`聽力挑戰結束！得分：${lisScore} 分`, lisCoinsEarned);
+        else if (type === 'spelling') showSettlementCard(`發音積木挑戰結束！`, spellCoinsEarned);
+        else if (type === 'scramble') showSettlementCard(`句型重組挑戰結束！`, scrambleCoinsEarned);
+        else if (type === 'vocab') showSettlementCard(`單字測驗挑戰結束！`, vqCoinsEarned);
+        else if (type === 'tf') showSettlementCard(`觀念是非挑戰結束！`, tfCoinsEarned);
+    }
+
+    /* 語音輔助 (慢速 0.72，兒童清晰咬字) */
     function speakText(t) {
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
             const clean = t.replace(/[一-龥]/g, '').replace(/[_（）()【】：:?]/g, ' ').trim();
             const u = new SpeechSynthesisUtterance(clean || t);
             u.lang = 'en-US';
-            u.rate = 0.85;
+            u.rate = 0.72;
             window.speechSynthesis.speak(u);
         }
     }
