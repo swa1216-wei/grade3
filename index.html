@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小學三年級英語・浮空島冒險與段考任務系統</title>
+    <title>小學三年級英語・浮空島冒險任務系統</title>
     <style>
         :root {
             --sky-bg: #e0f2fe;
@@ -98,7 +98,7 @@
         }
         .workspace-panel.active { display: flex !important; }
 
-        /* ==================== 1. 浮空島嶼地圖 ==================== */
+        /* 浮空島嶼地圖 */
         #panel-map {
             background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 50%, #f0fdf4 100%);
             position: relative;
@@ -134,7 +134,7 @@
             border: 2px solid #bae6fd; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
 
-        /* ==================== 2. RPG 雙向回合制（卡牌化） ==================== */
+        /* RPG 雙向回合制 */
         .battle-arena-pc {
             height: 290px;
             background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 60%, #f8fafc 100%);
@@ -205,7 +205,7 @@
             font-size: 16px; font-weight: 800; cursor: pointer;
         }
 
-        /* 10 題練習通用排版 */
+        /* 10 題練習排版 */
         .practice-header-strip {
             display: flex; justify-content: space-between; align-items: center;
             border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 18px;
@@ -216,7 +216,7 @@
             border-radius: 12px; font-size: 14px; font-weight: 900; cursor: pointer;
         }
 
-        /* 標點獨立重組 */
+        /* 句型重組 */
         .scramble-dropzone {
             min-height: 80px; background: #f8fafc; border: 2px dashed #94a3b8; border-radius: 18px;
             padding: 14px 18px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 20px 0;
@@ -423,7 +423,7 @@
 
         <div style="text-align: center; background: #f0f9ff; border-radius: 20px; padding: 26px; margin-bottom: 20px; border: 2px solid #bae6fd;">
             <div style="font-size: 16px; font-weight: 800; color: #0369a1; margin-bottom: 10px;" id="lis-prompt">請點擊下方按鈕聽題目聲音：</div>
-            <button class="btn-next-pc" style="margin: 0 auto; display: flex; align-items: center; gap: 8px; font-size: 18px;" onclick="playCurrentListening()">
+            <button class="btn-next-pc" style="margin: 0 auto; display: flex; align-items: gap: 8px; font-size: 18px;" onclick="playCurrentListening()">
                 🔊 播放聽力音檔
             </button>
         </div>
@@ -689,9 +689,50 @@
     </div>
 
 <script>
-    /* ==================== 題庫動態讀取 ==================== */
-    let ACTIVE_DATA = null;
+    /* ==================== 題庫動態讀取與即時保底 ==================== */
+    // 預先準備同步保底資料，避免 fetch 在本地 file:// 被攔阻造成轉圈圈
+    let ACTIVE_DATA = {
+        vocab: [
+            {"en": "apple", "zh": "蘋果", "phonics": "短母音 a", "ex": "It is a red apple."},
+            {"en": "book", "zh": "書本", "phonics": "短母音 oo", "ex": "Open your book, please."},
+            {"en": "cat", "zh": "貓咪", "phonics": "短母音 a", "ex": "The cat is cute."},
+            {"en": "dog", "zh": "狗狗", "phonics": "短母音 o", "ex": "I have a cute dog."},
+            {"en": "pencil", "zh": "鉛筆", "phonics": "教室文具", "ex": "This is my yellow pencil."},
+            {"en": "eraser", "zh": "橡皮擦", "phonics": "接冠詞 an", "ex": "It is an eraser on the desk."},
+            {"en": "ruler", "zh": "尺", "phonics": "教室文具", "ex": "I have a long ruler."},
+            {"en": "desk", "zh": "書桌", "phonics": "教室文具", "ex": "Put your bag on the desk."}
+        ],
+        spelling: [
+            {"en": "cat", "zh": "貓咪", "phonics": "短母音 a"},
+            {"en": "dog", "zh": "狗狗", "phonics": "短母音 o"},
+            {"en": "fish", "zh": "小魚", "phonics": "短母音 i"},
+            {"en": "pen", "zh": "原子筆", "phonics": "短母音 e"}
+        ],
+        tf: [
+            {"statement": "在英文中，eraser 前面應該使用冠詞 an，說成 an eraser。", "ans": true, "trans": "an eraser (一塊橡皮擦)", "note": "正確！母音開頭接 an。"},
+            {"statement": "下午放學離開學校跟同學說再見時，應該說 Good morning!。", "ans": false, "trans": "放學道別應說 Goodbye! 或 See you!", "note": "錯誤！Good morning 是早安。"}
+        ],
+        scramble: [
+            {"hint": "詢問對方的名字", "tokens": ["What's", "your", "name", "?"], "ans": "What's your name ?", "trans": "What's your name? (你叫什麼名字？)", "note": "句尾放問號。"},
+            {"hint": "回答：是的，它是我的鉛筆。", "tokens": ["Yes", ",", "it", "is", "my", "pencil", "."], "ans": "Yes , it is my pencil .", "trans": "Yes, it is my pencil.", "note": "Yes 後面加逗號。"}
+        ],
+        stages: [
+            {
+                id: 0, title: "Starter", subtitle: "26字母大冒險", icon: "🚀",
+                waves: [
+                    {"name": "史萊姆幼體", "img": "assets/boss_slime.jfif", "hp": 60, "dmg": 6},
+                    {"name": "夜行機械蝠", "img": "assets/boss_bat.jfif", "hp": 90, "dmg": 8},
+                    {"name": "守門巨石怪", "img": "assets/boss_golem.jfif", "hp": 140, "dmg": 12}
+                ],
+                questions: [
+                    {"q": "字母順序：What letter comes after C in the alphabet?", "opts": ["B", "D", "E", "F"], "ans": 1, "trans": "C 後面是 D", "note": "A->B->C->D。"},
+                    {"q": "字母前後：What letter comes before F in the alphabet?", "opts": ["E", "G", "H", "D"], "ans": 0, "trans": "F 前面是 E", "note": "D->E->F。"}
+                ]
+            }
+        ]
+    };
 
+    // 異步讀取外部 questions.json，如果讀到立即升級換上 100+ 題大題庫
     fetch('questions.json')
         .then(res => {
             if (!res.ok) throw new Error("HTTP " + res.status);
@@ -699,13 +740,15 @@
         })
         .then(data => {
             ACTIVE_DATA = data;
-            document.getElementById('db-source-tag').innerText = `題庫載入 (${data.vocab.length}字/8關卡)`;
+            document.getElementById('db-source-tag').innerText = `已載入題庫 (${data.vocab.length}字/8關卡)`;
             initPanels();
             drawIslandLines();
         })
         .catch(err => {
-            console.log("Fetch failed:", err);
-            document.getElementById('db-source-tag').innerText = "請確保 questions.json 在同一目錄";
+            console.log("使用內建保底題庫:", err);
+            document.getElementById('db-source-tag').innerText = "保底題庫就緒";
+            initPanels();
+            drawIslandLines();
         });
 
     /* ==================== 玩家狀態與導航 ==================== */
@@ -869,7 +912,6 @@
 
         if (right) {
             btn.classList.add('correct');
-            // 計算主角傷害（劍士/法師/治療師不同傷害）
             let playerDmg = 25;
             if (state.activeHero === 'warrior') playerDmg = 25 + state.heroGear.warrior_weap * 6;
             else if (state.activeHero === 'mage') playerDmg = 30 + state.heroGear.mage_weap * 7;
@@ -877,7 +919,6 @@
 
             eHp = Math.max(0, eHp - playerDmg);
 
-            // 雙向反擊：若怪獸未死，怪獸反擊！
             let counterDmg = curWave.dmg;
             if (state.activePet === 'penguin') counterDmg = Math.round(counterDmg * 0.7);
 
@@ -954,7 +995,6 @@
     function initListeningChallenge() {
         lisRound = 0;
         lisScore = 0;
-        // 從考卷提取的豐富聽力題庫
         const rawListeningBank = [
             { audio: "an eraser", prompt: "請聽音檔，選出對應的文具：", opts: ["一枝鉛筆", "一塊橡皮擦", "一本書", "一把尺"], ans: 1, trans: "an eraser = 一塊橡皮擦", note: "HWG1 U3 考卷 Track 20 聽力真題" },
             { audio: "What's that? It's a ruler.", prompt: "請聽對話，選出對應的問答意思：", opts: ["這是什麼？它是一把尺。", "那是什麼？它是一把尺。", "你幾歲？我八歲。", "它是什麼顏色？它是紅色。"], ans: 1, trans: "What's that? It's a ruler.", note: "HWG1 期末考 Track 08 聽力真題" },
@@ -996,7 +1036,6 @@
             box.appendChild(btn);
         });
 
-        // 自動播放一次
         playCurrentListening();
     }
 
@@ -1153,7 +1192,6 @@
         const bank = document.getElementById('sp-letters-bank');
         bank.innerHTML = '';
         
-        // 加入 3-4 個混淆字母
         const alphabet = "abcdefghijklmnopqrstuvwxyz";
         const correctLetters = curSp.en.split('');
         const distractors = [];
@@ -1344,7 +1382,6 @@
             state.coins -= cost;
             state.heroGear[gearKey]++;
             document.getElementById('val-coins').innerText = state.coins;
-            // 更新 UI 數據
             document.getElementById('ui-weap-warrior').innerText = state.heroGear.warrior_weap;
             document.getElementById('ui-dmg-warrior').innerText = 25 + state.heroGear.warrior_weap * 6;
             document.getElementById('ui-weap-mage').innerText = state.heroGear.mage_weap;

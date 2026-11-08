@@ -1524,6 +1524,246 @@
           "ans": 0,
           "trans": "疑問句句尾用問號 '?'",
           "note": "What 開頭的特殊疑問句，結尾必須放問號 '?'。"
+        },
+        {
+          "q": "【實戰複習強化卷】 A: \"What's your name?\" B: \"________\" (變體題 #31)",
+          "opts": [
+            "I am nine.",
+            "My name is Mia.",
+            "It is a dog.",
+            "I'm fine."
+          ],
+          "ans": 1,
+          "trans": "你叫什麼名字？ -> 我叫 Mia。",
+          "note": "課綱規範姓名標準回答為 My name is...。"
+        },
+        {
+          "q": "【實戰複習強化卷】 A: \"Nice to meet you.\" B: \"________\" (變體題 #32)",
+          "opts": [
+            "Good night.",
+            "Nice to meet you, too.",
+            "Thank you.",
+            "Goodbye."
+          ],
+          "ans": 1,
+          "trans": "很高興認識你。 -> 我也很高興認識你。",
+          "note": "初次見面打招呼標準禮貌回應加 too。"
+        },
+        {
+          "q": "【實戰複習強化卷】 早上在校門口遇見老師，應該說： (變體題 #33)",
+          "opts": [
+            "Good night, teacher.",
+            "Good morning, teacher.",
+            "Goodbye, teacher.",
+            "See you, teacher."
+          ],
+          "ans": 1,
+          "trans": "早安，老師！",
+          "note": "早晨見面問候語使用 Good morning。"
+        },
+        {
+          "q": "【實戰複習強化卷】 縮寫規範辨析：英文單字 \"What's\" 是哪兩個字的縮寫？ (變體題 #34)",
+          "opts": [
+            "What is",
+            "What are",
+            "What am",
+            "Who is"
+          ],
+          "ans": 0,
+          "trans": "What's = What is",
+          "note": "What's 為 What is 的標準縮寫。"
+        },
+        {
+          "q": "【實戰複習強化卷】 A: \"How are you?\" B: \"________\" (變體題 #35)",
+          "opts": [
+            "I am eight years old.",
+            "I'm fine, thank you.",
+            "My name is Leo.",
+            "It is red."
+          ],
+          "ans": 1,
+          "trans": "你好嗎？ -> 我很好，謝謝你。",
+          "note": "How are you 問候近況，不是問年齡！"
+        },
+        {
+          "q": "【實戰複習強化卷】 自我介紹時，如果對象是陳老師，英文稱謂應寫作： (變體題 #36)",
+          "opts": [
+            "miss chen",
+            "Miss Chen",
+            "chen miss",
+            "Teacher Chen"
+          ],
+          "ans": 1,
+          "trans": "Miss Chen (陳老師/陳小姐)",
+          "note": "稱謂 Miss 與姓氏 Chen 首字母均必須大寫！"
+        },
+        {
+          "q": "【實戰複習強化卷】 想詢問同學的名字時，疑問詞應該使用： (變體題 #37)",
+          "opts": [
+            "How",
+            "What",
+            "Who",
+            "Where"
+          ],
+          "ans": 1,
+          "trans": "What's your name?",
+          "note": "詢問「什麼」使用疑問詞 What。"
+        },
+        {
+          "q": "【實戰複習強化卷】 下午離開學校跟朋友道別時，可以說： (變體題 #38)",
+          "opts": [
+            "Good morning!",
+            "Goodbye! See you!",
+            "Hello!",
+            "Nice to meet you."
+          ],
+          "ans": 1,
+          "trans": "再見！明天見！",
+          "note": "放學道別使用 Goodbye 或 See you。"
+        },
+        {
+          "q": "【實戰複習強化卷】 A: \"Hello, I am Ken.\" B: \"________\" (變體題 #39)",
+          "opts": [
+            "Hello, Ken. I am Tina.",
+            "Good night, Ken.",
+            "I am eight.",
+            "It is blue."
+          ],
+          "ans": 0,
+          "trans": "哈囉 Ken，我是 Tina。",
+          "note": "互相介紹基本社交對話。"
+        },
+        {
+          "q": "【實戰複習強化卷】 文法檢查：下列哪一個自我介紹句子的標點與大小寫完全正確？ (變體題 #40)",
+          "opts": [
+            "my name is mia.",
+            "My name is Mia.",
+            "my Name Is mia.",
+            "My name is mia"
+          ],
+          "ans": 1,
+          "trans": "My name is Mia.",
+          "note": "句首大寫、名字大寫、句尾加句號。"
+        },
+        {
+          "q": "【實戰複習強化卷】 A: \"Good morning, Tom.\" B: \"________, Amy.\" (變體題 #41)",
+          "opts": [
+            "Good night",
+            "Good morning",
+            "Goodbye",
+            "Thank you"
+          ],
+          "ans": 1,
+          "trans": "早安，Tom。 -> 早安，Amy。",
+          "note": "晨間相對問候。"
+        },
+        {
+          "q": "【實戰複習強化卷】 自我介紹時，\"I am\" 的標準縮寫寫法是： (變體題 #42)",
+          "opts": [
+            "I'm",
+            "Im",
+            "I'am",
+            "Iam"
+          ],
+          "ans": 0,
+          "trans": "I am = I'm",
+          "note": "注意縮寫有一撇撇號 (')。"
+        },
+        {
+          "q": "【實戰複習強化卷】 打招呼時，下列哪一個單字代表「朋友」？ (變體題 #43)",
+          "opts": [
+            "teacher",
+            "friend",
+            "book",
+            "desk"
+          ],
+          "ans": 1,
+          "trans": "friend (朋友)",
+          "note": "friend 代表朋友。"
+        },
+        {
+          "q": "【實戰複習強化卷】 下列哪一個招呼用語是「睡前道晚安」時說的？ (變體題 #44)",
+          "opts": [
+            "Good morning",
+            "Good afternoon",
+            "Good night",
+            "Hello"
+          ],
+          "ans": 2,
+          "trans": "Good night (晚安)",
+          "note": "睡前說 Good night。"
+        },
+        {
+          "q": "【實戰複習強化卷】 在課堂上回答老師問題後，老師說 \"Good job!\"，意思是： (變體題 #45)",
+          "opts": [
+            "做得很棒！",
+            "早安！",
+            "再見！",
+            "你叫什麼名字？"
+          ],
+          "ans": 0,
+          "trans": "Good job! 做得好！",
+          "note": "老師鼓勵學生的常用課堂用語。"
+        },
+        {
+          "q": "【實戰複習強化卷】 想詢問「你好嗎？」英文是： (變體題 #46)",
+          "opts": [
+            "What's your name?",
+            "How are you?",
+            "How old are you?",
+            "Who are you?"
+          ],
+          "ans": 1,
+          "trans": "How are you? (你好嗎？)",
+          "note": "問候身體或心情近況。"
+        },
+        {
+          "q": "【實戰複習強化卷】 如果今天心情很好，回答 How are you? 可以說： (變體題 #47)",
+          "opts": [
+            "I'm fine, thank you.",
+            "I am a pencil.",
+            "My name is Leo.",
+            "No, it isn't."
+          ],
+          "ans": 0,
+          "trans": "我很好，謝謝你。",
+          "note": "標準禮貌應答。"
+        },
+        {
+          "q": "【實戰複習強化卷】 認識新朋友時，說 \"Nice to meet you.\" 中的 \"meet\" 意思是： (變體題 #48)",
+          "opts": [
+            "遇見、認識",
+            "跑",
+            "吃",
+            "畫畫"
+          ],
+          "ans": 0,
+          "trans": "meet = 遇見/認識",
+          "note": "Nice to meet you = 很高興認識你。"
+        },
+        {
+          "q": "【實戰複習強化卷】 A: \"Hi, Mia!\" B: \"________, Leo!\" (變體題 #49)",
+          "opts": [
+            "Hi",
+            "Good night",
+            "No",
+            "Thanks"
+          ],
+          "ans": 0,
+          "trans": "Hi 相互問好",
+          "note": "Hi 或 Hello 的日常招呼。"
+        },
+        {
+          "q": "【實戰複習強化卷】 稱呼已婚或未婚女性老師最常見的課本尊稱是： (變體題 #50)",
+          "opts": [
+            "Mr.",
+            "Miss",
+            "Boy",
+            "Friend"
+          ],
+          "ans": 1,
+          "trans": "Miss (女士/小姐/老師)",
+          "note": "國小三年級最常學到 Miss Chen。"
         }
       ]
     },
@@ -1903,6 +2143,246 @@
         },
         {
           "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 30)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "【實戰複習強化卷】 A: \"How old are you?\" B: \"________\" (變體題 #31)",
+          "opts": [
+            "I am fine.",
+            "I am eight years old.",
+            "My name is Tom.",
+            "You are welcome."
+          ],
+          "ans": 1,
+          "trans": "你幾歲？ -> 我八歲。",
+          "note": "How old 問年齡，千萬別跟 How are you (問近況) 搞混！"
+        },
+        {
+          "q": "【實戰複習強化卷】 請問阿拉伯數字「10」的英文拼法是： (變體題 #32)",
+          "opts": [
+            "seven",
+            "eight",
+            "nine",
+            "ten"
+          ],
+          "ans": 3,
+          "trans": "ten (十)",
+          "note": "Seven=7, Eight=8, Nine=9, Ten=10。"
+        },
+        {
+          "q": "【實戰複習強化卷】 別人生日吹蠟燭時，大家會唱：Happy ____ to you! (變體題 #33)",
+          "opts": [
+            "Morning",
+            "Birthday",
+            "Night",
+            "Name"
+          ],
+          "ans": 1,
+          "trans": "Happy Birthday! (生日快樂！)",
+          "note": "生日慶祝情境必考名詞 Birthday。"
+        },
+        {
+          "q": "【實戰複習強化卷】 別人對你說 Thank you!，最禮貌的回答是： (變體題 #34)",
+          "opts": [
+            "Your welcome.",
+            "You're welcome.",
+            "I am fine.",
+            "Good job."
+          ],
+          "ans": 1,
+          "trans": "You're welcome. (不客氣)",
+          "note": "注意是 You're (You are 的縮寫)，不是 Your。"
+        },
+        {
+          "q": "【實戰複習強化卷】 數字 Eight 的下一個數字是： (變體題 #35)",
+          "opts": [
+            "Seven",
+            "Nine",
+            "Ten",
+            "Six"
+          ],
+          "ans": 1,
+          "trans": "Eight (8) 下一個是 Nine (9)",
+          "note": "數字順序判斷。"
+        },
+        {
+          "q": "【實戰複習強化卷】 請選出數字「7」的正確英文拼法： (變體題 #36)",
+          "opts": [
+            "seven",
+            "sevn",
+            "siven",
+            "sevan"
+          ],
+          "ans": 0,
+          "trans": "seven = 7",
+          "note": "數字 7 的標準拼法是 seven。"
+        },
+        {
+          "q": "【實戰複習強化卷】 當弟弟九歲時，他應該說：I am nine ____ old. (變體題 #37)",
+          "opts": [
+            "year",
+            "years",
+            "yeares",
+            "year's"
+          ],
+          "ans": 1,
+          "trans": "I am nine years old.",
+          "note": "大於 1 歲時，year 必須加 s 變複數 years！"
+        },
+        {
+          "q": "【實戰複習強化卷】 數字「6」的英文拼法是： (變體題 #38)",
+          "opts": [
+            "six",
+            "sax",
+            "sox",
+            "sex"
+          ],
+          "ans": 0,
+          "trans": "six = 6",
+          "note": "短母音 i 發音對應 six。"
+        },
+        {
+          "q": "【實戰複習強化卷】 數字「8」的英文拼法是： (變體題 #39)",
+          "opts": [
+            "eight",
+            "eigt",
+            "eighte",
+            "aight"
+          ],
+          "ans": 0,
+          "trans": "eight = 8",
+          "note": "注意 gh 不發音。"
+        },
+        {
+          "q": "【實戰複習強化卷】 數字「9」的英文拼法是： (變體題 #40)",
+          "opts": [
+            "nine",
+            "nin",
+            "nyne",
+            "nime"
+          ],
+          "ans": 0,
+          "trans": "nine = 9",
+          "note": "長母音 i_e 對應 nine。"
+        },
+        {
+          "q": "【實戰複習強化卷】 詢問「年齡」的標準疑問詞組是： (變體題 #41)",
+          "opts": [
+            "How old",
+            "How many",
+            "How are",
+            "What color"
+          ],
+          "ans": 0,
+          "trans": "How old = 多大年紀",
+          "note": "How old are you? 詢問年齡。"
+        },
+        {
+          "q": "【實戰複習強化卷】 如果你剛好一歲，應該說：I am one ____ old. (變體題 #42)",
+          "opts": [
+            "year",
+            "years",
+            "year's",
+            "yeares"
+          ],
+          "ans": 0,
+          "trans": "one year old (單數不加 s)",
+          "note": "只有 1 歲時使用單數 year！"
+        },
+        {
+          "q": "【實戰複習強化卷】 A: \"How old are you?\" B: \"I am ________.\" (變體題 #43)",
+          "opts": [
+            "fine",
+            "seven years old",
+            "Mia",
+            "pencil"
+          ],
+          "ans": 1,
+          "trans": "我七歲。",
+          "note": "回答年齡用 I am ... years old。"
+        },
+        {
+          "q": "【實戰複習強化卷】 羅馬數字 \"V\" 代表阿拉伯數字： (變體題 #44)",
+          "opts": [
+            "1",
+            "5",
+            "10",
+            "4"
+          ],
+          "ans": 1,
+          "trans": "V = 5",
+          "note": "期中考常見羅馬數字考點。"
+        },
+        {
+          "q": "【實戰複習強化卷】 羅馬數字 \"X\" 代表阿拉伯數字： (變體題 #45)",
+          "opts": [
+            "5",
+            "8",
+            "10",
+            "12"
+          ],
+          "ans": 2,
+          "trans": "X = 10",
+          "note": "X 代表 10。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 16) (變體題 #46)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 17) (變體題 #47)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 18) (變體題 #48)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 19) (變體題 #49)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 20) (變體題 #50)",
           "opts": [
             "You're welcome.",
             "You are welcome.",
@@ -2301,6 +2781,246 @@
           "ans": 0,
           "trans": "apple 與 ant 首音皆為短母音 a",
           "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "【實戰複習強化卷】 【真題檢定】小明借書證號碼是 123，英文朗讀應為： (變體題 #31)",
+          "opts": [
+            "One-two-three",
+            "Ten-twenty-three",
+            "First-second-third",
+            "Three-two-one"
+          ],
+          "ans": 0,
+          "trans": "證件編號單獨報讀：One, two, three。",
+          "note": "電話號碼、編號都是單一數字分開唸。"
+        },
+        {
+          "q": "【實戰複習強化卷】 字母小寫接龍：c -> d -> [ ? ] -> f (變體題 #32)",
+          "opts": [
+            "b",
+            "e",
+            "g",
+            "h"
+          ],
+          "ans": 1,
+          "trans": "字母小寫順序：c -> d -> e -> f",
+          "note": "期中考核心考點：字母接龍排列！"
+        },
+        {
+          "q": "【實戰複習強化卷】 【素養對話】買票時售票員問 \"How many?\"，你想要買 2 張票應說： (變體題 #33)",
+          "opts": [
+            "Two, please.",
+            "I am two.",
+            "My name is Two.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "請給我兩張。(Two, please.)",
+          "note": "生活素養數量回答。"
+        },
+        {
+          "q": "【實戰複習強化卷】 下列哪一個單字的發音含有短母音 /a/ (例如 cat 的母音)？ (變體題 #34)",
+          "opts": [
+            "cake",
+            "bag",
+            "name",
+            "make"
+          ],
+          "ans": 1,
+          "trans": "bag 含有短母音 a",
+          "note": "bag 是短母音，cake/name/make 是長母音。"
+        },
+        {
+          "q": "【實戰複習強化卷】 句子修改：找出錯誤 \"I is eight years old.\" (變體題 #35)",
+          "opts": [
+            "I 改為 My",
+            "is 改為 am",
+            "eight 改為 an eight",
+            "old 改為 years"
+          ],
+          "ans": 1,
+          "trans": "主詞 I 搭配 be 動詞 am",
+          "note": "人稱代名詞與 be 動詞搭配考點。"
+        },
+        {
+          "q": "【實戰複習強化卷】 日常應對：遇見新朋友初次見面，第一句禮貌問候是： (變體題 #36)",
+          "opts": [
+            "Good night.",
+            "Nice to meet you.",
+            "How old are you?",
+            "Sit down."
+          ],
+          "ans": 1,
+          "trans": "Nice to meet you. (很高興認識你。)",
+          "note": "初次見面社交素養。"
+        },
+        {
+          "q": "【實戰複習強化卷】 字母大寫接龍：G -> H -> [ ? ] -> J (變體題 #37)",
+          "opts": [
+            "I",
+            "K",
+            "L",
+            "E"
+          ],
+          "ans": 0,
+          "trans": "G -> H -> I -> J",
+          "note": "期中考必考字母順序。"
+        },
+        {
+          "q": "【實戰複習強化卷】 生活素養：班級教室號碼是 \"302\"，英文報讀為： (變體題 #38)",
+          "opts": [
+            "Three-zero-two",
+            "Thirty-two",
+            "Three-hundred",
+            "Two-zero-three"
+          ],
+          "ans": 0,
+          "trans": "Three-zero-two (單一報讀)",
+          "note": "教室號碼分開唸。"
+        },
+        {
+          "q": "【實戰複習強化卷】 【陷阱題】A: \"How are you?\" B: \"________\" (變體題 #39)",
+          "opts": [
+            "I am eight years old.",
+            "I'm fine, thank you.",
+            "My name is Leo.",
+            "Yes, it is."
+          ],
+          "ans": 1,
+          "trans": "我很好，謝謝你。",
+          "note": "How are you 問近況，千萬別回答年齡！"
+        },
+        {
+          "q": "【實戰複習強化卷】 【陷阱題】A: \"How old are you?\" B: \"________\" (變體題 #40)",
+          "opts": [
+            "I'm fine, thank you.",
+            "I am eight years old.",
+            "My name is Leo.",
+            "No, I'm not."
+          ],
+          "ans": 1,
+          "trans": "我八歲。",
+          "note": "How old 問年齡！"
+        },
+        {
+          "q": "【實戰複習強化卷】 期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 11) (變體題 #41)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "【實戰複習強化卷】 期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 12) (變體題 #42)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "【實戰複習強化卷】 期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 13) (變體題 #43)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "【實戰複習強化卷】 期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 14) (變體題 #44)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "【實戰複習強化卷】 期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 15) (變體題 #45)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "【實戰複習強化卷】 期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 16) (變體題 #46)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "【實戰複習強化卷】 期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 17) (變體題 #47)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "【實戰複習強化卷】 期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 18) (變體題 #48)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "【實戰複習強化卷】 期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 19) (變體題 #49)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "【實戰複習強化卷】 期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 20) (變體題 #50)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
         }
       ]
     },
@@ -2680,6 +3400,246 @@
         },
         {
           "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 30)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "【實戰複習強化卷】 Look at the desk! It is ________ eraser. (變體題 #31)",
+          "opts": [
+            "a",
+            "an",
+            "two",
+            "the a"
+          ],
+          "ans": 1,
+          "trans": "它是一塊橡皮擦。 -> It is an eraser.",
+          "note": "eraser 是母音開頭發音，冠詞必須使用 an！"
+        },
+        {
+          "q": "【實戰複習強化卷】 當你指著身邊近處的文具詢問「這是什麼？」時應說： (變體題 #32)",
+          "opts": [
+            "What's this?",
+            "What's that?",
+            "How are you?",
+            "Who is that?"
+          ],
+          "ans": 0,
+          "trans": "這是什麼？ -> What's this?",
+          "note": "近處問句用 this，遠處用 that。"
+        },
+        {
+          "q": "【實戰複習強化卷】 哪一個單字代表用來畫直線或測量長度的「尺」？ (變體題 #33)",
+          "opts": [
+            "pencil",
+            "book",
+            "ruler",
+            "desk"
+          ],
+          "ans": 2,
+          "trans": "ruler (尺)",
+          "note": "教室必背單字。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單字複數規則：單字 \"box\" (盒子) 變成兩個時應寫作： (變體題 #34)",
+          "opts": [
+            "boxs",
+            "boxes",
+            "boxies",
+            "boxen"
+          ],
+          "ans": 1,
+          "trans": "one box -> two boxes",
+          "note": "以 s, x, ch, sh 結尾的名詞，複數加 -es！"
+        },
+        {
+          "q": "【實戰複習強化卷】 A: \"Is this your pencil?\" B: \"Yes, ________.\" (變體題 #35)",
+          "opts": [
+            "this is",
+            "it is",
+            "that is",
+            "I am"
+          ],
+          "ans": 1,
+          "trans": "這是你的鉛筆嗎？ -> 是的，它是。(Yes, it is.)",
+          "note": "以 Is this / Is that 提問時，簡答代名詞一律回歸 it！"
+        },
+        {
+          "q": "【實戰複習強化卷】 Look at that yellow item! It is ________ pencil. (變體題 #36)",
+          "opts": [
+            "a",
+            "an",
+            "the an",
+            "two"
+          ],
+          "ans": 0,
+          "trans": "It is a pencil. (它是一枝鉛筆。)",
+          "note": "pencil 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "【實戰複習強化卷】 把書本打開的英文課室指令是： (變體題 #37)",
+          "opts": [
+            "Close your book.",
+            "Open your book.",
+            "Clean your desk.",
+            "Sit down."
+          ],
+          "ans": 1,
+          "trans": "Open your book. (把書打開。)",
+          "note": "課堂必考生活指令動詞 open。"
+        },
+        {
+          "q": "【實戰複習強化卷】 把書本合起來的英文指令是： (變體題 #38)",
+          "opts": [
+            "Open your book.",
+            "Close your book.",
+            "Sit on the chair.",
+            "Stand up."
+          ],
+          "ans": 1,
+          "trans": "Close your book. (把書合上。)",
+          "note": "課堂必考生活指令動詞 close。"
+        },
+        {
+          "q": "【實戰複習強化卷】 學生背去上學裝課本的「書包」英文是： (變體題 #39)",
+          "opts": [
+            "desk",
+            "chair",
+            "bag",
+            "ruler"
+          ],
+          "ans": 2,
+          "trans": "bag (書包/提袋)",
+          "note": "school bag 必學單字。"
+        },
+        {
+          "q": "【實戰複習強化卷】 教室裡我們寫字坐的「椅子」英文是： (變體題 #40)",
+          "opts": [
+            "chair",
+            "desk",
+            "eraser",
+            "pencil"
+          ],
+          "ans": 0,
+          "trans": "chair (椅子)",
+          "note": "Sit on the chair, please."
+        },
+        {
+          "q": "【實戰複習強化卷】 教室裡放課本的「書桌」英文是： (變體題 #41)",
+          "opts": [
+            "desk",
+            "chair",
+            "pencil",
+            "book"
+          ],
+          "ans": 0,
+          "trans": "desk (書桌)",
+          "note": "desk 代表書桌。"
+        },
+        {
+          "q": "【實戰複習強化卷】 A: \"Is that an eraser?\" B: \"No, ________.\" (變體題 #42)",
+          "opts": [
+            "it is",
+            "it isn't",
+            "that isn't",
+            "this is"
+          ],
+          "ans": 1,
+          "trans": "不，它不是。(No, it isn't.)",
+          "note": "否定簡答用 No, it isn't。"
+        },
+        {
+          "q": "【實戰複習強化卷】 看見遠處的東西想問「那是什麼？」應該說： (變體題 #43)",
+          "opts": [
+            "What's this?",
+            "What's that?",
+            "How are you?",
+            "What color is it?"
+          ],
+          "ans": 1,
+          "trans": "What's that? (那是什麼？)",
+          "note": "遠處問句使用 that。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單字 \"bus\" (公車) 的複數形式是： (變體題 #44)",
+          "opts": [
+            "buss",
+            "buses",
+            "busies",
+            "busen"
+          ],
+          "ans": 1,
+          "trans": "buses (多台公車)",
+          "note": "字尾為 s 複數加 -es。"
+        },
+        {
+          "q": "【實戰複習強化卷】 一枝筆英文是 \"a pen\"，那五枝筆英文應該寫作： (變體題 #45)",
+          "opts": [
+            "five pen",
+            "five pens",
+            "five penes",
+            "five a pen"
+          ],
+          "ans": 1,
+          "trans": "five pens (複數加 s)",
+          "note": "名詞大於 1 加 s。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 16) (變體題 #46)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 17) (變體題 #47)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 18) (變體題 #48)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 19) (變體題 #49)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 20) (變體題 #50)",
           "opts": [
             "a book",
             "an book",
@@ -3077,6 +4037,246 @@
           "ans": 0,
           "trans": "Black = 黑色",
           "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "【實戰複習強化卷】 【跨領域調色魔法】：Yellow + Blue = ________ (變體題 #31)",
+          "opts": [
+            "Red",
+            "Green",
+            "Orange",
+            "Purple"
+          ],
+          "ans": 1,
+          "trans": "黃色 ＋ 藍色 ＝ 綠色 (Green)。",
+          "note": "三原色調色常識：黃配藍變成綠色！"
+        },
+        {
+          "q": "【實戰複習強化卷】 晴朗無雲的白天天空中，太陽通常是 Yellow，天空則是： (變體題 #32)",
+          "opts": [
+            "Blue",
+            "Red",
+            "Black",
+            "Green"
+          ],
+          "ans": 0,
+          "trans": "Blue (藍色)",
+          "note": "日常生活顏色常識搭配。"
+        },
+        {
+          "q": "【實戰複習強化卷】 文法診斷：下列哪一個句子是「完全正確」的？ (變體題 #33)",
+          "opts": [
+            "It is a red.",
+            "It is red.",
+            "It is an red.",
+            "It is reds."
+          ],
+          "ans": 1,
+          "trans": "It is red. (它是紅色的。)",
+          "note": "顏色是形容詞，單獨使用時前面絕對不能加冠詞 a 或 an！"
+        },
+        {
+          "q": "【實戰複習強化卷】 【調色魔法 2】：Red + Yellow = ________ (變體題 #34)",
+          "opts": [
+            "Green",
+            "Purple",
+            "Orange",
+            "Blue"
+          ],
+          "ans": 2,
+          "trans": "紅色 + 黃色 = 橘色 (Orange)",
+          "note": "紅配黃為橘色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 【調色魔法 3】：Red + Blue = ________ (變體題 #35)",
+          "opts": [
+            "Green",
+            "Purple",
+            "Orange",
+            "Yellow"
+          ],
+          "ans": 1,
+          "trans": "紅色 + 藍色 = 紫色 (Purple)",
+          "note": "紅配藍為紫色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 A: \"What color is the bag?\" B: \"It is ________.\" (變體題 #36)",
+          "opts": [
+            "an yellow",
+            "a blue",
+            "green",
+            "two red"
+          ],
+          "ans": 2,
+          "trans": "它是綠色的。(It is green.)",
+          "note": "顏色形容詞標準答句。"
+        },
+        {
+          "q": "【實戰複習強化卷】 樹葉在春天生長時通常是什麼顏色？ (變體題 #37)",
+          "opts": [
+            "Green",
+            "Red",
+            "Black",
+            "Blue"
+          ],
+          "ans": 0,
+          "trans": "Green (綠色)",
+          "note": "自然生活英文。"
+        },
+        {
+          "q": "【實戰複習強化卷】 成熟的香蕉 (banana) 通常是什麼顏色？ (變體題 #38)",
+          "opts": [
+            "Yellow",
+            "Blue",
+            "Red",
+            "Black"
+          ],
+          "ans": 0,
+          "trans": "Yellow (黃色)",
+          "note": "常識搭配形容詞。"
+        },
+        {
+          "q": "【實戰複習強化卷】 想詢問物品是什麼顏色時，疑問句應該使用： (變體題 #39)",
+          "opts": [
+            "What's this?",
+            "What color is it?",
+            "How are you?",
+            "How old are you?"
+          ],
+          "ans": 1,
+          "trans": "What color is it? (它是什麼顏色？)",
+          "note": "詢問顏色使用 What color。"
+        },
+        {
+          "q": "【實戰複習強化卷】 如果有指定名詞，以下哪一句才是正確的？ (變體題 #40)",
+          "opts": [
+            "It is a red pen.",
+            "It is red pen.",
+            "It is an red pen.",
+            "It is a red."
+          ],
+          "ans": 0,
+          "trans": "It is a red pen. (它是一枝紅筆。)",
+          "note": "後面有單數名詞 pen 時，前面需要加上 a！"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 11) (變體題 #41)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 12) (變體題 #42)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 13) (變體題 #43)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 14) (變體題 #44)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 15) (變體題 #45)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 16) (變體題 #46)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 17) (變體題 #47)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 18) (變體題 #48)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 19) (變體題 #49)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 20) (變體題 #50)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
         }
       ]
     },
@@ -3396,6 +4596,306 @@
         },
         {
           "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 25)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 小朋友在萬聖節敲門要糖果時會大喊： (變體題 #26)",
+          "opts": [
+            "Happy Birthday!",
+            "Trick or treat!",
+            "Good afternoon!",
+            "See you later!"
+          ],
+          "ans": 1,
+          "trans": "不給糖就搗蛋！ (Trick or treat!)",
+          "note": "萬聖節最核心的經典招呼句型。"
+        },
+        {
+          "q": "【實戰複習強化卷】 騎著掃帚飛在空中的神祕角色是： (變體題 #27)",
+          "opts": [
+            "Ghost",
+            "Pumpkin",
+            "Witch",
+            "Cat"
+          ],
+          "ans": 2,
+          "trans": "Witch (女巫，複數為 witches)。",
+          "note": "Witch 是女巫，以 ch 結尾複數加 -es。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節雕刻有鬼臉發光的南瓜燈英文是： (變體題 #28)",
+          "opts": [
+            "apple lantern",
+            "pumpkin lantern",
+            "candy box",
+            "black cat"
+          ],
+          "ans": 1,
+          "trans": "pumpkin lantern (南瓜燈)",
+          "note": "節慶文化名詞。"
+        },
+        {
+          "q": "【實戰複習強化卷】 Trick or treat, give me something good to ________! (變體題 #29)",
+          "opts": [
+            "eat",
+            "sleep",
+            "run",
+            "swim"
+          ],
+          "ans": 0,
+          "trans": "給我好吃的東西！(something good to eat)",
+          "note": "萬聖節經典歌謠押韻句。"
+        },
+        {
+          "q": "【實戰複習強化卷】 幽靈 Ghost 發出的叫聲通常是： (變體題 #30)",
+          "opts": [
+            "Meow",
+            "Woof",
+            "Boo",
+            "Moo"
+          ],
+          "ans": 2,
+          "trans": "Boo! (嚇人的叫聲)",
+          "note": "幽靈擬聲詞。"
+        },
+        {
+          "q": "【實戰複習強化卷】 小朋友在萬聖節最喜歡拿到的甜食是： (變體題 #31)",
+          "opts": [
+            "candy",
+            "ruler",
+            "pencil",
+            "desk"
+          ],
+          "ans": 0,
+          "trans": "candy (糖果)",
+          "note": "節慶必備名詞。"
+        },
+        {
+          "q": "【實戰複習強化卷】 單字 \"witch\" (女巫) 變成複數 (多位女巫) 時應寫作： (變體題 #32)",
+          "opts": [
+            "witchs",
+            "witches",
+            "witchies",
+            "witchen"
+          ],
+          "ans": 1,
+          "trans": "witches (多位女巫)",
+          "note": "字尾 ch 複數加 -es。"
+        },
+        {
+          "q": "【實戰複習強化卷】 大大的南瓜 (pumpkin) 通常是什麼顏色？ (變體題 #33)",
+          "opts": [
+            "Orange (橘色)",
+            "Blue (藍色)",
+            "Pink (粉色)",
+            "White (白色)"
+          ],
+          "ans": 0,
+          "trans": "Orange = 橘色",
+          "note": "南瓜通常是亮橘色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 9) (變體題 #34)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 10) (變體題 #35)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 11) (變體題 #36)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 12) (變體題 #37)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 13) (變體題 #38)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 14) (變體題 #39)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 15) (變體題 #40)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 16) (變體題 #41)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 17) (變體題 #42)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 18) (變體題 #43)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 19) (變體題 #44)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 20) (變體題 #45)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 21) (變體題 #46)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 22) (變體題 #47)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 23) (變體題 #48)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 24) (變體題 #49)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "【實戰複習強化卷】 萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 25) (變體題 #50)",
           "opts": [
             "Ghost (幽靈)",
             "Witch (女巫)",
@@ -3914,6 +5414,126 @@
           "ans": 0,
           "trans": "It is a ruler. (它是一把尺。)",
           "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "【實戰複習強化卷】 【全冊總結】A: \"Is that a cat?\" B: \"No, ________.\" (變體題 #41)",
+          "opts": [
+            "that isn't",
+            "it is",
+            "it isn't",
+            "this is"
+          ],
+          "ans": 2,
+          "trans": "那是貓咪嗎？ -> 不，它不是。(No, it isn't.)",
+          "note": "否定簡答：No, it isn't。"
+        },
+        {
+          "q": "【實戰複習強化卷】 A: \"How old are you?\" B: \"I am nine ____ old.\" (變體題 #42)",
+          "opts": [
+            "year",
+            "years",
+            "yeares",
+            "year's"
+          ],
+          "ans": 1,
+          "trans": "nine years old (複數 years)",
+          "note": "數字大於 1 時，year 必須加 s 變成複數 years！"
+        },
+        {
+          "q": "【實戰複習強化卷】 文法綜合檢定：選出正確句子： (變體題 #43)",
+          "opts": [
+            "She has an eraser.",
+            "She have a eraser.",
+            "She is an eraser.",
+            "She has a eraser."
+          ],
+          "ans": 0,
+          "trans": "She has an eraser. (她有一塊橡皮擦。)",
+          "note": "第三人稱單數用 has，eraser 前用 an。"
+        },
+        {
+          "q": "【實戰複習強化卷】 下課放學時，跟同學揮手道別應該說： (變體題 #44)",
+          "opts": [
+            "Good morning!",
+            "Nice to meet you.",
+            "Goodbye, see you tomorrow!",
+            "What's your name?"
+          ],
+          "ans": 2,
+          "trans": "再見，明天見！",
+          "note": "放學道別情境綜合素養。"
+        },
+        {
+          "q": "【實戰複習強化卷】 A: \"Is this your blue pen?\" B: \"Yes, ________.\" (變體題 #45)",
+          "opts": [
+            "it is",
+            "this is",
+            "it isn't",
+            "I am"
+          ],
+          "ans": 0,
+          "trans": "這是你的藍色原子筆嗎？ -> 是的，它是。",
+          "note": "代名詞簡答一律用 it is。"
+        },
+        {
+          "q": "【實戰複習強化卷】 教室裡有多個盒子時，應該使用複數單字： (變體題 #46)",
+          "opts": [
+            "boxs",
+            "boxes",
+            "boxen",
+            "box"
+          ],
+          "ans": 1,
+          "trans": "boxes (多個盒子)",
+          "note": "名詞複數加 -es。"
+        },
+        {
+          "q": "【實戰複習強化卷】 早上起床看見媽媽，可以熱情地打招呼說： (變體題 #47)",
+          "opts": [
+            "Good night, Mom.",
+            "Good morning, Mom.",
+            "Goodbye, Mom.",
+            "Thank you, Mom."
+          ],
+          "ans": 1,
+          "trans": "早安，媽媽！",
+          "note": "早晨日常情境問候。"
+        },
+        {
+          "q": "【實戰複習強化卷】 下列哪一個單字的第一個字母發音含有短母音 /a/？ (變體題 #48)",
+          "opts": [
+            "cake",
+            "ant",
+            "name",
+            "lake"
+          ],
+          "ans": 1,
+          "trans": "ant 發短母音 a",
+          "note": "ant 是短母音代表字。"
+        },
+        {
+          "q": "【實戰複習強化卷】 A: \"What color is it?\" B: \"It is ________.\" (變體題 #49)",
+          "opts": [
+            "a green",
+            "green",
+            "an green",
+            "greens"
+          ],
+          "ans": 1,
+          "trans": "它是綠色的。(It is green.)",
+          "note": "顏色形容詞單獨使用不加冠詞。"
+        },
+        {
+          "q": "【實戰複習強化卷】 小明借書證編號是 \"345\"，英文報讀應為： (變體題 #50)",
+          "opts": [
+            "Three-four-five",
+            "Three-hundred-forty-five",
+            "Five-four-three",
+            "Thirty-four-five"
+          ],
+          "ans": 0,
+          "trans": "Three-four-five (單字獨立報讀)",
+          "note": "證件號碼與電話報讀規範。"
         }
       ]
     }
