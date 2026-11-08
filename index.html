@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Galaxy English RPG・國小三年級星際冒險特訓</title>
+<title>Galaxy English Odyssey・星際英語大冒險</title>
 <style>
   :root {
     --bg-dark: #070c18;
     --battle-bg: #111a2e;
-    --frame-border: #1e3a5f;
     --primary: #38bdf8;
     --accent-gold: #fbbf24;
     --accent-red: #ef4444;
@@ -16,11 +15,13 @@
     --accent-purple: #a855f7;
     --text-light: #f8fafc;
     --text-dim: #94a3b8;
+    --card-surface: #111c30;
+    --card-border: #233a5e;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
-    background: #030712;
+    background: #020617;
     color: var(--text-light);
     display: flex;
     justify-content: center;
@@ -28,93 +29,110 @@
     min-height: 100vh;
     padding: 0;
   }
-  
-  /* 手遊專屬比例容器 (完全比照參考手遊畫面) */
-  .mobile-rpg-container {
+
+  .game-app-shell {
     width: 100%;
     max-width: 480px;
     height: 100vh;
-    max-height: 900px;
+    max-height: 920px;
     background: var(--bg-dark);
     display: flex;
     flex-direction: column;
     position: relative;
     overflow: hidden;
     border: 2px solid #1e293b;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
   }
 
-  /* 頂部狀態列 */
-  .top-hud {
-    background: #090e1a;
+  /* 頂部 HUD */
+  .top-hud-bar {
+    background: #0a1120;
     border-bottom: 2px solid #1e2d4a;
     padding: 8px 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 10;
+    z-index: 20;
   }
-  .hud-pill {
-    background: #152238;
-    border: 1px solid #23385d;
-    padding: 3px 8px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 600;
+  .hud-badge-btn {
+    background: #142138;
+    border: 1px solid #243a60;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 700;
     color: var(--primary);
     display: flex;
     align-items: center;
     gap: 4px;
     cursor: pointer;
   }
-  .hud-stats-group {
+  .hud-stats-cluster {
     display: flex;
     gap: 6px;
     align-items: center;
   }
-  .stat-chip {
-    background: #111b2b;
-    border: 1px solid #1e2d4a;
-    padding: 3px 7px;
+  .stat-pill {
+    background: #101a2c;
+    border: 1px solid #1e2f4c;
+    padding: 3px 8px;
     border-radius: 6px;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
   }
 
-  /* 戰鬥舞台區 (Battlefield) */
-  .battle-stage {
+  /* 戰鬥舞台 (Battle Stage) */
+  .battle-viewport {
     position: relative;
-    height: 270px;
-    min-height: 270px;
-    background: linear-gradient(180deg, #1e1b4b 0%, #0f172a 40%, #1e293b 85%);
+    height: 275px;
+    min-height: 275px;
+    background: linear-gradient(180deg, #161a36 0%, #0c1527 50%, #15223a 100%);
     background-image: url('assets/map_bg.jfif'), url('assets/map_bg.png'), url('assets/map_bg.jpg');
     background-size: cover;
     background-position: center;
-    border-bottom: 2px solid #223758;
+    border-bottom: 2px solid #1f3354;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 10px 14px;
   }
-  
-  /* 怪物方 (上方站位) */
-  .monster-formation {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 20px;
-    height: 140px;
-    position: relative;
-  }
-  .enemy-unit {
+
+  /* 怪獸方 (上方站位) */
+  .boss-stand-zone {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    transition: transform 0.15s ease;
+    height: 145px;
+    justify-content: flex-end;
   }
-  .enemy-sprite-box {
+  .boss-hp-plate {
+    background: rgba(10, 17, 32, 0.92);
+    border: 1.5px solid #33486e;
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #fff;
+  }
+  .boss-hp-track {
+    width: 100px;
+    height: 7px;
+    background: #1e293b;
+    border: 1px solid #475569;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 2px;
+  }
+  .boss-hp-bar {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #22c55e, #eab308, #ef4444);
+    transition: width 0.25s ease;
+  }
+  .boss-sprite-holder {
     width: 95px;
     height: 95px;
     display: flex;
@@ -122,148 +140,116 @@
     justify-content: center;
     position: relative;
   }
-  .enemy-sprite-box img {
+  .boss-sprite-holder img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8));
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.7));
     transition: transform 0.1s ease;
   }
-  .enemy-unit.hit .enemy-sprite-box img {
-    animation: enemyDamageShake 0.35s ease-in-out;
-  }
-  .enemy-unit.attack .enemy-sprite-box img {
-    animation: enemyLunge 0.35s ease-in-out;
-  }
-  @keyframes enemyDamageShake {
+  .boss-sprite-holder.hit img { animation: bossShake 0.35s ease-in-out; }
+  .boss-sprite-holder.lunge img { animation: bossLunge 0.35s ease-in-out; }
+  @keyframes bossShake {
     0%, 100% { transform: translateX(0); }
-    20% { transform: translateX(-12px) scale(0.95); filter: brightness(2) drop-shadow(0 0 15px #f43f5e); }
-    40% { transform: translateX(12px) scale(1.05); }
+    20% { transform: translateX(-14px) scale(0.95); filter: brightness(2) drop-shadow(0 0 15px #ef4444); }
+    40% { transform: translateX(14px) scale(1.05); }
     60% { transform: translateX(-8px); }
   }
-  @keyframes enemyLunge {
+  @keyframes bossLunge {
     0% { transform: translateY(0); }
-    50% { transform: translateY(35px) scale(1.18); filter: drop-shadow(0 0 20px #ef4444); }
+    50% { transform: translateY(38px) scale(1.2); filter: drop-shadow(0 0 20px #ef4444); }
     100% { transform: translateY(0); }
   }
 
-  .hp-tag-pill {
-    background: rgba(15, 23, 42, 0.9);
-    border: 1px solid #334155;
-    padding: 1px 7px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 700;
-    margin-bottom: 2px;
-  }
-  .hp-bar-shell {
-    width: 88px;
-    height: 7px;
-    background: #1e293b;
-    border: 1px solid #475569;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .hp-bar-fill {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, #22c55e, #eab308);
-    transition: width 0.3s ease;
-  }
-
-  /* 勇者方 (下方站位) */
-  .heroes-formation {
+  /* 勇者方 (下方站位：原汁原味高畫質圖片，不套任何發光濾鏡！) */
+  .heroes-party-deck {
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    padding-bottom: 4px;
+    padding-bottom: 2px;
   }
-  .hero-combatant {
+  .hero-member-unit {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     transition: transform 0.15s ease;
   }
-  .hero-avatar-frame {
+  .hero-avatar-round {
     width: 62px;
     height: 62px;
     border-radius: 50%;
     border: 2px solid #38bdf8;
-    background: #0f172a;
+    background: #0b1322;
     overflow: hidden;
-    box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
     position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
   }
-  .hero-avatar-frame img {
+  .hero-avatar-round img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  .hero-combatant.hit .hero-avatar-frame {
-    animation: heroHurt 0.4s ease-in-out;
-  }
-  .hero-combatant.attack .hero-avatar-frame {
-    animation: heroSlash 0.3s ease-in-out;
-  }
-  @keyframes heroHurt {
+  .hero-member-unit.hit .hero-avatar-round { animation: heroHurtAnim 0.35s ease-in-out; }
+  .hero-member-unit.attack .hero-avatar-round { animation: heroSlashAnim 0.3s ease-in-out; }
+  @keyframes heroHurtAnim {
     0%, 100% { transform: translateY(0); }
-    25% { transform: translateY(6px) scale(0.9); border-color: #ef4444; filter: brightness(1.6); }
+    25% { transform: translateY(6px) scale(0.92); border-color: #ef4444; filter: brightness(1.6); }
     75% { transform: translateY(-4px); }
   }
-  @keyframes heroSlash {
+  @keyframes heroSlashAnim {
     0% { transform: translateY(0); }
-    50% { transform: translateY(-24px) scale(1.15); border-color: #fbbf24; box-shadow: 0 0 20px #fbbf24; }
+    50% { transform: translateY(-26px) scale(1.15); border-color: #fbbf24; }
     100% { transform: translateY(0); }
   }
 
-  .hero-bar-plate {
-    background: rgba(15, 23, 42, 0.92);
+  .hero-vitals-box {
+    background: rgba(10, 17, 32, 0.94);
     border: 1px solid #38bdf8;
     border-radius: 5px;
     padding: 2px 6px;
     margin-top: 3px;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
   }
-  .hero-level-txt { font-size: 11px; font-weight: 700; color: #fff; }
+  .hero-role-title { font-size: 11px; font-weight: 700; color: #fff; }
   .hero-hp-track {
-    width: 58px;
+    width: 55px;
     height: 6px;
-    background: #334155;
+    background: #25334a;
     border-radius: 3px;
     overflow: hidden;
   }
-  .hero-hp-bar {
+  .hero-hp-fill {
     width: 100%;
     height: 100%;
     background: #22c55e;
-    transition: width 0.3s ease;
+    transition: width 0.25s ease;
   }
 
-  /* 戰況實況播報條 (Combat Banner Log - 如參考手遊) */
-  .combat-log-banner {
-    background: #0f1929;
-    border-top: 2px solid #1e3353;
-    border-bottom: 2px solid #1e3353;
-    padding: 8px 14px;
+  /* 戰況實況播報條 (Combat Banner Log) */
+  .combat-teleprompter {
+    background: #0b1324;
+    border-top: 2px solid #1a2a46;
+    border-bottom: 2px solid #1a2a46;
+    padding: 8px 12px;
     font-size: 13.5px;
     font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: #e2e8f0;
     min-height: 42px;
+    color: #e2e8f0;
   }
-  .log-highlight-red { color: #f87171; }
-  .log-highlight-gold { color: #facc15; }
-  .log-highlight-green { color: #4ade80; }
+  .txt-log-red { color: #f87171; }
+  .txt-log-gold { color: #facc15; }
+  .txt-log-green { color: #4ade80; }
 
   /* 戰鬥交互指令主控台 (Console) */
-  .battle-console {
+  .battle-console-panel {
     flex: 1;
-    background: #090e18;
+    background: #070c18;
     padding: 10px 14px;
     display: flex;
     flex-direction: column;
@@ -271,9 +257,7 @@
     overflow-y: auto;
     position: relative;
   }
-
-  /* 提示列 */
-  .prompt-hint-bar {
+  .instruction-bar {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -282,72 +266,70 @@
     margin-bottom: 8px;
   }
 
-  /* 拼字格子架 (Spelling Slots Rack) */
-  .slots-deck {
+  /* 拼字格子架 (Spelling Slots) */
+  .spelling-slots-rack {
     display: flex;
     justify-content: center;
     gap: 6px;
     margin: 8px 0 12px 0;
     flex-wrap: wrap;
   }
-  .letter-slot-box {
+  .spelling-slot-cell {
     width: 38px;
     height: 42px;
     border: 2px solid #38bdf8;
     border-radius: 8px;
-    background: #111c30;
+    background: #111e33;
     color: #fff;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 800;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
-    transition: all 0.1s;
   }
-  .letter-slot-box.filled {
-    background: #1e3a5f;
+  .spelling-slot-cell.filled {
+    background: #1c3254;
     border-color: #60a5fa;
     color: #facc15;
   }
 
   /* 字母庫按鍵區 (Letter Tiles) */
-  .letters-rack-grid {
+  .keyboard-tiles-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 6px;
     margin-bottom: 10px;
   }
-  .letter-tile-btn {
+  .char-tile-btn {
     padding: 10px 0;
-    background: #16243b;
-    border: 1.5px solid #29446d;
+    background: #142238;
+    border: 1.5px solid #233b63;
     border-radius: 8px;
     color: #ffffff;
-    font-size: 16px;
+    font-size: 16.5px;
     font-weight: 700;
     cursor: pointer;
-    transition: transform 0.08s, background 0.1s;
+    transition: transform 0.08s;
   }
-  .letter-tile-btn:active { transform: scale(0.92); }
-  .letter-tile-btn.used {
-    opacity: 0.25;
+  .char-tile-btn:active { transform: scale(0.92); }
+  .char-tile-btn.used {
+    opacity: 0.22;
     pointer-events: none;
-    border-color: #334155;
+    border-color: #2b394f;
   }
 
   /* 選擇題選項卡 (3~4 張大圓角卡片) */
-  .choice-card-stack {
+  .combat-choices-stack {
     display: flex;
     flex-direction: column;
     gap: 8px;
     margin: 6px 0;
   }
-  .combat-choice-btn {
-    padding: 12px 14px;
-    background: #132035;
-    border: 1.5px solid #233c63;
+  .choice-action-card {
+    padding: 13px 15px;
+    background: #121e33;
+    border: 1.5px solid #203659;
     border-radius: 12px;
     color: #fff;
     font-size: 15px;
@@ -356,45 +338,45 @@
     cursor: pointer;
     transition: all 0.12s;
   }
-  .combat-choice-btn:hover { background: #1c2e4c; border-color: #38bdf8; }
-  .combat-choice-btn.correct { background: rgba(34, 197, 94, 0.25) !important; border-color: #22c55e !important; color: #86efac; }
-  .combat-choice-btn.wrong { background: rgba(239, 68, 68, 0.25) !important; border-color: #ef4444 !important; color: #fca5a5; }
+  .choice-action-card:hover { background: #192a47; border-color: #38bdf8; }
+  .choice-action-card.c-ans { background: rgba(34, 197, 94, 0.25) !important; border-color: #22c55e !important; color: #86efac; }
+  .choice-action-card.w-ans { background: rgba(239, 68, 68, 0.25) !important; border-color: #ef4444 !important; color: #fca5a5; }
 
   /* 是非題雙圓鍵 */
-  .tf-action-grid {
+  .tf-duo-grid {
     display: flex;
     gap: 12px;
     margin: 12px 0;
   }
-  .tf-act-btn {
+  .tf-duo-btn {
     flex: 1;
     padding: 16px;
     border-radius: 14px;
-    background: #132035;
-    border: 2px solid #233c63;
+    background: #121e33;
+    border: 2px solid #203659;
     font-size: 18px;
     font-weight: 800;
     cursor: pointer;
     text-align: center;
   }
-  .tf-act-btn.o { color: #4ade80; }
-  .tf-act-btn.x { color: #f87171; }
-  .tf-act-btn.correct { background: rgba(34, 197, 94, 0.28) !important; border-color: #22c55e !important; }
-  .tf-act-btn.wrong { background: rgba(239, 68, 68, 0.28) !important; border-color: #ef4444 !important; }
+  .tf-duo-btn.o { color: #4ade80; }
+  .tf-duo-btn.x { color: #f87171; }
+  .tf-duo-btn.c-ans { background: rgba(34, 197, 94, 0.28) !important; border-color: #22c55e !important; }
+  .tf-duo-btn.w-ans { background: rgba(239, 68, 68, 0.28) !important; border-color: #ef4444 !important; }
 
   /* 數字小鍵盤 (售票亭/借書證) */
-  .numpad-combat-box {
+  .numpad-combat-cluster {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 6px;
-    max-width: 280px;
+    max-width: 270px;
     margin: 6px auto;
   }
-  .num-key-btn {
+  .num-grid-key {
     padding: 11px 0;
     border-radius: 8px;
     background: #142238;
-    border: 1.5px solid #253e66;
+    border: 1.5px solid #243c63;
     color: #fff;
     font-size: 17px;
     font-weight: 700;
@@ -406,13 +388,12 @@
     position: absolute;
     font-size: 26px;
     font-weight: 900;
-    color: #fbbf24;
     text-shadow: 0 0 10px rgba(0,0,0,0.9);
     pointer-events: none;
     z-index: 30;
-    animation: popFade 0.75s forwards ease-out;
+    animation: popFloat 0.75s forwards ease-out;
   }
-  @keyframes popFade {
+  @keyframes popFloat {
     0% { opacity: 0; transform: translateY(0) scale(0.6); }
     30% { opacity: 1; transform: translateY(-16px) scale(1.3); }
     100% { opacity: 0; transform: translateY(-40px) scale(1); }
@@ -428,10 +409,8 @@
     opacity: 0;
     transition: opacity 0.08s ease;
   }
-  .screen-shake-anim {
-    animation: shakeContainer 0.35s ease-in-out;
-  }
-  @keyframes shakeContainer {
+  .screen-shake-anim { animation: shakeBox 0.35s ease-in-out; }
+  @keyframes shakeBox {
     0%, 100% { transform: translate(0, 0); }
     20% { transform: translate(-8px, 6px); }
     40% { transform: translate(8px, -6px); }
@@ -439,16 +418,16 @@
     80% { transform: translate(6px, 4px); }
   }
 
-  /* 底部四功能導航列 (Tab Bar - 參考手遊四大核心) */
-  .bottom-nav-bar {
-    background: #090e1a;
-    border-top: 2px solid #1a2a46;
+  /* 底部五大直覺導航列 (Tab Bar) */
+  .app-bottom-nav {
+    background: #0a1120;
+    border-top: 2px solid #1b2b46;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     padding: 6px 0;
-    z-index: 10;
+    z-index: 20;
   }
-  .nav-tab-btn {
+  .nav-action-tab {
     background: transparent;
     border: none;
     color: var(--text-dim);
@@ -457,33 +436,29 @@
     align-items: center;
     gap: 3px;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     transition: color 0.15s;
   }
-  .nav-tab-btn.active {
-    color: var(--primary);
-  }
-  .nav-tab-icon {
-    font-size: 18px;
-  }
+  .nav-action-tab.active { color: var(--primary); }
+  .nav-tab-ico { font-size: 18px; }
 
-  /* 視窗彈窗層 (Overlay Views for Adventure, Challenge, Backpack, Forge, Party) */
-  .sub-modal-view {
+  /* 視窗彈窗層 (Overlay Modal Views) */
+  .app-modal-layer {
     display: none;
     position: absolute;
     top: 48px;
     bottom: 56px;
     left: 0; right: 0;
-    background: rgba(7, 12, 24, 0.98);
-    z-index: 20;
+    background: rgba(6, 10, 20, 0.98);
+    z-index: 25;
     overflow-y: auto;
     padding: 16px;
     animation: fadeIn 0.15s ease-in;
   }
-  .modal-head-title {
-    font-size: 17px;
-    font-weight: 700;
+  .modal-title-bar {
+    font-size: 16.5px;
+    font-weight: 800;
     color: #38bdf8;
     margin-bottom: 12px;
     display: flex;
@@ -491,10 +466,10 @@
     align-items: center;
   }
 
-  /* 冒險關卡卡片 (Adventure Stages) */
-  .stage-select-item {
-    background: #111a2e;
-    border: 1.5px solid #1f3354;
+  /* 冒險關卡選擇卡片 */
+  .adventure-stage-card {
+    background: #111c30;
+    border: 1.5px solid #203554;
     border-radius: 12px;
     padding: 12px;
     margin-bottom: 10px;
@@ -502,14 +477,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    transition: all 0.15s;
   }
-  .stage-select-item:hover { border-color: #38bdf8; background: #17243f; }
-  .stage-badge-dot {
+  .adventure-stage-card:hover { border-color: #38bdf8; background: #162540; }
+  .stage-num-badge {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: #1e3a5f;
+    background: #1b2f4c;
     border: 1.5px solid #38bdf8;
     display: flex;
     align-items: center;
@@ -517,10 +491,10 @@
     font-size: 16px;
   }
 
-  /* 鍛造與角色養成 */
-  .forge-row {
-    background: #111a2e;
-    border: 1px solid #1f3354;
+  /* 鍛造與養成列 */
+  .management-row {
+    background: #111c30;
+    border: 1px solid #1f3554;
     border-radius: 10px;
     padding: 10px 12px;
     margin-bottom: 8px;
@@ -528,7 +502,7 @@
     align-items: center;
     justify-content: space-between;
   }
-  .btn-forge-act {
+  .btn-action-pill {
     padding: 6px 12px;
     border-radius: 6px;
     background: #2563eb;
@@ -539,228 +513,298 @@
     cursor: pointer;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  /* 👾 俄羅斯單字掉落戰 (Russian Word Drop Arena) */
+  .drop-tetris-board {
+    background: #020617;
+    border: 2px solid #2b3e61;
+    border-radius: 12px;
+    height: 340px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
   }
+  .tetris-danger-line {
+    position: absolute;
+    top: 50px;
+    left: 0; right: 0;
+    border-top: 2px dashed #ef4444;
+    pointer-events: none;
+  }
+  .tetris-danger-tag {
+    position: absolute;
+    top: 34px;
+    right: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #ef4444;
+  }
+  .tetris-word-block {
+    position: absolute;
+    width: 90px;
+    padding: 6px 4px;
+    background: linear-gradient(135deg, #16243d, #25395c);
+    border: 1.5px solid #38bdf8;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 13.5px;
+    font-weight: 800;
+    text-align: center;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+    cursor: pointer;
+  }
+  .tetris-word-block.settled {
+    background: #334155 !important;
+    border-color: #64748b !important;
+    box-shadow: none !important;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 </style>
 </head>
 <body>
 
-<div class="mobile-rpg-container" id="rpgViewport">
+<div class="game-app-shell" id="appViewport">
   <!-- 受擊紅閃遮罩 -->
   <div class="screen-flash-red" id="screenRedFlash"></div>
 
   <!-- 頂部 HUD (Heads-Up Display) -->
-  <div class="top-hud">
-    <div class="hud-pill" onclick="openNavTab('adventure')">
+  <div class="top-hud-bar">
+    <div class="hud-badge-btn" onclick="openNavTab('adventure')">
       <span id="currentAreaLabel">🪐 水星 · 第 0 課</span> ▾
     </div>
-    <div class="hud-stats-group">
-      <div class="stat-chip" style="color:var(--accent-gold);">🪙 <span id="hudCoins">0</span></div>
-      <div class="stat-chip" style="color:var(--primary);">⭐ <span id="hudScore">0</span></div>
-      <button class="hud-pill" id="soundToggleBtn" onclick="toggleAudio()" style="padding:3px 6px;">🔊</button>
+    <div class="hud-stats-cluster">
+      <div class="stat-pill" style="color:var(--accent-gold);">🪙 <span id="hudCoins">0</span></div>
+      <div class="stat-pill" style="color:var(--primary);">⭐ <span id="hudScore">0</span></div>
+      <button class="hud-badge-btn" id="soundToggleBtn" onclick="toggleAudio()" style="padding:3px 6px;">🔊</button>
     </div>
   </div>
 
-  <!-- 戰鬥舞台 (Battlefield) -->
-  <div class="battle-stage" id="battleStage">
+  <!-- 戰鬥舞台 (Battle Viewport) -->
+  <div class="battle-viewport" id="battleStage">
     <!-- 怪物方 (上方) -->
-    <div class="monster-formation" id="enemyFormation">
-      <div class="enemy-unit" id="bossUnit">
-        <div class="hp-tag-pill" id="bossNameTag">果凍史萊姆 Lv.1</div>
-        <div class="hp-bar-shell">
-          <div class="hp-bar-fill" id="bossHpBar" style="width:100%;"></div>
-        </div>
-        <div class="enemy-sprite-box">
-          <img src="assets/boss_slime.jfif" id="bossSpriteImg" onerror="this.onerror=null; this.src='assets/boss_slime.png';">
-        </div>
+    <div class="boss-stand-zone">
+      <div class="boss-hp-plate" id="bossNameTag">果凍史萊姆 Lv.1</div>
+      <div class="boss-hp-track">
+        <div class="boss-hp-bar" id="bossHpBar" style="width:100%;"></div>
+      </div>
+      <div class="boss-sprite-holder" id="bossSpriteBox">
+        <img src="assets/boss_slime.jfif" id="bossSpriteImg" onerror="this.onerror=null; this.src='assets/boss_slime.png';">
       </div>
     </div>
 
-    <!-- 勇者方 (下方站位：預設光劍士一人，後續解鎖法師/治療師) -->
-    <div class="heroes-formation" id="heroesFormation">
+    <!-- 勇者方 (下方站位：初始僅光劍士一人！無任何發光濾鏡！) -->
+    <div class="heroes-party-deck" id="heroesPartyDeck">
       <!-- 勇者光劍士 (主角) -->
-      <div class="hero-combatant" id="heroWarrior">
-        <div class="hero-avatar-frame" id="warriorFrame">
+      <div class="hero-member-unit" id="heroWarrior">
+        <div class="hero-avatar-round">
           <img src="assets/hero_warrior.jfif" onerror="this.onerror=null; this.src='assets/hero_warrior.png';">
         </div>
-        <div class="hero-bar-plate">
-          <span class="hero-level-txt" id="warriorLvTxt">勇者 Lv.1</span>
+        <div class="hero-vitals-box">
+          <span class="hero-role-title" id="warriorLvTxt">勇者 Lv.1</span>
           <div class="hero-hp-track">
-            <div class="hero-hp-bar" id="warriorHpBar" style="width:100%;"></div>
+            <div class="hero-hp-fill" id="warriorHpBar" style="width:100%;"></div>
           </div>
         </div>
       </div>
 
-      <!-- 魔法使 (星幣招募解鎖後站在此處) -->
-      <div class="hero-combatant" id="heroMage" style="display:none;">
-        <div class="hero-avatar-frame" style="border-color:#c084fc;">
+      <!-- 魔法使 (花 300 星幣招募後站在此處) -->
+      <div class="hero-member-unit" id="heroMage" style="display:none;">
+        <div class="hero-avatar-round" style="border-color:#c084fc;">
           <img src="assets/hero_mage.jfif" onerror="this.onerror=null; this.src='assets/hero_mage.png';">
         </div>
-        <div class="hero-bar-plate" style="border-color:#c084fc;">
-          <span class="hero-level-txt" id="mageLvTxt">法師 Lv.1</span>
+        <div class="hero-vitals-box" style="border-color:#c084fc;">
+          <span class="hero-role-title">法師 Lv.1</span>
           <div class="hero-hp-track">
-            <div class="hero-hp-bar" id="mageHpBar" style="width:100%; background:#c084fc;"></div>
+            <div class="hero-hp-fill" id="mageHpBar" style="width:100%; background:#c084fc;"></div>
           </div>
         </div>
       </div>
 
-      <!-- 時空治療師 (星幣招募解鎖後站在此處) -->
-      <div class="hero-combatant" id="heroHealer" style="display:none;">
-        <div class="hero-avatar-frame" style="border-color:#34d399;">
+      <!-- 時空治療師 (花 500 星幣招募後站在此處) -->
+      <div class="hero-member-unit" id="heroHealer" style="display:none;">
+        <div class="hero-avatar-round" style="border-color:#34d399;">
           <img src="assets/hero_healer.jfif" onerror="this.onerror=null; this.src='assets/hero_healer.png';">
         </div>
-        <div class="hero-bar-plate" style="border-color:#34d399;">
-          <span class="hero-level-txt" id="healerLvTxt">治癒 Lv.1</span>
+        <div class="hero-vitals-box" style="border-color:#34d399;">
+          <span class="hero-role-title">治癒 Lv.1</span>
           <div class="hero-hp-track">
-            <div class="hero-hp-bar" id="healerHpBar" style="width:100%; background:#34d399;"></div>
+            <div class="hero-hp-fill" id="healerHpBar" style="width:100%; background:#34d399;"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 戰況實況播報條 (Combat Banner Log) -->
-  <div class="combat-log-banner" id="combatBanner">
-    <div id="combatLogText">🌟 冒險啟航！遭遇【果凍史萊姆】！準備出招！</div>
-    <button class="hud-pill" onclick="speakCurrentPrompt()" title="朗讀題目">📢 發音</button>
+  <!-- 戰況實況播報條 (Combat Teleprompter) -->
+  <div class="combat-teleprompter" id="combatBanner">
+    <div id="combatLogText">🌟 遭遇【果凍史萊姆】！準備出招！</div>
+    <button class="hud-badge-btn" onclick="speakCurrentPrompt()" title="朗讀題目">📢 發音</button>
   </div>
 
   <!-- 戰鬥交互指令主控台 (Console) -->
-  <div class="battle-console" id="battleConsole">
-    <div class="prompt-hint-bar" id="promptBar">
+  <div class="battle-console-panel" id="battleConsole">
+    <div class="instruction-bar" id="promptBar">
       <span id="promptIcon">💡</span> <span id="promptText">提示：聽聽看發音，再拼出單字</span>
     </div>
     <!-- 動態題型互動元件 (拼字/選擇/是非/數字) -->
     <div id="consoleInteractiveArea"></div>
   </div>
 
-  <!-- 底部四功能導航列 (Tab Bar) -->
-  <div class="bottom-nav-bar">
-    <button class="nav-tab-btn active" id="tab_adventure" onclick="openNavTab('adventure')">
-      <span class="nav-tab-icon">🗺️</span>
+  <!-- 底部五大功能導航列 (Tab Bar) -->
+  <div class="app-bottom-nav">
+    <button class="nav-action-tab active" id="tab_adventure" onclick="openNavTab('adventure')">
+      <span class="nav-tab-ico">🗺️</span>
       <span>冒險</span>
     </button>
-    <button class="nav-tab-btn" id="tab_challenge" onclick="openNavTab('challenge')">
-      <span class="nav-tab-icon">⚡</span>
-      <span>刷幣試煉</span>
+    <button class="nav-action-tab" id="tab_challenge" onclick="openNavTab('challenge')">
+      <span class="nav-tab-ico">⚡</span>
+      <span>試煉</span>
     </button>
-    <button class="nav-tab-btn" id="tab_forge" onclick="openNavTab('forge')">
-      <span class="nav-tab-icon">🔥</span>
+    <button class="nav-action-tab" id="tab_forge" onclick="openNavTab('forge')">
+      <span class="nav-tab-ico">🔥</span>
       <span>鍛造</span>
     </button>
-    <button class="nav-tab-btn" id="tab_party" onclick="openNavTab('party')">
-      <span class="nav-tab-icon">🐾</span>
+    <button class="nav-action-tab" id="tab_party" onclick="openNavTab('party')">
+      <span class="nav-tab-ico">🐾</span>
       <span>夥伴</span>
     </button>
-    <button class="nav-tab-btn" id="tab_backpack" onclick="openNavTab('backpack')">
-      <span class="nav-tab-icon">🎒</span>
+    <button class="nav-action-tab" id="tab_backpack" onclick="openNavTab('backpack')">
+      <span class="nav-tab-ico">🎒</span>
       <span>背包</span>
     </button>
   </div>
 
-  <!-- 彈窗 1: 冒險主線關卡選擇 (Adventure Map) -->
-  <div class="sub-modal-view" id="modalAdventure">
-    <div class="modal-head-title">
+  <!-- 彈窗 1: 冒險主線關卡選擇 (Adventure Stage Select) -->
+  <div class="app-modal-layer" id="modalAdventure">
+    <div class="modal-title-bar">
       <span>🗺️ 太陽系主線課程 (Starter ~ 期末考)</span>
-      <button class="hud-pill" onclick="closeAllModals()">關閉 ✖</button>
+      <button class="hud-badge-btn" onclick="closeAllModals()">關閉 ✖</button>
     </div>
     <div id="adventureStageList"></div>
   </div>
 
-  <!-- 彈窗 2: 獨立刷幣試煉場 (Challenge Tower) -->
-  <div class="sub-modal-view" id="modalChallenge">
-    <div class="modal-head-title">
-      <span>⚡ 無限刷幣試煉之塔 (怪獸隨機無限出招)</span>
-      <button class="hud-pill" onclick="closeAllModals()">關閉 ✖</button>
-    </div>
-    <p style="font-size:12.5px; color:var(--text-dim); margin-bottom:12px;">
-      專門刷星幣的戰鬥殿堂！全學年題目隨機輪派（拼字、對話、是非、算術），怪物隨機無限出現，每擊敗一隻賺取巨額星幣！
-    </p>
-    <button class="btn-forge-act" style="width:100%; padding:14px; font-size:15px; background:linear-gradient(135deg, #2563eb, #a855f7);" onclick="startEndlessChallenge()">
-      ⚔️ 進入無限試煉討伐！
-    </button>
-  </div>
-
-  <!-- 彈窗 3: 鍛造與數值養成 (Forge & Level Up) -->
-  <div class="sub-modal-view" id="modalForge">
-    <div class="modal-head-title">
-      <span>🔥 冒險鍛造屋・數值成長與扭蛋</span>
-      <button class="hud-pill" onclick="closeAllModals()">關閉 ✖</button>
+  <!-- 彈窗 2: 獨立試煉殿堂 (Challenge Zone: Endless & Russian Word Drop) -->
+  <div class="app-modal-layer" id="modalChallenge">
+    <div class="modal-title-bar">
+      <span>⚡ 星際試煉殿堂 (獨立刷幣專區)</span>
+      <button class="hud-badge-btn" onclick="closeAllModals()">關閉 ✖</button>
     </div>
     
-    <div style="font-size:13px; font-weight:700; color:#38bdf8; margin:8px 0 4px 0;">⚔️ 武器光刃強化 (提升答對斬擊傷害)</div>
-    <div class="forge-row">
-      <div>
-        <b>勇者光刃 Lv.<span id="weaponLvTxt">1</span></b><br>
-        <span style="font-size:11.5px; color:var(--text-dim);">當前傷害：<span id="weaponDmgTxt">25</span> HP</span>
-      </div>
-      <button class="btn-forge-act" onclick="upgradeWeapon()">升級 (<span id="weaponCostTxt">50</span> 🪙)</button>
+    <div style="display:flex; gap:8px; margin-bottom:12px;">
+      <button class="hud-badge-btn" style="flex:1; justify-content:center; padding:8px;" id="csub_endless" onclick="switchChallengeSub('endless')">⚔️ 無限怪獸討伐</button>
+      <button class="hud-badge-btn" style="flex:1; justify-content:center; padding:8px;" id="csub_tetris" onclick="switchChallengeSub('tetris')">👾 俄羅斯單字掉落戰</button>
     </div>
 
-    <div style="font-size:13px; font-weight:700; color:#22c55e; margin:12px 0 4px 0;">🛡️ 勇者防護服強化 (提升生命上限)</div>
-    <div class="forge-row">
+    <!-- 試煉 A: 無限討伐 -->
+    <div id="challengeEndlessView">
+      <p style="font-size:12.5px; color:var(--text-dim); margin-bottom:12px;">
+        全學年考點（拼字、對話、是非、生活算術）無限輪出！怪獸無限隨機襲來，每擊敗一隻狂賺星幣！
+      </p>
+      <button class="btn-action-pill" style="width:100%; padding:14px; font-size:15px; background:linear-gradient(135deg, #2563eb, #a855f7);" onclick="startEndlessBattle()">
+        ⚔️ 啟動無限怪獸討伐！
+      </button>
+    </div>
+
+    <!-- 試煉 B: 俄羅斯方塊掉落戰 (中英對照、慢速堆疊) -->
+    <div id="challengeTetrisView" style="display:none;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+        <span style="font-size:12px; color:var(--primary); font-weight:700;">看中文提示，打字或點擊消除！堆到紅線才失敗！</span>
+        <span style="font-size:12px; color:var(--accent-gold); font-weight:700;">得分：<b id="tetrisScoreTxt">0</b></span>
+      </div>
+      <div class="drop-tetris-board" id="tetrisBoard">
+        <div class="tetris-danger-line"></div>
+        <div class="tetris-danger-tag">⚠️ 警戒天花板</div>
+      </div>
+      <div style="display:flex; gap:6px; margin-bottom:10px;">
+        <input type="text" id="tetrisInput" placeholder="輸入方塊對應的英文單字，按 Enter 發射！" style="flex:1; padding:10px; border-radius:8px; background:#0b1322; border:1.5px solid #38bdf8; color:#fff; font-size:15px; outline:none;" autocomplete="off">
+        <button class="btn-action-pill" style="background:#22c55e;" onclick="fireTetrisLaser()">發射 💥</button>
+      </div>
+      <div style="display:flex; justify-content:center; gap:8px;">
+        <button class="hud-badge-btn" onclick="startTetrisGame()">▶ 開始/重新挑戰</button>
+        <button class="hud-badge-btn" onclick="stopTetrisGame()">⏹ 結束並查看單字總結</button>
+      </div>
+      <div id="tetrisVocabSummary" style="margin-top:12px;"></div>
+    </div>
+  </div>
+
+  <!-- 彈窗 3: 鍛造與數值升級 (Forge & Upgrades) -->
+  <div class="app-modal-layer" id="modalForge">
+    <div class="modal-title-bar">
+      <span>🔥 冒險鍛造屋・數值強化與扭蛋</span>
+      <button class="hud-badge-btn" onclick="closeAllModals()">關閉 ✖</button>
+    </div>
+
+    <div style="font-size:13px; font-weight:800; color:#38bdf8; margin:8px 0 4px 0;">⚔️ 武器光刃鍛造 (提升答對斬擊傷害)</div>
+    <div class="management-row">
+      <div>
+        <b>勇者光刃 Lv.<span id="weaponLvTxt">1</span></b><br>
+        <span style="font-size:11.5px; color:var(--text-dim);">當前斬擊傷害：<span id="weaponDmgTxt">25</span> HP</span>
+      </div>
+      <button class="btn-action-pill" onclick="upgradeWeapon()">強化 (<span id="weaponCostTxt">50</span> 🪙)</button>
+    </div>
+
+    <div style="font-size:13px; font-weight:800; color:#22c55e; margin:12px 0 4px 0;">🛡️ 勇者防護甲強化 (提升隊伍生命上限)</div>
+    <div class="management-row">
       <div>
         <b>防護戰衣 Lv.<span id="armorLvTxt">1</span></b><br>
         <span style="font-size:11.5px; color:var(--text-dim);">生命上限：<span id="armorHpTxt">100</span> HP</span>
       </div>
-      <button class="btn-forge-act" onclick="upgradeArmor()">升級 (<span id="armorCostTxt">60</span> 🪙)</button>
+      <button class="btn-action-pill" onclick="upgradeArmor()">強化 (<span id="armorCostTxt">60</span> 🪙)</button>
     </div>
 
-    <div style="font-size:13px; font-weight:700; color:#fbbf24; margin:12px 0 4px 0;">🎰 星際能量扭蛋機 (解鎖粒子特效)</div>
-    <div class="forge-row">
+    <div style="font-size:13px; font-weight:800; color:#fbbf24; margin:12px 0 4px 0;">🎰 星際扭蛋機 (抽取稀有戰鬥特效)</div>
+    <div class="management-row">
       <div>
-        <b>星際扭蛋機 🎰</b><br>
-        <span style="font-size:11.5px; color:var(--text-dim);">抽取稀有暴擊光弧、彩虹流星粒子</span>
+        <b>星際能量扭蛋機 🎰</b><br>
+        <span style="font-size:11.5px; color:var(--text-dim);">抽取純程式彩虹流星粒子、暴烈雷電光芒</span>
       </div>
-      <button class="btn-forge-act" style="background:linear-gradient(135deg, #d97706, #fbbf24); color:#000;" onclick="spinGacha()">抽扭蛋 (50 🪙)</button>
+      <button class="btn-action-pill" style="background:linear-gradient(135deg, #d97706, #fbbf24); color:#000;" onclick="spinGacha()">抽扭蛋 (50 🪙)</button>
     </div>
-    <div id="gachaNotify" style="margin-top:6px; font-size:12px; color:#4ade80;"></div>
+    <div id="gachaOutputNotify" style="margin-top:6px; font-size:12px; color:#4ade80;"></div>
   </div>
 
-  <!-- 彈窗 4: 夥伴招募與隨行寵物 (Companions) -->
-  <div class="sub-modal-view" id="modalParty">
-    <div class="modal-head-title">
-      <span>🐾 戰友招募與隨行太空寵物</span>
-      <button class="hud-pill" onclick="closeAllModals()">關閉 ✖</button>
+  <!-- 彈窗 4: 夥伴招募與寵物領養 (Party & Pets: 全部花幣購買！) -->
+  <div class="app-modal-layer" id="modalParty">
+    <div class="modal-title-bar">
+      <span>🐾 酒館夥伴招募與太空寵物屋</span>
+      <button class="hud-badge-btn" onclick="closeAllModals()">關閉 ✖</button>
     </div>
     
-    <div style="font-size:13px; font-weight:700; color:#c084fc; margin:6px 0 4px 0;">🧙 戰鬥隊友招募</div>
-    <div class="forge-row">
+    <div style="font-size:13px; font-weight:800; color:#c084fc; margin:6px 0 4px 0;">🧙 戰鬥隊友花幣招募 (開局僅勇者一人！)</div>
+    <div class="management-row">
       <div style="display:flex; align-items:center; gap:8px;">
-        <img src="assets/hero_mage.jfif" style="width:36px; height:36px; border-radius:50%; object-fit:cover;">
+        <img src="assets/hero_mage.jfif" style="width:38px; height:38px; border-radius:50%; object-fit:cover;">
         <div><b>星宿法師</b><br><span style="font-size:11px; color:var(--text-dim);">解鎖群體魔法轟炸</span></div>
       </div>
-      <button class="btn-forge-act" id="btnRecruitMage" onclick="recruitHero('mage', 300)">招募 (300 🪙)</button>
+      <button class="btn-action-pill" id="btnBuyMage" onclick="buyHeroMember('mage', 300)">招募 (300 🪙)</button>
     </div>
-    <div class="forge-row">
+    <div class="management-row">
       <div style="display:flex; align-items:center; gap:8px;">
-        <img src="assets/hero_healer.jfif" style="width:36px; height:36px; border-radius:50%; object-fit:cover;">
+        <img src="assets/hero_healer.jfif" style="width:38px; height:38px; border-radius:50%; object-fit:cover;">
         <div><b>時空治療師</b><br><span style="font-size:11px; color:var(--text-dim);">答對文法題回血 + 護盾</span></div>
       </div>
-      <button class="btn-forge-act" id="btnRecruitHealer" onclick="recruitHero('healer', 500)">招募 (500 🪙)</button>
+      <button class="btn-action-pill" id="btnBuyHealer" onclick="buyHeroMember('healer', 500)">招募 (500 🪙)</button>
     </div>
 
-    <div style="font-size:13px; font-weight:700; color:#10b981; margin:12px 0 4px 0;">🐾 隨行太空寵物 (切換被動輔助)</div>
-    <div id="petsSelectList"></div>
+    <div style="font-size:13px; font-weight:800; color:#10b981; margin:12px 0 4px 0;">🐾 太空寵物領養 (全部花幣購買！)</div>
+    <div id="petsPurchaseList"></div>
   </div>
 
   <!-- 彈窗 5: 背包 (榮譽獎狀、錯題筆記) -->
-  <div class="sub-modal-view" id="modalBackpack">
-    <div class="modal-head-title">
-      <span>🎒 冒險者背包・獎狀與錯題筆記</span>
-      <button class="hud-pill" onclick="closeAllModals()">關閉 ✖</button>
+  <div class="app-modal-layer" id="modalBackpack">
+    <div class="modal-title-bar">
+      <span>🎒 冒險者背包・獎狀與錯題避坑筆記</span>
+      <button class="hud-badge-btn" onclick="closeAllModals()">關閉 ✖</button>
     </div>
-    <div class="forge-row">
-      <div><b>🏆 結業大師榮譽獎狀</b><br><span style="font-size:11px; color:var(--text-dim);">檢視個人通關全冊評級</span></div>
-      <button class="btn-forge-act" onclick="showCertWindow()">檢視獎狀</button>
+    <div class="management-row">
+      <div><b>🏆 結業大師榮譽獎狀</b><br><span style="font-size:11px; color:var(--text-dim);">檢視全冊通關評級</span></div>
+      <button class="btn-action-pill" onclick="renderCertModal()">檢視獎狀</button>
     </div>
-    <div class="forge-row">
-      <div><b>📓 歷次錯題避坑筆記</b><br><span style="font-size:11px; color:var(--text-dim);">記錄 <span id="wrongCountTxt">0</span> 題需要複習的盲點</span></div>
-      <button class="btn-forge-act" onclick="showNotebookWindow()">查看錯題</button>
+    <div class="management-row">
+      <div><b>📓 錯題避坑筆記本</b><br><span style="font-size:11px; color:var(--text-dim);">記錄 <span id="wrongNotesCount">0</span> 題需要複習的盲點</span></div>
+      <button class="btn-action-pill" onclick="renderNotebookModal()">查看錯題</button>
     </div>
-    <div id="backpackContentArea" style="margin-top:10px;"></div>
+    <div id="backpackDetailsDisplay" style="margin-top:10px;"></div>
   </div>
 </div>
 
@@ -832,14 +876,12 @@ const STAGES_MASTER = [
     questions: [
       {
         type: "spelling",
-        role: "warrior",
         word: "apple",
         hint: "蘋果 (母音 an 開頭)",
         detail: "a-p-p-l-e，母音開頭要用 an apple。"
       },
       {
         type: "choice",
-        role: "warrior",
         title: "果凍史萊姆丟來題目：「下列哪一個單字前面必須使用 an？」",
         options: ["an egg (雞蛋)", "a dog (小狗)", "a cat (貓咪)"],
         ans: 0,
@@ -847,14 +889,12 @@ const STAGES_MASTER = [
       },
       {
         type: "spelling",
-        role: "warrior",
         word: "dog",
         hint: "小狗",
         detail: "d-o-g，字首發音為 /d/。"
       },
       {
         type: "tf",
-        role: "healer",
         title: "【文法檢驗】：『一隻大象』英文可以寫成 『a elephant』嗎？",
         options: ["⭕ 正確", "❌ 錯誤"],
         ans: 1,
@@ -862,7 +902,6 @@ const STAGES_MASTER = [
       },
       {
         type: "choice",
-        role: "mage",
         title: "英文數字依序數數：one, two, ________, four, five。",
         options: ["three (數字3)", "tree (樹木)", "there (那裡)"],
         ans: 0,
@@ -880,7 +919,6 @@ const STAGES_MASTER = [
     questions: [
       {
         type: "choice",
-        role: "mage",
         title: "飛行蝠對你喊道：「What's your name?」你該如何回答？",
         options: ["My name is Mia.", "I'm nine.", "It's blue."],
         ans: 0,
@@ -888,7 +926,6 @@ const STAGES_MASTER = [
       },
       {
         type: "choice",
-        role: "healer",
         title: "【段考最高頻陷阱】：問對方你的名字，空格應填入：What's ________ name?",
         options: ["your (你的)", "you're (你是)", "you (你)"],
         ans: 0,
@@ -896,7 +933,6 @@ const STAGES_MASTER = [
       },
       {
         type: "choice",
-        role: "mage",
         title: "走廊上遇見同學摔倒，關心問：「Are you OK?」對方回答：",
         options: ["I'm fine. Thank you.", "My name is Abu.", "Line up, please."],
         ans: 0,
@@ -904,14 +940,12 @@ const STAGES_MASTER = [
       },
       {
         type: "spelling",
-        role: "warrior",
         word: "fish",
         hint: "魚 (字首發音 /f/)",
         detail: "f-i-s-h，字首發音 /f/。"
       },
       {
         type: "tf",
-        role: "warrior",
         title: "【書寫鐵則】：英文人名（如 Mia, Rocky, Edison）第一個字母必須大寫。",
         options: ["⭕ 正確", "❌ 錯誤"],
         ans: 0,
@@ -929,7 +963,6 @@ const STAGES_MASTER = [
     questions: [
       {
         type: "choice",
-        role: "healer",
         title: "【信義真題原題】：A: Thank you!  B: ________ welcome.",
         options: ["You're", "Your", "You"],
         ans: 0,
@@ -937,7 +970,6 @@ const STAGES_MASTER = [
       },
       {
         type: "choice",
-        role: "mage",
         title: "A: ________ are you?  B: I'm nine years old.",
         options: ["How old", "How", "What"],
         ans: 0,
@@ -945,7 +977,6 @@ const STAGES_MASTER = [
       },
       {
         type: "spelling",
-        role: "warrior",
         word: "eight",
         hint: "數字 8 (小心拼寫！)",
         detail: "e-i-g-h-t，gh 不發音，千萬別漏掉！"
@@ -958,7 +989,6 @@ const STAGES_MASTER = [
       },
       {
         type: "choice",
-        role: "mage",
         title: "買票排隊時，老師對全班下達的常規指令是哪一句？",
         options: ["Line up, please.", "Sit down, please.", "Good job!"],
         ans: 0,
@@ -982,7 +1012,6 @@ const STAGES_MASTER = [
       },
       {
         type: "choice",
-        role: "warrior",
         title: "【信義真題第7大題 字母接龍】：小寫字母依序接續『c - d - e - ____』：",
         options: ["f", "b", "g"],
         ans: 0,
@@ -990,7 +1019,6 @@ const STAGES_MASTER = [
       },
       {
         type: "choice",
-        role: "mage",
         title: "【信義真題第9大題 借書證】：Amber 借書證卡號 123，英文讀作：",
         options: ["one-two-three", "one-two-four", "two-three-one"],
         ans: 0,
@@ -998,17 +1026,15 @@ const STAGES_MASTER = [
       },
       {
         type: "tf",
-        role: "warrior",
         title: "【真題易錯點】：小寫字母『b』的肚子在右邊，小寫字母『d』的肚子在左邊。",
         options: ["⭕ 正確", "❌ 錯誤"],
         ans: 0,
-        explain": "完全正確！b 的圓弧在右側，d 在左側。"
+        explain: "完全正確！b 的圓弧在右側，d 在左側。"
       },
       {
         type: "choice",
-        role: "mage",
         title: "【信義真題 售票亭】：0~6 歲幼童買票要付多少錢？",
-        options": ["Free (免費)", "NT$15", "NT$30"],
+        options: ["Free (免費)", "NT$15", "NT$30"],
         ans: 0,
         explain: "票價表載明：Kids (0~6歲) 是 Free 免費！"
       }
@@ -1024,7 +1050,6 @@ const STAGES_MASTER = [
     questions: [
       {
         type: "choice",
-        role: "healer",
         title: "A: What's this?  B: It's ________ eraser.",
         options: ["an", "a", "two"],
         ans: 0,
@@ -1032,14 +1057,12 @@ const STAGES_MASTER = [
       },
       {
         type: "spelling",
-        role: "warrior",
         word: "pencil",
         hint: "鉛筆",
         detail: "p-e-n-c-i-l，寫字鉛筆。"
       },
       {
         type: "choice",
-        role: "healer",
         title: "下列哪一個單字的字尾加上『es』形成複數？",
         options: ["box (盒子)", "pen (原子筆)", "book (書本)"],
         ans: 0,
@@ -1047,14 +1070,12 @@ const STAGES_MASTER = [
       },
       {
         type: "spelling",
-        role: "warrior",
         word: "ruler",
         hint: "直尺",
         detail: "r-u-l-e-r，畫直線文具。"
       },
       {
         type: "choice",
-        role: "mage",
         title: "【書籍構造 Parts of a Book】：英文書本最外面的那一面『封面』叫做：",
         options: ["Cover", "Page", "Author"],
         ans: 0,
@@ -1072,7 +1093,6 @@ const STAGES_MASTER = [
     questions: [
       {
         type: "choice",
-        role: "healer",
         title: "【段考高頻文法陷阱】：A: What color is the bag?  B: It's ________.",
         options: ["black", "a black", "an black"],
         ans: 0,
@@ -1080,7 +1100,6 @@ const STAGES_MASTER = [
       },
       {
         type: "choice",
-        role: "mage",
         title: "【調色小偵探 I Spy Colors】：黃色 (yellow) 加上藍色 (blue)，會調成什麼顏色？",
         options: ["green (綠色)", "red (紅色)", "purple (紫色)"],
         ans: 0,
@@ -1088,14 +1107,12 @@ const STAGES_MASTER = [
       },
       {
         type: "spelling",
-        role: "warrior",
         word: "yellow",
         hint: "黃色",
         detail: "y-e-l-l-o-w，香蕉與太陽的顏色。"
       },
       {
         type: "choice",
-        role: "healer",
         title: "下列哪一個單字前面『必須使用 an』？",
         options: ["umbrella (雨傘)", "window (窗戶)", "watch (手錶)"],
         ans: 0,
@@ -1103,7 +1120,6 @@ const STAGES_MASTER = [
       },
       {
         type: "spelling",
-        role: "warrior",
         word: "black",
         hint: "黑色",
         detail: "b-l-a-c-k，Teddy 找的黑書包顏色。"
@@ -1120,7 +1136,6 @@ const STAGES_MASTER = [
     questions: [
       {
         type: "choice",
-        role: "mage",
         title: "萬聖節小朋友敲門要糖果時，大喊的經典口號是：",
         options: ["Trick or treat!", "Happy Birthday!", "Good job!"],
         ans: 0,
@@ -1128,21 +1143,18 @@ const STAGES_MASTER = [
       },
       {
         type: "spelling",
-        role: "warrior",
         word: "witch",
         hint: "女巫",
         detail: "w-i-t-c-h，騎掃帚的女巫，字尾是 ch。"
       },
       {
         type: "spelling",
-        role: "warrior",
         word: "ghost",
         hint: "幽靈",
         detail: "g-h-o-s-t，飄浮的小幽靈。"
       },
       {
         type: "choice",
-        role: "healer",
         title: "女巫單字 witch 變成複數時，正確拼法是：",
         options: ["witches", "witchs", "witch's"],
         ans: 0,
@@ -1150,7 +1162,6 @@ const STAGES_MASTER = [
       },
       {
         type: "spelling",
-        role: "warrior",
         word: "pumpkin",
         hint: "南瓜",
         detail: "p-u-m-p-k-i-n，萬聖節必備南瓜。"
@@ -1167,15 +1178,13 @@ const STAGES_MASTER = [
     questions: [
       {
         type: "choice",
-        role: "healer",
         title: "【終極魔王陷阱】：A: What's that?  B: It's ________ eraser.",
         options: ["an", "a", "two"],
         ans: 0,
-        explain": "eraser 以母音 e 發音開頭，單數冠詞必須使用 an！"
+        explain: "eraser 以母音 e 發音開頭，單數冠詞必須使用 an！"
       },
       {
         type: "choice",
-        role: "healer",
         title: "【終極魔王陷阱】：單字『bus』變複數要寫成：",
         options: ["buses", "buss", "bus's"],
         ans: 0,
@@ -1183,7 +1192,6 @@ const STAGES_MASTER = [
       },
       {
         type: "choice",
-        role: "healer",
         title: "A: What color is the book?  B: It's ________.",
         options: ["red", "a red", "an red"],
         ans: 0,
@@ -1191,7 +1199,6 @@ const STAGES_MASTER = [
       },
       {
         type: "choice",
-        role: "mage",
         title: "A: Thank you very much.  B: ________ welcome.",
         options: ["You're", "Your", "You"],
         ans: 0,
@@ -1199,22 +1206,41 @@ const STAGES_MASTER = [
       },
       {
         type: "spelling",
-        role: "warrior",
         word: "marker",
         hint: "彩色筆",
-        detail": "m-a-r-k-e-r，繪圖彩色筆。"
+        detail: "m-a-r-k-e-r，繪圖彩色筆。"
       }
     ]
   }
 ];
 
-const PETS_DATA = [
-  { id: "otter", name: "水獺寶寶", img: "assets/pet_otter.jfif", skill: "母音護盾", desc: "遇到 a/an 題型若失誤，每場可抵擋 1 次傷害！" },
-  { id: "dog", name: "太空柴犬", img: "assets/pet_dog.jfif", skill: "星幣探測", desc: "戰鬥獲勝星幣獎勵增加 30%！" },
-  { id: "cat", name: "小橘貓", img: "assets/pet_cat.jfif", skill: "迅捷連擊", desc: "連續答對 Combo 獲得雙倍經驗值！" },
-  { id: "rabbit", name: "飛行白兔", img: "assets/pet_rabbit.jfif", skill: "靈巧跳躍", desc: "提升閃避怪獸暴擊的機率！" },
-  { id: "bot", name: "小機器人", img: "assets/pet_bot.jfif", skill: "分析破防", desc: "怪獸防禦力降低，造成更多爆擊！" },
-  { id: "penguin", name: "太空企鵝", img: "assets/pet_penguin.jfif", skill: "絕對防禦", desc: "全隊愛心生命上限直接 +25 HP！" }
+// 俄羅斯單字池 (全部帶清楚中英文)
+const TETRIS_VOCAB_LIST = [
+  { en: "apple", zh: "蘋果" }, { en: "ant", zh: "螞蟻" }, { en: "bag", zh: "書包" },
+  { en: "boy", zh: "男孩" }, { en: "cat", zh: "貓咪" }, { en: "dog", zh: "小狗" },
+  { en: "egg", zh: "雞蛋" }, { en: "fish", zh: "魚" }, { en: "hand", zh: "手" },
+  { en: "ink", zh: "墨水" }, { en: "key", zh: "鑰匙" }, { en: "lion", zh: "獅子" },
+  { en: "milk", zh: "牛奶" }, { en: "nose", zh: "鼻子" }, { en: "ox", zh: "公牛" },
+  { en: "pen", zh: "原子筆" }, { en: "pencil", zh: "鉛筆" }, { en: "eraser", zh: "橡皮擦" },
+  { en: "ruler", zh: "直尺" }, { en: "marker", zh: "彩色筆" }, { en: "rabbit", zh: "兔子" },
+  { en: "sun", zh: "太陽" }, { en: "turtle", zh: "烏龜" }, { en: "blue", zh: "藍色" },
+  { en: "green", zh: "綠色" }, { en: "red", zh: "紅色" }, { en: "yellow", zh: "黃色" },
+  { en: "black", zh: "黑色" }, { en: "white", zh: "白色" }, { en: "umbrella", zh: "雨傘" },
+  { en: "box", zh: "盒子" }, { en: "fox", zh: "狐狸" }, { en: "bat", zh: "蝙蝠" },
+  { en: "ghost", zh: "幽靈" }, { en: "pumpkin", zh: "南瓜" }, { en: "witch", zh: "女巫" },
+  { en: "one", zh: "一" }, { en: "two", zh: "二" }, { en: "three", zh: "三" },
+  { en: "four", zh: "四" }, { en: "five", zh: "五" }, { en: "six", zh: "六" },
+  { en: "seven", zh: "七" }, { en: "eight", zh: "八" }, { en: "nine", zh: "九" },
+  { en: "ten", zh: "十" }
+];
+
+const PETS_SHOP_DATA = [
+  { id: "otter", name: "水獺寶寶", img: "assets/pet_otter.jfif", cost: 150, skill: "母音護盾", desc: "遇到 a/an 題型失誤時，每場抵擋 1 次傷害！" },
+  { id: "dog", name: "太空柴犬", img: "assets/pet_dog.jfif", cost: 200, skill: "星幣探測", desc: "戰鬥獲勝星幣獎勵增加 30%！" },
+  { id: "cat", name: "小橘貓", img: "assets/pet_cat.jfif", cost: 150, skill: "迅捷連擊", desc: "連續答對獲得雙倍得分！" },
+  { id: "rabbit", name: "飛行白兔", img: "assets/pet_rabbit.jfif", cost: 150, skill: "靈巧閃避", desc: "提高閃避怪獸暴擊的機率！" },
+  { id: "bot", name: "小機器人", img: "assets/pet_bot.jfif", cost: 150, skill: "分析破防", desc: "怪獸防禦力降低，造成更多爆擊！" },
+  { id: "penguin", name: "太空企鵝", img: "assets/pet_penguin.jfif", cost: 200, skill: "絕對防禦", desc: "勇者隊伍生命上限直接 +25 HP！" }
 ];
 
 // ==============================================================
@@ -1224,20 +1250,21 @@ let gameState = {
   currentMode: "adventure", // adventure or endless
   currentStageIdx: 0,
   currentQIdx: 0,
-  coins: 0,
+  coins: 50,
   score: 0,
   
-  // 勇者數值
+  // 勇者數值 (初始只有劍士一人！)
   heroHp: 100,
   heroMaxHp: 100,
   heroLv: 1,
   weaponLv: 1,
   armorLv: 1,
   
-  // 招募夥伴
+  // 夥伴與寵物 (全部花幣購買！)
   unlockedMage: false,
   unlockedHealer: false,
-  activePet: "otter",
+  unlockedPets: [],
+  activePet: null,
   
   // 當前怪獸
   bossCurHp: 80,
@@ -1246,18 +1273,32 @@ let gameState = {
   // 錯題本
   wrongList: [],
   
-  // 拼字輸入快取
-  spellPickedLetters: []
+  // 拼字暫存
+  spellPickedLetters: [],
+  
+  // 俄羅斯方塊狀態
+  tetrisRunning: false,
+  tetrisTimer: null,
+  tetrisBlocks: [],
+  tetrisScore: 0,
+  tetrisRoundVocab: []
 };
 
 // ==============================================================
-// 4. 初始化
+// 4. 立即初始化 (NO fragile window.onload! Immediate launch)
 // ==============================================================
-function initGame() {
+function initGameNow() {
   renderHUD();
   renderAdventureStageList();
-  renderPetsSelectionList();
+  renderPetsShopList();
   loadCurrentQuestion();
+}
+
+// 雙重保證立即啟動
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initGameNow);
+} else {
+  initGameNow();
 }
 
 function renderHUD() {
@@ -1283,7 +1324,6 @@ let activeQuestion = null;
 function loadCurrentQuestion() {
   let stg = STAGES_MASTER[gameState.currentStageIdx];
   if (gameState.currentMode === 'endless') {
-    // 無限模式：隨機挑選章節的隨機題目
     const rStg = STAGES_MASTER[Math.floor(Math.random() * STAGES_MASTER.length)];
     activeQuestion = rStg.questions[Math.floor(Math.random() * rStg.questions.length)];
     document.getElementById('currentAreaLabel').innerText = `⚡ 無限試煉場`;
@@ -1295,9 +1335,8 @@ function loadCurrentQuestion() {
     document.getElementById('bossSpriteImg').src = stg.bossImg;
     
     if (gameState.currentQIdx >= stg.questions.length) {
-      // 本章節全勝！
       AudioEngine.playCoin();
-      alert(`🎉 恭喜通過【${stg.name}】！獲得章節星幣大寶箱 100 🪙！`);
+      alert(`🎉 恭喜通過【${stg.name}】！獲得通關星幣大獎勵 100 🪙！`);
       gameState.coins += 100;
       gameState.currentQIdx = 0;
       gameState.currentStageIdx = (gameState.currentStageIdx + 1) % STAGES_MASTER.length;
@@ -1324,25 +1363,24 @@ function renderQuestionToConsole(q) {
     promptText.innerText = `提示：聽聽看發音，再拼出單字【${q.hint}】`;
     log.innerHTML = `怪獸露出破綻！請拼出單字發動斬擊！`;
     
-    // 格子槽位
     let slots = '';
     for (let i = 0; i < q.word.length; i++) {
-      slots += `<div class="letter-slot-box" id="slot_${i}" onclick="removeSlotLetter(${i})"></div>`;
+      slots += `<div class="spelling-slot-cell" id="slot_${i}" onclick="removeSlotLetter(${i})"></div>`;
     }
     
-    // 字母洗牌池
-    const letters = (q.word + "abcdefghijklmnopqrstuvwxyz".slice(0, 6)).split('').sort(() => Math.random() - 0.5);
+    // 字母隨機洗牌池
+    const pool = (q.word + "abcdefghijklmnopqrstuvwxyz".slice(0, 6)).split('').sort(() => Math.random() - 0.5);
     let tiles = '';
-    letters.forEach((l, idx) => {
-      tiles += `<button class="letter-tile-btn" id="tile_${idx}" onclick="pickLetter('${l}', ${idx})">${l}</button>`;
+    pool.forEach((l, idx) => {
+      tiles += `<button class="char-tile-btn" id="tile_${idx}" onclick="pickLetter('${l}', ${idx})">${l}</button>`;
     });
 
     container.innerHTML = `
-      <div class="slots-deck">${slots}</div>
-      <div class="letters-rack-grid">${tiles}</div>
+      <div class="spelling-slots-rack">${slots}</div>
+      <div class="keyboard-tiles-grid">${tiles}</div>
       <div style="display:flex; justify-content:center; gap:8px;">
-        <button class="hud-pill" style="padding:6px 14px;" onclick="resetSpelling()">🔄 重填</button>
-        <button class="hud-pill" style="padding:6px 18px; background:#22c55e; border-color:#22c55e; color:#fff;" onclick="verifySpelling()">✔ 確認攻擊</button>
+        <button class="hud-badge-btn" style="padding:6px 14px;" onclick="resetSpelling()">🔄 重填</button>
+        <button class="hud-badge-btn" style="padding:6px 18px; background:#22c55e; border-color:#22c55e; color:#fff;" onclick="verifySpelling()">✔ 確認攻擊</button>
       </div>
     `;
   } else if (q.type === 'choice') {
@@ -1352,19 +1390,19 @@ function renderQuestionToConsole(q) {
     
     let cards = '';
     q.options.forEach((opt, idx) => {
-      cards += `<button class="combat-choice-btn" id="copt_${idx}" onclick="chooseCombatOption(${idx})"><b>${['A','B','C'][idx]}.</b> ${opt}</button>`;
+      cards += `<button class="choice-action-card" id="copt_${idx}" onclick="chooseCombatOption(${idx})"><b>${['A','B','C'][idx]}.</b> ${opt}</button>`;
     });
     
-    container.innerHTML = `<div class="choice-card-stack">${cards}</div>`;
+    container.innerHTML = `<div class="combat-choices-stack">${cards}</div>`;
   } else if (q.type === 'tf') {
     promptIcon.innerText = "❓";
     promptText.innerText = `是非觀念審判`;
     log.innerHTML = q.title;
     
     container.innerHTML = `
-      <div class="tf-action-grid">
-        <button class="tf-act-btn o" id="tf_0" onclick="chooseTF(0)">⭕ 正確 (True)</button>
-        <button class="tf-act-btn x" id="tf_1" onclick="chooseTF(1)">❌ 錯誤 (False)</button>
+      <div class="tf-duo-grid">
+        <button class="tf-duo-btn o" id="tf_0" onclick="chooseTF(0)">⭕ 正確 (True)</button>
+        <button class="tf-duo-btn x" id="tf_1" onclick="chooseTF(1)">❌ 錯誤 (False)</button>
       </div>
     `;
   } else if (q.type === 'numpad') {
@@ -1376,10 +1414,10 @@ function renderQuestionToConsole(q) {
     container.innerHTML = `
       <div style="text-align:center;">
         <div style="font-size:24px; font-weight:800; color:#38bdf8; min-height:36px;" id="numpadView">___</div>
-        <div class="numpad-combat-box">
-          ${[1,2,3,4,5,6,7,8,9,0].map(n => `<button class="num-key-btn" onclick="pressNumpadKey('${n}')">${n}</button>`).join('')}
-          <button class="num-key-btn" style="background:#dc2626;" onclick="clearNumpadKey()">C</button>
-          <button class="num-key-btn" style="background:#16a34a;" onclick="submitNumpadKey()">OK</button>
+        <div class="numpad-combat-cluster">
+          ${[1,2,3,4,5,6,7,8,9,0].map(n => `<button class="num-grid-key" onclick="pressNumpadKey('${n}')">${n}</button>`).join('')}
+          <button class="num-grid-key" style="background:#dc2626;" onclick="clearNumpadKey()">C</button>
+          <button class="num-grid-key" style="background:#16a34a;" onclick="submitNumpadKey()">OK</button>
         </div>
       </div>
     `;
@@ -1417,10 +1455,10 @@ function renderSlotDisplay() {
       const item = gameState.spellPickedLetters[i];
       if (item) {
         slot.innerText = item.letter;
-        slot.className = "letter-slot-box filled";
+        slot.className = "spelling-slot-cell filled";
       } else {
         slot.innerText = "";
-        slot.className = "letter-slot-box";
+        slot.className = "spelling-slot-cell";
       }
     }
   }
@@ -1450,8 +1488,8 @@ function chooseCombatOption(idx) {
     const btn = document.getElementById(`copt_${i}`);
     if (btn) {
       btn.disabled = true;
-      if (i === q.ans) btn.classList.add('correct');
-      else if (i === idx && !isC) btn.classList.add('wrong');
+      if (i === q.ans) btn.classList.add('c-ans');
+      else if (i === idx && !isC) btn.classList.add('w-ans');
     }
   });
   handleCombatResolution(isC, q.options[q.ans], q.explain);
@@ -1465,8 +1503,8 @@ function chooseTF(choice) {
     const btn = document.getElementById(`tf_${i}`);
     if (btn) {
       btn.disabled = true;
-      if (i === q.ans) btn.classList.add('correct');
-      else if (i === choice && !isC) btn.classList.add('wrong');
+      if (i === q.ans) btn.classList.add('c-ans');
+      else if (i === choice && !isC) btn.classList.add('w-ans');
     }
   });
   handleCombatResolution(isC, (q.ans === 0 ? "⭕ 正確" : "❌ 錯誤"), q.explain);
@@ -1488,14 +1526,13 @@ function submitNumpadKey() {
 }
 
 // ==============================================================
-// 6. 戰鬥演繹：主角斬擊 vs 怪獸真實反擊衝撞
+// 6. 戰鬥演繹：主角揮砍 vs 怪獸真實反擊衝撞
 // ==============================================================
 function handleCombatResolution(isCorrect, standardAnswer, explanation) {
   const log = document.getElementById('combatLogText');
   const stg = STAGES_MASTER[gameState.currentStageIdx];
   
   if (isCorrect) {
-    // 我方答對攻擊！
     AudioEngine.playCorrect();
     AudioEngine.playAttack();
     
@@ -1505,11 +1542,11 @@ function handleCombatResolution(isCorrect, standardAnswer, explanation) {
     setTimeout(() => warrior.classList.remove('attack'), 300);
     
     // 怪獸受傷震顫
-    const boss = document.getElementById('bossUnit');
+    const boss = document.getElementById('bossSpriteBox');
     boss.classList.add('hit');
     setTimeout(() => boss.classList.remove('hit'), 350);
     
-    // 計算傷害
+    // 傷害計算
     const dmg = 25 + (gameState.weaponLv * 8);
     spawnDamageNumber(dmg, true);
     
@@ -1521,22 +1558,22 @@ function handleCombatResolution(isCorrect, standardAnswer, explanation) {
     gameState.score += 20;
     renderHUD();
     
-    log.innerHTML = `<span class="log-highlight-green">勇者 的攻擊！造成 ${dmg} 點暴擊傷害！(+${earnedCoins} 🪙)</span>`;
+    log.innerHTML = `<span class="txt-log-green">勇者 的攻擊！造成 ${dmg} 點傷害！(+${earnedCoins} 🪙)</span>`;
     
     setTimeout(() => {
       if (gameState.bossCurHp <= 0) {
         AudioEngine.playCoin();
-        log.innerHTML = `<span class="log-highlight-gold">🏆 擊敗了【${stg.bossName}】！獲得勝利金幣！</span>`;
+        log.innerHTML = `<span class="txt-log-gold">🏆 擊敗了【${stg.bossName}】！獲得勝利金幣！</span>`;
         gameState.bossCurHp = stg.bossMaxHp;
         gameState.heroLv++;
         renderHUD();
       }
       gameState.currentQIdx++;
       loadCurrentQuestion();
-    }, 1200);
+    }, 1100);
     
   } else {
-    // 答錯！怪獸真實反擊！
+    // 答錯！怪獸真實衝撞反擊！
     AudioEngine.playHurt();
     
     // 寵物技能：水獺母音護盾
@@ -1545,18 +1582,18 @@ function handleCombatResolution(isCorrect, standardAnswer, explanation) {
       petShield = true;
     }
     
-    // 怪獸撲前衝撞動畫
-    const boss = document.getElementById('bossUnit');
-    boss.classList.add('attack');
-    setTimeout(() => boss.classList.remove('attack'), 350);
+    // 怪獸衝撞動畫
+    const boss = document.getElementById('bossSpriteBox');
+    boss.classList.add('lunge');
+    setTimeout(() => boss.classList.remove('lunge'), 350);
     
     // 全螢幕紅閃 + 震動
     const flash = document.getElementById('screenRedFlash');
     flash.style.opacity = '1';
-    document.getElementById('rpgViewport').classList.add('screen-shake-anim');
+    document.getElementById('appViewport').classList.add('screen-shake-anim');
     setTimeout(() => {
       flash.style.opacity = '0';
-      document.getElementById('rpgViewport').classList.remove('screen-shake-anim');
+      document.getElementById('appViewport').classList.remove('screen-shake-anim');
     }, 350);
     
     // 主角受傷硬直
@@ -1565,30 +1602,29 @@ function handleCombatResolution(isCorrect, standardAnswer, explanation) {
     setTimeout(() => warrior.classList.remove('hit'), 400);
     
     if (petShield) {
-      log.innerHTML = `<span class="log-highlight-gold">🦦 水獺發動【母音護盾】為勇者抵擋了怪獸的攻擊！</span>`;
+      log.innerHTML = `<span class="txt-log-gold">🦦 水獺發動【母音護盾】為勇者抵擋了傷害！</span>`;
     } else {
       const monsterDmg = 18;
       gameState.heroHp = Math.max(0, gameState.heroHp - monsterDmg);
       spawnDamageNumber(monsterDmg, false);
       renderHUD();
       
-      log.innerHTML = `<span class="log-highlight-red">【${stg.bossName}】發動反擊！勇者 受到 ${monsterDmg} 點傷害。正確是：${standardAnswer}！</span>`;
+      log.innerHTML = `<span class="txt-log-red">【${stg.bossName}】發動反擊！勇者 受到 ${monsterDmg} 點傷害。正確答案是：${standardAnswer}！</span>`;
       
       if (gameState.heroHp <= 0) {
         setTimeout(() => {
-          alert('💥 勇者倒下了！太空站已施展復活用法，生命值回滿，繼續冒險！');
+          alert('💥 勇者倒下了！太空站施展復活用法，生命值回滿，繼續冒險！');
           gameState.heroHp = gameState.heroMaxHp;
           renderHUD();
         }, 500);
       }
     }
     
-    // 記錄錯題
     recordMistake(activeQuestion.title || activeQuestion.hint, standardAnswer, explanation);
     
     setTimeout(() => {
       loadCurrentQuestion();
-    }, 1600);
+    }, 1500);
   }
 }
 
@@ -1613,7 +1649,7 @@ function spawnDamageNumber(num, isEnemyHit) {
 // 7. 導航選單 (Adventure, Challenge, Backpack, Forge, Party)
 // ==============================================================
 function openNavTab(tab) {
-  document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.nav-action-tab').forEach(b => b.classList.remove('active'));
   const btn = document.getElementById(`tab_${tab}`);
   if (btn) btn.classList.add('active');
   
@@ -1633,24 +1669,24 @@ function openNavTab(tab) {
 }
 
 function closeAllModals() {
-  document.querySelectorAll('.sub-modal-view').forEach(m => m.style.display = 'none');
+  document.querySelectorAll('.app-modal-layer').forEach(m => m.style.display = 'none');
 }
 
-// 冒險關卡選擇
+// 冒險主線章節選擇
 function renderAdventureStageList() {
   const container = document.getElementById('adventureStageList');
   let html = '';
   STAGES_MASTER.forEach((stg, idx) => {
     html += `
-      <div class="stage-select-item" onclick="selectAdventureStage(${idx})">
+      <div class="adventure-stage-card" onclick="selectAdventureStage(${idx})">
         <div style="display:flex; align-items:center; gap:10px;">
-          <div class="stage-badge-dot">⭐</div>
+          <div class="stage-num-badge">⭐</div>
           <div>
             <b>${stg.name}</b><br>
             <span style="font-size:11px; color:var(--text-dim);">守護怪獸：${stg.bossName}</span>
           </div>
         </div>
-        <button class="hud-pill">出發 ➔</button>
+        <button class="hud-badge-btn">出發 ➔</button>
       </div>
     `;
   });
@@ -1668,15 +1704,156 @@ function selectAdventureStage(idx) {
   loadCurrentQuestion();
 }
 
-// 無限試煉刷幣場
-function startEndlessChallenge() {
+// 試煉切換
+function switchChallengeSub(sub) {
+  if (sub === 'endless') {
+    document.getElementById('challengeEndlessView').style.display = 'block';
+    document.getElementById('challengeTetrisView').style.display = 'none';
+  } else {
+    document.getElementById('challengeEndlessView').style.display = 'none';
+    document.getElementById('challengeTetrisView').style.display = 'block';
+  }
+}
+
+function startEndlessBattle() {
   gameState.currentMode = 'endless';
   closeAllModals();
-  alert('⚔️ 進入無限試煉場！怪獸將無限隨機進攻，盡情出招賺取星幣吧！');
+  alert('⚔️ 進入無限怪獸討伐！盡情出招賺取星幣吧！');
   loadCurrentQuestion();
 }
 
-// 鍛造屋升級
+// ==============================================================
+// 8. 👾 俄羅斯單字掉落戰 (中英對照、慢速、底部堆疊、總結清單)
+// ==============================================================
+function startTetrisGame() {
+  stopTetrisGame();
+  gameState.tetrisRunning = true;
+  gameState.tetrisBlocks = [];
+  gameState.tetrisScore = 0;
+  gameState.tetrisRoundVocab = [];
+  document.getElementById('tetrisScoreTxt').innerText = '0';
+  document.getElementById('tetrisVocabSummary').innerHTML = '';
+  
+  const board = document.getElementById('tetrisBoard');
+  board.querySelectorAll('.tetris-word-block').forEach(b => b.remove());
+  
+  const input = document.getElementById('tetrisInput');
+  input.value = '';
+  input.focus();
+  input.onkeydown = (e) => { if (e.key === 'Enter') fireTetrisLaser(); };
+
+  // 4 條垂直走道分軌 (避免重疊卡死)
+  const lanes = [10, 110, 210, 310];
+
+  gameState.tetrisTimer = setInterval(() => {
+    if (!gameState.tetrisRunning) return;
+    
+    // 平緩生成方塊 (慢速節奏)
+    if (Math.random() < 0.28 && gameState.tetrisBlocks.filter(b=>!b.settled).length < 3) {
+      const vocab = TETRIS_VOCAB_LIST[Math.floor(Math.random() * TETRIS_VOCAB_LIST.length)];
+      if (!gameState.tetrisRoundVocab.some(v => v.en === vocab.en)) {
+        gameState.tetrisRoundVocab.push(vocab);
+      }
+      const laneX = lanes[Math.floor(Math.random() * lanes.length)];
+      
+      const blockEl = document.createElement('div');
+      blockEl.className = 'tetris-word-block';
+      // 清楚標記中文！
+      blockEl.innerHTML = `<div>${vocab.zh}</div><div style="font-size:10px; color:#94a3b8;">(${vocab.en[0]}...)</div>`;
+      blockEl.style.left = laneX + 'px';
+      blockEl.style.top = '0px';
+      
+      // 支援免輸入點擊消除模式
+      blockEl.onclick = () => {
+        eliminateTetrisBlock(vocab.en);
+      };
+      
+      board.appendChild(blockEl);
+      gameState.tetrisBlocks.push({ en: vocab.en, zh: vocab.zh, top: 0, el: blockEl, settled: false, lane: laneX });
+    }
+
+    // 更新移動與堆疊判定
+    for (let i = gameState.tetrisBlocks.length - 1; i >= 0; i--) {
+      const b = gameState.tetrisBlocks[i];
+      if (!b.settled) {
+        b.top += 1.5; // 舒適慢速
+        b.el.style.top = b.top + 'px';
+
+        // 碰底或疊在同軌方塊頭上
+        const laneBlocks = gameState.tetrisBlocks.filter(other => other.settled && other.lane === b.lane);
+        const topSettled = laneBlocks.length > 0 ? Math.min(...laneBlocks.map(o => o.top)) : (board.clientHeight - 38);
+
+        if (b.top >= topSettled - 36) {
+          b.settled = true;
+          b.top = topSettled - 36;
+          b.el.style.top = b.top + 'px';
+          b.el.classList.add('settled');
+          b.el.innerHTML = `<div>${b.zh}</div><div style="font-size:10px; color:#cbd5e1;">${b.en}</div>`;
+
+          // 堆到警戒紅線判定
+          if (b.top <= 50) {
+            AudioEngine.playHurt();
+            alert('💥 方塊堆疊頂到警戒天花板！遊戲結束！');
+            stopTetrisGame();
+            return;
+          }
+        }
+      }
+    }
+  }, 50);
+}
+
+function fireTetrisLaser() {
+  const input = document.getElementById('tetrisInput');
+  const txt = input.value.trim().toLowerCase();
+  if (!txt) return;
+  eliminateTetrisBlock(txt);
+  input.value = '';
+}
+
+function eliminateTetrisBlock(typedWord) {
+  for (let i = 0; i < gameState.tetrisBlocks.length; i++) {
+    const b = gameState.tetrisBlocks[i];
+    if (b.en.toLowerCase() === typedWord.toLowerCase()) {
+      AudioEngine.playAttack();
+      AudioEngine.playCoin();
+      gameState.coins += 5;
+      gameState.score += 15;
+      gameState.tetrisScore += 15;
+      renderHUD();
+      document.getElementById('tetrisScoreTxt').innerText = gameState.tetrisScore;
+      
+      b.el.style.background = '#22c55e';
+      setTimeout(() => b.el.remove(), 80);
+      gameState.tetrisBlocks.splice(i, 1);
+      break;
+    }
+  }
+}
+
+function stopTetrisGame() {
+  gameState.tetrisRunning = false;
+  clearInterval(gameState.tetrisTimer);
+  
+  // 結算單字清單 (中英對照總結，徹底把單字背起來！)
+  const area = document.getElementById('tetrisVocabSummary');
+  if (gameState.tetrisRoundVocab.length > 0) {
+    let listHTML = `
+      <div style="background:#111c30; border:1.5px solid #253b61; border-radius:10px; padding:12px;">
+        <h4 style="color:#fbbf24; font-size:14px; margin-bottom:8px;">📚 本局掉落單字中英對照複習總覽：</h4>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+    `;
+    gameState.tetrisRoundVocab.forEach(v => {
+      listHTML += `<div style="font-size:12px; background:#16243d; padding:4px 8px; border-radius:6px;"><b>${v.en}</b>：${v.zh}</div>`;
+    });
+    listHTML += `</div></div>`;
+    area.innerHTML = listHTML;
+  }
+}
+
+// ==============================================================
+// 9. 鍛造升級與數值
+// ==============================================================
 function upgradeWeapon() {
   const cost = gameState.weaponLv * 50;
   if (gameState.coins >= cost) {
@@ -1716,27 +1893,27 @@ function spinGacha() {
     renderHUD();
     const rewards = ["🌈 彩虹流星軌跡", "⚡ 暴烈雷電光芒", "🔥 熾熱火焰粒子", "👑 傳奇銀河霸主稱號"];
     const picked = rewards[Math.floor(Math.random() * rewards.length)];
-    document.getElementById('gachaNotify').innerText = `✨ 恭喜抽中：${picked}！`;
+    document.getElementById('gachaOutputNotify').innerText = `✨ 恭喜抽中：${picked}！`;
   } else {
     alert('星幣不足 50 🪙 喔！');
   }
 }
 
-// 隊友招募
-function recruitHero(role, cost) {
+// 隊友花幣招募
+function buyHeroMember(role, cost) {
   if (gameState.coins >= cost) {
     AudioEngine.playCoin();
     gameState.coins -= cost;
     if (role === 'mage') {
       gameState.unlockedMage = true;
       document.getElementById('heroMage').style.display = 'flex';
-      document.getElementById('btnRecruitMage').innerText = "已入隊 ✔";
-      document.getElementById('btnRecruitMage').disabled = true;
+      document.getElementById('btnBuyMage').innerText = "已入隊 ✔";
+      document.getElementById('btnBuyMage').disabled = true;
     } else if (role === 'healer') {
       gameState.unlockedHealer = true;
       document.getElementById('heroHealer').style.display = 'flex';
-      document.getElementById('btnRecruitHealer').innerText = "已入隊 ✔";
-      document.getElementById('btnRecruitHealer').disabled = true;
+      document.getElementById('btnBuyHealer').innerText = "已入隊 ✔";
+      document.getElementById('btnBuyHealer').disabled = true;
     }
     renderHUD();
     alert('🎉 夥伴成功加入冒險隊伍！出現在戰場前線！');
@@ -1745,51 +1922,79 @@ function recruitHero(role, cost) {
   }
 }
 
-// 隨行寵物切換
-function renderPetsSelectionList() {
-  const container = document.getElementById('petsSelectList');
+// 寵物花幣購買
+function renderPetsShopList() {
+  const container = document.getElementById('petsPurchaseList');
   let html = '';
-  PETS_DATA.forEach(p => {
+  PETS_SHOP_DATA.forEach(p => {
+    const isOwned = gameState.unlockedPets.includes(p.id);
     const isCur = (gameState.activePet === p.id);
+    
+    let btnText = `購買 (${p.cost} 🪙)`;
+    let btnClass = "btn-action-pill";
+    if (isCur) {
+      btnText = "出戰中";
+      btnClass = "btn-action-pill" + " style='background:#10b981;'";
+    } else if (isOwned) {
+      btnText = "出戰";
+    }
+
     html += `
-      <div class="forge-row">
+      <div class="management-row">
         <div style="display:flex; align-items:center; gap:8px;">
-          <img src="${p.img}" style="width:36px; height:36px; border-radius:50%; object-fit:cover;">
-          <div><b>${p.name}</b> · <span style="color:#fbbf24; font-size:11px;">【${p.skill}】</span><br><span style="font-size:11px; color:var(--text-dim);">${p.desc}</span></div>
+          <img src="${p.img}" style="width:38px; height:38px; border-radius:50%; object-fit:cover;">
+          <div>
+            <b>${p.name}</b> · <span style="color:#fbbf24; font-size:11px;">【${p.skill}】</span><br>
+            <span style="font-size:11px; color:var(--text-dim);">${p.desc}</span>
+          </div>
         </div>
-        <button class="btn-forge-act" style="${isCur ? 'background:#10b981;' : ''}" onclick="selectCompanionPet('${p.id}')">${isCur ? '出戰中' : '選擇'}</button>
+        <button class="btn-action-pill" onclick="handlePetAction('${p.id}', ${p.cost})">${isCur ? '出戰中' : (isOwned ? '選擇' : `購買 (${p.cost}🪙)`)}</button>
       </div>
     `;
   });
   container.innerHTML = html;
 }
 
-function selectCompanionPet(petId) {
-  AudioEngine.playCoin();
-  gameState.activePet = petId;
-  renderPetsSelectionList();
-  alert(`🐾 隨行夥伴已切換為：【${PETS_DATA.find(p=>p.id===petId).name}】！`);
+function handlePetAction(petId, cost) {
+  if (gameState.unlockedPets.includes(petId)) {
+    AudioEngine.playCoin();
+    gameState.activePet = petId;
+    renderPetsShopList();
+    alert(`🐾 隨行夥伴已切換為：【${PETS_SHOP_DATA.find(p=>p.id===petId).name}】！`);
+  } else {
+    if (gameState.coins >= cost) {
+      AudioEngine.playCoin();
+      gameState.coins -= cost;
+      gameState.unlockedPets.push(petId);
+      gameState.activePet = petId;
+      renderHUD();
+      renderPetsShopList();
+      alert(`🎉 恭喜成功領養：【${PETS_SHOP_DATA.find(p=>p.id===petId).name}】！`);
+    } else {
+      alert(`星幣不足！領養需要 ${cost} 🪙 星幣。`);
+    }
+  }
 }
 
 // 錯題本與獎狀
 function recordMistake(question, correctAns, explain) {
   gameState.wrongList.push({ q: question, ans: correctAns, exp: explain });
-  document.getElementById('wrongCountTxt').innerText = gameState.wrongList.length;
+  document.getElementById('wrongNotesCount').innerText = gameState.wrongList.length;
 }
 
-function showCertWindow() {
-  const area = document.getElementById('backpackContentArea');
+function renderCertModal() {
+  const area = document.getElementById('backpackDetailsDisplay');
   area.innerHTML = `
     <div style="background:#fffbeb; color:#1e293b; border:2px dashed #b45309; border-radius:10px; padding:16px; text-align:center;">
       <h3 style="color:#78350f; font-size:17px; margin-bottom:6px;">🏆 星際特級英語大師・榮譽獎狀</h3>
       <p style="font-size:12.5px; line-height:1.6;">恭喜星際勇者通過全冊 8 大關卡與信義國小真題試煉！累積星幣 ${gameState.coins} 🪙，探索分 ${gameState.score} ⭐！</p>
-      <button class="btn-forge-act" style="margin-top:10px; background:#b45309;" onclick="window.print()">🖨️ 列印保存</button>
+      <button class="btn-action-pill" style="margin-top:10px; background:#b45309;" onclick="window.print()">🖨️ 列印保存</button>
     </div>
   `;
 }
 
-function showNotebookWindow() {
-  const area = document.getElementById('backpackContentArea');
+function renderNotebookModal() {
+  const area = document.getElementById('backpackDetailsDisplay');
   if (gameState.wrongList.length === 0) {
     area.innerHTML = `<div style="text-align:center; padding:12px; color:#4ade80;">太厲害了！目前完全沒有任何錯題喔！</div>`;
     return;
@@ -1821,8 +2026,6 @@ function speakCurrentPrompt() {
     window.speechSynthesis.speak(u);
   }
 }
-
-window.onload = initGame;
 </script>
 </body>
 </html>
