@@ -5,441 +5,538 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小學三年級英文・星際大冒險</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body {
-            background: #0f172a;
-            color: #f8fafc;
+            background: #090d16;
+            color: #fff;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 10px;
         }
-        #game-container {
-            width: 100%;
-            max-width: 600px;
-            background: #1e293b;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        #app-container {
+            width: 100vw;
+            max-width: 480px;
+            height: 100vh;
+            max-height: 900px;
+            position: relative;
+            background: #0f172a;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            border: 2px solid #334155;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
         }
-        .header-bar {
-            background: #0f172a;
+
+        /* 頂部狀態列 */
+        .top-nav {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #334155;
-            font-size: 15px;
+            background: linear-gradient(180deg, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0) 100%);
+        }
+        .stat-pill {
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid #38bdf8;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
             font-weight: bold;
-        }
-        .battle-stage {
-            position: relative;
-            height: 240px;
-            background: url('assets/map_bg.jfif') center/cover no-repeat;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 20px;
-            border-bottom: 2px solid #334155;
+            gap: 6px;
+            backdrop-filter: blur(4px);
         }
-        .battle-stage::after {
+
+        /* 主地圖畫面 */
+        #view-map {
+            width: 100%;
+            height: 100%;
+            background: url('assets/map_bg.jfif') center/cover no-repeat;
+            position: relative;
+        }
+        .map-title {
+            position: absolute;
+            top: 60px;
+            left: 0; right: 0;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 900;
+            color: #e0f2fe;
+            text-shadow: 0 2px 10px rgba(56, 189, 248, 0.6);
+        }
+        .stage-node {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .stage-node:hover { transform: translate(-50%, -50%) scale(1.1); }
+        .stage-circle {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: #1e293b;
+            border: 3px solid #38bdf8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+            position: relative;
+        }
+        .stage-circle.cleared { border-color: #22c55e; box-shadow: 0 0 15px rgba(34, 197, 94, 0.6); }
+        .stage-circle.boss-node { border-color: #ef4444; width: 62px; height: 62px; box-shadow: 0 0 20px rgba(239, 68, 68, 0.7); }
+        .stage-label {
+            margin-top: 4px;
+            font-size: 12px;
+            background: rgba(15, 23, 42, 0.85);
+            padding: 2px 8px;
+            border-radius: 10px;
+            white-space: nowrap;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* 底部選單按鈕 */
+        .bottom-dock {
+            position: absolute;
+            bottom: 16px;
+            left: 12px; right: 12px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            z-index: 10;
+        }
+        .dock-btn {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid #475569;
+            color: #fff;
+            padding: 10px 4px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: all 0.2s;
+        }
+        .dock-btn:hover { background: #334155; border-color: #38bdf8; }
+
+        /* 戰鬥刷題畫面 */
+        #view-battle {
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            background: #0f172a;
+        }
+        .battle-arena {
+            height: 230px;
+            background: url('assets/map_bg.jfif') center/cover no-repeat;
+            position: relative;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px 10px;
+        }
+        .battle-arena::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(15, 23, 42, 0.4);
-            z-index: 1;
+            background: rgba(15, 23, 42, 0.5);
         }
-        .fighter-group, .enemy-group {
+        .character-card {
             position: relative;
             z-index: 2;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
-        .avatar-box {
-            width: 85px;
-            height: 85px;
+        .avatar-frame {
+            width: 82px;
+            height: 82px;
             border-radius: 50%;
             border: 3px solid #38bdf8;
-            background: #fff;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+            background: #fff;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.5);
         }
-        .avatar-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .pet-badge {
-            font-size: 12px;
-            background: rgba(15, 23, 42, 0.8);
-            padding: 4px 8px;
-            border-radius: 12px;
-            border: 1px solid #38bdf8;
-        }
-        .enemy-box {
-            width: 105px;
-            height: 105px;
-            border-radius: 16px;
+        .avatar-frame img { width: 100%; height: 100%; object-fit: cover; }
+        .enemy-frame {
+            width: 95px;
+            height: 95px;
+            border-radius: 20px;
             border: 3px solid #f43f5e;
-            background: #fff;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(244, 63, 94, 0.4);
+            background: #fff;
+            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.5);
         }
-        .enemy-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .hp-bar-container {
-            width: 100px;
+        .enemy-frame img { width: 100%; height: 100%; object-fit: cover; }
+        .health-bar {
+            width: 90px;
+            height: 8px;
             background: #334155;
-            height: 10px;
-            border-radius: 5px;
+            border-radius: 4px;
             overflow: hidden;
             border: 1px solid #64748b;
         }
-        .hp-fill {
-            height: 100%;
-            background: #22c55e;
-            width: 100%;
-            transition: width 0.3s ease;
-        }
-        .quiz-panel {
+        .health-inner { height: 100%; background: #22c55e; transition: width 0.3s; }
+
+        /* 題目區 */
+        .question-card {
+            flex-grow: 1;
             padding: 16px;
             background: #1e293b;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            flex-grow: 1;
+            justify-content: space-between;
         }
-        .question-box {
+        .question-prompt {
+            background: #0f172a;
+            padding: 16px;
+            border-radius: 12px;
             font-size: 17px;
             font-weight: bold;
             line-height: 1.4;
-            background: #0f172a;
-            padding: 14px;
-            border-radius: 10px;
             border-left: 4px solid #38bdf8;
         }
-        .options-grid {
+        .options-list {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 10px;
+            margin: 14px 0;
         }
-        .option-btn {
+        .choice-btn {
             background: #334155;
-            color: #f8fafc;
-            border: none;
-            padding: 12px;
-            border-radius: 10px;
+            color: #fff;
+            border: 1px solid #475569;
+            padding: 12px 16px;
+            border-radius: 12px;
             font-size: 15px;
             font-weight: 600;
-            cursor: pointer;
             text-align: left;
-            transition: all 0.2s;
-            border: 1px solid #475569;
-        }
-        .option-btn:hover {
-            background: #475569;
-            border-color: #38bdf8;
-        }
-        .option-btn.correct { background: #166534 !important; border-color: #22c55e !important; }
-        .option-btn.wrong { background: #991b1b !important; border-color: #ef4444 !important; }
-        .hud-footer {
-            background: #0f172a;
-            padding: 10px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 2px solid #334155;
-            font-size: 14px;
-        }
-        .btn-action {
-            background: #3b82f6;
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 6px;
             cursor: pointer;
-            font-weight: bold;
+            transition: all 0.2s;
         }
-        .btn-action:hover { background: #2563eb; }
-        .modal {
-            position: fixed;
+        .choice-btn:hover { background: #475569; border-color: #38bdf8; }
+        .choice-btn.correct { background: #15803d !important; border-color: #22c55e !important; }
+        .choice-btn.wrong { background: #b91c1c !important; border-color: #ef4444 !important; }
+
+        /* Modal 彈窗通用 */
+        .modal-overlay {
+            position: absolute;
             inset: 0;
             background: rgba(0,0,0,0.8);
-            display: flex;
+            z-index: 50;
+            display: none;
             justify-content: center;
             align-items: center;
-            z-index: 10;
             padding: 20px;
         }
-        .modal-content {
+        .modal-box {
             background: #1e293b;
-            padding: 24px;
-            border-radius: 16px;
+            border: 2px solid #38bdf8;
+            border-radius: 20px;
+            padding: 20px;
             width: 100%;
-            max-width: 400px;
-            text-align: center;
-            border: 2px solid #334155;
+            max-width: 380px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
         }
-        .hidden { display: none !important; }
+        .modal-title { font-size: 18px; font-weight: bold; text-align: center; }
+        .grid-select {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .select-item {
+            background: #0f172a;
+            border: 2px solid #334155;
+            padding: 8px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .select-item.active { border-color: #38bdf8; background: #1e293b; }
+        .close-btn {
+            background: #475569;
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
-    <div id="game-container">
-        <!-- 頂部狀態列 -->
-        <div class="header-bar">
-            <span id="stage-info">關卡：Stage 1 (基礎單字)</span>
-            <span>⭐ 星幣: <span id="coins">0</span></span>
+<div id="app-container">
+    <!-- 頂部即時數值 -->
+    <div class="top-nav">
+        <div class="stat-pill">⭐ 星幣: <span id="val-coins">0</span></div>
+        <div class="stat-pill" id="val-hearts">❤️❤️❤️</div>
+    </div>
+
+    <!-- 1. 冒險大地圖視野 -->
+    <div id="view-map">
+        <div class="map-title">星際英文航線</div>
+        
+        <!-- 8 個關卡座標節點 -->
+        <div class="stage-node" style="top: 25%; left: 25%;" onclick="startBattle(0)">
+            <div class="stage-circle" id="node-0">1</div>
+            <div class="stage-label">Starter 字母</div>
+        </div>
+        <div class="stage-node" style="top: 38%; left: 55%;" onclick="startBattle(1)">
+            <div class="stage-circle" id="node-1">2</div>
+            <div class="stage-label">U1 問候語</div>
+        </div>
+        <div class="stage-node" style="top: 50%; left: 30%;" onclick="startBattle(2)">
+            <div class="stage-circle" id="node-2">3</div>
+            <div class="stage-label">U2 文具用品</div>
+        </div>
+        <div class="stage-node" style="top: 60%; left: 75%;" onclick="startBattle(3)">
+            <div class="stage-circle boss-node" id="node-3">⚔️</div>
+            <div class="stage-label">期中考石像</div>
+        </div>
+        <div class="stage-node" style="top: 72%; left: 45%;" onclick="startBattle(4)">
+            <div class="stage-circle boss-node" id="node-4">👑</div>
+            <div class="stage-label">期末考魔龍</div>
         </div>
 
-        <!-- 戰鬥畫面舞台 -->
-        <div class="battle-stage">
-            <!-- 我方角色與寵物 -->
-            <div class="fighter-group">
-                <div class="avatar-box" id="hero-avatar-box">
-                    <img id="hero-img" src="assets/hero_warrior.jfif" alt="Hero">
-                </div>
-                <div class="pet-badge" id="pet-badge-text">🐕 柴犬 (星幣+20%)</div>
-                <div style="font-size: 13px;" id="hearts-display">❤️❤️❤️</div>
+        <!-- 底部導航欄 -->
+        <div class="bottom-dock">
+            <div class="dock-btn" onclick="openModal('pet-modal')">
+                <span style="font-size: 20px;">🐾</span>
+                <span>選跟班萌寵</span>
             </div>
-
-            <!-- 敵方怪獸 -->
-            <div class="enemy-group">
-                <div class="enemy-box">
-                    <img id="enemy-img" src="assets/boss_slime.jfif" alt="Enemy">
-                </div>
-                <div class="hp-bar-container">
-                    <div class="hp-fill" id="enemy-hp-fill"></div>
-                </div>
-                <span style="font-size: 12px;" id="enemy-name">果凍史萊姆</span>
+            <div class="dock-btn" onclick="openModal('hero-modal')">
+                <span style="font-size: 20px;">🧙‍♂️</span>
+                <span>切換職業</span>
             </div>
-        </div>
-
-        <!-- 答題操作面板 -->
-        <div class="quiz-panel">
-            <div class="question-box" id="question-text">載入中...</div>
-            <div class="options-grid" id="options-container">
-                <!-- 動態生成 4 個選項 -->
+            <div class="dock-btn" onclick="openModal('shop-modal')">
+                <span style="font-size: 20px;">🎒</span>
+                <span>裝備升級</span>
             </div>
-        </div>
-
-        <!-- 底部功能列 -->
-        <div class="hud-footer">
-            <span>裝備等級: Lv.<span id="gear-lvl">1</span></span>
-            <button class="btn-action" onclick="openShop()">🛒 商店 / 角色</button>
         </div>
     </div>
 
-    <!-- 商店與角色切換 Modal -->
-    <div id="shop-modal" class="modal hidden">
-        <div class="modal-content">
-            <h2>星際補給站</h2>
-            <div style="text-align: left; display: flex; flex-direction: column; gap: 8px; font-size: 14px;">
-                <p><b>選擇職業：</b></p>
-                <div style="display: flex; gap: 6px;">
-                    <button class="btn-action" onclick="setHero('warrior')">劍士</button>
-                    <button class="btn-action" onclick="setHero('mage')">法師</button>
-                    <button class="btn-action" onclick="setHero('healer')">治療</button>
+    <!-- 2. 戰鬥刷題視野 -->
+    <div id="view-battle">
+        <div class="battle-arena">
+            <div class="character-card">
+                <div class="avatar-frame">
+                    <img id="battle-hero-img" src="assets/hero_warrior.jfif" alt="Hero">
                 </div>
-                <p style="margin-top: 8px;"><b>選擇寵物：</b></p>
-                <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-                    <button class="btn-action" onclick="setPet('dog', '🐕 柴犬')">柴犬</button>
-                    <button class="btn-action" onclick="setPet('cat', '🐈 橘貓')">橘貓</button>
-                    <button class="btn-action" onclick="setPet('otter', '🦦 水獺')">水獺</button>
-                    <button class="btn-action" onclick="setPet('rabbit', '🐇 白兔')">白兔</button>
-                    <button class="btn-action" onclick="setPet('penguin', '🐧 企鵝')">企鵝</button>
-                    <button class="btn-action" onclick="setPet('bot', '🤖 機械')">機械</button>
-                </div>
-                <hr style="border-color: #334155; margin: 6px 0;">
-                <button class="btn-action" onclick="upgradeGear()" style="background: #16a34a;">升級裝備 (消耗 50 星幣)</button>
+                <span id="battle-pet-tag" style="font-size: 11px; background: rgba(0,0,0,0.6); padding: 2px 6px; border-radius: 8px;">🐕 柴犬</span>
             </div>
-            <button class="btn-action" onclick="closeShop()" style="background: #475569; margin-top: 10px;">返回戰鬥</button>
+            <div class="character-card">
+                <div class="enemy-frame">
+                    <img id="battle-enemy-img" src="assets/boss_slime.jfif" alt="Monster">
+                </div>
+                <div class="health-bar"><div class="health-inner" id="enemy-hp-bar"></div></div>
+                <span id="battle-enemy-name" style="font-size: 12px; font-weight: bold;">果凍史萊姆</span>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="question-prompt" id="q-text">題目載入中...</div>
+            <div class="options-list" id="q-options"></div>
+            <button class="close-btn" onclick="quitBattle()" style="background: #334155;">暫停返回航線地圖</button>
         </div>
     </div>
 
-    <script>
-        // 40 題三年級純英文核心題庫
-        const questions = [
-            { q: "What letter comes after \"G\"?", options: ["E", "F", "H", "I"], answer: 2 },
-            { q: "Which word has a short \"a\" sound?", options: ["cake", "cat", "make", "kite"], answer: 1 },
-            { q: "How do you spell the number \"10\"?", options: ["seven", "eight", "nine", "ten"], answer: 3 },
-            { q: "Which one is a fruit?", options: ["Apple", "Dog", "Pencil", "Desk"], answer: 0 },
-            { q: "What color is the sky on a clear day?", options: ["Red", "Blue", "Green", "Yellow"], answer: 1 },
-            { q: "Which animal says \"Meow\"?", options: ["Dog", "Cat", "Cow", "Duck"], answer: 1 },
-            { q: "How many days are in a week?", options: ["5", "6", "7", "10"], answer: 2 },
-            { q: "Which school item do you use to erase pencil marks?", options: ["Ruler", "Eraser", "Book", "Pen"], answer: 1 },
-            { q: "What is the first month of the year?", options: ["May", "January", "December", "October"], answer: 1 },
-            { q: "Which word means \"太陽\"?", options: ["Moon", "Star", "Sun", "Cloud"], answer: 2 },
-            { q: "A: \"Good morning, teacher!\" B: \"________, Tom.\"", options: ["Good night", "Good morning", "Goodbye", "See you"], answer: 1 },
-            { q: "A: \"How are you?\" B: \"________, thank you.\"", options: ["I am seven", "I'm fine", "My name is Amy", "It is a book"], answer: 1 },
-            { q: \"A: \"What's your name?\" B: \"________\"\", options: ["I am fine", "My name is Leo", "It is blue", "Nice to meet you"], answer: 1 },
-            { q: \"A: \"How old are you?\" B: \"________\"\", options: ["I am fine", "I am eight years old", "It is a pen", "Thank you"], answer: 1 },
-            { q: \"A: \"Nice to meet you.\" B: \"________\"\", options: ["Goodbye", "Nice to meet you, too", "You are welcome", "Good night"], answer: 1 },
-            { q: "When you leave school in the afternoon, you say:", options: ["Good morning", "Goodbye", "Good night", "Hello"], answer: 1 },
-            { q: \"A: \"Thank you very much.\" B: \"________\"\", options: ["You're welcome", "I'm sorry", "Hello", "Good job"], answer: 0 },
-            { q: \"A: \"May I go to the restroom, please?\" B: \"________\"\", options: ["Yes, you may", "No, it isn't", "Thank you", "It's a pencil"], answer: 0 },
-            { q: \"A: \"What time is it?\" B: \"________\"\", options: ["It's an apple", "It's three o'clock", "I am happy", "It's blue"], answer: 1 },
-            { q: \"A: \"Do you like apples?\" B: \"________, I do.\"", options: ["No", "Yes", "Not", "Are"], answer: 1 },
-            { q: \"Look! ________ is an elephant.\", options: ["This", "These", "Those", "They"], answer: 0 },
-            { q: \"I ________ a student. You ________ a teacher.\", options: ["am; are", "is; am", "are; is", "am; is"], answer: 0 },
-            { q: \"Is this a pencil? Yes, ________.\", options: ["this is", "it is", "it isn't", "that is"], answer: 1 },
-            { q: \"How many books ________ there?\", options: ["is", "am", "are", "be"], answer: 2 },
-            { q: \"She ________ a cute dog.\", options: ["have", "has", "having", "is have"], answer: 1 },
-            { q: \"What ________ you doing? I am reading a book.\", options: ["am", "is", "are", "be"], answer: 2 },
-            { q: \"He can ________, but he cannot swim.\", options: ["run", "runs", "running", "ran"], answer: 0 },
-            { q: \"My mother ________ cooking in the kitchen.\", options: ["am", "are", "is", "be"], answer: 2 },
-            { q: \"The cats ________ sleeping under the tree.\", options: ["am", "is", "are", "be"], answer: 2 },
-            { q: \"We go to school ________ Monday ________ Friday.\", options: ["from; to", "on; in", "at; on", "in; to"], answer: 0 },
-            { q: \"What is the girl's name? (Amy, 9 yrs old)\", options: ["Mary", "Amy", "Linda", "Grace"], answer: 1 },
-            { q: \"How old is Amy?\", options: ["7", "8", "9", "10"], answer: 2 },
-            { q: \"What does Amy's father do? (Doctor)\", options: ["Teacher", "Doctor", "Student", "Driver"], answer: 1 },
-            { q: \"What does Amy's mother do? (Teacher)\", options: ["Teacher", "Doctor", "Nurse", "Cook"], answer: 0 },
-            { q: \"Who is Tom? (Little brother)\", options: ["Father", "Friend", "Little brother", "Uncle"], answer: 2 },
-            { q: \"What day is it today? (Sunday)\", options: ["Saturday", "Sunday", "Monday", "Friday"], answer: 1 },
-            { q: \"How is the weather today? (Sunny and warm)\", options: ["Rainy and cold", "Sunny and warm", "Snowy and windy", "Cloudy"], answer: 1 },
-            { q: \"Where are John and his friends? (Park)\", options: ["School", "Park", "Home", "Zoo"], answer: 1 },
-            { q: \"What is John doing with Mike? (Playing basketball)\", options: ["Playing basketball", "Flying a kite", "Reading a book", "Swimming"], answer: 0 },
-            { q: \"What is Sarah doing? (Flying a kite)\", options: ["Playing baseball", "Flying a kite", "Eating an apple", "Running"], answer: 1 }
-        ];
+    <!-- 萌寵彈窗 -->
+    <div id="pet-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-title">選擇跟班萌寵</div>
+            <div class="grid-select">
+                <div class="select-item active" onclick="selectPet('dog', '🐕 太空柴犬 (星幣+20%)')">🐕 柴犬</div>
+                <div class="select-item" onclick="selectPet('cat', '🐈 橘貓 (連勝加成)')">🐈 橘貓</div>
+                <div class="select-item" onclick="selectPet('otter', '🦦 水獺 (護盾防失誤)')">🦦 水獺</div>
+                <div class="select-item" onclick="selectPet('rabbit', '🐇 白兔 (經驗提升)')">🐇 白兔</div>
+                <div class="select-item" onclick="selectPet('penguin', '🐧 企鵝 (專注緩衝)')">🐧 企鵝</div>
+                <div class="select-item" onclick="selectPet('bot', '🤖 機械球 (排除陷阱)')">🤖 機械球</div>
+            </div>
+            <button class="close-btn" onclick="closeModal('pet-modal')">確認帶出</button>
+        </div>
+    </div>
 
-        const enemies = [
-            { name: "果凍史萊姆", img: "assets/boss_slime.jfif", maxHp: 30 },
-            { name: "機械飛行蝠", img: "assets/boss_bat.jfif", maxHp: 40 },
-            { name: "調皮南瓜怪", img: "assets/boss_pumpkin.jfif", maxHp: 50 },
-            { name: "裝甲巨石怪", img: "assets/boss_golem.jfif", maxHp: 65 },
-            { name: "星際霸王魔龍", img: "assets/boss_dragon.jfif", maxHp: 90 }
-        ];
+    <!-- 職業彈窗 -->
+    <div id="hero-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-title">切換冒險職業</div>
+            <div class="grid-select" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="select-item active" onclick="selectHero('warrior')">⚔️ 男劍士</div>
+                <div class="select-item" onclick="selectHero('mage')">🧙‍♂️ 男法師</div>
+                <div class="select-item" onclick="selectHero('healer')">🧚‍♀️ 女治療師</div>
+            </div>
+            <button class="close-btn" onclick="closeModal('hero-modal')">確認更換</button>
+        </div>
+    </div>
 
-        let currentQIndex = 0;
-        let coins = 0;
-        let gearLevel = 1;
-        let hearts = 3;
-        let currentEnemyIdx = 0;
-        let enemyHp = enemies[0].maxHp;
-        let currentPet = { id: 'dog', name: '🐕 柴犬' };
+    <!-- 裝備彈窗 -->
+    <div id="shop-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-title">太空補給裝備庫</div>
+            <p style="font-size: 14px; text-align: center;">目前武器等級: <b>Lv.<span id="gear-level-display">1</span></b></p>
+            <p style="font-size: 12px; color: #94a3b8; text-align: center;">升級武器可大幅提高答對時對怪獸的傷害！</p>
+            <button class="close-btn" onclick="upgradeWeapon()" style="background: #16a34a;">升級武器 (消耗 50 星幣)</button>
+            <button class="close-btn" onclick="closeModal('shop-modal')">返回</button>
+        </div>
+    </div>
+</div>
 
-        function loadQuestion() {
-            if (currentQIndex >= questions.length) currentQIndex = 0;
-            let q = questions[currentQIndex];
-            document.getElementById("question-text").innerText = `Q${currentQIndex + 1}: ${q.q}`;
-            
-            let optContainer = document.getElementById("options-container");
-            optContainer.innerHTML = "";
-            q.options.forEach((opt, idx) => {
-                let btn = document.createElement("button");
-                btn.className = "option-btn";
-                btn.innerText = `${String.fromCharCode(65 + idx)}. ${opt}`;
-                btn.onclick = () => checkAnswer(idx, btn);
-                optContainer.appendChild(btn);
-            });
-        }
+<script>
+    // 題庫資料
+    const questPool = [
+        { q: "What letter comes after \"G\"?", opts: ["E", "F", "H", "I"], a: 2 },
+        { q: "Which word has a short \"a\" sound?", opts: ["cake", "cat", "make", "kite"], a: 1 },
+        { q: "How do you spell the number \"10\"?", opts: ["seven", "eight", "nine", "ten"], a: 3 },
+        { q: "A: \"Good morning, teacher!\" B: \"________, Tom.\"", opts: ["Good night", "Good morning", "Goodbye", "See you"], a: 1 },
+        { q: "A: \"How are you?\" B: \"________, thank you.\"", opts: ["I am seven", "I'm fine", "My name is Amy", "It is a book"], a: 1 },
+        { q: "A: \"What's your name?\" B: \"________\"", opts: ["I am fine", "My name is Leo", "It is blue", "Nice to meet you"], a: 1 },
+        { q: "Is this a pencil? Yes, ________.", opts: ["this is", "it is", "it isn't", "that is"], a: 1 },
+        { q: "Look! ________ is an elephant.", opts: ["This", "These", "Those", "They"], a: 0 },
+        { q: "He can ________, but he cannot swim.", opts: ["run", "runs", "running", "ran"], a: 0 },
+        { q: "Today is Sunday. It is sunny and warm. What day is it?", opts: ["Saturday", "Sunday", "Monday", "Friday"], a: 1 }
+    ];
 
-        function checkAnswer(selectedIdx, btnElement) {
-            let q = questions[currentQIndex];
-            let allBtns = document.querySelectorAll(".option-btn");
-            
-            // 停用所有按鈕防止連點
-            allBtns.forEach(b => b.disabled = true);
+    const stages = [
+        { name: "果凍史萊姆", img: "assets/boss_slime.jfif", hp: 30 },
+        { name: "機械飛行蝠", img: "assets/boss_bat.jfif", hp: 45 },
+        { name: "調皮南瓜怪", img: "assets/boss_pumpkin.jfif", hp: 60 },
+        { name: "裝甲巨石怪", img: "assets/boss_golem.jfif", hp: 80 },
+        { name: "星際霸王魔龍", img: "assets/boss_dragon.jfif", hp: 120 }
+    ];
 
-            if (selectedIdx === q.answer) {
-                btnElement.classList.add("correct");
-                let damage = 15 + (gearLevel * 5);
-                enemyHp -= damage;
-                
-                let earnedCoins = currentPet.id === 'dog' ? 12 : 10;
-                coins += earnedCoins;
-                document.getElementById("coins").innerText = coins;
+    let coins = 0;
+    let hearts = 3;
+    let gearLvl = 1;
+    let curStage = 0;
+    let curEnemyHp = 30;
+    let activePet = 'dog';
+    let qIdx = 0;
 
-                updateEnemyHpUI();
+    function startBattle(stageIdx) {
+        curStage = stageIdx;
+        let enemy = stages[curStage];
+        curEnemyHp = enemy.hp;
+        document.getElementById('battle-enemy-name').innerText = enemy.name;
+        document.getElementById('battle-enemy-img').src = enemy.img;
+        document.getElementById('view-map').style.display = 'none';
+        document.getElementById('view-battle').style.display = 'flex';
+        renderHp();
+        nextQuestion();
+    }
 
-                setTimeout(() => {
-                    if (enemyHp <= 0) {
-                        alert(`🎉 恭喜擊敗 ${enemies[currentEnemyIdx].name}！進入下一關！`);
-                        currentEnemyIdx = (currentEnemyIdx + 1) % enemies.length;
-                        enemyHp = enemies[currentEnemyIdx].maxHp;
-                        document.getElementById("enemy-img").src = enemies[currentEnemyIdx].img;
-                        document.getElementById("enemy-name").innerText = enemies[currentEnemyIdx].name;
-                        document.getElementById("stage-info").innerText = `關卡：Stage ${currentEnemyIdx + 1} (${enemies[currentEnemyIdx].name})`;
-                    }
-                    currentQIndex++;
-                    loadQuestion();
-                }, 800);
-            } else {
-                btnElement.classList.add("wrong");
-                allBtns[q.answer].classList.add("correct");
+    function quitBattle() {
+        document.getElementById('view-battle').style.display = 'none';
+        document.getElementById('view-map').style.display = 'block';
+    }
 
-                // 水獺護盾判斷
-                if (currentPet.id === 'otter') {
-                    alert("🦦 呆萌水獺發動護盾，幫你擋下了一次失誤！");
+    function nextQuestion() {
+        let q = questPool[qIdx % questPool.length];
+        document.getElementById('q-text').innerText = q.q;
+        let optContainer = document.getElementById('q-options');
+        optContainer.innerHTML = '';
+
+        q.opts.forEach((opt, idx) => {
+            let b = document.createElement('button');
+            b.className = 'choice-btn';
+            b.innerText = `${String.fromCharCode(65 + idx)}. ${opt}`;
+            b.onclick = () => answer(idx, b, q.a);
+            optContainer.appendChild(b);
+        });
+    }
+
+    function answer(chosen, btn, correct) {
+        let all = document.querySelectorAll('.choice-btn');
+        all.forEach(b => b.disabled = true);
+
+        if (chosen === correct) {
+            btn.classList.add('correct');
+            let dmg = 15 + (gearLvl * 6);
+            curEnemyHp -= dmg;
+            coins += (activePet === 'dog' ? 12 : 10);
+            document.getElementById('val-coins').innerText = coins;
+            renderHp();
+
+            setTimeout(() => {
+                if (curEnemyHp <= 0) {
+                    alert(`🎉 成功討伐 ${stages[curStage].name}！航線節點已通關！`);
+                    let node = document.getElementById(`node-${curStage}`);
+                    if (node) node.classList.add('cleared');
+                    quitBattle();
                 } else {
-                    hearts--;
-                    updateHeartsUI();
-                    if (hearts <= 0) {
-                        alert("💔 哎呀！愛心耗盡了，再試一次加油！");
-                        hearts = 3;
-                        updateHeartsUI();
-                    }
+                    qIdx++;
+                    nextQuestion();
                 }
-
-                setTimeout(() => {
-                    currentQIndex++;
-                    loadQuestion();
-                }, 1200);
-            }
-        }
-
-        function updateEnemyHpUI() {
-            let maxHp = enemies[currentEnemyIdx].maxHp;
-            let percent = Math.max(0, (enemyHp / maxHp) * 100);
-            document.getElementById("enemy-hp-fill").style.width = percent + "%";
-        }
-
-        function updateHeartsUI() {
-            document.getElementById("hearts-display").innerText = "❤️".repeat(hearts) + "🖤".repeat(3 - hearts);
-        }
-
-        function setHero(type) {
-            let map = { warrior: 'assets/hero_warrior.jfif', mage: 'assets/hero_mage.jfif', healer: 'assets/hero_healer.jfif' };
-            document.getElementById("hero-img").src = map[type];
-            closeShop();
-        }
-
-        function setPet(id, nameText) {
-            currentPet = { id, name: nameText };
-            document.getElementById("pet-badge-text").innerText = nameText;
-            closeShop();
-        }
-
-        function upgradeGear() {
-            if (coins >= 50) {
-                coins -= 50;
-                gearLevel++;
-                document.getElementById("coins").innerText = coins;
-                document.getElementById("gear-lvl").innerText = gearLevel;
-                alert(`✨ 裝備升級成功！目前等級 Lv.${gearLevel}`);
+            }, 700);
+        } else {
+            btn.classList.add('wrong');
+            all[correct].classList.add('correct');
+            if (activePet === 'otter') {
+                alert("🦦 水獺跟班觸發被動護盾，為你抵擋了一次失誤！");
             } else {
-                alert("❌ 星幣不足 50 點！多答對幾題來賺取星幣吧！");
+                hearts--;
+                document.getElementById('val-hearts').innerText = "❤️".repeat(hearts) + "🖤".repeat(3 - hearts);
+                if (hearts <= 0) {
+                    alert("💔 愛心耗盡，先回星圖補給一下吧！");
+                    hearts = 3;
+                    document.getElementById('val-hearts').innerText = "❤️❤️❤️";
+                    quitBattle();
+                    return;
+                }
             }
+            setTimeout(() => { qIdx++; nextQuestion(); }, 1200);
         }
+    }
 
-        function openShop() { document.getElementById("shop-modal").classList.remove("hidden"); }
-        function closeShop() { document.getElementById("shop-modal").classList.add("hidden"); }
+    function renderHp() {
+        let max = stages[curStage].hp;
+        let pct = Math.max(0, (curEnemyHp / max) * 100);
+        document.getElementById('enemy-hp-bar').style.width = pct + '%';
+    }
 
-        // 初始化遊戲
-        updateEnemyHpUI();
-        loadQuestion();
-    </script>
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    function selectHero(type) {
+        const hMap = { warrior: 'assets/hero_warrior.jfif', mage: 'assets/hero_mage.jfif', healer: 'assets/hero_healer.jfif' };
+        document.getElementById('battle-hero-img').src = hMap[type];
+        closeModal('hero-modal');
+    }
+
+    function selectPet(id, name) {
+        activePet = id;
+        document.getElementById('battle-pet-tag').innerText = name.split(' ')[0];
+        closeModal('pet-modal');
+    }
+
+    function upgradeWeapon() {
+        if (coins >= 50) {
+            coins -= 50;
+            gearLvl++;
+            document.getElementById('val-coins').innerText = coins;
+            document.getElementById('gear-level-display').innerText = gearLvl;
+            alert(`✨ 武器成功升級至 Lv.${gearLvl}！攻擊力大幅提升！`);
+        } else {
+            alert("❌ 星幣不足 50 點，多刷幾題賺取星幣吧！");
+        }
+    }
+</script>
 </body>
 </html>
