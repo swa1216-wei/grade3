@@ -325,12 +325,12 @@
 
         /* 練習單元切換過濾條 */
         .practice-unit-filter-bar {
-            display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 12px; margin-bottom: 14px;
-            border-bottom: 1.5px solid #e2e8f0; flex-wrap: wrap;
+            display: flex; gap: 6px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 14px;
+            border-bottom: 1.5px solid #e2e8f0;
         }
         .btn-filter-chip {
             background: #f8fafc; border: 1.5px solid #cbd5e1; color: #475569;
-            padding: 6px 14px; border-radius: 12px; font-size: 13.5px; font-weight: 800;
+            padding: 6px 13px; border-radius: 12px; font-size: 13px; font-weight: 800;
             cursor: pointer; white-space: nowrap; transition: all 0.15s;
         }
         .btn-filter-chip:hover { background: #e0f2fe; color: #0284c7; }
@@ -388,13 +388,13 @@
         /* 📖 各單元重點全覽 (頂部跳轉零遮擋，全書 98 個核心單字＋句子＋避坑指南) */
         #panel-flashcard { padding: 28px; }
         .guide-jump-nav {
-            display: flex; gap: 8px; flex-wrap: wrap; padding: 12px 14px; margin-bottom: 20px;
-            background: #f0f9ff; border: 2px solid #bae6fd; border-radius: 16px; z-index: 20;
+            display: flex; gap: 8px; overflow-x: auto; padding: 6px 0 14px; margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0; position: sticky; top: 0; background: rgba(255,255,255,0.98); z-index: 20;
         }
         .btn-jump-pill {
-            background: #ffffff; border: 1.5px solid #0284c7; color: #0369a1;
-            padding: 8px 16px; border-radius: 12px; font-size: 14px; font-weight: 800;
-            cursor: pointer; white-space: nowrap; text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            background: #f0f9ff; border: 1.5px solid #bae6fd; color: #0369a1;
+            padding: 7px 14px; border-radius: 12px; font-size: 13px; font-weight: 800;
+            cursor: pointer; white-space: nowrap; text-decoration: none;
         }
         .btn-jump-pill:hover { background: #0284c7; color: #fff; }
         .unit-study-card {
@@ -647,8 +647,6 @@
             </div>
         </div>
 
-        <div class="practice-unit-filter-bar" id="sc-unit-filter-bar"></div>
-
         <div class="q-prompt-box-pc">
             <span id="scramble-hint-text">題目提示：詢問對方的名字</span>
             <div style="display: flex; gap: 8px;">
@@ -679,8 +677,6 @@
                 <button class="btn-exit-practice" onclick="exitChallengePrematurely('spelling')">✖ 結束結算</button>
             </div>
         </div>
-
-        <div class="practice-unit-filter-bar" id="sp-unit-filter-bar"></div>
 
         <div style="text-align: center; margin-top: 10px;">
             <div style="font-size: 30px; font-weight: 900; color: #d97706;" id="sp-chinese">貓咪</div>
@@ -714,8 +710,6 @@
             </div>
         </div>
 
-        <div class="practice-unit-filter-bar" id="vq-unit-filter-bar"></div>
-
         <div style="text-align: center; background: #f0f9ff; border-radius: 20px; padding: 24px; margin-bottom: 20px; border: 2px solid #bae6fd;">
             <div style="font-size: 40px; font-weight: 900; color: #0284c7; margin-bottom: 8px;" id="vq-word">pencil</div>
             <button class="btn-audio-pc" style="margin: 0 auto;" onclick="speakText(curVQ.en)">🔊 播放發音</button>
@@ -742,8 +736,6 @@
                 <button class="btn-exit-practice" onclick="exitChallengePrematurely('tf')">✖ 結束結算</button>
             </div>
         </div>
-
-        <div class="practice-unit-filter-bar" id="tf-unit-filter-bar"></div>
         
         <div class="q-prompt-box-pc">
             <span id="tf-statement-text">題目載入中...</span>
@@ -772,7 +764,7 @@
             <span style="font-size: 14px; font-weight: 800; color: #d97706;" id="all-vocab-counter-tag">全書共 98 單字</span>
         </div>
 
-        <!-- 頂部快速跳轉錨點 (乾淨明亮，零遮擋、完美展開！) -->
+        <!-- 頂部快速跳轉錨點 (乾淨明亮，零遮擋！) -->
         <div class="guide-jump-nav" id="guide-jump-links"></div>
 
         <!-- 單元大卡片列表 (長卷軸一次看足) -->
@@ -1038,12 +1030,12 @@
     function initPanels() {
         if (!ACTIVE_DATA) return;
         initListeningChallenge(null);
-        initScrambleChallenge(null);
-        initSpellingChallenge(null);
-        initVocabChallenge(null);
-        initTFChallenge(null);
+        initScrambleChallenge();
+        initSpellingChallenge();
+        initVocabChallenge();
+        initTFChallenge();
         renderAllUnitsGuide();
-        renderAllUnitFilters();
+        renderListeningUnitFilters();
     }
 
     /* ==================== 1. RPG 雙向回合制戰鬥 ==================== */
@@ -1085,6 +1077,7 @@
         document.getElementById('card-hero-role').innerText = heroRoles[state.activeHero] || "【星際劍士】";
         document.getElementById('battle-hero-pic').src = "assets/hero_" + state.activeHero + ".jfif";
 
+        // 身側隨行萌寵卡牌 (放旁邊！)
         const petInfo = {
             dog: { name: "🐕 太空柴犬", img: "assets/pet_dog.jfif", perk: "星幣 +20%" },
             cat: { name: "🐈 浮空橘貓", img: "assets/pet_cat.jfif", perk: "雙倍Combo" },
@@ -1137,6 +1130,7 @@
             box.appendChild(btn);
         });
 
+        // 聽力題自動朗讀
         if (curQ.audio) {
             speakText(curQ.audio);
         }
@@ -1148,6 +1142,7 @@
         const heroCard = document.getElementById('heroCardFrame');
         const enemyCard = document.getElementById('enemyCardFrame');
 
+        // 雙色高對比反饋：答錯時，被選的按鈕變紅底，正確答案按鈕亮翠綠底！
         if (right) {
             btn.classList.add('correct-reveal');
             heroCard.classList.add('attack');
@@ -1185,6 +1180,7 @@
             state.streak++;
         } else {
             btn.classList.add('user-wrong');
+            // 將正確按鈕亮綠色
             const correctBtn = document.getElementById(`battle-opt-btn-${curQ.ans}`);
             if (correctBtn) correctBtn.classList.add('correct-reveal');
 
@@ -1237,47 +1233,7 @@
     }
     function speakBattleQ() { if (curQ) speakText(curQ.audio || curQ.q); }
 
-    /* ==================== 統一單元過濾設定列生成函數 ==================== */
-    function renderAllUnitFilters() {
-        const bars = [
-            { barId: 'lis-unit-filter-bar', initFn: initListeningChallenge },
-            { barId: 'sp-unit-filter-bar', initFn: initSpellingChallenge },
-            { barId: 'sc-unit-filter-bar', initFn: initScrambleChallenge },
-            { barId: 'vq-unit-filter-bar', initFn: initVocabChallenge },
-            { barId: 'tf-unit-filter-bar', initFn: initTFChallenge }
-        ];
-
-        const units = [
-            { id: "all", label: "全部綜合" },
-            { id: "starter", label: "Starter 字母" },
-            { id: "u1", label: "Unit 1 招呼" },
-            { id: "u2", label: "Unit 2 年齡" },
-            { id: "mid", label: "🎖️ 期中考" },
-            { id: "u3", label: "Unit 3 文具" },
-            { id: "u4", label: "Unit 4 顏色" },
-            { id: "fest", label: "🎃 萬聖節" },
-            { id: "final", label: "👑 期末考" }
-        ];
-
-        bars.forEach(bInfo => {
-            const bar = document.getElementById(bInfo.barId);
-            if (!bar) return;
-            bar.innerHTML = '';
-            units.forEach(u => {
-                const btn = document.createElement('button');
-                btn.className = `btn-filter-chip ${u.id === 'all' ? 'active' : ''}`;
-                btn.innerText = u.label;
-                btn.onclick = () => {
-                    bar.querySelectorAll('.btn-filter-chip').forEach(x => x.classList.remove('active'));
-                    btn.classList.add('active');
-                    bInfo.initFn(u.id === 'all' ? null : u.id);
-                };
-                bar.appendChild(btn);
-            });
-        });
-    }
-
-    /* ==================== 3. 聽力測驗 (支援單元篩選) ==================== */
+    /* ==================== 2. 段考聽力測驗 (支援單元篩選、題幹隱藏、清晰慢速) ==================== */
     let lisQueue = [];
     let curLis = null;
     let lisRound = 0;
@@ -1285,19 +1241,43 @@
     let lisCoinsEarned = 0;
 
     const RAW_LISTENING_BANK = [
-        { unit: "starter", audio: "an eraser", prompt: "請聽音檔，選出對應的文具：", opts: ["橡皮擦 (eraser)", "直尺 (ruler)", "鉛筆 (pencil)", "原子筆 (pen)"], ans: 0, trans: "an eraser = 一塊橡皮擦", note: "基礎字彙聽力" },
-        { unit: "final", audio: "What's that? It's a ruler.", prompt: "請聽對話，選出對應的問答意思：", opts: ["那是什麼？它是一把尺。", "這是什麼？它是一枝鉛筆。", "你幾歲？我八歲。", "它是什麼顏色？它是紅色。"], ans: 0, trans: "What's that? It's a ruler.", note: "期末考真題" },
-        { unit: "u4", audio: "The pen is blue. What color is the pen?", prompt: "請聽對話並回答問題：What color is the pen?", opts: ["It is blue.", "It is black.", "It is white.", "It is green."], ans: 0, trans: "原子筆是藍色的 (blue)。", note: "Unit 4 聽力真題" },
-        { unit: "u2", audio: "I'm Mandy. I'm seven. How old is the girl?", prompt: "請聽對話並回答問題：How old is the girl?", opts: ["seven (7歲)", "eight (8歲)", "nine (9歲)", "six (6歲)"], ans: 0, trans: "女孩七歲 (seven)。", note: "Unit 2 年齡聽力" },
-        { unit: "u3", audio: "queen", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["q", "p", "r", "s"], ans: 0, trans: "queen 開頭是 q [kw]", note: "Phonics 聽力" },
-        { unit: "u3", audio: "sun", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["s", "c", "z", "t"], ans: 0, trans: "sun 開頭是 s [s]", note: "Phonics 聽力" },
-        { unit: "final", audio: "vest", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["v", "w", "f", "b"], ans: 0, trans: "vest 開頭是 v [v]", note: "期末考真題" },
-        { unit: "final", audio: "zebra", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["z", "s", "c", "j"], ans: 0, trans: "zebra 開頭是 z [z]", note: "期末考真題" },
-        { unit: "u1", audio: "Good morning.", prompt: "請聽問候語，選出最適當的應答：", opts: ["Good morning.", "Good afternoon.", "Good night.", "Good job!"], ans: 0, trans: "早安對應早安。", note: "Unit 1 真題" },
-        { unit: "u3", audio: "What's this? It's a pencil.", prompt: "請聽對話，選出對應的文具物品：", opts: ["鉛筆 (pencil)", "原子筆 (pen)", "直尺 (ruler)", "書桌 (desk)"], ans: 0, trans: "pencil = 鉛筆", note: "Unit 3 聽力真題" },
+        { unit: "u3", audio: "an eraser", prompt: "請聽音檔，選出對應的文具：", opts: ["橡皮擦 (eraser)", "直尺 (ruler)", "鉛筆 (pencil)", "原子筆 (pen)"], ans: 0, trans: "an eraser = 一塊橡皮擦", note: "HWG1 U3 考卷 Track 20 聽力真題" },
+        { unit: "final", audio: "What's that? It's a ruler.", prompt: "請聽對話，選出對應的問答意思：", opts: ["那是什麼？它是一把尺。", "這是什麼？它是一枝鉛筆。", "你幾歲？我八歲。", "它是什麼顏色？它是紅色。"], ans: 0, trans: "What's that? It's a ruler.", note: "HWG1 期末考 Track 08 聽力真題" },
+        { unit: "u4", audio: "The pen is blue. What color is the pen?", prompt: "請聽對話並回答問題：What color is the pen?", opts: ["It is blue.", "It is black.", "It is white.", "It is green."], ans: 0, trans: "原子筆是藍色的 (blue)。", note: "HWG1 U4 考卷 Track 30 聽力真題" },
+        { unit: "u4", audio: "I'm Mandy. I'm seven. How old is the girl?", prompt: "請聽對話並回答問題：How old is the girl?", opts: ["seven (7歲)", "eight (8歲)", "nine (9歲)", "six (6歲)"], ans: 0, trans: "女孩七歲 (seven)。", note: "HWG1 U4 綜合卷 B 聽力真題" },
+        { unit: "u3", audio: "queen", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["q", "p", "r", "s"], ans: 0, trans: "queen 開頭是 q [kw]", note: "HWG1 U3 Track 19 聽力真題" },
+        { unit: "u3", audio: "sun", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["s", "c", "z", "t"], ans: 0, trans: "sun 開頭是 s [s]", note: "HWG1 U3 Track 19 聽力真題" },
+        { unit: "final", audio: "vest", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["v", "w", "f", "b"], ans: 0, trans: "vest 開頭是 v [v]", note: "HWG1 期末考 Track 11 聽力真題" },
+        { unit: "final", audio: "zebra", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["z", "s", "c", "j"], ans: 0, trans: "zebra 開頭是 z [z]", note: "HWG1 期末考 Track 11 聽力真題" },
+        { unit: "final", audio: "Good morning.", prompt: "請聽問候語，選出最適當的應答：", opts: ["Good morning.", "Good afternoon.", "Good night.", "Good job!"], ans: 0, trans: "早安對應早安。", note: "HWG1 期末考 C 卷真題" },
+        { unit: "final", audio: "What's this? It's a pencil.", prompt: "請聽對話，選出對應的文具物品：", opts: ["鉛筆 (pencil)", "原子筆 (pen)", "直尺 (ruler)", "書桌 (desk)"], ans: 0, trans: "pencil = 鉛筆", note: "HWG1 期末考 Track 12 真題" },
         { unit: "u1", audio: "What's your name? My name is Mia.", prompt: "請聽對話，選出女孩的名字：", opts: ["Mia", "Amber", "Tina", "Rocky"], ans: 0, trans: "My name is Mia.", note: "Unit 1 自我介紹聽辨" },
         { unit: "u2", audio: "How old are you? I am eight years old.", prompt: "請聽對話，選出男孩的年齡：", opts: ["8 歲 (eight)", "7 歲 (seven)", "9 歲 (nine)", "10 歲 (ten)"], ans: 0, trans: "I am eight years old.", note: "Unit 2 年齡聽辨" }
     ];
+
+    function renderListeningUnitFilters() {
+        const bar = document.getElementById('lis-unit-filter-bar');
+        bar.innerHTML = '';
+        const units = [
+            { id: "all", label: "全部綜合" },
+            { id: "u1", label: "Unit 1 招呼" },
+            { id: "u2", label: "Unit 2 年齡" },
+            { id: "u3", label: "Unit 3 文具" },
+            { id: "u4", label: "Unit 4 顏色" },
+            { id: "final", label: "期末真題" }
+        ];
+        units.forEach(u => {
+            const btn = document.createElement('button');
+            btn.className = `btn-filter-chip ${u.id === 'all' ? 'active' : ''}`;
+            btn.innerText = u.label;
+            btn.onclick = () => {
+                document.querySelectorAll('.btn-filter-chip').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                initListeningChallenge(u.id === 'all' ? null : u.id);
+            };
+            bar.appendChild(btn);
+        });
+    }
 
     function initListeningChallenge(filterUnit) {
         lisRound = 0;
@@ -1307,7 +1287,6 @@
         if (filterUnit) {
             pool = pool.filter(item => item.unit === filterUnit);
         }
-        if (pool.length === 0) pool = [...RAW_LISTENING_BANK];
         lisQueue = pool.sort(() => Math.random() - 0.5).slice(0, 10);
         loadNextListeningQ();
     }
@@ -1322,6 +1301,7 @@
         curLis = lisQueue.pop();
         lisRound++;
         document.getElementById('listening-progress').innerText = `第 ${lisRound} / 10 題 (已得 ${lisScore}分)`;
+        // 題幹絕對不提前顯示英文，防止洩題！
         document.getElementById('lis-prompt').innerText = curLis.prompt;
 
         const box = document.getElementById('lis-options-box');
@@ -1364,44 +1344,136 @@
     }
     function nextListeningQ() { loadNextListeningQ(); }
 
-    /* ==================== 4. 自然發音積木拼字 (支援單元篩選) ==================== */
+    /* ==================== 3. 句型重組 ==================== */
+    let scrambleQueue = [];
+    let curScramble = null;
+    let scrambleRound = 0;
+    let userTokens = [];
+    let scrambleCoinsEarned = 0;
+
+    function initScrambleChallenge() {
+        scrambleRound = 0;
+        scrambleCoinsEarned = 0;
+        scrambleQueue = [...ACTIVE_DATA.scramble].sort(() => Math.random() - 0.5);
+        loadNextScramble();
+    }
+
+    function isPunctuation(t) { return [",", ".", "?", "!"].includes(t); }
+
+    function loadNextScramble() {
+        if (!ACTIVE_DATA) return;
+        document.getElementById('scramble-exp-card').style.display = 'none';
+        if (scrambleRound >= 10 || scrambleQueue.length === 0) {
+            showSettlementCard(`恭喜完成 10 題句型重組！`, scrambleCoinsEarned);
+            return;
+        }
+        curScramble = scrambleQueue.pop();
+        scrambleRound++;
+        document.getElementById('scramble-progress').innerText = `第 ${scrambleRound} / 10 題`;
+        document.getElementById('scramble-hint-text').innerText = "題目提示：" + curScramble.hint;
+
+        userTokens = [];
+        const bank = document.getElementById('scramble-bank-box');
+        bank.innerHTML = '';
+        renderScrambleSlot();
+
+        const shuffled = [...curScramble.tokens].sort(() => Math.random() - 0.5);
+        shuffled.forEach((tok, i) => {
+            const btn = document.createElement('button');
+            const isPunct = isPunctuation(tok);
+            btn.className = "word-btn-pc " + (isPunct ? "punct-btn" : "");
+            btn.innerText = tok;
+            btn.id = "scramble-token-btn-" + i;
+            btn.onclick = () => {
+                AudioEngine.playClick();
+                userTokens.push({ token: tok, originId: btn.id });
+                btn.classList.add('used');
+                renderScrambleSlot();
+
+                if (userTokens.length === curScramble.tokens.length) {
+                    checkScrambleResult();
+                }
+            };
+            bank.appendChild(btn);
+        });
+    }
+
+    function renderScrambleSlot() {
+        const slot = document.getElementById('scramble-slot-box');
+        slot.innerHTML = '';
+        if (userTokens.length === 0) {
+            slot.innerHTML = '<span style="color: #94a3b8; font-size: 15px;">點選下方氣泡排列句子與標點...</span>';
+            return;
+        }
+        userTokens.forEach((item, index) => {
+            const bubble = document.createElement('div');
+            const isPunct = isPunctuation(item.token);
+            bubble.className = "word-bubble-pc " + (isPunct ? "punct" : "");
+            bubble.innerHTML = `${item.token} <span style="font-size: 12px; opacity: 0.8;">✕</span>`;
+            bubble.onclick = () => {
+                AudioEngine.playClick();
+                const originBtn = document.getElementById(item.originId);
+                if (originBtn) originBtn.classList.remove('used');
+                userTokens.splice(index, 1);
+                renderScrambleSlot();
+            };
+            slot.appendChild(bubble);
+        });
+    }
+
+    function popLastScrambleToken() {
+        if (userTokens.length === 0) return;
+        AudioEngine.playClick();
+        const last = userTokens.pop();
+        const originBtn = document.getElementById(last.originId);
+        if (originBtn) originBtn.classList.remove('used');
+        renderScrambleSlot();
+    }
+
+    function resetCurrentScramble() {
+        AudioEngine.playClick();
+        document.querySelectorAll('.word-btn-pc').forEach(b => b.classList.remove('used'));
+        userTokens = [];
+        renderScrambleSlot();
+    }
+
+    function checkScrambleResult() {
+        const formed = userTokens.map(t => t.token).join(' ');
+        const isRight = formed === curScramble.ans;
+        const card = document.getElementById('scramble-exp-card');
+        if (isRight) {
+            document.getElementById('scramble-exp-title').innerText = "🎉 標點與語序完全正確！太棒了！";
+            const reward = (state.activePet === 'dog') ? 12 : 10;
+            state.coins += reward;
+            scrambleCoinsEarned += reward;
+            state.streak++;
+        } else {
+            document.getElementById('scramble-exp-title').innerText = "❌ 標點位置或單字順序有誤，請參考標準句子：";
+            state.streak = 0;
+        }
+        document.getElementById('scramble-exp-body').innerHTML = `<p><b>標準句子：</b>${curScramble.trans}</p><p><b>💡 文法考點：</b>${curScramble.note}</p>`;
+        card.style.display = 'block';
+        document.getElementById('val-coins').innerText = state.coins;
+        document.getElementById('val-streak').innerText = state.streak;
+    }
+    function nextScrambleQ() { loadNextScramble(); }
+
+    /* ==================== 4. 自然發音積木 (點擊不出音效，拼完才唸單字！) ==================== */
     let spellQueue = [];
     let curSp = null;
     let spellRound = 0;
     let userSpelled = [];
     let spellCoinsEarned = 0;
 
-    const RAW_SPELLING_BANK = [
-        { unit: "starter", en: "cat", zh: "貓咪", phonics: "短母音 a" },
-        { unit: "starter", en: "dog", zh: "狗狗", phonics: "短母音 o" },
-        { unit: "u4", en: "red", zh: "紅色", phonics: "短母音 e" },
-        { unit: "u3", en: "pen", zh: "原子筆", phonics: "短母音 e" },
-        { unit: "starter", en: "fish", zh: "小魚", phonics: "短母音 i" },
-        { unit: "starter", en: "egg", zh: "雞蛋", phonics: "短母音 e" },
-        { unit: "u3", en: "box", zh: "盒子", phonics: "短母音 o" },
-        { unit: "starter", en: "sun", zh: "太陽", phonics: "短母音 u" },
-        { unit: "u3", en: "cup", zh: "杯子", phonics: "短母音 u" },
-        { unit: "u3", en: "pig", zh: "小豬", phonics: "短母音 i" },
-        { unit: "final", en: "bed", zh: "床鋪", phonics: "短母音 e" },
-        { unit: "u3", en: "bag", zh: "提袋", phonics: "短母音 a" },
-        { unit: "u1", en: "hat", zh: "帽子", phonics: "短母音 a" },
-        { unit: "u4", en: "fox", zh: "狐狸", phonics: "短母音 o" },
-        { unit: "u3", en: "bus", zh: "公車", phonics: "短母音 u" }
-    ];
-
-    function initSpellingChallenge(filterUnit) {
+    function initSpellingChallenge() {
         spellRound = 0;
         spellCoinsEarned = 0;
-        let pool = [...RAW_SPELLING_BANK];
-        if (filterUnit) {
-            pool = pool.filter(item => item.unit === filterUnit);
-        }
-        if (pool.length === 0) pool = [...RAW_SPELLING_BANK];
-        spellQueue = pool.sort(() => Math.random() - 0.5).slice(0, 10);
+        spellQueue = [...ACTIVE_DATA.spelling].sort(() => Math.random() - 0.5);
         loadNextSpelling();
     }
 
     function loadNextSpelling() {
+        if (!ACTIVE_DATA) return;
         document.getElementById('sp-exp-card').style.display = 'none';
         if (spellRound >= 10 || spellQueue.length === 0) {
             showSettlementCard(`恭喜完成 10 題發音積木拼字！`, spellCoinsEarned);
@@ -1435,6 +1507,7 @@
             btn.innerText = letter;
             btn.id = "spell-btn-" + i;
             btn.onclick = () => {
+                // 點擊只發出清脆點擊音，絕不唸 c, u, p！
                 AudioEngine.playClick();
                 userSpelled.push({ letter: letter, btnId: btn.id });
                 btn.classList.add('used');
@@ -1451,6 +1524,7 @@
                         state.coins += reward;
                         spellCoinsEarned += reward;
                         state.streak++;
+                        // 拼對才朗讀完整單字發音！
                         speakText(curSp.en);
                     } else {
                         document.getElementById('sp-exp-title').innerText = "❌ 字母選錯或順序有誤，請看正確拼法：";
@@ -1488,98 +1562,21 @@
     function speakSpellingWord() { if (curSp) speakText(curSp.en); }
     function nextSpellingQ() { loadNextSpelling(); }
 
-    /* ==================== 5. 句型重組 (支援單元篩選) ==================== */
-    let scrambleQueue = [];
-    let curScramble = null;
-    let scrambleRound = 0;
-    let userTokens = [];
-    let scrambleCoinsEarned = 0;
-
-    const RAW_SCRAMBLE_BANK = [
-        { unit: "u1", hint: "詢問對方的名字", tokens: ["What's", "your", "name", "?"], ans: "What's your name ?", trans: "What's your name? (你叫什麼名字？)", note: "疑問句首字母大寫，句尾問號。" },
-        { unit: "u3", hint: "回答：是的，它是我的鉛筆。", tokens: ["Yes", ",", "it", "is", "my", "pencil", "."], ans: "Yes , it is my pencil .", trans: "Yes, it is my pencil.", note: "Yes 後面接逗號。" },
-        { unit: "u1", hint: "回答早安，陳老師！", tokens: ["Good", "morning", ",", "Miss", "Chen", "!"], ans: "Good morning , Miss Chen !", trans: "Good morning, Miss Chen!", note: "稱謂 Miss 與姓氏 Chen 大寫。" },
-        { unit: "u4", hint: "描述這是一顆紅色的蘋果", tokens: ["It", "is", "a", "red", "apple", "."], ans: "It is a red apple .", trans: "It is a red apple.", note: "顏色形容詞放在名詞前。" },
-        { unit: "u2", hint: "告訴大家我今年八歲", tokens: ["I", "am", "eight", "years", "old", "."], ans: "I am eight years old .", trans: "I am eight years old.", note: "標準年齡句型。" },
-        { unit: "u3", hint: "不，它不是我的橡皮擦。", tokens: ["No", ",", "it", "is", "not", "my", "eraser", "."], ans: "No , it is not my eraser .", trans: "No, it is not my eraser.", note: "否定句 is not。" },
-        { unit: "u3", hint: "請坐到椅子上", tokens: ["Sit", "on", "the", "chair", ",", "please", "."], ans: "Sit on the chair , please .", trans: "Sit on the chair, please.", note: "祈使句格式。" },
-        { unit: "u1", hint: "很高興認識你！", tokens: ["Nice", "to", "meet", "you", ",", "too", "."], ans: "Nice to meet you , too .", trans: "Nice to meet you, too.", note: "too 前面加逗號。" }
-    ];
-
-    function initScrambleChallenge(filterUnit) {
-        scrambleRound = 0;
-        scrambleCoinsEarned = 0;
-        let pool = [...RAW_SCRAMBLE_BANK];
-        if (filterUnit) {
-            pool = pool.filter(item => item.unit === filterUnit);
-        }
-        if (pool.length === 0) pool = [...RAW_SCRAMBLE_BANK];
-        scrambleQueue = pool.sort(() => Math.random() - 0.5);
-        loadNextScramble();
-    }
-
-    function loadNextScramble() {
-        document.getElementById('scramble-exp-card').style.display = 'none';
-        if (scrambleRound >= 10 || scrambleQueue.length === 0) {
-            showSettlementCard(`恭喜完成 10 題句型重組！`, scrambleCoinsEarned);
-            return;
-        }
-        curScramble = scrambleQueue.pop();
-        scrambleRound++;
-        document.getElementById('scramble-progress').innerText = `第 ${scrambleRound} / 10 題`;
-        document.getElementById('scramble-hint-text').innerText = "題目提示：" + curScramble.hint;
-
-        userTokens = [];
-        const bank = document.getElementById('scramble-bank-box');
-        bank.innerHTML = '';
-        renderScrambleSlot();
-
-        const shuffled = [...curScramble.tokens].sort(() => Math.random() - 0.5);
-        shuffled.forEach((tok, i) => {
-            const btn = document.createElement('button');
-            const isPunct = isPunctuation(tok);
-            btn.className = "word-btn-pc " + (isPunct ? "punct-btn" : "");
-            btn.innerText = tok;
-            btn.id = "scramble-token-btn-" + i;
-            btn.onclick = () => {
-                AudioEngine.playClick();
-                userTokens.push({ token: tok, originId: btn.id });
-                btn.classList.add('used');
-                renderScrambleSlot();
-
-                if (userTokens.length === curScramble.tokens.length) {
-                    checkScrambleResult();
-                }
-            };
-            bank.appendChild(btn);
-        });
-    }
-
-    function nextScrambleQ() { loadNextScramble(); }
-
-    /* ==================== 6. 單字測驗 (支援單元篩選) ==================== */
+    /* ==================== 5. 單字測驗 ==================== */
     let vocabQueue = [];
     let curVQ = null;
     let vocabRound = 0;
     let vqCoinsEarned = 0;
 
-    function initVocabChallenge(filterUnit) {
+    function initVocabChallenge() {
         vocabRound = 0;
         vqCoinsEarned = 0;
-        let pool = [...ACTIVE_DATA.vocab];
-        if (filterUnit) {
-            if (filterUnit === 'u1') pool = pool.filter(v => ['name', 'friend', 'teacher'].includes(v.en));
-            else if (filterUnit === 'u2') pool = pool.filter(v => ['six', 'seven', 'eight', 'nine', 'ten', 'birthday', 'year', 'years'].includes(v.en));
-            else if (filterUnit === 'u3') pool = pool.filter(v => ['book', 'pen', 'pencil', 'eraser', 'ruler', 'marker', 'desk', 'chair', 'bag', 'box', 'bus'].includes(v.en));
-            else if (filterUnit === 'u4') pool = pool.filter(v => ['blue', 'green', 'yellow', 'red', 'black', 'white', 'orange', 'purple'].includes(v.en));
-            else if (filterUnit === 'starter') pool = pool.filter(v => ['one', 'two', 'three', 'four', 'five', 'apple', 'ant', 'cat', 'cup', 'dog'].includes(v.en));
-        }
-        if (pool.length < 4) pool = [...ACTIVE_DATA.vocab];
-        vocabQueue = pool.sort(() => Math.random() - 0.5);
+        vocabQueue = [...ACTIVE_DATA.vocab].sort(() => Math.random() - 0.5);
         loadNextVocabQ();
     }
 
     function loadNextVocabQ() {
+        if (!ACTIVE_DATA) return;
         document.getElementById('vq-exp-card').style.display = 'none';
         if (vocabRound >= 10 || vocabQueue.length === 0) {
             showSettlementCard(`恭喜完成 10 題單字測驗！`, vqCoinsEarned);
@@ -1612,6 +1609,7 @@
                     state.streak++;
                 } else {
                     btn.classList.add('user-wrong');
+                    // 標記正確選項
                     choices.forEach((ch, i) => {
                         if (ch === curVQ.zh) {
                             const cb = document.getElementById(`vq-opt-btn-${i}`);
@@ -1631,29 +1629,21 @@
     }
     function nextVocabQ() { loadNextVocabQ(); }
 
-    /* ==================== 7. 是非題 (支援單元篩選，40題豐富題庫不重複！) ==================== */
+    /* ==================== 6. 是非題 ==================== */
     let tfQueue = [];
     let curTF = null;
     let tfRound = 0;
     let tfCoinsEarned = 0;
 
-    function initTFChallenge(filterUnit) {
+    function initTFChallenge() {
         tfRound = 0;
         tfCoinsEarned = 0;
-        let pool = [...ACTIVE_DATA.tf];
-        if (filterUnit) {
-            if (filterUnit === 'u1') pool = pool.filter(t => t.statement.includes("名字") || t.statement.includes("老師") || t.statement.includes("name"));
-            else if (filterUnit === 'u2') pool = pool.filter(t => t.statement.includes("歲") || t.statement.includes("year") || t.statement.includes("Thank you"));
-            else if (filterUnit === 'u3') pool = pool.filter(t => t.statement.includes("eraser") || t.statement.includes("box") || t.statement.includes("this"));
-            else if (filterUnit === 'u4') pool = pool.filter(t => t.statement.includes("Color") || t.statement.includes("red") || t.statement.includes("黃"));
-            else if (filterUnit === 'fest') pool = pool.filter(t => t.statement.includes("萬聖節") || t.statement.includes("witch") || t.statement.includes("Trick"));
-        }
-        if (pool.length < 5) pool = [...ACTIVE_DATA.tf];
-        tfQueue = pool.sort(() => Math.random() - 0.5).slice(0, 10);
+        tfQueue = [...ACTIVE_DATA.tf].sort(() => Math.random() - 0.5);
         loadNextTF();
     }
 
     function loadNextTF() {
+        if (!ACTIVE_DATA) return;
         document.getElementById('tf-exp-card').style.display = 'none';
         if (tfRound >= 10 || tfQueue.length === 0) {
             showSettlementCard(`恭喜完成 10 題觀念是非測驗！`, tfCoinsEarned);
@@ -1681,7 +1671,7 @@
     }
     function nextTFQ() { loadNextTF(); }
 
-    /* ==================== 8. 📖 各單元重點全覽 (一頁展開！全書 98 個單字＋句子＋避坑指南，頂部絕不遮擋！) ==================== */
+    /* ==================== 7. 📖 各單元重點全覽 (一頁展開！全書 98 個單字＋句子＋避坑指南，頂部絕不遮擋！) ==================== */
     function renderAllUnitsGuide() {
         const jumpBox = document.getElementById('guide-jump-links');
         const contentBox = document.getElementById('all-units-content-list');
@@ -1757,7 +1747,7 @@
         document.getElementById('all-vocab-counter-tag').innerText = `全書共收錄 ${totalWords} 個核心單字`;
     }
 
-    /* ==================== 9. 冒險補給商店 (原裝全部保留！) ==================== */
+    /* ==================== 8. 冒險補給商店 (原裝全部保留！) ==================== */
     function equipHero(h) {
         state.activeHero = h;
         document.querySelectorAll('#panel-shop .btn-buy-pc').forEach(b => {
@@ -1821,7 +1811,7 @@
         } else alert("❌ 星幣不足！多做練習題挑戰賺取星幣吧！");
     }
 
-    /* ==================== 10. 👾 單字雷射防禦戰 (隨機橫向位置、向上浮起爆裂、支援暫停) ==================== */
+    /* ==================== 9. 👾 單字雷射防禦戰 (隨機橫向位置、向上浮起爆裂、支援暫停) ==================== */
     let defenseScore = 0;
     let defenseActive = false;
     let defensePaused = false;
@@ -1898,6 +1888,7 @@
 
     function spawnBalloon() {
         if (!defenseActive) return;
+        // 只從純淨過濾庫抽選單字，絕不出現題庫分類標籤！
         const w = PURE_DEFENSE_VOCAB[Math.floor(Math.random() * PURE_DEFENSE_VOCAB.length)];
         const container = document.getElementById('defense-words-container');
         
@@ -1905,6 +1896,7 @@
         el.className = 'falling-word-balloon';
         el.innerText = w.zh;
         
+        // 隨機橫向位置分布在 10% ~ 78% 之間，不再擠在同一條通道！
         const randX = 10 + Math.random() * 68;
         el.style.left = randX + '%';
         el.style.top = '40px';
@@ -1938,6 +1930,7 @@
             const b = activeBalloons[hitIdx];
             b.popping = true;
 
+            // 光箭發射軌跡動畫
             AudioEngine.playLaser();
             const laser = document.getElementById('defense-laser');
             laser.style.display = 'block';
@@ -1947,6 +1940,7 @@
             
             setTimeout(() => { laser.style.display = 'none'; }, 160);
 
+            // 被擊中氣泡變成綠色、向上浮起爆開！
             AudioEngine.playPop();
             b.el.classList.add('popping');
 
