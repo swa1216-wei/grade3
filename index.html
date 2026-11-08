@@ -3,48 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小學三年級英語・星際任務系統 (v9.0 旗艦旗艦版)</title>
+    <title>小學三年級英語・浮空島冒險任務系統</title>
     <style>
         :root {
-            --primary: #38bdf8;
-            --primary-dark: #0284c7;
+            --sky-top: #38bdf8;
+            --sky-mid: #7dd3fc;
+            --sky-light: #e0f2fe;
+            --primary: #0284c7;
+            --primary-light: #38bdf8;
             --accent: #f59e0b;
-            --success: #22c55e;
-            --danger: #ef4444;
-            --bg-page: #060a14;
-            --card-bg: #111a2e;
-            --card-sub: #0a1120;
-            --border-ui: #22324d;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --aura-color: #38bdf8;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --card-surface: #ffffff;
+            --panel-border: #bae6fd;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif; }
 
         body {
-            background: var(--bg-page);
+            background: linear-gradient(180deg, #38bdf8 0%, #7dd3fc 30%, #bae6fd 65%, #f0f9ff 100%);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 14px 12px 60px;
+            overflow-x: hidden;
         }
 
-        /* 頂部全域桌面版寬版導航列 */
+        /* 頂部全域護眼桌面導航列 */
         .desktop-nav-wrap {
             width: 100%;
             max-width: 1100px;
-            background: rgba(10, 17, 32, 0.95);
-            border: 1px solid var(--border-ui);
-            border-radius: 16px;
-            padding: 12px 22px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 2px solid var(--panel-border);
+            border-radius: 18px;
+            padding: 10px 22px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            box-shadow: 0 4px 20px rgba(2, 132, 199, 0.15);
             margin-bottom: 12px;
             position: sticky;
             top: 10px;
@@ -56,17 +57,18 @@
             gap: 10px;
             font-size: 20px;
             font-weight: 900;
-            color: #bae6fd;
-            text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+            color: #0369a1;
+            text-shadow: 0 1px 3px rgba(2, 132, 199, 0.2);
         }
-        .user-status-strip { display: flex; align-items: center; gap: 12px; }
+        .user-status-strip { display: flex; align-items: center; gap: 10px; }
         .status-pill {
-            background: var(--card-sub);
-            border: 1px solid var(--border-ui);
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
             padding: 6px 14px;
             border-radius: 20px;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 800;
+            color: #0369a1;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -79,37 +81,38 @@
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
         .mission-tab {
-            background: var(--card-bg);
-            border: 1px solid var(--border-ui);
-            color: var(--text-muted);
-            padding: 10px 18px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid #bae6fd;
+            color: #475569;
+            padding: 9px 18px;
+            border-radius: 14px;
             font-size: 15px;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
             transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
         }
-        .mission-tab:hover { background: #1a273f; color: #fff; border-color: var(--primary); }
+        .mission-tab:hover { background: #e0f2fe; color: #0284c7; }
         .mission-tab.active {
             background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
             color: #fff;
-            border-color: #38bdf8;
-            box-shadow: 0 0 16px rgba(56, 189, 248, 0.45);
+            border-color: #0284c7;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
         }
 
         /* 主工作面板 */
         .workspace-panel {
             width: 100%;
             max-width: 1100px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-ui);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #bae6fd;
+            border-radius: 24px;
             min-height: 680px;
             position: relative;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+            box-shadow: 0 10px 35px rgba(2, 132, 199, 0.12);
             display: none;
             flex-direction: column;
             overflow-y: auto;
@@ -117,18 +120,25 @@
         }
         .workspace-panel.active { display: flex !important; }
 
-        /* ==================== 1. 冒險大地圖（星軌流光透明航點） ==================== */
+        /* ==================== 1. 浮空島嶼航線星圖 ==================== */
         #panel-map {
-            background: url('assets/map_bg.jfif') center/cover no-repeat;
+            background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 45%, #f0fdf4 100%);
             position: relative;
             min-height: 720px;
             overflow: hidden;
-            border-radius: 20px;
+            border-radius: 24px;
         }
-        .map-banner { position: relative; z-index: 5; text-align: center; margin: 20px 0 10px; }
-        .map-banner h2 { font-size: 26px; font-weight: 900; color: #e0f2fe; text-shadow: 0 2px 14px rgba(56, 189, 248, 0.9); }
-        .map-banner p { font-size: 14px; color: #7dd3fc; margin-top: 4px; }
+        .map-banner { position: relative; z-index: 5; text-align: center; margin: 18px 0 10px; }
+        .map-banner h2 { font-size: 26px; font-weight: 900; color: #0369a1; text-shadow: 0 2px 8px rgba(255,255,255,0.8); }
+        .map-banner p { font-size: 14px; color: #0284c7; font-weight: 700; margin-top: 4px; }
         
+        .map-cloud-dec {
+            position: absolute;
+            background: rgba(255,255,255,0.7);
+            border-radius: 50px;
+            filter: blur(4px);
+            pointer-events: none;
+        }
         .map-track-canvas {
             position: absolute;
             top: 70px; left: 0;
@@ -136,7 +146,7 @@
             z-index: 4;
             pointer-events: none;
         }
-        .star-pin {
+        .island-pin {
             position: absolute;
             transform: translate(-50%, -50%);
             display: flex;
@@ -144,133 +154,150 @@
             align-items: center;
             cursor: pointer;
             z-index: 10;
-            transition: transform 0.2s;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .star-pin:hover { transform: translate(-50%, -50%) scale(1.18); }
+        .island-pin:hover { transform: translate(-50%, -50%) scale(1.15); }
         
-        /* 徹底拔除突兀的實心紅/藍大圓框，改用星雲半透明發光浮標 */
-        .pin-disc {
-            width: 58px; height: 58px;
+        /* 綠意浮空島嶼造型標籤 */
+        .island-disc {
+            width: 66px; height: 66px;
             border-radius: 50%;
-            background: rgba(10, 16, 30, 0.75);
-            border: 2px solid var(--primary);
+            background: radial-gradient(circle at 35% 35%, #86efac 0%, #22c55e 60%, #15803d 100%);
+            border: 3px solid #ffffff;
             display: flex; justify-content: center; align-items: center;
-            font-size: 28px;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
-            backdrop-filter: blur(6px);
+            font-size: 30px;
+            box-shadow: 0 8px 20px rgba(22, 163, 74, 0.4), 0 2px 6px rgba(0,0,0,0.1);
         }
-        .pin-disc.cleared { border-color: var(--success); box-shadow: 0 0 20px rgba(34, 197, 94, 0.8); background: rgba(6, 78, 59, 0.7); }
-        .pin-disc.boss-pin { width: 68px; height: 68px; border-color: #f87171; box-shadow: 0 0 25px rgba(248, 113, 113, 0.8); background: rgba(70, 10, 10, 0.75); }
-        .pin-title {
+        .island-disc.cleared { background: radial-gradient(circle at 35% 35%, #fef08a 0%, #eab308 60%, #a16207 100%); box-shadow: 0 8px 22px rgba(234, 179, 8, 0.5); }
+        .island-disc.boss-pin { width: 76px; height: 76px; background: radial-gradient(circle at 35% 35%, #fca5a5 0%, #ef4444 60%, #991b1b 100%); box-shadow: 0 10px 25px rgba(239, 68, 68, 0.5); }
+        .island-title {
             margin-top: 6px;
             font-size: 13px; font-weight: 800;
-            background: rgba(8, 14, 26, 0.85);
-            padding: 4px 10px; border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.2);
+            background: #ffffff;
+            color: #0f172a;
+            padding: 4px 12px; border-radius: 14px;
+            border: 2px solid #bae6fd;
             white-space: nowrap;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
 
-        /* ==================== 2. RPG 戰鬥畫面（無突兀白底） ==================== */
+        /* ==================== 2. RPG 雙向回合制卡牌對戰 ==================== */
         .battle-arena-pc {
-            height: 270px;
-            background: url('assets/map_bg.jfif') center/cover no-repeat;
+            height: 290px;
+            background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 60%, #f8fafc 100%);
             position: relative;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding: 20px 40px;
-            border-bottom: 2px solid var(--border-ui);
+            padding: 16px 40px;
+            border-bottom: 2px solid #bae6fd;
         }
-        .battle-arena-pc::after { content: ''; position: absolute; inset: 0; background: rgba(8, 14, 26, 0.45); }
+        .wave-badge-top {
+            position: absolute; top: 12px;
+            background: #0284c7; color: #fff;
+            padding: 4px 16px; border-radius: 14px;
+            font-size: 13px; font-weight: 900;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+        }
         .fighter-col { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 6px; width: 220px; }
         
-        /* 頭像與怪獸採用透明立體發光底座，白底融合 */
-        .fighter-avatar-badge {
-            width: 105px; height: 105px;
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            overflow: hidden;
-            box-shadow: 0 0 25px var(--aura-color);
-            background: rgba(10, 16, 30, 0.55);
-            display: flex; justify-content: center; align-items: center;
-            backdrop-filter: blur(4px);
+        /* 實體集換式卡牌風格（Trading Card）徹底解決白底違和感 */
+        .rpg-trading-card {
+            width: 140px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border: 3px solid #38bdf8;
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: 0 8px 24px rgba(2, 132, 199, 0.25);
+            display: flex; flex-direction: column; align-items: center;
+            transition: transform 0.2s;
         }
-        .fighter-avatar-badge.boss-avatar {
-            border-radius: 24px;
+        .rpg-trading-card.monster-card {
             border-color: #f87171;
-            box-shadow: 0 0 25px rgba(248, 113, 113, 0.7);
-            background: rgba(30, 8, 12, 0.6);
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.25);
         }
-        .fighter-avatar-badge img {
+        .card-header-tag {
+            font-size: 12px; font-weight: 900;
+            color: #0369a1; margin-bottom: 4px;
+        }
+        .monster-card .card-header-tag { color: #b91c1c; }
+        .card-art-frame {
+            width: 100%; height: 95px;
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .card-art-frame img {
             width: 90%; height: 90%;
             object-fit: contain;
-            mix-blend-mode: screen; /* 讓純白底色自動融合透明 */
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.3));
         }
 
-        .hp-bar-outer { width: 100%; height: 12px; background: #080d1a; border-radius: 6px; overflow: hidden; border: 1px solid #2a3952; }
-        .hp-bar-inner-hero { height: 100%; background: #06b6d4; transition: width 0.3s; width: 100%; }
-        .hp-bar-inner-enemy { height: 100%; background: var(--success); transition: width 0.3s; width: 100%; }
-        .fighter-meta { font-size: 13px; font-weight: 800; background: rgba(0,0,0,0.75); padding: 4px 12px; border-radius: 12px; }
+        .hp-bar-outer { width: 100%; height: 14px; background: #e2e8f0; border-radius: 8px; overflow: hidden; border: 1px solid #cbd5e1; margin-top: 4px; }
+        .hp-bar-inner-hero { height: 100%; background: linear-gradient(90deg, #06b6d4, #0284c7); transition: width 0.3s; width: 100%; }
+        .hp-bar-inner-enemy { height: 100%; background: linear-gradient(90deg, #22c55e, #16a34a); transition: width 0.3s; width: 100%; }
+        .fighter-meta { font-size: 13px; font-weight: 900; color: #0f172a; margin-top: 2px; }
 
-        .battle-body-pc { flex-grow: 1; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; }
+        .battle-body-pc { flex-grow: 1; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; background: #ffffff; }
         .q-prompt-box-pc {
-            background: var(--card-sub);
-            border-left: 6px solid var(--primary);
+            background: #f0f9ff;
+            border-left: 6px solid #0284c7;
             padding: 18px 22px;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 20px;
             font-weight: 800;
             line-height: 1.5;
-            margin-bottom: 18px;
+            color: #0f172a;
+            margin-bottom: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-top: 1px solid #e0f2fe;
+            border-right: 1px solid #e0f2fe;
+            border-bottom: 1px solid #e0f2fe;
         }
         .btn-audio-pc {
-            background: #1a273f; border: 1px solid #475569; color: #fff;
-            padding: 8px 16px; border-radius: 14px; font-size: 14px; font-weight: bold; cursor: pointer;
-            display: flex; align-items: center; gap: 6px;
+            background: #ffffff; border: 2px solid #bae6fd; color: #0284c7;
+            padding: 8px 16px; border-radius: 14px; font-size: 14px; font-weight: 800; cursor: pointer;
+            display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
-        .btn-audio-pc:hover { background: #22324d; border-color: var(--primary); }
+        .btn-audio-pc:hover { background: #e0f2fe; }
 
         .answers-grid-pc { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .btn-ans-pc {
-            background: #1a273f; color: #fff; border: 2px solid #2a3952;
-            padding: 16px 20px; border-radius: 12px; font-size: 17px; font-weight: 700;
+            background: #f8fafc; color: #0f172a; border: 2px solid #e2e8f0;
+            padding: 16px 20px; border-radius: 14px; font-size: 17px; font-weight: 800;
             text-align: left; cursor: pointer; transition: all 0.2s;
         }
-        .btn-ans-pc:hover { background: #253858; border-color: var(--primary); }
-        .btn-ans-pc.correct { background: #166534 !important; border-color: var(--success) !important; }
-        .btn-ans-pc.wrong { background: #991b1b !important; border-color: var(--danger) !important; }
+        .btn-ans-pc:hover { background: #e0f2fe; border-color: #38bdf8; }
+        .btn-ans-pc.correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #15803d !important; }
+        .btn-ans-pc.wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #b91c1c !important; }
 
-        /* 專用返回按鈕（永不被題目邏輯禁用） */
         .btn-return-action {
-            background: #1a273f; color: #e2e8f0; border: 1px solid #475569;
-            padding: 12px 28px; border-radius: 12px; font-size: 15px; font-weight: 800;
+            background: #f1f5f9; color: #475569; border: 2px solid #cbd5e1;
+            padding: 12px 28px; border-radius: 14px; font-size: 15px; font-weight: 800;
             cursor: pointer; align-self: center; margin-top: 16px; transition: all 0.2s;
         }
-        .btn-return-action:hover { background: #2a3952; color: #fff; border-color: var(--primary); }
+        .btn-return-action:hover { background: #e2e8f0; color: #0f172a; }
 
         .explanation-pc-card {
-            display: none; background: var(--card-sub); border-top: 4px solid var(--primary);
-            border-radius: 14px; padding: 18px 22px; margin-top: 14px; animation: fadeIn 0.2s ease-out;
+            display: none; background: #f8fafc; border-top: 4px solid #0284c7;
+            border-radius: 14px; padding: 18px 22px; margin-top: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
         .btn-next-pc {
             background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-            color: #fff; border: none; padding: 12px 28px; border-radius: 10px;
-            font-size: 16px; font-weight: 800; cursor: pointer;
+            color: #fff; border: none; padding: 12px 30px; border-radius: 12px;
+            font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
         }
 
-        /* ==================== 3. 標點符號完全獨立的句型重組 ==================== */
+        /* ==================== 3. 標點獨立句型重組 ==================== */
         #panel-scramble { padding: 30px; }
         .scramble-dropzone {
             min-height: 80px;
-            background: #080d1a;
-            border: 2px dashed #334155;
-            border-radius: 16px;
+            background: #f8fafc;
+            border: 2px dashed #94a3b8;
+            border-radius: 18px;
             padding: 14px 18px;
             display: flex;
             flex-wrap: wrap;
@@ -279,9 +306,9 @@
             margin: 20px 0;
         }
         .word-bubble-pc {
-            background: #2563eb;
+            background: #0284c7;
             color: #fff;
-            padding: 10px 18px;
+            padding: 10px 20px;
             border-radius: 20px;
             font-size: 18px;
             font-weight: 800;
@@ -289,122 +316,126 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
             transition: transform 0.15s;
         }
         .word-bubble-pc:hover { transform: scale(1.05); }
         .word-bubble-pc.punct {
-            background: #d97706;
+            background: #ea580c;
             padding: 10px 16px;
-            box-shadow: 0 4px 10px rgba(217, 119, 6, 0.4);
+            box-shadow: 0 4px 10px rgba(234, 88, 12, 0.3);
         }
         .word-bank-pc { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 14px; }
         .word-btn-pc {
-            background: #1a273f;
-            color: #fff;
-            border: 1px solid #475569;
+            background: #ffffff;
+            color: #0f172a;
+            border: 2px solid #cbd5e1;
             padding: 10px 20px;
             border-radius: 20px;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 800;
             cursor: pointer;
             transition: all 0.15s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
         }
         .word-btn-pc.punct-btn {
-            background: #78350f;
-            border-color: #b45309;
-            color: #fef3c7;
+            background: #fff7ed;
+            border-color: #fb923c;
+            color: #c2410c;
         }
-        .word-btn-pc:hover { transform: translateY(-2px); border-color: var(--primary); }
-        .word-btn-pc.used { opacity: 0.2; pointer-events: none; }
+        .word-btn-pc:hover { transform: translateY(-2px); border-color: #0284c7; }
+        .word-btn-pc.used { opacity: 0.25; pointer-events: none; }
 
-        .scramble-tools-row { display: flex; gap: 10px; align-items: center; }
-
-        /* ==================== 4. 自然發音積木拼字 (含混淆字母) ==================== */
+        /* ==================== 4. 自然發音積木拼字 ==================== */
         #panel-spelling { padding: 30px; }
         .spell-display-box {
-            font-size: 42px; font-weight: 900; letter-spacing: 14px; color: #38bdf8;
-            background: #080d1a; padding: 22px; border-radius: 16px; text-align: center;
-            border: 2px dashed #334155; margin: 20px auto; min-height: 85px; max-width: 600px;
+            font-size: 42px; font-weight: 900; letter-spacing: 14px; color: #0284c7;
+            background: #f0f9ff; padding: 22px; border-radius: 18px; text-align: center;
+            border: 2px dashed #38bdf8; margin: 20px auto; min-height: 85px; max-width: 600px;
         }
         .letters-block-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
         .btn-letter-block {
             width: 62px; height: 62px; font-size: 28px; font-weight: 900;
-            border-radius: 14px; background: #2563eb; color: #fff; border: 2px solid #60a5fa;
-            cursor: pointer; transition: all 0.15s;
+            border-radius: 16px; background: #0284c7; color: #fff; border: 2px solid #38bdf8;
+            cursor: pointer; transition: all 0.15s; box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
         }
-        .btn-letter-block:hover { transform: translateY(-4px); background: #1d4ed8; }
-        .btn-letter-block.used { opacity: 0.2; pointer-events: none; }
+        .btn-letter-block:hover { transform: translateY(-4px); background: #0369a1; }
+        .btn-letter-block.used { opacity: 0.25; pointer-events: none; }
 
-        /* ==================== 5. 補給商店（透明融合 6 隻寵物） ==================== */
+        /* ==================== 5. 補給商店 ==================== */
         #panel-shop { padding: 30px; }
         .shop-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 26px; }
         .shop-item-card {
-            background: var(--card-sub); border: 1px solid var(--border-ui); border-radius: 18px;
+            background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 20px;
             padding: 18px 14px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
         .shop-item-thumb {
-            width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--primary);
-            overflow: hidden; background: rgba(10, 16, 30, 0.55);
+            width: 85px; height: 85px; border-radius: 50%; border: 3px solid #38bdf8;
+            overflow: hidden; background: #ffffff;
             display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
         }
-        .shop-item-thumb img { width: 90%; height: 90%; object-fit: contain; mix-blend-mode: screen; }
+        .shop-item-thumb img { width: 90%; height: 90%; object-fit: contain; }
         .btn-buy-pc {
-            width: 100%; background: var(--accent); color: #000; border: none; padding: 10px 14px;
-            border-radius: 10px; font-size: 14px; font-weight: 800; cursor: pointer;
+            width: 100%; background: #f59e0b; color: #000; border: none; padding: 10px 14px;
+            border-radius: 12px; font-size: 14px; font-weight: 900; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
         }
-        .btn-buy-pc.active-use { background: #334155; color: #94a3b8; cursor: default; }
+        .btn-buy-pc.active-use { background: #e2e8f0; color: #64748b; cursor: default; box-shadow: none; }
 
-        /* ==================== 6. 單字雷射防禦戰（動態雷射、光箭、狀態清單） ==================== */
+        /* ==================== 6. 單字防禦戰 (多字飄落 + Enter 光箭) ==================== */
         #panel-defense { padding: 30px; }
         .defense-layout { display: grid; grid-template-columns: 1fr 280px; gap: 20px; }
         .defense-canvas-wrap {
-            height: 440px; background: #080d1a; border: 2px solid var(--border-ui); border-radius: 20px;
-            position: relative; overflow: hidden;
+            height: 440px; background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 70%, #ffffff 100%);
+            border: 2px solid #38bdf8; border-radius: 22px;
+            position: relative; overflow: hidden; box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.2);
         }
         .defense-top-bar {
             position: absolute; top: 12px; left: 16px; right: 16px;
             display: flex; justify-content: space-between; align-items: center; z-index: 10;
         }
         .btn-defense-exit {
-            background: #991b1b; color: #fff; border: 1px solid #ef4444;
-            padding: 6px 14px; border-radius: 10px; font-size: 13px; font-weight: bold; cursor: pointer;
+            background: #ef4444; color: #fff; border: none;
+            padding: 6px 16px; border-radius: 12px; font-size: 13px; font-weight: 900; cursor: pointer;
+            box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
         }
-        .defense-word-falling {
-            position: absolute; left: 50%; transform: translateX(-50%); top: 40px;
+        .falling-word-balloon {
+            position: absolute;
             background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
-            color: #fff; padding: 10px 28px; border-radius: 16px;
-            font-size: 26px; font-weight: 900; box-shadow: 0 0 25px rgba(239, 68, 68, 0.85);
-            transition: top 0.05s linear;
+            color: #fff; padding: 8px 20px; border-radius: 20px;
+            font-size: 19px; font-weight: 900; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            transition: transform 0.1s;
         }
-        .laser-beam {
-            position: absolute; width: 6px; background: #38bdf8;
-            box-shadow: 0 0 15px #38bdf8, 0 0 30px #0284c7;
-            left: 50%; transform: translateX(-50%);
-            bottom: 30px; top: 100%; border-radius: 3px; z-index: 8;
-            display: none;
+        .laser-arrow {
+            position: absolute; width: 6px; height: 40px;
+            background: linear-gradient(180deg, #38bdf8, #0284c7);
+            border-radius: 3px; box-shadow: 0 0 12px #38bdf8;
+            display: none; z-index: 15;
         }
         .defense-redline {
             position: absolute; bottom: 25px; left: 0; right: 0;
-            border-top: 2px dashed #ef4444; text-align: center; color: #f87171; font-size: 13px; padding-top: 4px;
+            border-top: 2px dashed #ef4444; text-align: center; color: #dc2626; font-size: 13px; font-weight: 900; padding-top: 4px;
         }
         .defense-status-card {
-            background: var(--card-sub); border: 1px solid var(--border-ui); border-radius: 20px;
+            background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 20px;
             padding: 18px; display: flex; flex-direction: column; gap: 10px; height: 440px; overflow-y: auto;
         }
-        .defense-log-item { font-size: 13px; padding: 6px 10px; border-radius: 8px; background: #111a2e; }
+        .defense-log-item { font-size: 13px; font-weight: 800; padding: 6px 12px; border-radius: 10px; background: #ffffff; border: 1px solid #e2e8f0; }
 
         /* 閃卡、是非題等一般版面 */
         #panel-flashcard, #panel-tf, #panel-vocab-quiz { padding: 30px; }
         .flashcard-stage {
-            max-width: 600px; margin: 20px auto; background: var(--card-sub);
-            border: 2px solid var(--border-ui); border-radius: 24px; padding: 36px 24px;
+            max-width: 600px; margin: 20px auto; background: #f0f9ff;
+            border: 2px solid #bae6fd; border-radius: 24px; padding: 36px 24px;
             text-align: center; min-height: 360px; display: flex; flex-direction: column; justify-content: center;
         }
         .tf-btn-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
         .btn-tf-pc {
-            padding: 26px; font-size: 24px; font-weight: 900; border-radius: 16px;
-            border: 3px solid var(--border-ui); background: var(--card-sub); color: #fff; cursor: pointer;
+            padding: 26px; font-size: 24px; font-weight: 900; border-radius: 18px;
+            border: 2px solid #cbd5e1; background: #ffffff; color: #0f172a; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
         }
     </style>
 </head>
@@ -413,95 +444,114 @@
     <!-- 頂部全域狀態列 -->
     <div class="desktop-nav-wrap">
         <div class="app-brand">
-            <span>🚀</span>
-            <span>三年級英語・星際任務系統</span>
-            <span style="font-size: 11px; background: #0284c7; padding: 2px 8px; border-radius: 10px;" id="db-source-tag">外部 JSON 題庫</span>
+            <span>🏝️</span>
+            <span>三年級英語・浮空島冒險系統</span>
+            <span style="font-size: 11px; background: #0284c7; color: #fff; padding: 2px 8px; border-radius: 10px;" id="db-source-tag">題庫載入中</span>
         </div>
         <div class="user-status-strip">
             <div class="status-pill">⭐ 星幣: <span id="val-coins">150</span></div>
-            <div class="status-pill" style="color: #fde047;">🔥 連勝: <span id="val-streak">0</span> 題</div>
+            <div class="status-pill" style="color: #d97706;">🔥 連勝: <span id="val-streak">0</span> 題</div>
             <div class="status-pill" id="val-rank">Lv.1 見習者</div>
-            <div class="status-pill" id="val-hearts" style="color: #f43f5e;">❤️❤️❤️</div>
+            <div class="status-pill" id="val-hearts" style="color: #ef4444;">❤️❤️❤️</div>
         </div>
     </div>
 
     <!-- 任務分頁切換列 -->
     <div class="mission-tab-bar">
-        <button class="mission-tab active" id="tab-btn-map" onclick="navTo('panel-map')">🗺️ 航線星圖 (RPG打怪)</button>
+        <button class="mission-tab active" id="tab-btn-map" onclick="navTo('panel-map')">🗺️ 浮空島地圖 (波次討伐)</button>
         <button class="mission-tab" id="tab-btn-scramble" onclick="navTo('panel-scramble')">🧩 句型重組 (獨立標點)</button>
         <button class="mission-tab" id="tab-btn-spelling" onclick="navTo('panel-spelling')">🔤 自然發音積木拼字</button>
         <button class="mission-tab" id="tab-btn-vocab" onclick="navTo('panel-vocab-quiz')">📝 單字測驗 (英選中)</button>
         <button class="mission-tab" id="tab-btn-tf" onclick="navTo('panel-tf')">⭕❌ 是非觀念題</button>
-        <button class="mission-tab" id="tab-btn-fc" onclick="navTo('panel-flashcard')">🗂️ 單字閃卡 (發音與例句)</button>
-        <button class="mission-tab" id="tab-btn-shop" onclick="navTo('panel-shop')">🎒 補給商店 (寵物與裝備)</button>
+        <button class="mission-tab" id="tab-btn-fc" onclick="navTo('panel-flashcard')">🗂️ 單字閃卡 (純自然發音)</button>
+        <button class="mission-tab" id="tab-btn-shop" onclick="navTo('panel-shop')">🎒 補給商店 (寵物裝備)</button>
         <button class="mission-tab" id="tab-btn-defense" onclick="navTo('panel-defense')">👾 單字雷射防禦戰</button>
     </div>
 
-    <!-- 1. 冒險大地圖（星軌折線航點） -->
+    <!-- 1. 浮空島嶼冒險地圖 -->
     <div id="panel-map" class="workspace-panel active">
         <div class="map-banner">
-            <h2>星際英文航線・冒險地圖</h2>
-            <p>108 課綱國小三年級 ｜ 沿著金色星際軌道點選節點啟動 RPG 討伐戰！每次抽題皆不同！</p>
+            <h2>星際英文航線・浮空群島</h2>
+            <p>108 課綱三年級 ｜ 雙向回合制戰鬥！每關 3 波怪獸討伐，答題進攻，怪獸會反擊！</p>
         </div>
 
+        <!-- 浮雲裝飾 -->
+        <div class="map-cloud-dec" style="top: 40px; left: 80px; width: 140px; height: 40px;"></div>
+        <div class="map-cloud-dec" style="top: 120px; right: 100px; width: 180px; height: 50px;"></div>
+        <div class="map-cloud-dec" style="bottom: 80px; left: 160px; width: 200px; height: 55px;"></div>
+
+        <!-- 精準百分比彩虹金色軌道 -->
         <svg class="map-track-canvas" viewBox="0 0 1000 620" preserveAspectRatio="none">
-            <path d="M 120 180 L 250 110 L 390 210 L 530 110 L 670 230 L 790 120 L 900 240 L 770 490"
-                  stroke="#fbbf24" stroke-width="4" stroke-dasharray="8 6" fill="none" opacity="0.85"/>
+            <path d="M 120 220 L 250 140 L 390 240 L 530 140 L 670 260 L 790 150 L 900 270 L 760 520"
+                  stroke="#f59e0b" stroke-width="4" stroke-dasharray="8 6" fill="none" opacity="0.9"/>
         </svg>
 
-        <div class="star-pin" style="top: 250px; left: 120px;" onclick="startRPGCombat(0)">
-            <div class="pin-disc">🚀</div>
-            <div class="pin-title">Starter 字母</div>
+        <div class="island-pin" style="top: 220px; left: 120px;" onclick="startRPGCombat(0)">
+            <div class="island-disc">🚀</div>
+            <div class="island-title">Starter 字母</div>
         </div>
-        <div class="star-pin" style="top: 180px; left: 250px;" onclick="startRPGCombat(1)">
-            <div class="pin-disc">⭐</div>
-            <div class="pin-title">Unit 1 招呼</div>
+        <div class="island-pin" style="top: 140px; left: 250px;" onclick="startRPGCombat(1)">
+            <div class="island-disc">⭐</div>
+            <div class="island-title">Unit 1 招呼</div>
         </div>
-        <div class="star-pin" style="top: 280px; left: 390px;" onclick="startRPGCombat(2)">
-            <div class="pin-disc">🎂</div>
-            <div class="pin-title">Unit 2 年齡</div>
+        <div class="island-pin" style="top: 240px; left: 390px;" onclick="startRPGCombat(2)">
+            <div class="island-disc">🎂</div>
+            <div class="island-title">Unit 2 年齡</div>
         </div>
-        <div class="star-pin" style="top: 180px; left: 530px;" onclick="startRPGCombat(3)">
-            <div class="pin-disc boss-pin">🏆</div>
-            <div class="pin-title" style="color: #fca5a5;">期中考 巨石怪</div>
+        <div class="island-pin" style="top: 140px; left: 530px;" onclick="startRPGCombat(3)">
+            <div class="island-disc boss-pin">🏆</div>
+            <div class="island-title" style="color: #b91c1c;">期中考 巨石怪</div>
         </div>
-        <div class="star-pin" style="top: 300px; left: 670px;" onclick="startRPGCombat(4)">
-            <div class="pin-disc">🎒</div>
-            <div class="pin-title">Unit 3 文具</div>
+        <div class="island-pin" style="top: 260px; left: 670px;" onclick="startRPGCombat(4)">
+            <div class="island-disc">🎒</div>
+            <div class="island-title">Unit 3 文具</div>
         </div>
-        <div class="star-pin" style="top: 190px; left: 790px;" onclick="startRPGCombat(5)">
-            <div class="pin-disc">🎨</div>
-            <div class="pin-title">Unit 4 顏色</div>
+        <div class="island-pin" style="top: 150px; left: 790px;" onclick="startRPGCombat(5)">
+            <div class="island-disc">🎨</div>
+            <div class="island-title">Unit 4 顏色</div>
         </div>
-        <div class="star-pin" style="top: 310px; left: 900px;" onclick="startRPGCombat(6)">
-            <div class="pin-disc">🎃</div>
-            <div class="pin-title">Halloween 萬聖</div>
+        <div class="island-pin" style="top: 270px; left: 900px;" onclick="startRPGCombat(6)">
+            <div class="island-disc">🎃</div>
+            <div class="island-title">Halloween 萬聖</div>
         </div>
-        <div class="star-pin" style="top: 560px; left: 770px;" onclick="startRPGCombat(7)">
-            <div class="pin-disc boss-pin">👑</div>
-            <div class="pin-title" style="color: #fca5a5;">期末考 星際魔龍</div>
+        <div class="island-pin" style="top: 520px; left: 760px;" onclick="startRPGCombat(7)">
+            <div class="island-disc boss-pin">👑</div>
+            <div class="island-title" style="color: #b91c1c;">期末考 魔龍</div>
         </div>
     </div>
 
-    <!-- 2. RPG 戰鬥畫面（無突兀白底，多題隨機抽題） -->
+    <!-- 2. RPG 雙向回合制卡牌對戰 (怪打一下、我打一下、Wave 1->2->Boss) -->
     <div id="panel-battle" class="workspace-panel">
         <div class="battle-arena-pc">
+            <div class="wave-badge-top" id="battle-wave-indicator">WAVE 1/3 (小怪進攻)</div>
+
+            <!-- 玩家主角卡牌 -->
             <div class="fighter-col">
-                <div class="fighter-avatar-badge">
-                    <img id="battle-hero-pic" src="assets/hero_warrior.jfif" alt="Hero">
+                <div class="rpg-trading-card">
+                    <div class="card-header-tag" id="card-hero-role">【星際劍士】</div>
+                    <div class="card-art-frame">
+                        <img id="battle-hero-pic" src="assets/hero_warrior.jfif" alt="Hero">
+                    </div>
+                    <div style="font-size: 11px; font-weight: 800; color: #64748b; margin-top: 4px;" id="hero-pet-badge">🐕 柴犬 (+20%⭐)</div>
                 </div>
                 <div class="hp-bar-outer"><div class="hp-bar-inner-hero" id="hero-hp-fill"></div></div>
                 <div class="fighter-meta" id="hero-hp-label">勇者 HP: 100/100</div>
-                <div style="font-size: 12px; color: #7dd3fc;" id="hero-pet-label">🐕 柴犬跟班 (星幣+20%)</div>
             </div>
 
+            <!-- VS 戰鬥標誌 -->
+            <div style="font-size: 28px; font-weight: 900; color: #0284c7; text-shadow: 0 2px 8px rgba(0,0,0,0.1);">⚔️</div>
+
+            <!-- 怪獸卡牌 -->
             <div class="fighter-col">
-                <div class="fighter-avatar-badge boss-avatar">
-                    <img id="battle-enemy-pic" src="assets/boss_slime.jfif" alt="Monster">
+                <div class="rpg-trading-card monster-card">
+                    <div class="card-header-tag" id="card-enemy-role">【史萊姆幼體】</div>
+                    <div class="card-art-frame">
+                        <img id="battle-enemy-pic" src="assets/boss_slime.jfif" alt="Monster">
+                    </div>
+                    <div style="font-size: 11px; font-weight: 800; color: #dc2626; margin-top: 4px;" id="enemy-atk-badge">反擊傷害: 6 HP</div>
                 </div>
                 <div class="hp-bar-outer"><div class="hp-bar-inner-enemy" id="enemy-hp-fill"></div></div>
-                <div class="fighter-meta" id="enemy-hp-label">果凍史萊姆 HP: 120/120</div>
-                <div style="font-size: 12px; color: #fca5a5;" id="enemy-title-label">Starter 守門怪</div>
+                <div class="fighter-meta" id="enemy-hp-label">怪獸 HP: 60/60</div>
             </div>
         </div>
 
@@ -509,26 +559,26 @@
             <div>
                 <div class="q-prompt-box-pc">
                     <span id="battle-q-text">題目載入中...</span>
-                    <button class="btn-audio-pc" onclick="speakBattleQ()">🔊 朗讀</button>
+                    <button class="btn-audio-pc" onclick="speakBattleQ()">🔊 朗讀題目</button>
                 </div>
                 <div class="answers-grid-pc" id="battle-options-box"></div>
             </div>
 
             <div class="explanation-pc-card" id="battle-exp-card">
                 <div style="font-size: 17px; font-weight: 900; margin-bottom: 6px;" id="battle-exp-title">✅ 答對了！</div>
-                <div style="font-size: 15px; color: #cbd5e1; line-height: 1.6; margin-bottom: 14px;" id="battle-exp-body"></div>
-                <button class="btn-next-pc" onclick="nextBattleTurn()">繼續挑戰下一題 ➔</button>
+                <div style="font-size: 15px; color: #334155; line-height: 1.6; margin-bottom: 14px;" id="battle-exp-body"></div>
+                <button class="btn-next-pc" onclick="nextBattleTurn()">繼續推進下一回合 ➔</button>
             </div>
             
-            <button class="btn-return-action" onclick="navTo('panel-map')">⬅️ 結束並返回航線地圖</button>
+            <button class="btn-return-action" onclick="navTo('panel-map')">⬅️ 暫停並返回浮空島地圖</button>
         </div>
     </div>
 
-    <!-- 3. 標點符號完全獨立的句型重組 (含倒退刪除一步) -->
+    <!-- 3. 獨立標點符號的句型重組 (含倒退刪除一步) -->
     <div id="panel-scramble" class="workspace-panel">
-        <h2 style="font-size: 24px; color: #bae6fd;">🧩 英語句型重組大挑戰 (標點符號獨立選取)</h2>
-        <p style="color: #94a3b8; font-size: 14px; margin: 4px 0 16px;">
-            注意：標點符號（如逗號、問號、句號）必須放在正確位置，點擊下方氣泡排成完整句子！可隨時使用【⌫ 倒退刪除一步】。
+        <h2 style="font-size: 24px; color: #0369a1;">🧩 英語句型重組大挑戰 (標點符號獨立選取)</h2>
+        <p style="color: #64748b; font-size: 14px; margin: 4px 0 16px;">
+            注意：標點符號（問號、逗號、句號）為橘色獨立氣泡，必須放到正確位置！可隨時使用【⌫ 倒退刪除一步】。
         </p>
 
         <div class="q-prompt-box-pc">
@@ -540,26 +590,26 @@
         </div>
 
         <div class="scramble-dropzone" id="scramble-slot-box">
-            <span style="color: #64748b; font-size: 15px;">點選下方氣泡排列句子與標點...</span>
+            <span style="color: #94a3b8; font-size: 15px;">點選下方氣泡排列句子與標點...</span>
         </div>
 
         <div class="word-bank-pc" id="scramble-bank-box"></div>
 
         <div class="explanation-pc-card" id="scramble-exp-card">
             <div style="font-size: 17px; font-weight: 900;" id="scramble-exp-title"></div>
-            <div style="font-size: 15px; color: #cbd5e1; margin: 8px 0;" id="scramble-exp-body"></div>
+            <div style="font-size: 15px; color: #334155; margin: 8px 0;" id="scramble-exp-body"></div>
             <button class="btn-next-pc" onclick="loadNextScramble()">挑戰下一個句型 ➔</button>
         </div>
     </div>
 
     <!-- 4. 自然發音積木拼字模式 (含混淆字母 + 倒退鍵) -->
     <div id="panel-spelling" class="workspace-panel">
-        <h2 style="font-size: 24px; color: #bae6fd;">🔤 自然發音積木拼字挑戰 (含混淆字母)</h2>
-        <p style="color: #94a3b8; font-size: 14px; margin-top: 4px;">聽發音並看中文，從包含混淆字母的積木中，依序挑選出正確字母拼出單字！</p>
+        <h2 style="font-size: 24px; color: #0369a1;">🔤 自然發音積木拼字挑戰 (含混淆字母)</h2>
+        <p style="color: #64748b; font-size: 14px; margin-top: 4px;">聽發音並看中文，從包含混淆字母的積木中，依序挑選出正確字母拼出單字！</p>
         
         <div style="text-align: center; margin-top: 14px;">
-            <div style="font-size: 28px; font-weight: 800; color: #fde047;" id="sp-chinese">貓咪</div>
-            <div style="font-size: 17px; color: #38bdf8; margin-top: 4px;" id="sp-phonics">發音: 短母音 a</div>
+            <div style="font-size: 28px; font-weight: 900; color: #d97706;" id="sp-chinese">貓咪</div>
+            <div style="font-size: 17px; color: #0284c7; font-weight: 800; margin-top: 4px;" id="sp-phonics">發音提示: 短母音 a</div>
             <div style="display: flex; gap: 10px; justify-content: center; margin-top: 8px;">
                 <button class="btn-audio-pc" onclick="speakSpellingWord()">🔊 聽單字發音</button>
                 <button class="btn-audio-pc" onclick="popLastSpellingLetter()">⌫ 倒退刪除</button>
@@ -571,18 +621,18 @@
 
         <div class="explanation-pc-card" id="sp-exp-card">
             <div style="font-size: 17px; font-weight: 900;" id="sp-exp-title"></div>
-            <div style="font-size: 15px; color: #cbd5e1; margin: 8px 0;" id="sp-exp-body"></div>
+            <div style="font-size: 15px; color: #334155; margin: 8px 0;" id="sp-exp-body"></div>
             <button class="btn-next-pc" onclick="loadNextSpelling()">挑戰下一個單字 ➔</button>
         </div>
     </div>
 
     <!-- 5. 單字測驗 (英選中) -->
     <div id="panel-vocab-quiz" class="workspace-panel">
-        <h2 style="font-size: 24px; color: #bae6fd;">📝 單字測驗・英選中</h2>
-        <p style="color: #94a3b8; font-size: 14px; margin: 4px 0 20px;">看到大單字，選出正確中文！連對累積星幣獎勵！</p>
+        <h2 style="font-size: 24px; color: #0369a1;">📝 單字測驗・英選中</h2>
+        <p style="color: #64748b; font-size: 14px; margin: 4px 0 20px;">看到大單字，選出正確中文！連對累積星幣！</p>
 
-        <div style="text-align: center; background: var(--card-sub); border-radius: 20px; padding: 24px; margin-bottom: 20px; border: 2px solid var(--border-ui);">
-            <div style="font-size: 38px; font-weight: 900; color: #38bdf8; margin-bottom: 8px;" id="vq-word">pencil</div>
+        <div style="text-align: center; background: #f0f9ff; border-radius: 20px; padding: 24px; margin-bottom: 20px; border: 2px solid #bae6fd;">
+            <div style="font-size: 38px; font-weight: 900; color: #0284c7; margin-bottom: 8px;" id="vq-word">pencil</div>
             <button class="btn-audio-pc" style="margin: 0 auto;" onclick="speakText(curVQ.en)">🔊 播放發音</button>
         </div>
 
@@ -590,15 +640,15 @@
 
         <div class="explanation-pc-card" id="vq-exp-card">
             <div style="font-size: 17px; font-weight: 900;" id="vq-exp-title"></div>
-            <div style="font-size: 15px; color: #cbd5e1; margin: 8px 0;" id="vq-exp-body"></div>
+            <div style="font-size: 15px; color: #334155; margin: 8px 0;" id="vq-exp-body"></div>
             <button class="btn-next-pc" onclick="loadNextVocabQ()">下一題 ➔</button>
         </div>
     </div>
 
     <!-- 6. 觀念是非題 -->
     <div id="panel-tf" class="workspace-panel">
-        <h2 style="font-size: 24px; color: #bae6fd;">⭕❌ 觀念是非測驗</h2>
-        <p style="color: #94a3b8; font-size: 14px; margin: 4px 0 20px;">檢查文法、單複數、縮寫與招呼用語是否正確！</p>
+        <h2 style="font-size: 24px; color: #0369a1;">⭕❌ 觀念是非測驗 (段考防坑)</h2>
+        <p style="color: #64748b; font-size: 14px; margin: 4px 0 20px;">檢查文法、單複數、縮寫與招呼用語是否正確！</p>
         
         <div class="q-prompt-box-pc">
             <span id="tf-statement-text">題目載入中...</span>
@@ -612,19 +662,19 @@
 
         <div class="explanation-pc-card" id="tf-exp-card">
             <div style="font-size: 17px; font-weight: 900;" id="tf-exp-title"></div>
-            <div style="font-size: 15px; color: #cbd5e1; margin: 8px 0;" id="tf-exp-body"></div>
+            <div style="font-size: 15px; color: #334155; margin: 8px 0;" id="tf-exp-body"></div>
             <button class="btn-next-pc" onclick="loadNextTF()">下一題 ➔</button>
         </div>
     </div>
 
-    <!-- 7. 單字閃卡 -->
+    <!-- 7. 單字閃卡 (純自然發音，絕無 KK 音標) -->
     <div id="panel-flashcard" class="workspace-panel">
-        <h2 style="font-size: 24px; color: #bae6fd;">🗂️ 三年級核心字彙閃卡</h2>
+        <h2 style="font-size: 24px; color: #0369a1;">🗂️ 三年級核心字彙閃卡 (純自然發音)</h2>
         <div class="flashcard-stage">
-            <div class="flash-word" id="fc-word">apple</div>
-            <div class="flash-phonics" id="fc-phonics">短母音 a</div>
-            <div class="flash-meaning" id="fc-meaning">蘋果</div>
-            <div class="flash-example" id="fc-example">"It is a red apple."</div>
+            <div style="font-size: 42px; font-weight: 900; color: #0284c7;" id="fc-word">apple</div>
+            <div style="font-size: 18px; font-weight: 800; color: #0369a1; margin: 8px 0 14px;" id="fc-phonics">短母音 a</div>
+            <div style="font-size: 26px; font-weight: 900; color: #d97706; margin-bottom: 12px;" id="fc-meaning">蘋果</div>
+            <div style="font-size: 16px; color: #475569; background: #ffffff; padding: 12px 18px; border-radius: 14px; border: 1px solid #bae6fd;" id="fc-example">"It is a red apple."</div>
         </div>
         <div style="display: flex; gap: 14px; justify-content: center;">
             <button class="btn-ans-pc" onclick="prevFlashcard()" style="padding: 10px 24px;">⬅️ 上一個</button>
@@ -633,136 +683,133 @@
         </div>
     </div>
 
-    <!-- 8. 補給商店（英雄、裝備、全部 6 隻寵物） -->
+    <!-- 8. 補給商店（英雄、裝備、6 隻寵物） -->
     <div id="panel-shop" class="workspace-panel">
-        <h2 style="font-size: 24px; color: #bae6fd; margin-bottom: 16px;">🎒 太空補給商店</h2>
+        <h2 style="font-size: 24px; color: #0369a1; margin-bottom: 16px;">🎒 冒險補給商店</h2>
         
-        <h3 style="font-size: 17px; color: #bae6fd; margin-bottom: 12px;">🧙‍♂️ 解鎖冒險夥伴小隊</h3>
+        <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">🧙‍♂️ 解鎖冒險夥伴小隊</h3>
         <div class="shop-cards-grid">
             <div class="shop-item-card">
                 <div class="shop-item-thumb"><img src="assets/hero_warrior.jfif" alt="Warrior"></div>
-                <div><b>星際劍士</b><br><span style="font-size: 12px; color: #94a3b8;">專攻發音與拼字</span></div>
+                <div><b>星際劍士 (物理斬擊)</b><br><span style="font-size: 12px; color: #64748b;">高額單體物理輸出</span></div>
                 <button class="btn-buy-pc active-use" id="btn-shop-warrior" onclick="equipHero('warrior')">出戰中</button>
             </div>
             <div class="shop-item-card">
                 <div class="shop-item-thumb"><img src="assets/hero_mage.jfif" alt="Mage"></div>
-                <div><b>星空魔法師</b><br><span style="font-size: 12px; color: #94a3b8;">400 ⭐ 解鎖 ｜ 專攻對話</span></div>
+                <div><b>星空魔法師 (元素隕石)</b><br><span style="font-size: 12px; color: #64748b;">400 ⭐ 解鎖 ｜ 爆擊傷害</span></div>
                 <button class="btn-buy-pc" id="btn-shop-mage" onclick="buyHero('mage', 400)">400 ⭐ 解鎖</button>
             </div>
             <div class="shop-item-card">
                 <div class="shop-item-thumb"><img src="assets/hero_healer.jfif" alt="Healer"></div>
-                <div><b>時空治療師</b><br><span style="font-size: 12px; color: #94a3b8;">700 ⭐ 解鎖 ｜ 答對全隊回血</span></div>
+                <div><b>時空治療師 (神聖光環)</b><br><span style="font-size: 12px; color: #64748b;">700 ⭐ 解鎖 ｜ 答對全隊回血 +12 HP</span></div>
                 <button class="btn-buy-pc" id="btn-shop-healer" onclick="buyHero('healer', 700)">700 ⭐ 解鎖</button>
             </div>
         </div>
 
-        <h3 style="font-size: 17px; color: #bae6fd; margin-bottom: 12px;">⚔️ 武器與防具強化庫</h3>
+        <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">⚔️ 武器與防具強化庫</h3>
         <div class="shop-cards-grid">
             <div class="shop-item-card">
-                <div><b>光刃武器 Lv.<span id="ui-weap-lvl">1</span></b><br><span style="font-size: 12px; color: #94a3b8;">傷害: <span id="ui-weap-dmg">20</span> HP</span></div>
-                <button class="btn-buy-pc" onclick="upgradeItem('weap')">升級 (50 ⭐)</button>
+                <div><b>光刃武器 Lv.<span id="ui-weap-lvl">1</span></b><br><span style="font-size: 12px; color: #64748b;">傷害: <span id="ui-weap-dmg">25</span> HP</span></div>
+                <button class="btn-buy-pc" onclick="upgradeItem('weap')">升級武器 (50 ⭐)</button>
             </div>
             <div class="shop-item-card">
-                <div><b>防護甲裝 Lv.<span id="ui-armor-lvl">1</span></b><br><span style="font-size: 12px; color: #94a3b8;">最大生命: <span id="ui-armor-hp">100</span> HP</span></div>
-                <button class="btn-buy-pc" onclick="upgradeItem('armor')">升級 (50 ⭐)</button>
+                <div><b>防護甲裝 Lv.<span id="ui-armor-lvl">1</span></b><br><span style="font-size: 12px; color: #64748b;">最大生命: <span id="ui-armor-hp">100</span> HP</span></div>
+                <button class="btn-buy-pc" onclick="upgradeItem('armor')">升級防具 (50 ⭐)</button>
             </div>
         </div>
 
-        <h3 style="font-size: 17px; color: #bae6fd; margin-bottom: 12px;">🐾 6 大太空萌寵跟班庫</h3>
+        <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">🐾 6 大太空萌寵跟班庫</h3>
         <div class="shop-cards-grid">
             <div class="shop-item-card">
                 <div class="shop-item-thumb"><img src="assets/pet_dog.jfif" alt="柴犬"></div>
-                <div><b>🐕 太空柴犬</b><br><span style="font-size: 12px; color: #94a3b8;">星幣掉落 +20%</span></div>
+                <div><b>🐕 太空柴犬</b><br><span style="font-size: 12px; color: #64748b;">星幣掉落 +20%</span></div>
                 <button class="btn-buy-pc active-use" id="btn-pet-dog" onclick="equipPet('dog')">跟隨中</button>
             </div>
             <div class="shop-item-card">
                 <div class="shop-item-thumb"><img src="assets/pet_cat.jfif" alt="橘貓"></div>
-                <div><b>🐈 浮空橘貓</b><br><span style="font-size: 12px; color: #94a3b8;">連勝 Combo 經驗雙倍</span></div>
+                <div><b>🐈 浮空橘貓</b><br><span style="font-size: 12px; color: #64748b;">連勝經驗 Combo 加倍</span></div>
                 <button class="btn-buy-pc" id="btn-pet-cat" onclick="buyPet('cat', 150)">150 ⭐ 收養</button>
             </div>
             <div class="shop-item-card">
                 <div class="shop-item-thumb"><img src="assets/pet_otter.jfif" alt="水獺"></div>
-                <div><b>🦦 呆萌水獺</b><br><span style="font-size: 12px; color: #94a3b8;">每場免死抵擋 1 次失誤</span></div>
+                <div><b>🦦 呆萌水獺</b><br><span style="font-size: 12px; color: #64748b;">每場免死抵擋 1 次暴擊失誤</span></div>
                 <button class="btn-buy-pc" id="btn-pet-otter" onclick="buyPet('otter', 200)">200 ⭐ 收養</button>
             </div>
             <div class="shop-item-card">
                 <div class="shop-item-thumb"><img src="assets/pet_rabbit.jfif" alt="白兔"></div>
-                <div><b>🐇 垂耳白兔</b><br><span style="font-size: 12px; color: #94a3b8;">經驗值大幅提升 30%</span></div>
+                <div><b>🐇 垂耳白兔</b><br><span style="font-size: 12px; color: #64748b;">經驗值大幅提升 30%</span></div>
                 <button class="btn-buy-pc" id="btn-pet-rabbit" onclick="buyPet('rabbit', 250)">250 ⭐ 收養</button>
             </div>
             <div class="shop-item-card">
                 <div class="shop-item-thumb"><img src="assets/pet_penguin.jfif" alt="企鵝"></div>
-                <div><b>🐧 太空企鵝</b><br><span style="font-size: 12px; color: #94a3b8;">怪獸反擊傷害減少 30%</span></div>
+                <div><b>🐧 太空企鵝</b><br><span style="font-size: 12px; color: #64748b;">怪獸反擊傷害減免 30%</span></div>
                 <button class="btn-buy-pc" id="btn-pet-penguin" onclick="buyPet('penguin', 300)">300 ⭐ 收養</button>
             </div>
             <div class="shop-item-card">
                 <div class="shop-item-thumb"><img src="assets/pet_bot.jfif" alt="機械球"></div>
-                <div><b>🤖 浮空機械球</b><br><span style="font-size: 12px; color: #94a3b8;">自動排除 1 個錯誤選項</span></div>
+                <div><b>🤖 浮空機械球</b><br><span style="font-size: 12px; color: #64748b;">戰鬥自動排除 1 個錯誤選項</span></div>
                 <button class="btn-buy-pc" id="btn-pet-bot" onclick="buyPet('bot', 350)">350 ⭐ 收養</button>
             </div>
         </div>
     </div>
 
-    <!-- 9. 單字雷射防禦戰（含雷射發射光箭、戰況清單與安全退出鈕） -->
+    <!-- 9. 單字雷射防禦戰 (多單字同時飄落 + Enter 光箭 + 離開徹底停用) -->
     <div id="panel-defense" class="workspace-panel">
-        <h2 style="font-size: 24px; color: #bae6fd; margin-bottom: 4px;">👾 單字雷射防禦戰</h2>
-        <p style="color: #94a3b8; font-size: 14px; margin-bottom: 16px;">
-            在中文單字抵達警戒底線前，在輸入框輸入英文單字並按 <b>Enter</b> 發射雷射光束！
+        <h2 style="font-size: 24px; color: #0369a1; margin-bottom: 4px;">👾 單字雷射防禦戰 (多字飄落)</h2>
+        <p style="color: #64748b; font-size: 14px; margin-bottom: 16px;">
+            在中文單字抵達底線前，在輸入框輸入對應英文並按 <b>Enter</b> 發射光束擊碎！
         </p>
 
         <div class="defense-layout">
             <div>
                 <div class="defense-canvas-wrap" id="defense-arena">
                     <div class="defense-top-bar">
-                        <span style="font-size: 13px; color: #bae6fd;">防禦積分: <b id="defense-score">0</b> 分</span>
+                        <span style="font-size: 13px; font-weight: 800; color: #0369a1;">防禦積分: <b id="defense-score">0</b> 分</span>
                         <button class="btn-defense-exit" onclick="stopDefenseGame(true)">✖ 結束離開</button>
                     </div>
 
-                    <div class="defense-word-falling" id="defense-drop-word">蘋果</div>
-                    <div class="laser-beam" id="defense-laser"></div>
+                    <!-- 動態飄落多個單字容器 -->
+                    <div id="defense-words-container"></div>
+                    <div class="laser-arrow" id="defense-laser"></div>
                     <div class="defense-redline">⚠️ 底線警戒防禦區 ⚠️</div>
                 </div>
 
                 <div style="display: flex; gap: 12px; margin-top: 14px;">
-                    <input type="text" style="flex-grow: 1; background: var(--card-sub); border: 2px solid #475569; color: #fff; padding: 14px 20px; border-radius: 12px; font-size: 18px; outline: none;" id="defense-input-box" placeholder="輸入英文並按 Enter 發射 (例如 apple)..." autocomplete="off">
+                    <input type="text" style="flex-grow: 1; background: #ffffff; border: 2px solid #cbd5e1; color: #0f172a; padding: 14px 20px; border-radius: 14px; font-size: 18px; outline: none; font-weight: 700;" id="defense-input-box" placeholder="輸入英文並按 Enter 發射 (例如 apple)..." autocomplete="off">
                     <button class="btn-next-pc" onclick="fireLaser()">發射 🚀</button>
                 </div>
             </div>
 
             <!-- 右側戰況即時對照表 -->
             <div class="defense-status-card">
-                <h4 style="color: #38bdf8; font-size: 15px; border-bottom: 1px solid var(--border-ui); padding-bottom: 8px;">
+                <h4 style="color: #0369a1; font-size: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">
                     📋 本輪防禦戰況清單
                 </h4>
                 <div id="defense-history-list" style="display: flex; flex-direction: column; gap: 8px;">
-                    <div style="color: #64748b; font-size: 13px; text-align: center; margin-top: 20px;">戰鬥開始後記錄...</div>
+                    <div style="color: #94a3b8; font-size: 13px; text-align: center; margin-top: 20px;">戰鬥開始後記錄...</div>
                 </div>
             </div>
         </div>
     </div>
 
 <script>
-    /* ==================== 備用資料（當無法讀取 questions.json 時保底） ==================== */
+    /* ==================== 題庫動態讀取 ==================== */
     let ACTIVE_DATA = null;
 
-    /* 嘗試從外部 questions.json 動態載入 */
     fetch('questions.json')
-        .then(response => {
-            if (!response.ok) throw new Error("HTTP " + response.status);
-            return response.json();
+        .then(res => {
+            if (!res.ok) throw new Error("HTTP " + res.status);
+            return res.json();
         })
         .then(data => {
             ACTIVE_DATA = data;
-            document.getElementById('db-source-tag').innerText = "外部 JSON 載入成功 (" + data.vocab.length + "字)";
-            console.log("Successfully loaded questions.json with:", data);
+            document.getElementById('db-source-tag').innerText = "外部 JSON (" + data.vocab.length + "字/8關卡)";
+            console.log("questions.json loaded:", data);
             initPanels();
         })
         .catch(err => {
-            console.log("Using built-in data fallback:", err);
-            document.getElementById('db-source-tag').innerText = "內建保底模式";
-            // 讀取內建保底資料
-            ACTIVE_DATA = window.FALLBACK_DATA;
-            initPanels();
+            console.log("Fetch failed, check file location:", err);
+            document.getElementById('db-source-tag').innerText = "請確保 questions.json 在同一目錄";
         });
 
     /* ==================== 玩家狀態與導航 ==================== */
@@ -773,7 +820,7 @@
     };
 
     function navTo(panelId) {
-        // 如果離開防禦戰分頁，立即停止定時器！避免後台扣心！
+        // 切換離開防禦戰分頁時，立即 100% 徹底清除計時器，絕不在背景偷扣心！
         if (panelId !== 'panel-defense') {
             stopDefenseGame(false);
         }
@@ -791,7 +838,6 @@
         const activeTab = document.getElementById(tabMap[panelId]);
         if (activeTab) activeTab.classList.add('active');
 
-        // 如果主動進入防禦戰，啟動防禦戰
         if (panelId === 'panel-defense') {
             startDefenseGame();
         }
@@ -806,52 +852,81 @@
         renderFlashcard();
     }
 
-    /* ==================== 1. RPG 戰鬥系統（隨機抽題 + 充足血量） ==================== */
+    /* ==================== 1. RPG 雙向回合制（怪打我、我打怪，3 波次挑戰） ==================== */
     let curStage = null;
-    let fightQuestionQueue = [];
+    let curWaveIdx = 0;
+    let curWave = null;
+    let fightQueue = [];
     let curQ = null;
-    let hHp = 100, eHp = 120;
+    let hHp = 100, eHp = 60;
+    let otterShieldActive = true;
 
-    function startRPGCombat(id) {
+    function startRPGCombat(stageId) {
         if (!ACTIVE_DATA) return;
-        curStage = ACTIVE_DATA.stages[id] || ACTIVE_DATA.stages[0];
-        
-        // 核心改進：每次進場時，將該單元的所有題目「完全隨機洗牌」！
-        // 保證每次打怪抽到的順序都不同，且打完不會只有固定兩題！
-        fightQuestionQueue = [...curStage.questions].sort(() => Math.random() - 0.5);
+        curStage = ACTIVE_DATA.stages[stageId] || ACTIVE_DATA.stages[0];
+        curWaveIdx = 0;
+        otterShieldActive = true;
 
-        hHp = 100 + (state.armorLvl - 1) * 25;
-        eHp = curStage.enemy.hp; // 依怪獸血量 (120~220 HP)，讓孩子大約答 5-6 題才能通關！
+        // 主角血量上限由防具等級提升
+        const maxH = 100 + (state.armorLvl - 1) * 25;
+        hHp = maxH;
 
+        // 題目隨機洗牌，每次挑戰題目順序不同！
+        fightQueue = [...curStage.questions].sort(() => Math.random() - 0.5);
+
+        setupWave(0);
+        navTo('panel-battle');
+    }
+
+    function setupWave(wIdx) {
+        curWaveIdx = wIdx;
+        curWave = curStage.waves[wIdx] || curStage.waves[0];
+        eHp = curWave.hp;
+
+        document.getElementById('battle-wave-indicator').innerText = `WAVE ${wIdx + 1}/3 (${curWave.name})`;
+        document.getElementById('card-enemy-role').innerText = `【${curWave.name}】`;
+        document.getElementById('battle-enemy-pic').src = curWave.img;
+        document.getElementById('enemy-atk-badge').innerText = `反擊傷害: ${curWave.dmg} HP`;
+
+        const heroRoles = { warrior: "【星際劍士】", mage: "【星空魔法師】", healer: "【時空治療師】" };
+        document.getElementById('card-hero-role').innerText = heroRoles[state.activeHero] || "【星際劍士】";
         document.getElementById('battle-hero-pic').src = "assets/hero_" + state.activeHero + ".jfif";
-        document.getElementById('battle-enemy-pic').src = curStage.enemy.img;
-        document.getElementById('enemy-title-label').innerText = curStage.title + " 守門怪";
+
+        const petIcons = { dog: "🐕 柴犬 (+20%⭐)", cat: "🐈 橘貓 (雙倍Combo)", otter: "🦦 水獺 (失誤護盾)", rabbit: "🐇 白兔 (+30%XP)", penguin: "🐧 企鵝 (-30%傷)", bot: "🤖 機械球 (排除錯選)" };
+        document.getElementById('hero-pet-badge').innerText = petIcons[state.activePet] || "🐕 柴犬";
+
         updateCombatUI();
         loadNextBattleQ();
-        navTo('panel-battle');
     }
 
     function updateCombatUI() {
         const maxH = 100 + (state.armorLvl - 1) * 25;
         document.getElementById('hero-hp-fill').style.width = Math.max(0, (hHp / maxH) * 100) + '%';
-        document.getElementById('enemy-hp-fill').style.width = Math.max(0, (eHp / curStage.enemy.hp) * 100) + '%';
-        document.getElementById('hero-hp-label').innerText = "勇者 HP: " + hHp + "/" + maxH;
-        document.getElementById('enemy-hp-label').innerText = curStage.enemy.name + " HP: " + eHp + "/" + curStage.enemy.hp;
+        document.getElementById('enemy-hp-fill').style.width = Math.max(0, (eHp / curWave.hp) * 100) + '%';
+        document.getElementById('hero-hp-label').innerText = `勇者 HP: ${hHp}/${maxH}`;
+        document.getElementById('enemy-hp-label').innerText = `${curWave.name} HP: ${eHp}/${curWave.hp}`;
     }
 
     function loadNextBattleQ() {
         document.getElementById('battle-exp-card').style.display = 'none';
-        
-        // 若該輪洗牌題目用盡，重新洗牌接續
-        if (fightQuestionQueue.length === 0) {
-            fightQuestionQueue = [...curStage.questions].sort(() => Math.random() - 0.5);
+        if (fightQueue.length === 0) {
+            fightQueue = [...curStage.questions].sort(() => Math.random() - 0.5);
         }
-        curQ = fightQuestionQueue.pop();
+        curQ = fightQueue.pop();
 
         document.getElementById('battle-q-text').innerText = curQ.q;
         const box = document.getElementById('battle-options-box');
         box.innerHTML = '';
-        curQ.opts.forEach((opt, idx) => {
+
+        let opts = [...curQ.opts];
+        let removeIdx = -1;
+        // 機械球萌寵被動：自動排除 1 個錯誤選項
+        if (state.activePet === 'bot' && opts.length > 2) {
+            removeIdx = (curQ.ans === 0) ? 1 : 0;
+        }
+
+        opts.forEach((opt, idx) => {
+            if (idx === removeIdx) return;
             const btn = document.createElement('button');
             btn.className = 'btn-ans-pc';
             btn.innerText = String.fromCharCode(65 + idx) + ". " + opt;
@@ -861,54 +936,91 @@
     }
 
     function submitBattleAns(idx, btn) {
-        // 只鎖定題目選項按鈕，絕對不鎖定「結束並返回航線地圖」按鈕！
         document.querySelectorAll('#battle-options-box .btn-ans-pc').forEach(b => b.disabled = true);
         const right = idx === curQ.ans;
+
         if (right) {
             btn.classList.add('correct');
-            const playerDmg = 20 + state.weapLvl * 5;
+            // 玩家攻擊力隨武器升級
+            const playerDmg = 25 + state.weapLvl * 6;
             eHp = Math.max(0, eHp - playerDmg);
-            state.coins += 15;
+
+            // 雙向攻擊：若怪獸未死，怪獸反擊我方！
+            let counterDmg = curWave.dmg;
+            if (state.activePet === 'penguin') counterDmg = Math.round(counterDmg * 0.7); // 企鵝減傷 30%
+
+            let healText = "";
+            // 治療師答對為全隊回血！
+            if (state.activeHero === 'healer') {
+                const maxH = 100 + (state.armorLvl - 1) * 25;
+                hHp = Math.min(maxH, hHp + 12);
+                healText = " ｜ 🧚‍♀️ 治療師神聖光環恢復 12 HP！";
+            }
+
+            if (eHp > 0) {
+                hHp = Math.max(0, hHp - counterDmg);
+                document.getElementById('battle-exp-title').innerText = `✅ 答對進攻造成 ${playerDmg} 傷害！怪獸反擊了 ${counterDmg} 點傷害！${healText}`;
+            } else {
+                document.getElementById('battle-exp-title').innerText = `💥 致命爆擊！成功擊倒 ${curWave.name}！${healText}`;
+            }
+
+            state.coins += (state.activePet === 'dog') ? 15 : 12;
             state.streak++;
-            document.getElementById('battle-exp-title').innerText = "✅ 答對了！全隊發動雷射光刃斬擊！";
         } else {
             btn.classList.add('wrong');
-            hHp = Math.max(0, hHp - 20);
+            // 答錯：玩家 0 傷害，怪獸進行暴擊重擊！
+            let monsterCrit = Math.round(curWave.dmg * 2.2);
+
+            // 水獺護盾抵擋失誤
+            if (state.activePet === 'otter' && otterShieldActive) {
+                otterShieldActive = false;
+                document.getElementById('battle-exp-title').innerText = "❌ 答錯了！但跟班呆萌水獺發動護盾，為你抵擋了本次暴擊！";
+            } else {
+                if (state.activePet === 'penguin') monsterCrit = Math.round(monsterCrit * 0.7);
+                hHp = Math.max(0, hHp - monsterCrit);
+                document.getElementById('battle-exp-title').innerText = `❌ 答錯受到怪獸暴擊重擊，損失 ${monsterCrit} HP！`;
+            }
             state.streak = 0;
-            document.getElementById('battle-exp-title').innerText = "❌ 答錯了！受到怪獸反擊衝撞！";
         }
+
         document.getElementById('val-coins').innerText = state.coins;
         document.getElementById('val-streak').innerText = state.streak;
-        document.getElementById('battle-exp-body').innerHTML = "<p><b>中文釋義：</b>" + curQ.trans + "</p><p><b>💡 考點解析：</b>" + curQ.note + "</p>";
+        document.getElementById('battle-exp-body').innerHTML = `<p><b>中文釋義：</b>${curQ.trans}</p><p><b>💡 考點解析：</b>${curQ.note}</p>`;
         document.getElementById('battle-exp-card').style.display = 'block';
         updateCombatUI();
     }
 
     function nextBattleTurn() {
-        if (eHp <= 0) {
-            alert("🎉 恭喜成功擊敗【" + curStage.title + "】守門首領！獲得 50 星幣！");
-            state.coins += 50;
-            document.getElementById('val-coins').innerText = state.coins;
-            navTo('panel-map');
-            return;
-        }
         if (hHp <= 0) {
-            alert("💔 體力耗盡！先回星圖升級裝備再戰！");
+            alert("💔 勇者體力耗盡！先回到浮空島嶼整備，升級防具或更換治療師再來挑戰！");
             navTo('panel-map');
             return;
         }
+
+        if (eHp <= 0) {
+            if (curWaveIdx < 2) {
+                alert(`✨ 成功擊倒 ${curWave.name}！前進第 ${curWaveIdx + 2} 波次！(當前剩餘 HP 繼承至下一波)`);
+                setupWave(curWaveIdx + 1);
+                return;
+            } else {
+                alert(`🎉 恭喜徹底擊敗 ${curStage.title} 終極首領！全單元討伐成功！獎勵 50 星幣！`);
+                state.coins += 50;
+                document.getElementById('val-coins').innerText = state.coins;
+                navTo('panel-map');
+                return;
+            }
+        }
+
         loadNextBattleQ();
     }
     function speakBattleQ() { if (curQ) speakText(curQ.q); }
 
-    /* ==================== 2. 獨立標點符號的句型重組 (含倒退刪除一步) ==================== */
+    /* ==================== 2. 獨立標點符號的句型重組 ==================== */
     let scrambleIdx = 0;
     let curScramble = null;
     let userTokens = [];
 
-    function isPunctuation(t) {
-        return [",", ".", "?", "!"].includes(t);
-    }
+    function isPunctuation(t) { return [",", ".", "?", "!"].includes(t); }
 
     function loadNextScramble() {
         if (!ACTIVE_DATA) return;
@@ -917,13 +1029,10 @@
         userTokens = [];
         document.getElementById('scramble-hint-text').innerText = "題目提示：" + curScramble.hint;
 
-        const slot = document.getElementById('scramble-slot-box');
-        slot.innerHTML = '<span style="color: #64748b; font-size: 15px;">點選下方氣泡排列句子與標點...</span>';
-
         const bank = document.getElementById('scramble-bank-box');
         bank.innerHTML = '';
+        renderScrambleSlot();
 
-        // 徹底獨立單字與標點
         const shuffled = [...curScramble.tokens].sort(() => Math.random() - 0.5);
         shuffled.forEach((tok, i) => {
             const btn = document.createElement('button');
@@ -932,10 +1041,8 @@
             btn.innerText = tok;
             btn.id = "scramble-token-btn-" + i;
             btn.onclick = () => {
-                if (userTokens.length === 0) slot.innerHTML = '';
                 userTokens.push({ token: tok, originId: btn.id });
                 btn.classList.add('used');
-
                 renderScrambleSlot();
 
                 if (userTokens.length === curScramble.tokens.length) {
@@ -950,17 +1057,15 @@
         const slot = document.getElementById('scramble-slot-box');
         slot.innerHTML = '';
         if (userTokens.length === 0) {
-            slot.innerHTML = '<span style="color: #64748b; font-size: 15px;">點選下方氣泡排列句子與標點...</span>';
+            slot.innerHTML = '<span style="color: #94a3b8; font-size: 15px;">點選下方氣泡排列句子與標點...</span>';
             return;
         }
         userTokens.forEach((item, index) => {
             const bubble = document.createElement('div');
             const isPunct = isPunctuation(item.token);
             bubble.className = "word-bubble-pc " + (isPunct ? "punct" : "");
-            bubble.innerHTML = item.token + ' <span style="font-size: 12px; opacity: 0.7;">✕</span>';
-            bubble.title = "點擊撤回這個詞/符號";
+            bubble.innerHTML = `${item.token} <span style="font-size: 12px; opacity: 0.8;">✕</span>`;
             bubble.onclick = () => {
-                // 點擊撤回該氣泡
                 const originBtn = document.getElementById(item.originId);
                 if (originBtn) originBtn.classList.remove('used');
                 userTokens.splice(index, 1);
@@ -970,7 +1075,6 @@
         });
     }
 
-    /* 倒退刪除最後一步 (如打字 Backspace) */
     function popLastScrambleToken() {
         if (userTokens.length === 0) return;
         const last = userTokens.pop();
@@ -991,12 +1095,11 @@
         const card = document.getElementById('scramble-exp-card');
         if (isRight) {
             document.getElementById('scramble-exp-title').innerText = "🎉 標點與語序完全正確！排得太棒了！";
-            document.getElementById('scramble-exp-body').innerHTML = "<p><b>標準句子：</b>" + curScramble.trans + "</p><p><b>💡 文法考點：</b>" + curScramble.note + "</p>";
-            state.coins += 15;
-            state.streak++;
+            document.getElementById('scramble-exp-body').innerHTML = `<p><b>標準句子：</b>${curScramble.trans}</p><p><b>💡 文法考點：</b>${curScramble.note}</p>`;
+            state.coins += 15; state.streak++;
         } else {
             document.getElementById('scramble-exp-title').innerText = "❌ 標點位置或單字順序有誤，再檢查一下！";
-            document.getElementById('scramble-exp-body').innerHTML = "<p><b>正確排列應為：</b>" + curScramble.ans + "</p><p><b>💡 提示：</b>" + curScramble.note + "</p>";
+            document.getElementById('scramble-exp-body').innerHTML = `<p><b>正確排列應為：</b>${curScramble.ans}</p><p><b>💡 提示：</b>${curScramble.note}</p>`;
             state.streak = 0;
         }
         card.style.display = 'block';
@@ -1005,7 +1108,7 @@
         scrambleIdx++;
     }
 
-    /* ==================== 3. 自然發音積木拼字 (含混淆字母 + 倒退鍵) ==================== */
+    /* ==================== 3. 自然發音積木拼字 (含混淆干擾字母) ==================== */
     let spIdx = 0;
     let curSp = null;
     let userSpelled = [];
@@ -1022,26 +1125,23 @@
         const bank = document.getElementById('sp-letters-bank');
         bank.innerHTML = '';
         
-        // 核心改進：除了正確單字本身的字母外，隨機加入 3-4 個「混淆干擾字母」！
+        // 隨機加入 3-4 個混淆字母
         const alphabet = "abcdefghijklmnopqrstuvwxyz";
         const correctLetters = curSp.en.split('');
-        const distractorCount = 3;
         const distractors = [];
-        while (distractors.length < distractorCount) {
+        while (distractors.length < 3) {
             const randChar = alphabet[Math.floor(Math.random() * alphabet.length)];
             if (!distractors.includes(randChar) && !correctLetters.includes(randChar)) {
                 distractors.push(randChar);
             }
         }
-        
-        // 混合打散
         const pool = [...correctLetters, ...distractors].sort(() => Math.random() - 0.5);
 
         pool.forEach((letter, i) => {
             const btn = document.createElement('button');
             btn.className = 'btn-letter-block';
             btn.innerText = letter;
-            btn.id = "spell-letter-btn-" + i;
+            btn.id = "spell-btn-" + i;
             btn.onclick = () => {
                 userSpelled.push({ letter: letter, btnId: btn.id });
                 btn.classList.add('used');
@@ -1054,13 +1154,12 @@
                     const card = document.getElementById('sp-exp-card');
                     if (isRight) {
                         document.getElementById('sp-exp-title').innerText = "🎉 拼字完全正確！發音超標準！";
-                        document.getElementById('sp-exp-body').innerText = "正確單字：" + curSp.en + " (" + curSp.zh + ")";
-                        state.coins += 15;
-                        state.streak++;
+                        document.getElementById('sp-exp-body').innerText = `正確單字：${curSp.en} (${curSp.zh})`;
+                        state.coins += 15; state.streak++;
                         speakText(curSp.en);
                     } else {
-                        document.getElementById('sp-exp-title').innerText = "❌ 字母順序或選字有誤，請看正確拼法：";
-                        document.getElementById('sp-exp-body').innerText = "正確拼法為：" + curSp.en;
+                        document.getElementById('sp-exp-title').innerText = "❌ 字母順序拼錯囉，請看正確拼法：";
+                        document.getElementById('sp-exp-body').innerText = `正確拼法為：${curSp.en}`;
                         state.streak = 0;
                     }
                     card.style.display = 'block';
@@ -1084,7 +1183,6 @@
         }
     }
 
-    /* 倒退刪除上一個拼字字母 */
     function popLastSpellingLetter() {
         if (userSpelled.length === 0) return;
         const last = userSpelled.pop();
@@ -1115,7 +1213,7 @@
                 document.querySelectorAll('#vq-options-list .btn-ans-pc').forEach(b => b.disabled = true);
                 const right = c === curVQ.zh;
                 document.getElementById('vq-exp-title').innerText = right ? "✅ 答對了！字彙力提升！" : "❌ 答錯囉！";
-                document.getElementById('vq-exp-body').innerText = curVQ.en + " 代表「" + curVQ.zh + "」｜ 例句: " + curVQ.ex;
+                document.getElementById('vq-exp-body').innerText = `${curVQ.en} 代表「${curVQ.zh}」｜ 例句: ${curVQ.ex}`;
                 document.getElementById('vq-exp-card').style.display = 'block';
                 if (right) { state.coins += 10; state.streak++; } else { state.streak = 0; }
                 document.getElementById('val-coins').innerText = state.coins;
@@ -1137,7 +1235,7 @@
     function submitTF(val) {
         const right = val === curTF.ans;
         document.getElementById('tf-exp-title').innerText = right ? "⭕ 觀念正確！答對了！" : "❌ 觀念錯誤！注意陷阱！";
-        document.getElementById('tf-exp-body').innerHTML = "<p><b>中文解析：</b>" + curTF.trans + "</p><p>" + curTF.note + "</p>";
+        document.getElementById('tf-exp-body').innerHTML = `<p><b>中文解析：</b>${curTF.trans}</p><p>${curTF.note}</p>`;
         document.getElementById('tf-exp-card').style.display = 'block';
         if (right) { state.coins += 10; state.streak++; } else { state.streak = 0; }
         document.getElementById('val-coins').innerText = state.coins;
@@ -1173,7 +1271,7 @@
             state.coins -= cost; state.activeHero = h;
             document.getElementById('val-coins').innerText = state.coins;
             alert("✨ 成功解鎖夥伴！");
-        } else alert("❌ 星幣不足！需要 " + cost + " 星幣。");
+        } else alert(`❌ 星幣不足！需要 ${cost} 星幣。`);
     }
     function equipPet(p) { state.activePet = p; alert("已更換跟隨萌寵！"); }
     function buyPet(p, cost) {
@@ -1181,7 +1279,7 @@
             state.coins -= cost; state.activePet = p;
             document.getElementById('val-coins').innerText = state.coins;
             alert("🎉 成功收養萌寵！已帶上出戰！");
-        } else alert("❌ 星幣不足！需要 " + cost + " 星幣。");
+        } else alert(`❌ 星幣不足！需要 ${cost} 星幣。`);
     }
     function upgradeItem(type) {
         if (state.coins >= 50) {
@@ -1193,109 +1291,137 @@
         } else alert("❌ 星幣不足 50 點！");
     }
 
-    /* ==================== 8. 單字雷射防禦戰（徹底修復：受控生命週期 + 雷射動畫） ==================== */
-    let fallY = 40;
-    let fallSpeed = 0.65;
-    let defWord = null;
-    let defenseTimer = null;
+    /* ==================== 8. 多單字飄落雷射防禦戰 (離開立即停止計時) ==================== */
     let defenseScore = 0;
     let defenseActive = false;
+    let activeBalloons = [];
+    let balloonSpawnTimer = null;
+    let balloonMoveTimer = null;
 
     function startDefenseGame() {
         if (!ACTIVE_DATA) return;
-        stopDefenseGame(false); // 先清空舊計時器
+        stopDefenseGame(false);
         defenseActive = true;
-        fallY = 40;
         defenseScore = 0;
         document.getElementById('defense-score').innerText = defenseScore;
         document.getElementById('defense-history-list').innerHTML = '';
-        
-        pickNextDefenseWord();
-        
-        // 綁定 Enter 鍵快速發射
+        document.getElementById('defense-words-container').innerHTML = '';
+        activeBalloons = [];
+
         const inp = document.getElementById('defense-input-box');
         inp.value = '';
         inp.onkeydown = (e) => {
             if (e.key === 'Enter') fireLaser();
         };
 
-        defenseTimer = setInterval(() => {
+        // 每隔 2.8 秒從上方生成一個新的漂浮單字氣球
+        spawnBalloon();
+        balloonSpawnTimer = setInterval(() => {
             if (!defenseActive) return;
-            fallY += fallSpeed;
-            const wordEl = document.getElementById('defense-drop-word');
-            wordEl.style.top = fallY + 'px';
+            if (activeBalloons.length < 3) spawnBalloon();
+        }, 2800);
 
-            // 觸底警戒線判定 (350px)
-            if (fallY >= 350) {
-                // 扣心並記錄
-                state.hearts--;
-                if (state.hearts <= 0) state.hearts = 3;
-                document.getElementById('val-hearts').innerText = "❤️".repeat(Math.max(0, state.hearts)) + "🖤".repeat(Math.max(0, 3 - state.hearts));
-                
-                logDefenseEvent(defWord.zh + " (" + defWord.en + ")", false);
-                
-                // 重置下一個單字
-                fallY = 40;
-                pickNextDefenseWord();
+        // 運動更新定時器
+        balloonMoveTimer = setInterval(() => {
+            if (!defenseActive) return;
+            for (let i = activeBalloons.length - 1; i >= 0; i--) {
+                const b = activeBalloons[i];
+                b.y += b.speed;
+                b.el.style.top = b.y + 'px';
+
+                // 觸底警戒線判定 (370px)
+                if (b.y >= 370) {
+                    state.hearts--;
+                    if (state.hearts <= 0) state.hearts = 3;
+                    document.getElementById('val-hearts').innerText = "❤️".repeat(Math.max(0, state.hearts)) + "🖤".repeat(Math.max(0, 3 - state.hearts));
+                    logDefenseEvent(`${b.word.zh} (${b.word.en})`, false);
+
+                    b.el.remove();
+                    activeBalloons.splice(i, 1);
+                }
             }
         }, 30);
     }
 
     function stopDefenseGame(returnToMap) {
         defenseActive = false;
-        if (defenseTimer) {
-            clearInterval(defenseTimer);
-            defenseTimer = null;
-        }
-        if (returnToMap) {
-            navTo('panel-map');
-        }
+        if (balloonSpawnTimer) { clearInterval(balloonSpawnTimer); balloonSpawnTimer = null; }
+        if (balloonMoveTimer) { clearInterval(balloonMoveTimer); balloonMoveTimer = null; }
+        activeBalloons.forEach(b => b.el.remove());
+        activeBalloons = [];
+        if (returnToMap) navTo('panel-map');
     }
 
-    function pickNextDefenseWord() {
-        if (!ACTIVE_DATA) return;
-        defWord = ACTIVE_DATA.vocab[Math.floor(Math.random() * ACTIVE_DATA.vocab.length)];
-        const el = document.getElementById('defense-drop-word');
-        el.innerText = defWord.zh;
-        el.style.top = fallY + 'px';
+    function spawnBalloon() {
+        if (!ACTIVE_DATA || !defenseActive) return;
+        const w = ACTIVE_DATA.vocab[Math.floor(Math.random() * ACTIVE_DATA.vocab.length)];
+        const container = document.getElementById('defense-words-container');
+        
+        const el = document.createElement('div');
+        el.className = 'falling-word-balloon';
+        el.innerText = w.zh;
+        
+        // 隨機左、中、右軌道
+        const lanes = [20, 45, 70];
+        const laneX = lanes[Math.floor(Math.random() * lanes.length)];
+        el.style.left = laneX + '%';
+        el.style.top = '40px';
+        container.appendChild(el);
+
+        activeBalloons.push({
+            el: el,
+            word: w,
+            x: laneX,
+            y: 40,
+            speed: 0.55 + Math.random() * 0.25
+        });
     }
 
     function fireLaser() {
-        if (!defenseActive || !defWord) return;
+        if (!defenseActive) return;
         const inp = document.getElementById('defense-input-box');
         const val = inp.value.trim().toLowerCase();
-        
-        // 雷射光束由下往上發射動畫
-        const laser = document.getElementById('defense-laser');
-        laser.style.display = 'block';
-        laser.style.top = fallY + 20 + 'px';
-        laser.style.bottom = '30px';
-        
-        setTimeout(() => {
-            laser.style.display = 'none';
-        }, 180);
+        if (!val) return;
 
-        if (val === defWord.en) {
-            // 命中！
+        // 搜尋畫面上是否有匹配的單字
+        let hitIdx = -1;
+        for (let i = 0; i < activeBalloons.length; i++) {
+            if (activeBalloons[i].word.en === val) {
+                hitIdx = i;
+                break;
+            }
+        }
+
+        if (hitIdx !== -1) {
+            const b = activeBalloons[hitIdx];
+            
+            // 光箭發射動畫
+            const laser = document.getElementById('defense-laser');
+            laser.style.display = 'block';
+            laser.style.left = b.x + '%';
+            laser.style.top = b.y + 'px';
+            laser.style.height = (400 - b.y) + 'px';
+            
+            setTimeout(() => { laser.style.display = 'none'; }, 150);
+
+            // 命中爆炸
             defenseScore += 10;
             state.coins += 10;
             document.getElementById('val-coins').innerText = state.coins;
             document.getElementById('defense-score').innerText = defenseScore;
-            
-            logDefenseEvent(defWord.zh + " (" + defWord.en + ")", true);
-            inp.value = '';
+            logDefenseEvent(`${b.word.zh} (${b.word.en})`, true);
 
-            // 成功爆裂動畫效果
-            const wordEl = document.getElementById('defense-drop-word');
-            wordEl.style.transform = 'translateX(-50%) scale(1.3)';
+            b.el.style.transform = 'scale(1.3)';
+            b.el.style.background = '#22c55e';
             setTimeout(() => {
-                wordEl.style.transform = 'translateX(-50%) scale(1.0)';
-                fallY = 40;
-                pickNextDefenseWord();
-            }, 120);
+                b.el.remove();
+            }, 100);
+
+            activeBalloons.splice(hitIdx, 1);
+            inp.value = '';
         } else {
             inp.style.borderColor = '#ef4444';
-            setTimeout(() => { inp.style.borderColor = '#475569'; }, 300);
+            setTimeout(() => { inp.style.borderColor = '#cbd5e1'; }, 300);
         }
     }
 
@@ -1303,7 +1429,7 @@
         const list = document.getElementById('defense-history-list');
         const item = document.createElement('div');
         item.className = 'defense-log-item';
-        item.style.color = success ? '#4ade80' : '#f87171';
+        item.style.color = success ? '#15803d' : '#b91c1c';
         item.innerText = (success ? "💥 擊碎: " : "⚠️ 漏接: ") + text;
         list.prepend(item);
     }
@@ -1318,37 +1444,6 @@
             window.speechSynthesis.speak(u);
         }
     }
-
-    // 內建完整保底資料
-    window.FALLBACK_DATA = {
-        vocab: [
-            {"en": "apple", "zh": "蘋果", "phonics": "短母音 a", "ex": "It is a red apple."},
-            {"en": "cat", "zh": "貓咪", "phonics": "短母音 a", "ex": "The cat is cute."},
-            {"en": "pencil", "zh": "鉛筆", "phonics": "教室文具", "ex": "This is my yellow pencil."},
-            {"en": "eraser", "zh": "橡皮擦", "phonics": "接冠詞 an", "ex": "It is an eraser."},
-            {"en": "ruler", "zh": "尺", "phonics": "教室文具", "ex": "I have a long ruler."}
-        ],
-        spelling: [
-            {"en": "cat", "zh": "貓咪", "phonics": "短母音 a"},
-            {"en": "dog", "zh": "狗狗", "phonics": "短母音 o"},
-            {"en": "fish", "zh": "小魚", "phonics": "短母音 i"}
-        ],
-        tf: [
-            {"statement": "在英文中，eraser 前面應該使用冠詞 an，說成 an eraser。", "ans": true, "trans": "an eraser (一塊橡皮擦)", "note": "正確！母音開頭接 an。"}
-        ],
-        scramble: [
-            {"hint": "詢問對方的名字", "tokens": ["What's", "your", "name", "?"], "ans": "What's your name ?", "trans": "What's your name?", "note": "句尾放問號。"}
-        ],
-        stages: [
-            {
-                "id": 0, "title": "Starter", "subtitle": "26字母大冒險", "enemy": {"name": "果凍史萊姆", "img": "assets/boss_slime.jfif", "hp": 120},
-                "questions": [
-                    {"q": "What letter comes after C in the alphabet?", "opts": ["B", "D", "E", "F"], "ans": 1, "trans": "C 後面是 D", "note": "A->B->C->D。"},
-                    {"q": "What letter comes before F in the alphabet?", "opts": ["E", "G", "H", "D"], "ans": 0, "trans": "F 前面是 E", "note": "D->E->F。"}
-                ]
-            }
-        ]
-    };
 </script>
 </body>
 </html>

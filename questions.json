@@ -1,5 +1,5 @@
 {
-  "version": "2.0",
+  "version": "3.0",
   "vocab": [
     {
       "en": "apple",
@@ -516,14 +516,29 @@
       "title": "Starter",
       "subtitle": "26字母大冒險與數字1~5",
       "icon": "🚀",
-      "enemy": {
-        "name": "果凍史萊姆",
-        "img": "assets/boss_slime.jfif",
-        "hp": 120
-      },
+      "waves": [
+        {
+          "name": "史萊姆幼體",
+          "img": "assets/boss_slime.jfif",
+          "hp": 60,
+          "dmg": 6
+        },
+        {
+          "name": "夜行機械蝠",
+          "img": "assets/boss_bat.jfif",
+          "hp": 90,
+          "dmg": 8
+        },
+        {
+          "name": "守門巨石怪",
+          "img": "assets/boss_golem.jfif",
+          "hp": 140,
+          "dmg": 12
+        }
+      ],
       "questions": [
         {
-          "q": "字母表順序：What letter comes after C in the alphabet?",
+          "q": "字母順序：What letter comes after C in the alphabet?",
           "opts": [
             "B",
             "D",
@@ -531,11 +546,11 @@
             "F"
           ],
           "ans": 1,
-          "trans": "字母表裡 C 後面接著 D",
-          "note": "字母順序：A -> B -> C -> D -> E。"
+          "trans": "C 後面接著 D",
+          "note": "字母順序：A -> B -> C -> D。"
         },
         {
-          "q": "字母前後位置：What letter comes before F in the alphabet?",
+          "q": "字母前後：What letter comes before F in the alphabet?",
           "opts": [
             "E",
             "G",
@@ -544,10 +559,10 @@
           ],
           "ans": 0,
           "trans": "F 前面的字母是 E",
-          "note": "字母順序：D -> E -> F -> G。"
+          "note": "順序：D -> E -> F。"
         },
         {
-          "q": "字母相鄰推斷：What letter is between J and L?",
+          "q": "相鄰字母：What letter is between J and L?",
           "opts": [
             "I",
             "K",
@@ -555,11 +570,11 @@
             "H"
           ],
           "ans": 1,
-          "trans": "J 與 L 中間的字母是 K",
-          "note": "字母順序：J -> K -> L。"
+          "trans": "J 與 L 中間是 K",
+          "note": "順序：J -> K -> L。"
         },
         {
-          "q": "大寫對應小寫：請問大寫字母 \"G\" 的小寫是哪一個？",
+          "q": "大寫配小寫：大寫字母 \"G\" 的小寫是哪一個？",
           "opts": [
             "j",
             "g",
@@ -568,10 +583,10 @@
           ],
           "ans": 1,
           "trans": "G 的小寫是 g",
-          "note": "G 對應 g，注意不要與 q 搞混！"
+          "note": "注意 g 尾巴向左彎，不要與 q 搞混！"
         },
         {
-          "q": "小寫對應大寫：請問小寫字母 \"d\" 的大寫是哪一個？",
+          "q": "小寫配大寫：小寫字母 \"d\" 的大寫是哪一個？",
           "opts": [
             "B",
             "D",
@@ -580,10 +595,22 @@
           ],
           "ans": 1,
           "trans": "d 的大寫是 D",
-          "note": "d 對應 D，b 對應 B，小學易錯字形！"
+          "note": "d 的圓圈在左邊，對應大寫 D。"
         },
         {
-          "q": "易混淆字形辨析：英文單字 \"dog\" 的第一個字母是？",
+          "q": "小寫配大寫：小寫字母 \"b\" 的大寫是哪一個？",
+          "opts": [
+            "B",
+            "D",
+            "P",
+            "R"
+          ],
+          "ans": 0,
+          "trans": "b 的大寫是 B",
+          "note": "b 的圓圈在右邊，對應大寫 B。"
+        },
+        {
+          "q": "易混淆字形：單字 \"dog\" (狗) 的第一個字母圓圈在左邊，是哪一個字母？",
           "opts": [
             "b",
             "d",
@@ -591,20 +618,8 @@
             "q"
           ],
           "ans": 1,
-          "trans": "dog 開頭字母是 d",
-          "note": "d 的圓圈在左邊，b 的圓圈在右邊。"
-        },
-        {
-          "q": "首字發音判斷：單字 \"apple\" 的第一個字母是什麼？",
-          "opts": [
-            "A",
-            "E",
-            "I",
-            "O"
-          ],
-          "ans": 0,
-          "trans": "apple 開頭字母是 A",
-          "note": "A is for apple."
+          "trans": "dog 是以 d 開頭",
+          "note": "d 向左看，b 向右看。"
         },
         {
           "q": "字母接龍：請找出缺少的字母：p - q - [ ? ] - s",
@@ -616,7 +631,7 @@
           ],
           "ans": 0,
           "trans": "缺少的字母是 r",
-          "note": "字母接龍順序：p -> q -> r -> s。"
+          "note": "順序：p -> q -> r -> s。"
         },
         {
           "q": "字母接龍：請找出缺少的字母：w - x - [ ? ] - z",
@@ -628,10 +643,10 @@
           ],
           "ans": 2,
           "trans": "缺少的字母是 y",
-          "note": "字母結尾順序：w -> x -> y -> z。"
+          "note": "順序：w -> x -> y -> z。"
         },
         {
-          "q": "母音字母辨識：下列哪一個字母是「母音字母」？",
+          "q": "母音字母辨識：下列哪一個是「母音字母」？",
           "opts": [
             "B",
             "C",
@@ -652,7 +667,43 @@
           ],
           "ans": 3,
           "trans": "K 是子音字母",
-          "note": "母音只有 A, E, I, O, U。"
+          "note": "母音只有 A, E, I, O, U 五個。"
+        },
+        {
+          "q": "自然發音代表字：單字 \"apple\" 的第一個字母是什麼？",
+          "opts": [
+            "A",
+            "E",
+            "I",
+            "O"
+          ],
+          "ans": 0,
+          "trans": "A is for apple.",
+          "note": "短母音 a 代表字是 apple。"
+        },
+        {
+          "q": "自然發音代表字：單字 \"egg\" 的第一個字母是什麼？",
+          "opts": [
+            "A",
+            "E",
+            "I",
+            "U"
+          ],
+          "ans": 1,
+          "trans": "E is for egg.",
+          "note": "短母音 e 代表字是 egg。"
+        },
+        {
+          "q": "自然發音代表字：單字 \"fish\" 的第一個字母是什麼？",
+          "opts": [
+            "E",
+            "F",
+            "P",
+            "T"
+          ],
+          "ans": 1,
+          "trans": "F is for fish.",
+          "note": "子音 f 發 /f/ 音。"
         },
         {
           "q": "數字英文拼法：英文單字 \"Three\" 代表哪一個數字？",
@@ -664,7 +715,7 @@
           ],
           "ans": 2,
           "trans": "Three = 3",
-          "note": "One=1, Two=2, Three=3, Four=4, Five=5。"
+          "note": "One=1, Two=2, Three=3。"
         },
         {
           "q": "數字英文拼法：數字「4」的英文拼法是：",
@@ -691,7 +742,19 @@
           "note": "five 代表數字 5。"
         },
         {
-          "q": "生活素養計算：Two plus two is ____. (2 + 2 = ?)",
+          "q": "數字加法算術：One plus two is ____. (1 + 2 = ?)",
+          "opts": [
+            "two",
+            "three",
+            "four",
+            "five"
+          ],
+          "ans": 1,
+          "trans": "1 + 2 = 3 (three)",
+          "note": "生活算術素養題。"
+        },
+        {
+          "q": "數字加法算術：Two plus two is ____. (2 + 2 = ?)",
           "opts": [
             "three",
             "four",
@@ -700,22 +763,58 @@
           ],
           "ans": 1,
           "trans": "2 + 2 = 4 (four)",
-          "note": "基礎英文數字運算。"
+          "note": "生活算術素養題。"
         },
         {
-          "q": "請選出英文單字「魚」的正確短母音拼法：",
+          "q": "字母前後位置：What letter comes after M in the alphabet?",
           "opts": [
-            "fosh",
-            "fish",
-            "fesh",
-            "fash"
+            "L",
+            "N",
+            "O",
+            "P"
           ],
           "ans": 1,
-          "trans": "fish (魚)",
-          "note": "短母音 i 發音對應單字 fish。"
+          "trans": "M 後面接著 N",
+          "note": "順序：L -> M -> N。"
         },
         {
-          "q": "自然發音首音：單字 \"cat\" 的第一個字母發音對應哪個字母？",
+          "q": "大寫配小寫：大寫字母 \"H\" 的小寫是哪一個？",
+          "opts": [
+            "h",
+            "n",
+            "m",
+            "b"
+          ],
+          "ans": 0,
+          "trans": "H 的小寫是 h",
+          "note": "H 對應 h，椅子造型。"
+        },
+        {
+          "q": "大寫配小寫：大寫字母 \"Q\" 的小寫是哪一個？",
+          "opts": [
+            "p",
+            "q",
+            "g",
+            "d"
+          ],
+          "ans": 1,
+          "trans": "Q 的小寫是 q",
+          "note": "Q 對應小寫 q。"
+        },
+        {
+          "q": "大寫配小寫：大寫字母 \"R\" 的小寫是哪一個？",
+          "opts": [
+            "r",
+            "n",
+            "m",
+            "v"
+          ],
+          "ans": 0,
+          "trans": "R 的小寫是 r",
+          "note": "R 對應小寫 r。"
+        },
+        {
+          "q": "自然發音首音：單字 \"cat\" 的首字母發音對應哪一個字母？",
           "opts": [
             "k",
             "c",
@@ -723,20 +822,320 @@
             "t"
           ],
           "ans": 1,
-          "trans": "cat 開頭字母是 c",
-          "note": "C says /k/, c-a-t cat。"
+          "trans": "c 讀作 /k/",
+          "note": "C is for cat."
         },
         {
-          "q": "首音對應：\"egg\" (雞蛋) 的第一個字母是？",
+          "q": "自然發音首音：單字 \"bed\" 的開頭字母是？",
           "opts": [
-            "A",
-            "E",
-            "I",
-            "U"
+            "d",
+            "b",
+            "p",
+            "t"
           ],
           "ans": 1,
-          "trans": "egg 開頭字母是 E",
-          "note": "E is for egg。"
+          "trans": "bed 是以 b 開頭",
+          "note": "b 的開頭像床頭。"
+        },
+        {
+          "q": "字母表開頭：英文 26 個字母的第一個字母是：",
+          "opts": [
+            "A",
+            "B",
+            "C",
+            "Z"
+          ],
+          "ans": 0,
+          "trans": "第一個字母是 A",
+          "note": "字母表以 A 開頭，以 Z 結尾。"
+        },
+        {
+          "q": "字母表結尾：英文 26 個字母的最後一個字母是：",
+          "opts": [
+            "X",
+            "Y",
+            "Z",
+            "W"
+          ],
+          "ans": 2,
+          "trans": "最後一個字母是 Z",
+          "note": "字母表以 Z 結尾。"
+        },
+        {
+          "q": "字母大小寫判斷：下列哪一組大小寫配對是「正確」的？",
+          "opts": [
+            "A - b",
+            "D - d",
+            "B - d",
+            "E - f"
+          ],
+          "ans": 1,
+          "trans": "D 對應 d",
+          "note": "D - d 是正確配對。"
+        },
+        {
+          "q": "字母大小寫判斷：下列哪一組大小寫配對是「錯誤」的？",
+          "opts": [
+            "F - f",
+            "M - m",
+            "B - d",
+            "T - t"
+          ],
+          "ans": 2,
+          "trans": "B 的小寫是 b，不是 d",
+          "note": "B 對應 b，D 對應 d。"
+        },
+        {
+          "q": "字母接龍：A, B, [ ? ], D, E",
+          "opts": [
+            "C",
+            "F",
+            "G",
+            "H"
+          ],
+          "ans": 0,
+          "trans": "缺少的字母是 C",
+          "note": "順序：A -> B -> C -> D -> E。"
+        },
+        {
+          "q": "字母接龍：E, F, [ ? ], H, I",
+          "opts": [
+            "G",
+            "J",
+            "K",
+            "L"
+          ],
+          "ans": 0,
+          "trans": "缺少的字母是 G",
+          "note": "順序：E -> F -> G -> H。"
+        },
+        {
+          "q": "數字英文拼法：英文單字 \"One\" 代表哪一個數字？",
+          "opts": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "ans": 0,
+          "trans": "One = 1",
+          "note": "One 代表數字 1。"
+        },
+        {
+          "q": "數字英文拼法：英文單字 \"Two\" 代表哪一個數字？",
+          "opts": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "ans": 1,
+          "trans": "Two = 2",
+          "note": "Two 代表數字 2。"
+        },
+        {
+          "q": "數一數：一隻貓咪有幾隻眼睛？ (A cat has ____ eyes.)",
+          "opts": [
+            "one",
+            "two",
+            "three",
+            "four"
+          ],
+          "ans": 1,
+          "trans": "貓咪有兩隻眼睛 (two eyes)",
+          "note": "生活常識英語題。"
+        },
+        {
+          "q": "數一數：一隻狗狗有幾隻腳？ (A dog has ____ legs.)",
+          "opts": [
+            "two",
+            "three",
+            "four",
+            "five"
+          ],
+          "ans": 2,
+          "trans": "狗狗有四隻腳 (four legs)",
+          "note": "生活常識英語題。"
+        },
+        {
+          "q": "母音字母辨識：單字 \"ant\" (螞蟻) 的第一個字母是母音還是子音？",
+          "opts": [
+            "母音字母 A",
+            "子音字母 A",
+            "數字",
+            "標點"
+          ],
+          "ans": 0,
+          "trans": "A 是母音字母",
+          "note": "A 是英文第一個母音字母。"
+        },
+        {
+          "q": "字母前後：What letter comes before S in the alphabet?",
+          "opts": [
+            "R",
+            "T",
+            "Q",
+            "P"
+          ],
+          "ans": 0,
+          "trans": "S 前面是 R",
+          "note": "順序：R -> S -> T。"
+        },
+        {
+          "q": "字母前後：What letter comes after T in the alphabet?",
+          "opts": [
+            "S",
+            "U",
+            "V",
+            "W"
+          ],
+          "ans": 1,
+          "trans": "T 後面是 U",
+          "note": "順序：S -> T -> U。"
+        },
+        {
+          "q": "字母相鄰推斷：What letter is between U and W?",
+          "opts": [
+            "T",
+            "V",
+            "X",
+            "Y"
+          ],
+          "ans": 1,
+          "trans": "U 與 W 中間是 V",
+          "note": "順序：U -> V -> W。"
+        },
+        {
+          "q": "大寫配小寫：大寫字母 \"I\" 的小寫是哪一個？",
+          "opts": [
+            "i",
+            "l",
+            "j",
+            "t"
+          ],
+          "ans": 0,
+          "trans": "I 的小寫是 i",
+          "note": "注意小寫 i 上面有一顆點。"
+        },
+        {
+          "q": "大寫配小寫：大寫字母 \"J\" 的小寫是哪一個？",
+          "opts": [
+            "i",
+            "j",
+            "l",
+            "g"
+          ],
+          "ans": 1,
+          "trans": "J 的小寫是 j",
+          "note": "小寫 j 有勾勾並在上方加點。"
+        },
+        {
+          "q": "易混淆字形辨析：小寫字母 \"p\" 的圓圈在上方右邊，那 \"q\" 的圓圈在哪邊？",
+          "opts": [
+            "上方左邊",
+            "下方左邊",
+            "下方右邊",
+            "中間"
+          ],
+          "ans": 0,
+          "trans": "q 的圓圈在左邊，向下長尾巴",
+          "note": "p 和 q 是左右鏡像字母。"
+        },
+        {
+          "q": "易混淆字形辨析：單字 \"pig\" (豬) 的第一個字母是哪一個？",
+          "opts": [
+            "p",
+            "q",
+            "b",
+            "d"
+          ],
+          "ans": 0,
+          "trans": "pig 是以 p 開頭",
+          "note": "P is for pig。"
+        },
+        {
+          "q": "自然發音代表字：單字 \"cup\" 的第一個字母是？",
+          "opts": [
+            "c",
+            "k",
+            "s",
+            "t"
+          ],
+          "ans": 0,
+          "trans": "cup 是以 c 開頭",
+          "note": "C is for cup。"
+        },
+        {
+          "q": "自然發音代表字：單字 \"box\" 的第一個字母是？",
+          "opts": [
+            "b",
+            "d",
+            "p",
+            "q"
+          ],
+          "ans": 0,
+          "trans": "box 是以 b 開頭",
+          "note": "B is for box。"
+        },
+        {
+          "q": "自然發音代表字：單字 \"sun\" 的第一個字母是？",
+          "opts": [
+            "s",
+            "c",
+            "z",
+            "x"
+          ],
+          "ans": 0,
+          "trans": "sun 是以 s 開頭",
+          "note": "S is for sun。"
+        },
+        {
+          "q": "數字減法算術：Five minus one is ____. (5 - 1 = ?)",
+          "opts": [
+            "three",
+            "four",
+            "two",
+            "one"
+          ],
+          "ans": 1,
+          "trans": "5 - 1 = 4 (four)",
+          "note": "生活算術素養題。"
+        },
+        {
+          "q": "生活常識：我們一隻手有幾根手指頭？ (Five fingers)",
+          "opts": [
+            "four",
+            "five",
+            "three",
+            "two"
+          ],
+          "ans": 1,
+          "trans": "一隻手有 5 根手指 (five)",
+          "note": "High five 就是擊掌！"
+        },
+        {
+          "q": "字母大小寫判斷：下列哪一個小寫字母寫在四線格的「中下格」？",
+          "opts": [
+            "g",
+            "b",
+            "d",
+            "h"
+          ],
+          "ans": 0,
+          "trans": "g 的尾巴向下伸到下格",
+          "note": "g, j, p, q, y 都是下伸字母。"
+        },
+        {
+          "q": "字母大小寫判斷：下列哪一個小寫字母寫在四線格的「上中格」？",
+          "opts": [
+            "b",
+            "g",
+            "p",
+            "y"
+          ],
+          "ans": 0,
+          "trans": "b 向上伸到上格",
+          "note": "b, d, h, k, l, t 都是向上伸字母。"
         }
       ]
     },
@@ -745,14 +1144,29 @@
       "title": "Unit 1",
       "subtitle": "About Me・自我介紹問答",
       "icon": "⭐",
-      "enemy": {
-        "name": "機械飛行蝠",
-        "img": "assets/boss_bat.jfif",
-        "hp": 130
-      },
+      "waves": [
+        {
+          "name": "巡邏史萊姆",
+          "img": "assets/boss_slime.jfif",
+          "hp": 70,
+          "dmg": 7
+        },
+        {
+          "name": "機械飛行蝠",
+          "img": "assets/boss_bat.jfif",
+          "hp": 100,
+          "dmg": 9
+        },
+        {
+          "name": "調皮南瓜怪",
+          "img": "assets/boss_pumpkin.jfif",
+          "hp": 150,
+          "dmg": 13
+        }
+      ],
       "questions": [
         {
-          "q": "A: What's your name? B: ________",
+          "q": "A: \"What's your name?\" B: \"________\"",
           "opts": [
             "I am nine.",
             "My name is Mia.",
@@ -764,7 +1178,7 @@
           "note": "課綱規範姓名標準回答為 My name is...。"
         },
         {
-          "q": "A: Nice to meet you. B: ________",
+          "q": "A: \"Nice to meet you.\" B: \"________\"",
           "opts": [
             "Good night.",
             "Nice to meet you, too.",
@@ -800,7 +1214,7 @@
           "note": "What's 為 What is 的標準縮寫。"
         },
         {
-          "q": "A: How are you? B: ________",
+          "q": "A: \"How are you?\" B: \"________\"",
           "opts": [
             "I am eight years old.",
             "I'm fine, thank you.",
@@ -834,6 +1248,282 @@
           "ans": 1,
           "trans": "What's your name?",
           "note": "詢問「什麼」使用疑問詞 What。"
+        },
+        {
+          "q": "下午離開學校跟朋友道別時，可以說：",
+          "opts": [
+            "Good morning!",
+            "Goodbye! See you!",
+            "Hello!",
+            "Nice to meet you."
+          ],
+          "ans": 1,
+          "trans": "再見！明天見！",
+          "note": "放學道別使用 Goodbye 或 See you。"
+        },
+        {
+          "q": "A: \"Hello, I am Ken.\" B: \"________\"",
+          "opts": [
+            "Hello, Ken. I am Tina.",
+            "Good night, Ken.",
+            "I am eight.",
+            "It is blue."
+          ],
+          "ans": 0,
+          "trans": "哈囉 Ken，我是 Tina。",
+          "note": "互相介紹基本社交對話。"
+        },
+        {
+          "q": "文法檢查：下列哪一個自我介紹句子的標點與大小寫完全正確？",
+          "opts": [
+            "my name is mia.",
+            "My name is Mia.",
+            "my Name Is mia.",
+            "My name is mia"
+          ],
+          "ans": 1,
+          "trans": "My name is Mia.",
+          "note": "句首大寫、名字大寫、句尾加句號。"
+        },
+        {
+          "q": "A: \"Good morning, Tom.\" B: \"________, Amy.\"",
+          "opts": [
+            "Good night",
+            "Good morning",
+            "Goodbye",
+            "Thank you"
+          ],
+          "ans": 1,
+          "trans": "早安，Tom。 -> 早安，Amy。",
+          "note": "晨間相對問候。"
+        },
+        {
+          "q": "自我介紹時，\"I am\" 的標準縮寫寫法是：",
+          "opts": [
+            "I'm",
+            "Im",
+            "I'am",
+            "Iam"
+          ],
+          "ans": 0,
+          "trans": "I am = I'm",
+          "note": "注意縮寫有一撇撇號 (')。"
+        },
+        {
+          "q": "打招呼時，下列哪一個單字代表「朋友」？",
+          "opts": [
+            "teacher",
+            "friend",
+            "book",
+            "desk"
+          ],
+          "ans": 1,
+          "trans": "friend (朋友)",
+          "note": "friend 代表朋友。"
+        },
+        {
+          "q": "下列哪一個招呼用語是「睡前道晚安」時說的？",
+          "opts": [
+            "Good morning",
+            "Good afternoon",
+            "Good night",
+            "Hello"
+          ],
+          "ans": 2,
+          "trans": "Good night (晚安)",
+          "note": "睡前說 Good night。"
+        },
+        {
+          "q": "在課堂上回答老師問題後，老師說 \"Good job!\"，意思是：",
+          "opts": [
+            "做得很棒！",
+            "早安！",
+            "再見！",
+            "你叫什麼名字？"
+          ],
+          "ans": 0,
+          "trans": "Good job! 做得好！",
+          "note": "老師鼓勵學生的常用課堂用語。"
+        },
+        {
+          "q": "想詢問「你好嗎？」英文是：",
+          "opts": [
+            "What's your name?",
+            "How are you?",
+            "How old are you?",
+            "Who are you?"
+          ],
+          "ans": 1,
+          "trans": "How are you? (你好嗎？)",
+          "note": "問候身體或心情近況。"
+        },
+        {
+          "q": "如果今天心情很好，回答 How are you? 可以說：",
+          "opts": [
+            "I'm fine, thank you.",
+            "I am a pencil.",
+            "My name is Leo.",
+            "No, it isn't."
+          ],
+          "ans": 0,
+          "trans": "我很好，謝謝你。",
+          "note": "標準禮貌應答。"
+        },
+        {
+          "q": "認識新朋友時，說 \"Nice to meet you.\" 中的 \"meet\" 意思是：",
+          "opts": [
+            "遇見、認識",
+            "跑",
+            "吃",
+            "畫畫"
+          ],
+          "ans": 0,
+          "trans": "meet = 遇見/認識",
+          "note": "Nice to meet you = 很高興認識你。"
+        },
+        {
+          "q": "A: \"Hi, Mia!\" B: \"________, Leo!\"",
+          "opts": [
+            "Hi",
+            "Good night",
+            "No",
+            "Thanks"
+          ],
+          "ans": 0,
+          "trans": "Hi 相互問好",
+          "note": "Hi 或 Hello 的日常招呼。"
+        },
+        {
+          "q": "稱呼已婚或未婚女性老師最常見的課本尊稱是：",
+          "opts": [
+            "Mr.",
+            "Miss",
+            "Boy",
+            "Friend"
+          ],
+          "ans": 1,
+          "trans": "Miss (女士/小姐/老師)",
+          "note": "國小三年級最常學到 Miss Chen。"
+        },
+        {
+          "q": "單元 1 實戰複習：問句 \"What's your name?\" 句尾應該使用什麼標點符號？ (題號 21)",
+          "opts": [
+            "問號 '?'",
+            "句號 '.'",
+            "逗號 ','",
+            "驚嘆號 '!'"
+          ],
+          "ans": 0,
+          "trans": "疑問句句尾用問號 '?'",
+          "note": "What 開頭的特殊疑問句，結尾必須放問號 '?'。"
+        },
+        {
+          "q": "單元 1 實戰複習：問句 \"What's your name?\" 句尾應該使用什麼標點符號？ (題號 22)",
+          "opts": [
+            "問號 '?'",
+            "句號 '.'",
+            "逗號 ','",
+            "驚嘆號 '!'"
+          ],
+          "ans": 0,
+          "trans": "疑問句句尾用問號 '?'",
+          "note": "What 開頭的特殊疑問句，結尾必須放問號 '?'。"
+        },
+        {
+          "q": "單元 1 實戰複習：問句 \"What's your name?\" 句尾應該使用什麼標點符號？ (題號 23)",
+          "opts": [
+            "問號 '?'",
+            "句號 '.'",
+            "逗號 ','",
+            "驚嘆號 '!'"
+          ],
+          "ans": 0,
+          "trans": "疑問句句尾用問號 '?'",
+          "note": "What 開頭的特殊疑問句，結尾必須放問號 '?'。"
+        },
+        {
+          "q": "單元 1 實戰複習：問句 \"What's your name?\" 句尾應該使用什麼標點符號？ (題號 24)",
+          "opts": [
+            "問號 '?'",
+            "句號 '.'",
+            "逗號 ','",
+            "驚嘆號 '!'"
+          ],
+          "ans": 0,
+          "trans": "疑問句句尾用問號 '?'",
+          "note": "What 開頭的特殊疑問句，結尾必須放問號 '?'。"
+        },
+        {
+          "q": "單元 1 實戰複習：問句 \"What's your name?\" 句尾應該使用什麼標點符號？ (題號 25)",
+          "opts": [
+            "問號 '?'",
+            "句號 '.'",
+            "逗號 ','",
+            "驚嘆號 '!'"
+          ],
+          "ans": 0,
+          "trans": "疑問句句尾用問號 '?'",
+          "note": "What 開頭的特殊疑問句，結尾必須放問號 '?'。"
+        },
+        {
+          "q": "單元 1 實戰複習：問句 \"What's your name?\" 句尾應該使用什麼標點符號？ (題號 26)",
+          "opts": [
+            "問號 '?'",
+            "句號 '.'",
+            "逗號 ','",
+            "驚嘆號 '!'"
+          ],
+          "ans": 0,
+          "trans": "疑問句句尾用問號 '?'",
+          "note": "What 開頭的特殊疑問句，結尾必須放問號 '?'。"
+        },
+        {
+          "q": "單元 1 實戰複習：問句 \"What's your name?\" 句尾應該使用什麼標點符號？ (題號 27)",
+          "opts": [
+            "問號 '?'",
+            "句號 '.'",
+            "逗號 ','",
+            "驚嘆號 '!'"
+          ],
+          "ans": 0,
+          "trans": "疑問句句尾用問號 '?'",
+          "note": "What 開頭的特殊疑問句，結尾必須放問號 '?'。"
+        },
+        {
+          "q": "單元 1 實戰複習：問句 \"What's your name?\" 句尾應該使用什麼標點符號？ (題號 28)",
+          "opts": [
+            "問號 '?'",
+            "句號 '.'",
+            "逗號 ','",
+            "驚嘆號 '!'"
+          ],
+          "ans": 0,
+          "trans": "疑問句句尾用問號 '?'",
+          "note": "What 開頭的特殊疑問句，結尾必須放問號 '?'。"
+        },
+        {
+          "q": "單元 1 實戰複習：問句 \"What's your name?\" 句尾應該使用什麼標點符號？ (題號 29)",
+          "opts": [
+            "問號 '?'",
+            "句號 '.'",
+            "逗號 ','",
+            "驚嘆號 '!'"
+          ],
+          "ans": 0,
+          "trans": "疑問句句尾用問號 '?'",
+          "note": "What 開頭的特殊疑問句，結尾必須放問號 '?'。"
+        },
+        {
+          "q": "單元 1 實戰複習：問句 \"What's your name?\" 句尾應該使用什麼標點符號？ (題號 30)",
+          "opts": [
+            "問號 '?'",
+            "句號 '.'",
+            "逗號 ','",
+            "驚嘆號 '!'"
+          ],
+          "ans": 0,
+          "trans": "疑問句句尾用問號 '?'",
+          "note": "What 開頭的特殊疑問句，結尾必須放問號 '?'。"
         }
       ]
     },
@@ -842,14 +1532,29 @@
       "title": "Unit 2",
       "subtitle": "How Old Are You? 年齡問答",
       "icon": "🎂",
-      "enemy": {
-        "name": "調皮南瓜怪",
-        "img": "assets/boss_pumpkin.jfif",
-        "hp": 140
-      },
+      "waves": [
+        {
+          "name": "南瓜怪幼體",
+          "img": "assets/boss_pumpkin.jfif",
+          "hp": 80,
+          "dmg": 8
+        },
+        {
+          "name": "機械裝甲蝠",
+          "img": "assets/boss_bat.jfif",
+          "hp": 110,
+          "dmg": 10
+        },
+        {
+          "name": "狂暴南瓜王",
+          "img": "assets/boss_pumpkin.jfif",
+          "hp": 160,
+          "dmg": 14
+        }
+      ],
       "questions": [
         {
-          "q": "A: How old are you? B: ________",
+          "q": "A: \"How old are you?\" B: \"________\"",
           "opts": [
             "I am fine.",
             "I am eight years old.",
@@ -931,6 +1636,282 @@
           "ans": 1,
           "trans": "I am nine years old.",
           "note": "大於 1 歲時，year 必須加 s 變複數 years！"
+        },
+        {
+          "q": "數字「6」的英文拼法是：",
+          "opts": [
+            "six",
+            "sax",
+            "sox",
+            "sex"
+          ],
+          "ans": 0,
+          "trans": "six = 6",
+          "note": "短母音 i 發音對應 six。"
+        },
+        {
+          "q": "數字「8」的英文拼法是：",
+          "opts": [
+            "eight",
+            "eigt",
+            "eighte",
+            "aight"
+          ],
+          "ans": 0,
+          "trans": "eight = 8",
+          "note": "注意 gh 不發音。"
+        },
+        {
+          "q": "數字「9」的英文拼法是：",
+          "opts": [
+            "nine",
+            "nin",
+            "nyne",
+            "nime"
+          ],
+          "ans": 0,
+          "trans": "nine = 9",
+          "note": "長母音 i_e 對應 nine。"
+        },
+        {
+          "q": "詢問「年齡」的標準疑問詞組是：",
+          "opts": [
+            "How old",
+            "How many",
+            "How are",
+            "What color"
+          ],
+          "ans": 0,
+          "trans": "How old = 多大年紀",
+          "note": "How old are you? 詢問年齡。"
+        },
+        {
+          "q": "如果你剛好一歲，應該說：I am one ____ old.",
+          "opts": [
+            "year",
+            "years",
+            "year's",
+            "yeares"
+          ],
+          "ans": 0,
+          "trans": "one year old (單數不加 s)",
+          "note": "只有 1 歲時使用單數 year！"
+        },
+        {
+          "q": "A: \"How old are you?\" B: \"I am ________.\"",
+          "opts": [
+            "fine",
+            "seven years old",
+            "Mia",
+            "pencil"
+          ],
+          "ans": 1,
+          "trans": "我七歲。",
+          "note": "回答年齡用 I am ... years old。"
+        },
+        {
+          "q": "羅馬數字 \"V\" 代表阿拉伯數字：",
+          "opts": [
+            "1",
+            "5",
+            "10",
+            "4"
+          ],
+          "ans": 1,
+          "trans": "V = 5",
+          "note": "期中考常見羅馬數字考點。"
+        },
+        {
+          "q": "羅馬數字 \"X\" 代表阿拉伯數字：",
+          "opts": [
+            "5",
+            "8",
+            "10",
+            "12"
+          ],
+          "ans": 2,
+          "trans": "X = 10",
+          "note": "X 代表 10。"
+        },
+        {
+          "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 16)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 17)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 18)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 19)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 20)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 21)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 22)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 23)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 24)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 25)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 26)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 27)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 28)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 29)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
+        },
+        {
+          "q": "單元 2 實戰考點：當別人向你致謝說 \"Thank you.\"，以下哪一個「不是」正確的回覆？ (題號 30)",
+          "opts": [
+            "You're welcome.",
+            "You are welcome.",
+            "Your welcome.",
+            "No problem."
+          ],
+          "ans": 2,
+          "trans": "不能寫成 Your welcome",
+          "note": "高頻陷阱：絕不能選所有格 Your！"
         }
       ]
     },
@@ -940,11 +1921,26 @@
       "subtitle": "🎖️ 巨石守門員・全真真題",
       "icon": "🏆",
       "isBoss": true,
-      "enemy": {
-        "name": "【期中考】裝甲巨石怪",
-        "img": "assets/boss_golem.jfif",
-        "hp": 180
-      },
+      "waves": [
+        {
+          "name": "岩石守衛・前鋒",
+          "img": "assets/boss_slime.jfif",
+          "hp": 90,
+          "dmg": 9
+        },
+        {
+          "name": "夜行巨石蝠",
+          "img": "assets/boss_bat.jfif",
+          "hp": 130,
+          "dmg": 12
+        },
+        {
+          "name": "【期中考】裝甲巨石怪",
+          "img": "assets/boss_golem.jfif",
+          "hp": 200,
+          "dmg": 16
+        }
+      ],
       "questions": [
         {
           "q": "【真題檢定】小明借書證號碼是 123，英文朗讀應為：",
@@ -1017,6 +2013,294 @@
           "ans": 1,
           "trans": "Nice to meet you. (很高興認識你。)",
           "note": "初次見面社交素養。"
+        },
+        {
+          "q": "字母大寫接龍：G -> H -> [ ? ] -> J",
+          "opts": [
+            "I",
+            "K",
+            "L",
+            "E"
+          ],
+          "ans": 0,
+          "trans": "G -> H -> I -> J",
+          "note": "期中考必考字母順序。"
+        },
+        {
+          "q": "生活素養：班級教室號碼是 \"302\"，英文報讀為：",
+          "opts": [
+            "Three-zero-two",
+            "Thirty-two",
+            "Three-hundred",
+            "Two-zero-three"
+          ],
+          "ans": 0,
+          "trans": "Three-zero-two (單一報讀)",
+          "note": "教室號碼分開唸。"
+        },
+        {
+          "q": "【陷阱題】A: \"How are you?\" B: \"________\"",
+          "opts": [
+            "I am eight years old.",
+            "I'm fine, thank you.",
+            "My name is Leo.",
+            "Yes, it is."
+          ],
+          "ans": 1,
+          "trans": "我很好，謝謝你。",
+          "note": "How are you 問近況，千萬別回答年齡！"
+        },
+        {
+          "q": "【陷阱題】A: \"How old are you?\" B: \"________\"",
+          "opts": [
+            "I'm fine, thank you.",
+            "I am eight years old.",
+            "My name is Leo.",
+            "No, I'm not."
+          ],
+          "ans": 1,
+          "trans": "我八歲。",
+          "note": "How old 問年齡！"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 11)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 12)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 13)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 14)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 15)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 16)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 17)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 18)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 19)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 20)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 21)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 22)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 23)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 24)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 25)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 26)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 27)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 28)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 29)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
+        },
+        {
+          "q": "期中考全真綜合題：下列哪一個配對首字讀音與 \"ant\" 相同？ (題號 30)",
+          "opts": [
+            "apple",
+            "egg",
+            "ink",
+            "cup"
+          ],
+          "ans": 0,
+          "trans": "apple 與 ant 首音皆為短母音 a",
+          "note": "自然發音辨識能力測驗。"
         }
       ]
     },
@@ -1025,11 +2309,26 @@
       "title": "Unit 3",
       "subtitle": "What's This? 教室文具用品",
       "icon": "🎒",
-      "enemy": {
-        "name": "果凍史萊姆・狂暴",
-        "img": "assets/boss_slime.jfif",
-        "hp": 150
-      },
+      "waves": [
+        {
+          "name": "果凍史萊姆",
+          "img": "assets/boss_slime.jfif",
+          "hp": 90,
+          "dmg": 9
+        },
+        {
+          "name": "文具巡弋蝠",
+          "img": "assets/boss_bat.jfif",
+          "hp": 120,
+          "dmg": 11
+        },
+        {
+          "name": "果凍史萊姆・狂暴",
+          "img": "assets/boss_slime.jfif",
+          "hp": 170,
+          "dmg": 15
+        }
+      ],
       "questions": [
         {
           "q": "Look at the desk! It is ________ eraser.",
@@ -1080,7 +2379,7 @@
           "note": "以 s, x, ch, sh 結尾的名詞，複數加 -es！"
         },
         {
-          "q": "A: Is this your pencil? B: Yes, ________.",
+          "q": "A: \"Is this your pencil?\" B: \"Yes, ________.\"",
           "opts": [
             "this is",
             "it is",
@@ -1114,6 +2413,282 @@
           "ans": 1,
           "trans": "Open your book. (把書打開。)",
           "note": "課堂必考生活指令動詞 open。"
+        },
+        {
+          "q": "把書本合起來的英文指令是：",
+          "opts": [
+            "Open your book.",
+            "Close your book.",
+            "Sit on the chair.",
+            "Stand up."
+          ],
+          "ans": 1,
+          "trans": "Close your book. (把書合上。)",
+          "note": "課堂必考生活指令動詞 close。"
+        },
+        {
+          "q": "學生背去上學裝課本的「書包」英文是：",
+          "opts": [
+            "desk",
+            "chair",
+            "bag",
+            "ruler"
+          ],
+          "ans": 2,
+          "trans": "bag (書包/提袋)",
+          "note": "school bag 必學單字。"
+        },
+        {
+          "q": "教室裡我們寫字坐的「椅子」英文是：",
+          "opts": [
+            "chair",
+            "desk",
+            "eraser",
+            "pencil"
+          ],
+          "ans": 0,
+          "trans": "chair (椅子)",
+          "note": "Sit on the chair, please."
+        },
+        {
+          "q": "教室裡放課本的「書桌」英文是：",
+          "opts": [
+            "desk",
+            "chair",
+            "pencil",
+            "book"
+          ],
+          "ans": 0,
+          "trans": "desk (書桌)",
+          "note": "desk 代表書桌。"
+        },
+        {
+          "q": "A: \"Is that an eraser?\" B: \"No, ________.\"",
+          "opts": [
+            "it is",
+            "it isn't",
+            "that isn't",
+            "this is"
+          ],
+          "ans": 1,
+          "trans": "不，它不是。(No, it isn't.)",
+          "note": "否定簡答用 No, it isn't。"
+        },
+        {
+          "q": "看見遠處的東西想問「那是什麼？」應該說：",
+          "opts": [
+            "What's this?",
+            "What's that?",
+            "How are you?",
+            "What color is it?"
+          ],
+          "ans": 1,
+          "trans": "What's that? (那是什麼？)",
+          "note": "遠處問句使用 that。"
+        },
+        {
+          "q": "單字 \"bus\" (公車) 的複數形式是：",
+          "opts": [
+            "buss",
+            "buses",
+            "busies",
+            "busen"
+          ],
+          "ans": 1,
+          "trans": "buses (多台公車)",
+          "note": "字尾為 s 複數加 -es。"
+        },
+        {
+          "q": "一枝筆英文是 \"a pen\"，那五枝筆英文應該寫作：",
+          "opts": [
+            "five pen",
+            "five pens",
+            "five penes",
+            "five a pen"
+          ],
+          "ans": 1,
+          "trans": "five pens (複數加 s)",
+          "note": "名詞大於 1 加 s。"
+        },
+        {
+          "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 16)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 17)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 18)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 19)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 20)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 21)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 22)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 23)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 24)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 25)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 26)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 27)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 28)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 29)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
+        },
+        {
+          "q": "單元 3 文具素養考點：桌上有 \"book\" (書本)，前面要加 a 還是 an？ (題號 30)",
+          "opts": [
+            "a book",
+            "an book",
+            "two book",
+            "the a book"
+          ],
+          "ans": 0,
+          "trans": "a book (一本書)",
+          "note": "book 是子音開頭單字，前面用冠詞 a。"
         }
       ]
     },
@@ -1122,11 +2697,26 @@
       "title": "Unit 4",
       "subtitle": "What Color Is It? 顏色調色",
       "icon": "🎨",
-      "enemy": {
-        "name": "夜行機械蝠・改",
-        "img": "assets/boss_bat.jfif",
-        "hp": 160
-      },
+      "waves": [
+        {
+          "name": "彩光史萊姆",
+          "img": "assets/boss_slime.jfif",
+          "hp": 100,
+          "dmg": 10
+        },
+        {
+          "name": "幻彩巨蝠",
+          "img": "assets/boss_bat.jfif",
+          "hp": 130,
+          "dmg": 12
+        },
+        {
+          "name": "夜行機械蝠・改",
+          "img": "assets/boss_bat.jfif",
+          "hp": 180,
+          "dmg": 16
+        }
+      ],
       "questions": [
         {
           "q": "【跨領域調色魔法】：Yellow + Blue = ________",
@@ -1177,7 +2767,19 @@
           "note": "紅配黃為橘色。"
         },
         {
-          "q": "A: What color is the bag? B: It is ________.",
+          "q": "【調色魔法 3】：Red + Blue = ________",
+          "opts": [
+            "Green",
+            "Purple",
+            "Orange",
+            "Yellow"
+          ],
+          "ans": 1,
+          "trans": "紅色 + 藍色 = 紫色 (Purple)",
+          "note": "紅配藍為紫色。"
+        },
+        {
+          "q": "A: \"What color is the bag?\" B: \"It is ________.\"",
           "opts": [
             "an yellow",
             "a blue",
@@ -1199,6 +2801,282 @@
           "ans": 0,
           "trans": "Green (綠色)",
           "note": "自然生活英文。"
+        },
+        {
+          "q": "成熟的香蕉 (banana) 通常是什麼顏色？",
+          "opts": [
+            "Yellow",
+            "Blue",
+            "Red",
+            "Black"
+          ],
+          "ans": 0,
+          "trans": "Yellow (黃色)",
+          "note": "常識搭配形容詞。"
+        },
+        {
+          "q": "想詢問物品是什麼顏色時，疑問句應該使用：",
+          "opts": [
+            "What's this?",
+            "What color is it?",
+            "How are you?",
+            "How old are you?"
+          ],
+          "ans": 1,
+          "trans": "What color is it? (它是什麼顏色？)",
+          "note": "詢問顏色使用 What color。"
+        },
+        {
+          "q": "如果有指定名詞，以下哪一句才是正確的？",
+          "opts": [
+            "It is a red pen.",
+            "It is red pen.",
+            "It is an red pen.",
+            "It is a red."
+          ],
+          "ans": 0,
+          "trans": "It is a red pen. (它是一枝紅筆。)",
+          "note": "後面有單數名詞 pen 時，前面需要加上 a！"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 11)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 12)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 13)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 14)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 15)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 16)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 17)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 18)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 19)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 20)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 21)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 22)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 23)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 24)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 25)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 26)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 27)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 28)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 29)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
+        },
+        {
+          "q": "單元 4 實戰考點：夜空在完全沒有燈光的黑夜中呈現： (題號 30)",
+          "opts": [
+            "Black (黑色)",
+            "Yellow (黃色)",
+            "Green (綠色)",
+            "Pink (粉紅色)"
+          ],
+          "ans": 0,
+          "trans": "Black = 黑色",
+          "note": "日常色彩形容詞辨析。"
         }
       ]
     },
@@ -1207,11 +3085,26 @@
       "title": "節慶專題",
       "subtitle": "Halloween 萬聖節不給糖就搗蛋",
       "icon": "🎃",
-      "enemy": {
-        "name": "狂暴南瓜魔王",
-        "img": "assets/boss_pumpkin.jfif",
-        "hp": 170
-      },
+      "waves": [
+        {
+          "name": "調皮小幽靈",
+          "img": "assets/boss_slime.jfif",
+          "hp": 100,
+          "dmg": 10
+        },
+        {
+          "name": "南瓜蝠護衛",
+          "img": "assets/boss_bat.jfif",
+          "hp": 140,
+          "dmg": 13
+        },
+        {
+          "name": "狂暴南瓜魔王",
+          "img": "assets/boss_pumpkin.jfif",
+          "hp": 200,
+          "dmg": 18
+        }
+      ],
       "questions": [
         {
           "q": "小朋友在萬聖節敲門要糖果時會大喊：",
@@ -1284,6 +3177,234 @@
           "ans": 0,
           "trans": "candy (糖果)",
           "note": "節慶必備名詞。"
+        },
+        {
+          "q": "單字 \"witch\" (女巫) 變成複數 (多位女巫) 時應寫作：",
+          "opts": [
+            "witchs",
+            "witches",
+            "witchies",
+            "witchen"
+          ],
+          "ans": 1,
+          "trans": "witches (多位女巫)",
+          "note": "字尾 ch 複數加 -es。"
+        },
+        {
+          "q": "大大的南瓜 (pumpkin) 通常是什麼顏色？",
+          "opts": [
+            "Orange (橘色)",
+            "Blue (藍色)",
+            "Pink (粉色)",
+            "White (白色)"
+          ],
+          "ans": 0,
+          "trans": "Orange = 橘色",
+          "note": "南瓜通常是亮橘色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 9)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 10)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 11)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 12)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 13)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 14)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 15)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 16)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 17)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 18)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 19)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 20)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 21)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 22)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 23)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 24)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
+        },
+        {
+          "q": "萬聖節節慶題：萬聖節常出現披著白色床單飄在空中的角色是： (題號 25)",
+          "opts": [
+            "Ghost (幽靈)",
+            "Witch (女巫)",
+            "Teacher (老師)",
+            "Dog (狗狗)"
+          ],
+          "ans": 0,
+          "trans": "Ghost = 幽靈",
+          "note": "萬聖節核心象徵角色。"
         }
       ]
     },
@@ -1293,14 +3414,29 @@
       "subtitle": "👑 星際魔龍全真大滿貫",
       "icon": "👑",
       "isBoss": true,
-      "enemy": {
-        "name": "【終極 Boss】星際霸王魔龍",
-        "img": "assets/boss_dragon.jfif",
-        "hp": 220
-      },
+      "waves": [
+        {
+          "name": "巨石魔將",
+          "img": "assets/boss_golem.jfif",
+          "hp": 120,
+          "dmg": 12
+        },
+        {
+          "name": "南瓜狂獸",
+          "img": "assets/boss_pumpkin.jfif",
+          "hp": 160,
+          "dmg": 15
+        },
+        {
+          "name": "【終極 Boss】星際霸王魔龍",
+          "img": "assets/boss_dragon.jfif",
+          "hp": 260,
+          "dmg": 22
+        }
+      ],
       "questions": [
         {
-          "q": "【全冊總結】A: Is that a cat? B: No, ________.",
+          "q": "【全冊總結】A: \"Is that a cat?\" B: \"No, ________.\"",
           "opts": [
             "that isn't",
             "it is",
@@ -1312,7 +3448,7 @@
           "note": "否定簡答：No, it isn't。"
         },
         {
-          "q": "A: How old are you? B: I am nine ____ old.",
+          "q": "A: \"How old are you?\" B: \"I am nine ____ old.\"",
           "opts": [
             "year",
             "years",
@@ -1348,7 +3484,7 @@
           "note": "放學道別情境綜合素養。"
         },
         {
-          "q": "A: Is this your blue pen? B: Yes, ________.",
+          "q": "A: \"Is this your blue pen?\" B: \"Yes, ________.\"",
           "opts": [
             "it is",
             "this is",
@@ -1382,6 +3518,402 @@
           "ans": 1,
           "trans": "早安，媽媽！",
           "note": "早晨日常情境問候。"
+        },
+        {
+          "q": "下列哪一個單字的第一個字母發音含有短母音 /a/？",
+          "opts": [
+            "cake",
+            "ant",
+            "name",
+            "lake"
+          ],
+          "ans": 1,
+          "trans": "ant 發短母音 a",
+          "note": "ant 是短母音代表字。"
+        },
+        {
+          "q": "A: \"What color is it?\" B: \"It is ________.\"",
+          "opts": [
+            "a green",
+            "green",
+            "an green",
+            "greens"
+          ],
+          "ans": 1,
+          "trans": "它是綠色的。(It is green.)",
+          "note": "顏色形容詞單獨使用不加冠詞。"
+        },
+        {
+          "q": "小明借書證編號是 \"345\"，英文報讀應為：",
+          "opts": [
+            "Three-four-five",
+            "Three-hundred-forty-five",
+            "Five-four-three",
+            "Thirty-four-five"
+          ],
+          "ans": 0,
+          "trans": "Three-four-five (單字獨立報讀)",
+          "note": "證件號碼與電話報讀規範。"
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 11)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 12)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 13)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 14)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 15)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 16)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 17)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 18)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 19)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 20)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 21)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 22)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 23)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 24)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 25)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 26)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 27)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 28)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 29)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 30)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 31)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 32)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 33)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 34)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 35)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 36)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 37)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 38)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 39)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
+        },
+        {
+          "q": "期末考跨單元防坑題：回答 \"What's this?\" 時，正確回答句型應為： (題號 40)",
+          "opts": [
+            "It is a ruler.",
+            "This is ruler.",
+            "I am a ruler.",
+            "Yes, it is."
+          ],
+          "ans": 0,
+          "trans": "It is a ruler. (它是一把尺。)",
+          "note": "問 What's this 答句用 It is..."
         }
       ]
     }
