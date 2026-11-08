@@ -31,7 +31,6 @@
             overflow-x: hidden;
         }
 
-        /* 頂部全域桌面導航列 */
         .desktop-nav-wrap {
             width: 100%;
             max-width: 1120px;
@@ -54,7 +53,6 @@
             display: flex; align-items: center; gap: 6px;
         }
 
-        /* 任務分頁切換列 */
         .mission-tab-bar {
             width: 100%;
             max-width: 1120px;
@@ -84,7 +82,6 @@
             box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
         }
 
-        /* 主工作面板 */
         .workspace-panel {
             width: 100%;
             max-width: 1120px;
@@ -101,7 +98,7 @@
         }
         .workspace-panel.active { display: flex !important; }
 
-        /* 1. 地圖：移除遮擋的大圓球，使用貼合底圖的熱區 */
+        /* 地圖：透明熱區，滑鼠移上發光，完全露出底圖 */
         #panel-map {
             background-color: #bae6fd;
             background-image: url('assets/map_bg2.jfif'), url('assets/map_bg2.jpg'), url('assets/map_bg.jfif'), linear-gradient(180deg, #38bdf8 0%, #7dd3fc 35%, #bae6fd 70%, #f0fdf4 100%);
@@ -117,37 +114,24 @@
         .map-station-hotspot {
             position: absolute;
             transform: translate(-50%, -50%);
-            border-radius: 18px;
+            border-radius: 22px;
             cursor: pointer;
-            z-index: 15;
+            z-index: 20;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: rgba(255, 255, 255, 0.01);
+            border: 3px solid transparent;
         }
         .map-station-hotspot:hover {
-            transform: translate(-50%, -50%) scale(1.08);
-        }
-        .station-btn-pill {
-            background: rgba(2, 132, 199, 0.92);
-            color: #ffffff;
-            border: 2px solid #ffffff;
-            border-radius: 14px;
-            padding: 6px 14px;
-            font-size: 13.5px;
-            font-weight: 900;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .station-btn-pill.boss-pill {
-            background: rgba(220, 38, 38, 0.92);
-            border-color: #fef08a;
+            border-color: #fbbf24;
+            background: rgba(254, 240, 138, 0.28);
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.7);
+            transform: translate(-50%, -50%) scale(1.05);
         }
 
-        /* 2. 戰鬥場景 */
+        /* 戰鬥與卡牌 */
         .battle-arena-pc {
             min-height: 310px;
             background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 60%, #f8fafc 100%);
@@ -168,9 +152,7 @@
             box-shadow: 0 0 25px rgba(217, 119, 6, 0.5);
             position: relative; display: flex; flex-direction: column; overflow: hidden;
         }
-        .trading-card-frame.monster {
-            border-color: #ef4444; box-shadow: 0 0 25px rgba(239, 68, 68, 0.5);
-        }
+        .trading-card-frame.monster { border-color: #ef4444; box-shadow: 0 0 25px rgba(239, 68, 68, 0.5); }
         .card-header-bar {
             background: linear-gradient(180deg, #d97706 0%, #78350f 100%);
             color: #fff; font-size: 11.5px; font-weight: 900; text-align: center;
@@ -239,7 +221,6 @@
             background: #f1f5f9; color: #475569; border: 2px solid #cbd5e1; padding: 10px 26px;
             border-radius: 14px; font-size: 14.5px; font-weight: 800; cursor: pointer; align-self: center; margin-top: 14px;
         }
-        .btn-return-action:hover { background: #e2e8f0; color: #0f172a; }
 
         .explanation-pc-card {
             display: none; background: #f8fafc; border-top: 4px solid #0284c7;
@@ -312,7 +293,7 @@
             background: #f8fafc; border: 3px solid #cbd5e1; cursor: pointer; transition: all 0.2s;
         }
 
-        /* 8. 各單元重點全覽 (頂部跳轉零遮擋修復) */
+        /* 8. 各單元重點全覽 */
         #panel-flashcard { padding: 28px; }
         .guide-jump-nav {
             display: flex; flex-wrap: wrap; gap: 10px; padding: 14px 18px; margin-bottom: 24px;
@@ -359,11 +340,16 @@
         }
         .btn-buy-pc.active-use { background: #e2e8f0; color: #64748b; cursor: default; }
 
-        /* 防禦戰 */
+        /* 防禦戰 (含中央開始按鈕覆蓋層) */
         .defense-layout { display: grid; grid-template-columns: 1fr 280px; gap: 20px; }
         .defense-canvas-wrap {
             height: 440px; background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 70%, #ffffff 100%);
             border: 2px solid #38bdf8; border-radius: 22px; position: relative; overflow: hidden;
+        }
+        .defense-start-cover {
+            position: absolute; inset: 0; background: rgba(15, 23, 42, 0.75);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 50; backdrop-filter: blur(4px);
         }
         .falling-word-balloon {
             position: absolute; background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
@@ -402,7 +388,6 @@
 </head>
 <body>
 
-    <!-- 頂部全域桌面導航列 -->
     <div class="desktop-nav-wrap">
         <div class="app-brand">
             <span>🏝️</span>
@@ -430,32 +415,16 @@
         <button class="mission-tab" id="tab-btn-defense" onclick="navTo('panel-defense')">👾 單字雷射防禦戰</button>
     </div>
 
-    <!-- 1. 浮空島嶼地圖 (完全露出底圖本身的插畫與文字，點擊熱區直接對準！) -->
+    <!-- 1. 浮空島嶼地圖 (透明發光熱區，完全顯露底圖本身設計) -->
     <div id="panel-map" class="workspace-panel active">
-        <div class="map-station-hotspot" style="left: 14%; top: 78%;" onclick="startRPGCombat(0)">
-            <div class="station-btn-pill">⚔️ 進入 Starter</div>
-        </div>
-        <div class="map-station-hotspot" style="left: 16%; top: 48%;" onclick="startRPGCombat(1)">
-            <div class="station-btn-pill">⚔️ 進入 Unit 1</div>
-        </div>
-        <div class="map-station-hotspot" style="left: 38%; top: 56%;" onclick="startRPGCombat(2)">
-            <div class="station-btn-pill">⚔️ 進入 Unit 2</div>
-        </div>
-        <div class="map-station-hotspot" style="left: 49%; top: 80%;" onclick="startRPGCombat(3)">
-            <div class="station-btn-pill boss-pill">🏆 期中巨石守門員</div>
-        </div>
-        <div class="map-station-hotspot" style="left: 63%; top: 56%;" onclick="startRPGCombat(4)">
-            <div class="station-btn-pill">⚔️ 進入 Unit 3</div>
-        </div>
-        <div class="map-station-hotspot" style="left: 68%; top: 30%;" onclick="startRPGCombat(5)">
-            <div class="station-btn-pill">⚔️ 進入 Unit 4</div>
-        </div>
-        <div class="map-station-hotspot" style="left: 88%; top: 46%;" onclick="startRPGCombat(6)">
-            <div class="station-btn-pill">🎃 萬聖節專題戰</div>
-        </div>
-        <div class="map-station-hotspot" style="left: 87%; top: 82%;" onclick="startRPGCombat(7)">
-            <div class="station-btn-pill boss-pill">👑 期末霸王魔龍</div>
-        </div>
+        <div class="map-station-hotspot" style="left: 14%; top: 82%; width: 140px; height: 110px;" onclick="startRPGCombat(0)" title="點選進入 Starter"></div>
+        <div class="map-station-hotspot" style="left: 16%; top: 46%; width: 135px; height: 115px;" onclick="startRPGCombat(1)" title="點選進入 Unit 1"></div>
+        <div class="map-station-hotspot" style="left: 38%; top: 58%; width: 135px; height: 115px;" onclick="startRPGCombat(2)" title="點選進入 Unit 2"></div>
+        <div class="map-station-hotspot" style="left: 49%; top: 80%; width: 140px; height: 120px;" onclick="startRPGCombat(3)" title="點選進入 期中考"></div>
+        <div class="map-station-hotspot" style="left: 63%; top: 58%; width: 145px; height: 115px;" onclick="startRPGCombat(4)" title="點選進入 Unit 3"></div>
+        <div class="map-station-hotspot" style="left: 68%; top: 27%; width: 140px; height: 115px;" onclick="startRPGCombat(5)" title="點選進入 Unit 4"></div>
+        <div class="map-station-hotspot" style="left: 88%; top: 48%; width: 140px; height: 115px;" onclick="startRPGCombat(6)" title="點選進入 萬聖節專題"></div>
+        <div class="map-station-hotspot" style="left: 87%; top: 80%; width: 145px; height: 120px;" onclick="startRPGCombat(7)" title="點選進入 期末魔龍決戰"></div>
     </div>
 
     <!-- 2. RPG 雙向回合制戰鬥 -->
@@ -544,7 +513,7 @@
         </div>
     </div>
 
-    <!-- 4. 句型重組 (獨立送出檢查答案按鈕！) -->
+    <!-- 4. 句型重組 -->
     <div id="panel-scramble" class="workspace-panel">
         <div class="practice-header-strip">
             <div>
@@ -570,7 +539,6 @@
         <div class="scramble-dropzone" id="scramble-slot-box"></div>
         <div class="word-bank-pc" id="scramble-bank-box"></div>
 
-        <!-- 獨立確認答案按鈕 -->
         <div style="text-align: center; margin: 18px 0;">
             <button class="btn-next-pc" style="background:#16a34a; font-size:18px; padding:12px 42px;" onclick="checkScrambleResult()">
                 ✅ 檢查答案 (確認送出)
@@ -740,16 +708,23 @@
         <div class="shop-cards-grid" id="pets-shop-cards-grid"></div>
     </div>
 
-    <!-- 10. 單字防禦戰 -->
+    <!-- 10. 單字雷射防禦戰 (具備點擊開始按鈕) -->
     <div id="panel-defense" class="workspace-panel">
         <h2 style="font-size: 24px; color: #0369a1; margin-bottom: 4px;">👾 單字雷射防禦戰 (多字飄落)</h2>
         <p style="color: #64748b; font-size: 14px; margin-bottom: 16px;">
-            在中文單字抵達底線前，在輸入框輸入對應英文並按 <b>Enter</b> 發射光束擊碎！
+            點擊【🚀 開始防禦】後單字開始飄落！在單字抵達底線前，在輸入框輸入對應英文並按 <b>Enter</b> 發射光束擊碎！
         </p>
 
         <div class="defense-layout">
             <div>
                 <div class="defense-canvas-wrap" id="defense-arena">
+                    <!-- 開始防禦按鈕遮罩層 -->
+                    <div class="defense-start-cover" id="defenseStartCover">
+                        <button class="btn-next-pc" style="font-size: 20px; padding: 16px 42px; background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); box-shadow: 0 4px 20px rgba(22, 163, 74, 0.6);" onclick="launchDefensePlay()">
+                            🚀 開始防禦挑戰
+                        </button>
+                    </div>
+
                     <div style="position: absolute; top: 10px; left: 16px; right: 16px; display: flex; justify-content: space-between; align-items: center; z-index: 30;">
                         <span style="font-size: 14.5px; font-weight: 800; color: #0369a1;">防禦積分: <b id="defense-score">0</b> 分</span>
                         <div style="display: flex; gap: 8px;">
@@ -914,12 +889,23 @@
         const activeTab = document.getElementById(tabMap[panelId]);
         if (activeTab) activeTab.classList.add('active');
 
-        if (panelId === 'panel-defense') {
-            startDefenseGame();
+        // 切換分頁時，如果該分頁未渲染，立即主動渲染題目！
+        if (panelId === 'panel-listening' && (!curLis || lisRound === 0)) {
+            initListeningChallenge(currentLisUnit, true);
+        } else if (panelId === 'panel-scramble' && (!curScramble || scrambleRound === 0)) {
+            initScrambleChallenge(currentScrambleUnit, true);
+        } else if (panelId === 'panel-spelling' && (!curSp || spellRound === 0)) {
+            initSpellingChallenge(currentSpellUnit, true);
+        } else if (panelId === 'panel-vocab-quiz' && (!curVQ || vocabRound === 0)) {
+            initVocabChallenge(currentVocabUnit, true);
+        } else if (panelId === 'panel-tf' && (!curTF || tfRound === 0)) {
+            initTFChallenge(currentTFUnit, true);
         } else if (panelId === 'panel-flashcard') {
             renderAllUnitsGuide();
         } else if (panelId === 'panel-shop') {
             renderShopPetCards();
+        } else if (panelId === 'panel-defense') {
+            prepareDefenseStandby();
         }
     }
 
@@ -953,11 +939,11 @@
 
     function initPanels() {
         if (!ACTIVE_DATA) return;
-        initListeningChallenge(null, false);
-        initScrambleChallenge(null, false);
-        initSpellingChallenge(null, false);
-        initVocabChallenge(null, false);
-        initTFChallenge(null, false);
+        initListeningChallenge("all", true);
+        initScrambleChallenge("all", true);
+        initSpellingChallenge("all", true);
+        initVocabChallenge("all", true);
+        initTFChallenge("all", true);
         renderAllUnitsGuide();
         renderShopPetCards();
     }
@@ -1156,14 +1142,13 @@
     }
     function speakBattleQ() { if (curQ) speakText(curQ.audio || curQ.q); }
 
-    /* 2. 聽力測驗 (防空跑保護 + 循環取題) */
+    /* 2. 聽力測驗 */
     let lisQueue = [];
     let curLis = null;
     let lisRound = 0;
     let lisScore = 0;
     let lisCoinsEarned = 0;
     let currentLisUnit = "all";
-    let isListeningActive = false;
 
     function initListeningChallenge(filterUnit, autoStart = true) {
         currentLisUnit = filterUnit || "all";
@@ -1172,7 +1157,6 @@
         lisRound = 0;
         lisScore = 0;
         lisCoinsEarned = 0;
-        isListeningActive = autoStart;
 
         let pool = (ACTIVE_DATA && ACTIVE_DATA.listening) ? [...ACTIVE_DATA.listening] : [];
         if (filterUnit && filterUnit !== 'all') {
@@ -1191,18 +1175,15 @@
     function loadNextListeningQ() {
         document.getElementById('lis-exp-card').style.display = 'none';
         
-        // 唯有真正進行挑戰並答滿 10 題才結算！
         if (lisRound >= 10) {
             const finalBonus = 15;
             state.coins += finalBonus;
             lisCoinsEarned += finalBonus;
             document.getElementById('val-coins').innerText = state.coins;
-            isListeningActive = false;
             showSettlementCard(`恭喜完成 10 題聽力測驗！得分：${lisScore} 分`, lisCoinsEarned);
             return;
         }
 
-        // 循環補題，絕不抽空
         if (lisQueue.length === 0) {
             let pool = (ACTIVE_DATA && ACTIVE_DATA.listening) ? [...ACTIVE_DATA.listening] : [];
             if (currentLisUnit !== 'all') {
@@ -1257,14 +1238,13 @@
     }
     function nextListeningQ() { loadNextListeningQ(); }
 
-    /* 3. 句型重組 (獨立送出檢查答案按鈕！) */
+    /* 3. 句型重組 */
     let scrambleQueue = [];
     let curScramble = null;
     let scrambleRound = 0;
     let userTokens = [];
     let scrambleCoinsEarned = 0;
     let currentScrambleUnit = "all";
-    let isScrambleActive = false;
 
     function initScrambleChallenge(filterUnit, autoStart = true) {
         currentScrambleUnit = filterUnit || "all";
@@ -1272,7 +1252,6 @@
 
         scrambleRound = 0;
         scrambleCoinsEarned = 0;
-        isScrambleActive = autoStart;
 
         let pool = (ACTIVE_DATA && ACTIVE_DATA.scramble) ? [...ACTIVE_DATA.scramble] : [];
         if (filterUnit && filterUnit !== 'all') {
@@ -1296,7 +1275,6 @@
             state.coins += finalBonus;
             scrambleCoinsEarned += finalBonus;
             document.getElementById('val-coins').innerText = state.coins;
-            isScrambleActive = false;
             showSettlementCard(`恭喜完成 10 題句型重組！`, scrambleCoinsEarned);
             return;
         }
@@ -1399,14 +1377,13 @@
     }
     function nextScrambleQ() { loadNextScramble(); }
 
-    /* 4. 自然發音積木 (支援單元篩選) */
+    /* 4. 自然發音積木 */
     let spellQueue = [];
     let curSp = null;
     let spellRound = 0;
     let userSpelled = [];
     let spellCoinsEarned = 0;
     let currentSpellUnit = "all";
-    let isSpellActive = false;
 
     function initSpellingChallenge(filterUnit, autoStart = true) {
         currentSpellUnit = filterUnit || "all";
@@ -1414,7 +1391,6 @@
 
         spellRound = 0;
         spellCoinsEarned = 0;
-        isSpellActive = autoStart;
 
         let pool = (ACTIVE_DATA && ACTIVE_DATA.spelling) ? [...ACTIVE_DATA.spelling] : [];
         if (filterUnit && filterUnit !== 'all') {
@@ -1436,7 +1412,6 @@
             state.coins += finalBonus;
             spellCoinsEarned += finalBonus;
             document.getElementById('val-coins').innerText = state.coins;
-            isSpellActive = false;
             showSettlementCard(`恭喜完成 10 題發音積木拼字！`, spellCoinsEarned);
             return;
         }
@@ -1529,13 +1504,12 @@
     function speakSpellingWord() { if (curSp) speakText(curSp.en); }
     function nextSpellingQ() { loadNextSpelling(); }
 
-    /* 5. 單字測驗 (支援單元篩選) */
+    /* 5. 單字測驗 */
     let vocabQueue = [];
     let curVQ = null;
     let vocabRound = 0;
     let vqCoinsEarned = 0;
     let currentVocabUnit = "all";
-    let isVocabActive = false;
 
     function initVocabChallenge(filterUnit, autoStart = true) {
         currentVocabUnit = filterUnit || "all";
@@ -1543,7 +1517,6 @@
 
         vocabRound = 0;
         vqCoinsEarned = 0;
-        isVocabActive = autoStart;
 
         let pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? [...ACTIVE_DATA.vocab] : [];
         if (filterUnit && filterUnit !== 'all') {
@@ -1564,7 +1537,6 @@
             state.coins += finalBonus;
             vqCoinsEarned += finalBonus;
             document.getElementById('val-coins').innerText = state.coins;
-            isVocabActive = false;
             showSettlementCard(`恭喜完成 10 題單字測驗！`, vqCoinsEarned);
             return;
         }
@@ -1623,13 +1595,12 @@
     }
     function nextVocabQ() { loadNextVocabQ(); }
 
-    /* 6. 是非觀念題 (支援單元篩選) */
+    /* 6. 是非題 */
     let tfQueue = [];
     let curTF = null;
     let tfRound = 0;
     let tfCoinsEarned = 0;
     let currentTFUnit = "all";
-    let isTFActive = false;
 
     function initTFChallenge(filterUnit, autoStart = true) {
         currentTFUnit = filterUnit || "all";
@@ -1637,7 +1608,6 @@
 
         tfRound = 0;
         tfCoinsEarned = 0;
-        isTFActive = autoStart;
 
         let pool = (ACTIVE_DATA && ACTIVE_DATA.tf) ? [...ACTIVE_DATA.tf] : [];
         if (filterUnit && filterUnit !== 'all') {
@@ -1658,7 +1628,6 @@
             state.coins += finalBonus;
             tfCoinsEarned += finalBonus;
             document.getElementById('val-coins').innerText = state.coins;
-            isTFActive = false;
             showSettlementCard(`恭喜完成 10 題觀念是非測驗！`, tfCoinsEarned);
             return;
         }
@@ -1882,7 +1851,7 @@
         } else alert("❌ 星幣不足！多做練習題挑戰賺取星幣吧！");
     }
 
-    /* 9. 單字防禦戰 */
+    /* 9. 單字雷射防禦戰 (改為點選開始按鈕後才開始下墜) */
     let defenseScore = 0;
     let defenseActive = false;
     let defensePaused = false;
@@ -1891,20 +1860,26 @@
     let balloonMoveTimer = null;
     let defenseCoinsEarned = 0;
 
-    function startDefenseGame() {
+    function prepareDefenseStandby() {
         stopDefenseGame(false);
+        document.getElementById('defenseStartCover').style.display = 'flex';
+        document.getElementById('defense-score').innerText = '0';
+        document.getElementById('defense-history-list').innerHTML = '';
+        document.getElementById('defense-words-container').innerHTML = '';
+    }
+
+    function launchDefensePlay() {
+        document.getElementById('defenseStartCover').style.display = 'none';
         defenseActive = true;
         defensePaused = false;
         defenseScore = 0;
         defenseCoinsEarned = 0;
-        document.getElementById('defense-score').innerText = defenseScore;
-        document.getElementById('defense-history-list').innerHTML = '';
-        document.getElementById('defense-words-container').innerHTML = '';
         document.getElementById('btn-defense-pause').innerText = '⏸ 暫停';
         activeBalloons = [];
 
         const inp = document.getElementById('defense-input-box');
         inp.value = '';
+        inp.focus();
         inp.onkeydown = (e) => {
             if (e.key === 'Enter') fireLaser();
         };
@@ -2042,7 +2017,6 @@
         list.prepend(item);
     }
 
-    /* 結算彈窗 */
     function showSettlementCard(summaryText, coinsEarned) {
         const modal = document.getElementById('settlementModalOverlay');
         document.getElementById('settle-summary-txt').innerText = summaryText;
@@ -2071,7 +2045,7 @@
             const clean = t.replace(/[一-龥]/g, '').replace(/[_（）()【】：:?]/g, ' ').trim();
             const u = new SpeechSynthesisUtterance(clean || t);
             u.lang = 'en-US';
-            u.rate = 0.72;
+            u.rate = 0.60;
             window.speechSynthesis.speak(u);
         }
     }
