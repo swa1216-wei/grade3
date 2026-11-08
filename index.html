@@ -25,7 +25,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 12px 10px 50px;
+            padding: 10px 10px 50px;
             overflow-x: hidden;
         }
 
@@ -41,7 +41,7 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 4px 20px rgba(2, 132, 199, 0.15);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             z-index: 100;
         }
         .app-brand { font-size: 20px; font-weight: 900; color: #0369a1; display: flex; align-items: center; gap: 8px; }
@@ -52,14 +52,14 @@
             display: flex; align-items: center; gap: 6px;
         }
 
-        /* 任務分頁切換列 (9 個完整功能分頁！) */
+        /* 任務分頁切換列 */
         .mission-tab-bar {
             width: 100%;
             max-width: 1120px;
             display: flex;
             flex-wrap: wrap;
             gap: 7px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             z-index: 90;
         }
         .mission-tab {
@@ -82,7 +82,7 @@
             box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
         }
 
-        /* 主工作面板 */
+        /* 主工作面板 (內距充裕，絕不被頂部遮擋) */
         .workspace-panel {
             width: 100%;
             max-width: 1120px;
@@ -112,8 +112,6 @@
             border-radius: 22px;
             padding: 0;
         }
-
-        /* 關卡節點按鈕 (完全對應 map_bg2 上的 8 個區域！) */
         .island-node {
             position: absolute;
             transform: translate(-50%, -50%);
@@ -426,7 +424,7 @@
 
         /* 🎒 冒險補給商店 (原裝全部保留！) */
         #panel-shop, #panel-scramble, #panel-spelling, #panel-vocab-quiz, #panel-tf, #panel-listening, #panel-defense { padding: 26px; }
-        .shop-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+        .shop-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 26px; }
         .shop-item-card {
             background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 20px;
             padding: 18px 14px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;
@@ -492,7 +490,7 @@
     <div class="desktop-nav-wrap">
         <div class="app-brand">
             <span>🏝️</span>
-            <span>三年級英語・浮空島冒險系統</span>
+            <span>三年級英語・星際冒險系統</span>
             <span style="font-size: 12px; background: #0284c7; color: #fff; padding: 3px 10px; border-radius: 12px;" id="db-source-tag">題庫載入中</span>
         </div>
         <div class="user-status-strip">
