@@ -2,1476 +2,396 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Galaxy English 星際英語特訓系統・國小三年級專屬</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galaxy English 星際英語特訓</title>
 <style>
   :root {
-    --galaxy-bg: #0b0f19;
-    --galaxy-card: #131b2e;
-    --galaxy-card-hover: #1c2742;
+    --bg: #0b0f19;
+    --card: #131b2e;
     --primary: #38bdf8;
-    --primary-glow: rgba(56, 189, 248, 0.25);
-    --accent-purple: #a855f7;
-    --accent-pink: #f43f5e;
-    --accent-gold: #fbbf24;
     --success: #10b981;
     --danger: #ef4444;
-    --text-main: #f8fafc;
-    --text-sub: #94a3b8;
+    --text: #f8fafc;
+    --sub: #94a3b8;
     --border: #243049;
   }
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  * { box-sizing: border-box; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background: radial-gradient(circle at 50% 10%, #172554 0%, var(--galaxy-bg) 60%);
-    color: var(--text-main);
-    margin: 0;
-    padding: 12px;
-    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(circle at 50% 10%, #172554 0%, var(--bg) 60%);
+    color: var(--text);
+    margin: 0; padding: 12px;
   }
-  .app-container {
-    max-width: 960px;
-    margin: 0 auto;
-    background: rgba(19, 27, 46, 0.95);
-    border: 1px solid rgba(56, 189, 248, 0.25);
-    border-radius: 24px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 30px var(--primary-glow);
-    overflow: hidden;
-    backdrop-filter: blur(16px);
+  .container {
+    max-width: 860px; margin: 0 auto;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; overflow: hidden; padding: 20px;
   }
-  header {
-    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #1e293b 100%);
-    border-bottom: 1px solid var(--border);
-    padding: 22px 16px;
-    text-align: center;
-    position: relative;
-  }
-  .header-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(56, 189, 248, 0.15);
-    color: var(--primary);
-    border: 1px solid rgba(56, 189, 248, 0.4);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 800;
-    margin-bottom: 8px;
-    letter-spacing: 1px;
-  }
-  header h1 {
-    margin: 0 0 6px 0;
-    font-size: 26px;
-    font-weight: 900;
-    background: linear-gradient(90deg, #38bdf8, #a855f7, #f43f5e);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 1px;
-  }
-  header p {
-    margin: 0;
-    font-size: 14px;
-    color: var(--text-sub);
-  }
-
-  /* 模式選單導航 */
-  .mode-nav-bar {
-    display: flex;
-    background: #0f172a;
-    padding: 8px 12px;
-    gap: 8px;
-    overflow-x: auto;
-    border-bottom: 1px solid var(--border);
-    align-items: center;
+  header { text-align: center; margin-bottom: 20px; }
+  header h1 { margin: 0 0 6px 0; font-size: 24px; color: var(--primary); }
+  header p { margin: 0; font-size: 14px; color: var(--sub); }
+  
+  .nav-bar {
+    display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto;
   }
   .nav-btn {
-    flex: 1;
-    min-width: 120px;
-    padding: 12px 10px;
-    border-radius: 14px;
-    border: 1px solid var(--border);
-    background: #1e293b;
-    color: var(--text-sub);
-    font-size: 14px;
-    font-weight: 800;
-    cursor: pointer;
-    text-align: center;
-    white-space: nowrap;
-    transition: all 0.2s ease;
+    flex: 1; min-width: 110px; padding: 10px; border-radius: 10px;
+    border: 1px solid var(--border); background: #1e293b; color: var(--sub);
+    font-size: 14px; font-weight: bold; cursor: pointer; text-align: center;
   }
-  .nav-btn:hover {
-    background: var(--galaxy-card-hover);
-    color: var(--text-main);
-    border-color: var(--primary);
-  }
-  .nav-btn.active {
-    background: linear-gradient(135deg, #2563eb, #7c3aed);
-    color: white;
-    border-color: #60a5fa;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-  }
+  .nav-btn.active { background: #2563eb; color: #fff; border-color: var(--primary); }
 
-  /* 控制列 */
-  .sub-control-bar {
-    display: flex;
-    padding: 12px 18px;
-    gap: 10px;
-    background: rgba(15, 23, 42, 0.8);
-    border-bottom: 1px solid var(--border);
-    align-items: center;
-    flex-wrap: wrap;
+  .ctrl-bar {
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 20px;
   }
-  .lesson-select {
-    padding: 8px 14px;
-    border-radius: 10px;
-    background: #1e293b;
-    color: var(--text-main);
-    border: 1.5px solid var(--border);
-    font-size: 14px;
-    font-weight: 700;
+  select, .btn-action {
+    padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border);
+    background: #1e293b; color: var(--text); font-size: 14px; font-weight: bold;
     cursor: pointer;
   }
-  .action-btn {
-    padding: 8px 16px;
-    border-radius: 10px;
-    background: #1e293b;
-    color: var(--primary);
-    border: 1.5px solid rgba(56, 189, 248, 0.4);
-    font-size: 14px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+  .btn-action { color: var(--primary); }
+
+  .status-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; font-weight: bold; }
+  .q-card {
+    background: #0f172a; border: 1px solid var(--border); border-radius: 14px;
+    padding: 18px; margin-bottom: 16px; position: relative;
   }
-  .action-btn:hover {
-    background: rgba(56, 189, 248, 0.15);
-    transform: translateY(-1px);
-  }
-  .pool-badge {
-    margin-left: auto;
-    font-size: 12.5px;
-    font-weight: 800;
-    background: rgba(168, 85, 247, 0.2);
-    color: #c084fc;
-    border: 1px solid rgba(168, 85, 247, 0.4);
-    padding: 4px 12px;
-    border-radius: 12px;
+  .q-title { font-size: 18px; font-weight: bold; margin: 0; line-height: 1.5; }
+  .btn-audio {
+    position: absolute; right: 14px; top: 14px; background: none; border: 1px solid var(--border);
+    border-radius: 50%; color: var(--primary); width: 36px; height: 36px; cursor: pointer;
   }
 
-  .main-panel {
-    padding: 22px;
-    min-height: 520px;
-  }
-
-  /* 答題卡容器 */
-  .quiz-status-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-    font-size: 14px;
-    font-weight: 800;
-  }
-  .type-badge {
-    background: rgba(56, 189, 248, 0.15);
-    color: var(--primary);
-    border: 1px solid rgba(56, 189, 248, 0.3);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 13px;
-  }
-  .score-badge {
-    background: rgba(16, 185, 129, 0.15);
-    color: var(--success);
-    border: 1px solid rgba(16, 185, 129, 0.4);
-    padding: 4px 12px;
-    border-radius: 20px;
-  }
-
-  .question-card {
-    background: var(--galaxy-card);
-    border: 1.5px solid var(--border);
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    position: relative;
-  }
-  .q-audio-btn {
-    position: absolute;
-    right: 18px;
-    top: 18px;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid rgba(56, 189, 248, 0.4);
-    background: rgba(56, 189, 248, 0.15);
-    color: var(--primary);
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-  }
-  .q-audio-btn:hover {
-    background: var(--primary);
-    color: #0f172a;
-    transform: scale(1.08);
-  }
-  .question-text {
-    font-size: 20px;
-    font-weight: 800;
-    line-height: 1.6;
-    margin: 0;
-    padding-right: 52px;
-    color: #ffffff;
-  }
-  .question-sub {
-    font-size: 14px;
-    color: var(--text-sub);
-    margin-top: 8px;
-  }
-
-  /* 選擇題選項按鈕 */
-  .choice-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+  .choice-list { display: flex; flex-direction: column; gap: 10px; }
   .choice-btn {
-    width: 100%;
-    padding: 16px 20px;
-    border: 2px solid var(--border);
-    border-radius: 16px;
-    background: var(--galaxy-card);
-    color: var(--text-main);
-    text-align: left;
-    font-size: 17px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.15s ease;
+    padding: 14px 18px; border: 1px solid var(--border); border-radius: 12px;
+    background: #1e293b; color: var(--text); text-align: left; font-size: 16px;
+    font-weight: bold; cursor: pointer;
   }
-  .choice-btn:hover {
-    background: var(--galaxy-card-hover);
-    border-color: var(--primary);
-    transform: translateX(4px);
+  .choice-btn.correct { background: rgba(16, 185, 129, 0.2) !important; border-color: var(--success) !important; color: #34d399 !important; }
+  .choice-btn.wrong { background: rgba(239, 68, 68, 0.2) !important; border-color: var(--danger) !important; color: #f87171 !important; }
+
+  .feedback {
+    display: none; margin-top: 16px; padding: 14px; border-radius: 12px; font-size: 14px; line-height: 1.6;
   }
-  .choice-btn.selected-correct {
-    border-color: var(--success) !important;
-    background: rgba(16, 185, 129, 0.2) !important;
-    color: #34d399 !important;
-    font-weight: 900 !important;
-    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4) !important;
-  }
-  .choice-btn.selected-wrong {
-    border-color: var(--danger) !important;
-    background: rgba(239, 68, 68, 0.2) !important;
-    color: #f87171 !important;
-    font-weight: 900 !important;
-    box-shadow: 0 0 15px rgba(239, 68, 68, 0.4) !important;
+  .feedback.correct { background: rgba(16, 185, 129, 0.15); border: 1px solid var(--success); }
+  .feedback.wrong { background: rgba(239, 68, 68, 0.15); border: 1px solid var(--danger); }
+  .btn-next {
+    display: block; width: 100%; margin-top: 12px; padding: 12px; border: none;
+    border-radius: 10px; background: #2563eb; color: #fff; font-size: 15px; font-weight: bold; cursor: pointer;
   }
 
-  /* 是非題按鈕 */
-  .tf-group {
-    display: flex;
-    gap: 16px;
+  /* 拼字面板 */
+  .spell-box { display: none; text-align: center; }
+  .spell-slots { display: flex; justify-content: center; gap: 6px; margin: 16px 0; }
+  .slot {
+    width: 40px; height: 48px; border: 2px solid var(--border); border-radius: 8px;
+    background: #0f172a; color: var(--primary); font-size: 22px; font-weight: bold;
+    display: flex; align-items: center; justify-content: center;
   }
-  .tf-btn {
-    flex: 1;
-    padding: 18px;
-    border-radius: 16px;
-    border: 2px solid var(--border);
-    background: var(--galaxy-card);
-    font-size: 22px;
-    font-weight: 900;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.15s;
-  }
-  .tf-btn.o { color: #34d399; }
-  .tf-btn.x { color: #f87171; }
-  .tf-btn:hover {
-    background: var(--galaxy-card-hover);
-    transform: translateY(-2px);
-  }
-  .tf-btn.selected-correct {
-    border-color: var(--success) !important;
-    background: rgba(16, 185, 129, 0.2) !important;
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
-  }
-  .tf-btn.selected-wrong {
-    border-color: var(--danger) !important;
-    background: rgba(239, 68, 68, 0.2) !important;
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
-  }
-
-  /* ⌨️ 拼英練習機 (Virtual Keyboard & Spelling Slots) */
-  .spell-container {
-    background: var(--galaxy-card);
-    border: 2px solid var(--border);
-    border-radius: 20px;
-    padding: 22px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  }
-  .spell-slots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin: 20px 0;
-    min-height: 52px;
-  }
-  .slot-letter {
-    width: 44px;
-    height: 52px;
-    border: 2px solid rgba(56, 189, 248, 0.4);
-    border-radius: 12px;
-    background: #0f172a;
-    color: var(--primary);
-    font-size: 26px;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
-  }
-  .slot-letter.active {
-    border-color: var(--primary);
-    box-shadow: 0 0 12px var(--primary-glow);
-  }
-  .keyboard-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 7px;
-    max-width: 580px;
-    margin: 0 auto 18px auto;
-  }
-  .key-btn {
-    padding: 13px 0;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    background: #1e293b;
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: all 0.1s;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  }
-  .key-btn:active { transform: scale(0.92); }
-  .key-btn:hover { background: #334155; border-color: var(--primary); }
-  .spell-action-bar {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    max-width: 580px;
-    margin: 0 auto;
-  }
-  .spell-ctl-btn {
-    flex: 1;
-    padding: 14px;
-    border-radius: 12px;
-    border: none;
-    font-size: 16px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .btn-backspace {
-    background: #dc2626;
-    color: white;
-  }
-  .btn-submit-spell {
-    background: #16a34a;
-    color: white;
-  }
-
-  /* 即時反饋卡 */
-  .feedback-box {
-    margin-top: 20px;
-    padding: 18px 22px;
-    border-radius: 18px;
-    display: none;
-    animation: fadeIn 0.25s ease-in;
-  }
-  .feedback-box.correct {
-    background: rgba(16, 185, 129, 0.15);
-    border: 2px solid var(--success);
-    color: #ecfdf5;
-  }
-  .feedback-box.wrong {
-    background: rgba(239, 68, 68, 0.15);
-    border: 2px solid var(--danger);
-    color: #fef2f2;
-  }
-  .fb-header {
-    font-size: 19px;
-    font-weight: 900;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .fb-body {
-    font-size: 15px;
-    line-height: 1.65;
-    color: #e2e8f0;
-  }
-  .fb-trap-tag {
-    display: inline-block;
-    background: rgba(251, 191, 36, 0.2);
-    color: var(--accent-gold);
-    border: 1px solid rgba(251, 191, 36, 0.4);
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-weight: 800;
-    margin-top: 6px;
-  }
-  .next-pill-btn {
-    display: block;
-    width: 100%;
-    margin-top: 16px;
-    padding: 14px;
-    border-radius: 14px;
-    border: none;
-    background: linear-gradient(135deg, #2563eb, #7c3aed);
-    color: white;
-    font-size: 16px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .next-pill-btn:hover { transform: scale(1.01); filter: brightness(1.1); }
-
-  /* 📜 考卷長卷模式 (期中/期末全卷) */
-  .paper-view {
-    display: none;
-    animation: fadeIn 0.2s ease-in;
-  }
-  .paper-header-box {
-    background: #1e293b;
-    border: 2px solid #3b82f6;
-    border-radius: 18px;
-    padding: 18px;
-    margin-bottom: 22px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .paper-sec-title {
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--primary);
-    border-left: 4px solid var(--accent-purple);
-    padding-left: 10px;
-    margin: 24px 0 14px 0;
-  }
-  .paper-item {
-    background: var(--galaxy-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 14px;
-  }
-  .paper-item-title {
-    font-size: 16.5px;
-    font-weight: 800;
-    margin-bottom: 12px;
-    color: #ffffff;
-  }
-  .paper-explain {
-    margin-top: 10px;
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 13.5px;
-    line-height: 1.5;
-    display: none;
-  }
-  .paper-explain.show { display: block; }
-  .paper-explain.c { background: rgba(16, 185, 129, 0.2); border: 1px solid var(--success); color: #6ee7b7; }
-  .paper-explain.w { background: rgba(239, 68, 68, 0.2); border: 1px solid var(--danger); color: #fca5a5; }
-
-  .submit-exam-btn {
-    display: block;
-    width: 260px;
-    margin: 30px auto;
-    padding: 16px;
-    border-radius: 20px;
-    border: none;
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-    font-size: 18px;
-    font-weight: 900;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
-    text-align: center;
-  }
-
-  /* 錯題筆記本 */
-  .notebook-view {
-    display: none;
-  }
-  .nb-card {
-    background: var(--galaxy-card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 14px;
-    margin-bottom: 12px;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  .keyboard { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; max-width: 480px; margin: 0 auto 14px auto; }
+  .key { padding: 12px 0; background: #1e293b; border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; }
+  .spell-actions { display: flex; gap: 10px; max-width: 480px; margin: 0 auto; }
+  .btn-del { flex: 1; padding: 10px; background: #dc2626; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+  .btn-sub { flex: 1; padding: 10px; background: #16a34a; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
 </style>
 </head>
 <body>
 
-<div class="app-container">
+<div class="container">
   <header>
-    <div class="header-badge">🚀 GALAXY ENGLISH 星際美語</div>
-    <h1>國小三年級英語・全真期中期末大考特訓系統</h1>
-    <p>108課綱對齊 ｜ 實體課本與考卷 ｜ 拼英練習 ｜ 易錯陷阱特訓</p>
+    <h1>🚀 GALAXY ENGLISH 星際美語特訓</h1>
+    <p>國小三年級專屬・全真試題與拼字系統</p>
   </header>
 
-  <!-- 頂部核心模式切換 -->
-  <div class="mode-nav-bar">
-    <button class="nav-btn active" onclick="switchNavMode('units')">🪐 單元特訓</button>
-    <button class="nav-btn" onclick="switchNavMode('spell')">⌨️ 星際拼字機</button>
-    <button class="nav-btn" onclick="switchNavMode('midterm')">📝 期中考模擬卷 (96分真題)</button>
-    <button class="nav-btn" onclick="switchNavMode('final')">📜 期末大考全卷 (綜合長卷)</button>
-    <button class="nav-btn" onclick="switchNavMode('traps')">⚠️ 常錯陷阱特訓</button>
-    <button class="nav-btn" onclick="switchNavMode('notebook')" style="color:#f59e0b;">📓 錯題筆記本</button>
+  <div class="nav-bar">
+    <button class="nav-btn active" onclick="setMode('quiz')">🪐 單元特訓</button>
+    <button class="nav-btn" onclick="setMode('spell')">⌨️ 星際拼字機</button>
+    <button class="nav-btn" onclick="setMode('traps')">⚠️ 易錯陷阱題</button>
   </div>
 
-  <!-- 單元控制列 -->
-  <div class="sub-control-bar" id="subControlBar">
-    <label for="lessonSelect" style="font-size:13.5px; font-weight:800; color:var(--text-sub);">選擇單元：</label>
-    <select id="lessonSelect" class="lesson-select" onchange="onLessonSelectChange()">
-      <option value="all">🔥 英語期末全範圍大考 (Unit 1 ~ 4)</option>
-      <option value="e_u1">Unit 1: How Old Are You? (年齡數字 1~10)</option>
-      <option value="e_u2">Unit 2: What's This? (文具用品 a / an)</option>
-      <option value="e_u3">Unit 3: What Color Is It? (顏色問答句型)</option>
-      <option value="e_u4">Unit 4 & 節慶: Halloween (萬聖節與綜合)</option>
-      <option value="e_phonics">Phonics: 自然發音字首音與母音</option>
+  <div class="ctrl-bar" id="ctrlBar">
+    <label for="unitSelect" style="color:var(--sub); font-size:13px;">單元：</label>
+    <select id="unitSelect" onchange="onUnitChange()">
+      <option value="all">🔥 全範圍大考綜合</option>
+      <option value="u1">Unit 1: How Old Are You? (年齡與數字)</option>
+      <option value="u2">Unit 2: What's This? (文具與冠詞 a/an)</option>
+      <option value="u3">Unit 3: What Color Is It? (顏色問答)</option>
+      <option value="u4">Unit 4: Halloween (萬聖節與綜合)</option>
     </select>
-    <button class="action-btn" onclick="reloadRandomQuestions()">🎲 換一批新考題</button>
-    <span class="pool-badge" id="poolBadge">載入中...</span>
+    <button class="btn-action" onclick="loadQuiz()">🎲 換一批題目</button>
+    <span id="poolBadge" style="margin-left:auto; font-size:12px; color:var(--sub);"></span>
   </div>
 
-  <div class="main-panel">
-    <!-- 1. 單題互動答題視窗 (單元 / 陷阱題) -->
-    <div id="quizContainer">
-      <div class="quiz-status-row">
-        <span class="type-badge" id="typeBadge">單元測驗</span>
-        <span id="progressText" style="color:var(--text-sub);">第 1 / 10 題</span>
-        <span class="score-badge" id="scoreBadge">得分：0</span>
-      </div>
-
-      <div class="question-card">
-        <button class="q-audio-btn" id="btnAudio" onclick="playVoice()" title="點擊發音朗讀">🔊</button>
-        <h2 class="question-text" id="qTitle">題目載入中...</h2>
-        <div class="question-sub" id="qSub"></div>
-      </div>
-
-      <div id="optionArea"></div>
-
-      <div class="feedback-box" id="feedbackBox">
-        <div class="fb-header" id="fbHeader"></div>
-        <div class="fb-body" id="fbBody"></div>
-        <button class="next-pill-btn" onclick="nextQuestion()">進入下一題 ➔</button>
-      </div>
+  <!-- 答題卡面板 -->
+  <div id="quizPanel">
+    <div class="status-row">
+      <span id="progressText" style="color:var(--sub);">第 1 / 10 題</span>
+      <span id="scoreText" style="color:var(--success);">得分：0</span>
     </div>
-
-    <!-- 2. ⌨️ 星際拼字機全螢幕專區 -->
-    <div id="spellContainer" style="display:none;">
-      <div class="quiz-status-row">
-        <span class="type-badge" style="background:rgba(168,85,247,0.2); color:#c084fc; border-color:#c084fc;">⌨️ 星際單字拼寫機</span>
-        <span id="spellProgress" style="color:var(--text-sub);">第 1 / 10 關</span>
-        <span class="score-badge" id="spellScore">拼字得分：0</span>
-      </div>
-
-      <div class="spell-container">
-        <button class="q-audio-btn" style="position:static; margin:0 auto 10px auto;" onclick="playVoice(currentSpellTarget)" title="聆聽單字發音">🔊</button>
-        <div style="font-size:20px; font-weight:800;" id="spellPrompt">請拼出英文單字：【直尺】</div>
-        <div style="font-size:13px; color:var(--text-sub); margin-top:4px;">點選下方字母鍵盤輸入，完成後送出檢查</div>
-
-        <div class="spell-slots" id="spellSlots"></div>
-
-        <div class="keyboard-grid" id="keyboardGrid"></div>
-
-        <div class="spell-action-bar">
-          <button class="spell-ctl-btn btn-backspace" onclick="deleteSpellLetter()">⌫ 刪除 (Delete)</button>
-          <button class="spell-ctl-btn btn-submit-spell" onclick="submitSpellAnswer()">✔ 送出檢查 (Submit)</button>
-        </div>
-      </div>
-
-      <div class="feedback-box" id="spellFeedbackBox">
-        <div class="fb-header" id="spellFbHeader"></div>
-        <div class="fb-body" id="spellFbBody"></div>
-        <button class="next-pill-btn" onclick="nextSpellQuestion()">前往下一個單字 ➔</button>
-      </div>
+    <div class="q-card">
+      <button class="btn-audio" onclick="speakCurrent()">🔊</button>
+      <p class="q-title" id="qTitle">題目載入中...</p>
     </div>
-
-    <!-- 3. 📜 考卷長卷模式 (期中考卷 / 期末全卷) -->
-    <div class="paper-view" id="paperContainer">
-      <div class="paper-header-box">
-        <div>
-          <div style="font-size:20px; font-weight:900; color:#60a5fa;" id="paperTitle">📜 國小三年級英語科・全真大考試卷</div>
-          <div style="font-size:13.5px; color:var(--text-sub); margin-top:4px;" id="paperSubtitle">比照真題段考試卷排版</div>
-        </div>
-        <div style="display:flex; align-items:center; gap:12px;">
-          <span style="font-size:16px; font-weight:900; color:#34d399;" id="paperScoreLive">得分：尚未交卷</span>
-          <button class="action-btn" onclick="exitPaperView()">離開試卷</button>
-        </div>
-      </div>
-
-      <div id="paperBody"></div>
-
-      <button class="submit-exam-btn" id="btnSubmitPaper" onclick="submitPaperExam()">📝 交卷計分 ✔</button>
+    <div class="choice-list" id="choiceList"></div>
+    <div class="feedback" id="feedback">
+      <div id="fbTitle" style="font-weight:bold; margin-bottom:4px;"></div>
+      <div id="fbDetail"></div>
+      <button class="btn-next" onclick="nextQuestion()">下一題 ➔</button>
     </div>
+  </div>
 
-    <!-- 4. 📓 錯題筆記本 -->
-    <div class="notebook-view" id="notebookContainer">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-        <h3 style="margin:0; font-size:18px; color:var(--accent-gold);">📓 星際錯題記錄庫</h3>
-        <button class="action-btn" onclick="clearWrongQuestions()">清空筆記</button>
-      </div>
-      <div id="wrongList">目前太棒了，完全沒有錯題！</div>
+  <!-- 拼字面板 -->
+  <div class="spell-box" id="spellPanel">
+    <div class="status-row">
+      <span id="spellProgress" style="color:var(--sub);">第 1 / 10 關</span>
+      <span id="spellScore" style="color:var(--success);">得分：0</span>
+    </div>
+    <div class="q-card">
+      <button class="btn-audio" onclick="speakSpellWord()">🔊</button>
+      <p class="q-title" id="spellHint">請拼出單字</p>
+    </div>
+    <div class="spell-slots" id="spellSlots"></div>
+    <div class="keyboard" id="keyboard"></div>
+    <div class="spell-actions">
+      <button class="btn-del" onclick="deleteSpellLetter()">⌫ 刪除</button>
+      <button class="btn-sub" onclick="submitSpell()">✔ 送出檢查</button>
+    </div>
+    <div class="feedback" id="spellFeedback">
+      <div id="spellFbTitle" style="font-weight:bold; margin-bottom:4px;"></div>
+      <div id="spellFbDetail"></div>
+      <button class="btn-next" onclick="nextSpell()">下一字 ➔</button>
     </div>
   </div>
 </div>
 
 <script>
-// ==========================================
-// 📚 國小三年級英語全真題庫資料庫 (108課綱康軒/翰林Dino對齊)
-// ==========================================
-const ENGLISH_DATABASE = [
-  // --- Unit 1: How Old Are You? (年齡、數字 1~10、禮貌用語) ---
-  {
-    id: "u1_1", unit: "e_u1", unitName: "Unit 1: How Old Are You?", type: "choice",
-    title: "A: ________ are you?  B: I'm ten years old.",
-    options: ["How old", "What", "How", "Who"], ans: 0,
-    explain: "詢問年齡要用『How old are you?』；How are you 是問候『你好嗎？』。",
-    trap: "小心 How are you (你好嗎) 和 How old are you (幾歲) 的混淆！"
-  },
-  {
-    id: "u1_2", unit: "e_u1", unitName: "Unit 1: How Old Are You?", type: "choice",
-    title: "A: How old are you?  B: I am ________.",
-    options: ["eight", "an eraser", "red", "book"], ans: 0,
-    explain: "回答年齡用數字 eight (8歲)；其餘為文具或顏色。",
-    trap: "看清問句是問年紀，回答必定是數字！"
-  },
-  {
-    id: "u1_3", unit: "e_u1", unitName: "Unit 1: How Old Are You?", type: "choice",
-    title: "數字「8」的正確英文拼寫是哪一個？",
-    options: ["eight", "eigt", "eiht", "eaight"], ans: 0,
-    explain: "8 的正確英文是 e-i-g-h-t。",
-    trap: "三年級最常拼錯的單字！gh 不發音，千萬不要漏掉。"
-  },
-  {
-    id: "u1_4", unit: "e_u1", unitName: "Unit 1: How Old Are You?", type: "choice",
-    title: "數字「9」的正確英文拼寫是哪一個？",
-    options: ["nine", "nin", "nein", "nien"], ans: 0,
-    explain: "9 的正確英文是 n-i-n-e，字尾有不發音的 e。",
-    trap: "不要漏掉字尾的 e！"
-  },
-  {
-    id: "u1_5", unit: "e_u1", unitName: "Unit 1: How Old Are You?", type: "choice",
-    title: "A: Thank you!  B: ________",
-    options: ["You're welcome.", "I'm ten.", "Good job!", "It's red."], ans: 0,
-    explain: "對方表達感謝『Thank you!』時，禮貌回答『You're welcome. (不客氣)』。",
-    trap: "日常生活禮貌用語是段考必考題！"
-  },
-  {
-    id: "u1_6", unit: "e_u1", unitName: "Unit 1: How Old Are You?", type: "tf",
-    title: "回答年齡時，『I'm ten.』和『I'm ten years old.』都是正確的說法。",
-    options: ["⭕ 正確", "❌ 錯誤"], ans: 0,
-    explain: "兩種說法皆完全符合課本日常英語表達。",
-    trap: "口語可簡答 I'm ten，完整是 I'm ten years old。"
-  },
-  {
-    id: "u1_7", unit: "e_u1", unitName: "Unit 1: How Old Are You?", type: "tf",
-    title: "『How are you?』是用來詢問對方的年齡有幾歲。",
-    options: ["⭕ 正確", "❌ 錯誤"], ans: 1,
-    explain: "『How are you?』是問候『你好嗎？』；問年齡一定要加 old (How old are you?)！",
-    trap: "這題是全台國小三年級段考失分率最高前三名！"
-  },
-  {
-    id: "u1_8", unit: "e_u1", unitName: "Unit 1: How Old Are You?", type: "choice",
-    title: "手錶上的羅馬數字『IX』代表阿拉伯數字多少？",
-    options: ["9", "11", "7", "6"], ans: 0,
-    explain: "課本文化小知識：X 代表 10，前面放 I 代表 10 - 1 = 9。",
-    trap: "IX 是 9，XI 才是 11。"
-  },
+const QUESTIONS = [
+  // Unit 1
+  { u: "u1", title: "A: ________ are you?  B: I'm ten years old.", opts: ["How old", "What", "How", "Who"], ans: 0, exp: "詢問年齡使用 How old are you?；How are you 是問候你好嗎。" },
+  { u: "u1", title: "A: How old are you?  B: I am ________.", opts: ["eight", "an eraser", "red", "book"], ans: 0, exp: "詢問年齡應回答數字（eight）。" },
+  { u: "u1", title: "數字『8』的正確英文拼寫為何？", opts: ["eight", "eigt", "eiht", "eaight"], ans: 0, exp: "8 的正確拼法是 eight，gh 不發音。" },
+  { u: "u1", title: "數字『9』的正確英文拼寫為何？", opts: ["nine", "nin", "nein", "nien"], ans: 0, exp: "9 的正確拼法是 nine，末尾有不發音的 e。" },
+  { u: "u1", title: "A: Thank you!  B: ________", opts: ["You're welcome.", "I'm ten.", "Good job!", "It's red."], ans: 0, exp: "道謝回答禮貌用語為 You're welcome (不客氣)。" },
+  { u: "u1", title: "『How are you?』是用來詢問對方的年齡有幾歲。", opts: ["❌ 錯誤", "⭕ 正確"], ans: 0, exp: "How are you 是『你好嗎』，問年齡需使用 How old are you。" },
 
-  // --- Unit 2: What's This? (文具用品、冠詞 a/an、What's this vs What's that) ---
-  {
-    id: "u2_1", unit: "e_u2", unitName: "Unit 2: What's This?", type: "choice",
-    title: "A: What's this?  B: It's ________ eraser.",
-    options: ["an", "a", "two", "the one"], ans: 0,
-    explain: "eraser 是以母音發音 /e/ 開頭，單數冠詞必須使用 『an』！",
-    trap: "考試必考陷阱：a eraser 絕對錯誤，一定要填 an eraser！"
-  },
-  {
-    id: "u2_2", unit: "e_u2", unitName: "Unit 2: What's This?", type: "choice",
-    title: "A: What's that?  B: It's ________ ruler.",
-    options: ["a", "an", "two", "some"], ans: 0,
-    explain: "ruler 以子音 /r/ 開頭，單數冠詞使用 『a』 (a ruler)。",
-    trap: "子音開頭用 a，母音開頭用 an。"
-  },
-  {
-    id: "u2_3", unit: "e_u2", unitName: "Unit 2: What's This?", type: "choice",
-    title: "A: What's that over there? (手指著遠處)  B: It's ________ marker.",
-    options: ["a", "an", "two", "these"], ans: 0,
-    explain: "marker (彩色筆/白板筆) 為單數子音開頭，使用 a marker。",
-    trap: "that 指遠處單數物品。"
-  },
-  {
-    id: "u2_4", unit: "e_u2", unitName: "Unit 2: What's This?", type: "choice",
-    title: "想讚美同學『做得好！棒極了！』，你可以說：",
-    options: ["Good job!", "I'm sorry.", "What's this?", "How old are you?"], ans: 0,
-    explain: "Good job! 是稱讚別人表現出色的常用句。",
-    trap: "課本精選常用生活對話。"
-  },
-  {
-    id: "u2_5", unit: "e_u2", unitName: "Unit 2: What's This?", type: "choice",
-    title: "單字『p-e-n-c-i-l』是指哪一種文具？",
-    options: ["鉛筆", "原子筆", "橡皮擦", "直尺"], ans: 0,
-    explain: "pencil 是鉛筆；pen 才是原子筆。",
-    trap: "不要把 pen (原子筆) 和 pencil (鉛筆) 搞混！"
-  },
-  {
-    id: "u2_6", unit: "e_u2", unitName: "Unit 2: What's This?", type: "tf",
-    title: "『橡皮擦』的英文是 『a eraser』。",
-    options: ["⭕ 正確", "❌ 錯誤"], ans: 1,
-    explain: "eraser 是母音開頭，前面一定要用 『an eraser』，不能用 a eraser！",
-    trap: "絕對必考陷阱！母音 a, e, i, o, u 開頭單數名詞用 an。"
-  },
-  {
-    id: "u2_7", unit: "e_u2", unitName: "Unit 2: What's This?", type: "tf",
-    title: "詢問『靠近自己身邊』的單數物品，問句要用『What's this?』。",
-    options: ["⭕ 正確", "❌ 錯誤"], ans: 0,
-    explain: "近處用 this (What's this?)，遠處用 that (What's that?)。",
-    trap: "近 this 遠 that。"
-  },
-  {
-    id: "u2_8", unit: "e_u2", unitName: "Unit 2: What's This?", type: "choice",
-    title: "下列哪一個單字前面的冠詞要用『an』？",
-    options: ["apple", "book", "pencil", "ruler"], ans: 0,
-    explain: "apple 以母音字母 a 開頭，用 an apple；其餘皆用 a。",
-    trap: "檢查單字的第一個字母發音！"
-  },
+  // Unit 2
+  { u: "u2", title: "A: What's this?  B: It's ________ eraser.", opts: ["an", "a", "two", "the one"], ans: 0, exp: "eraser 為母音開頭發音，單數冠詞使用 an。" },
+  { u: "u2", title: "A: What's that?  B: It's ________ ruler.", opts: ["a", "an", "two", "some"], ans: 0, exp: "ruler 為子音開頭發音，單數冠詞使用 a。" },
+  { u: "u2", title: "單字『p-e-n-c-i-l』是指哪一種文具？", opts: ["鉛筆", "原子筆", "橡皮擦", "直尺"], ans: 0, exp: "pencil 是鉛筆，pen 是原子筆。" },
+  { u: "u2", title: "橡皮擦的英文是『a eraser』。", opts: ["❌ 錯誤", "⭕ 正確"], ans: 0, exp: "母音開頭單字單數冠詞必須使用 an (an eraser)。" },
+  { u: "u2", title: "想稱讚同學『做得好！』可以說：", opts: ["Good job!", "I'm sorry.", "What's this?", "How are you?"], ans: 0, exp: "稱讚表現使用 Good job!" },
 
-  // --- Unit 3: What Color Is It? (顏色問答、顏色形容詞、問候) ---
-  {
-    id: "u3_1", unit: "e_u3", unitName: "Unit 3: What Color Is It?", type: "choice",
-    title: "A: What ________ is it?  B: It's blue.",
-    options: ["color", "old", "name", "this"], ans: 0,
-    explain: "詢問顏色使用句型：What color is it? (它是什麼顏色？)。",
-    trap: "問顏色用 color。"
-  },
-  {
-    id: "u3_2", unit: "e_u3", unitName: "Unit 3: What Color Is It?", type: "choice",
-    title: "A: What color is the book?  B: It's ________.",
-    options: ["red", "a red", "an red", "two red"], ans: 0,
-    explain: "顏色是形容詞，直接說『It's red.』，絕對不可以說『It's a red.』！",
-    trap: "超級大陷阱！形容詞前面不能加 a 或 an！"
-  },
-  {
-    id: "u3_3", unit: "e_u3", unitName: "Unit 3: What Color Is It?", type: "choice",
-    title: "黃色加上藍色，會調和成什麼顏色？",
-    options: ["green (綠色)", "red (紅色)", "black (黑色)", "white (白色)"], ans: 0,
-    explain: "Yellow + Blue = Green (黃 + 藍 = 綠)。",
-    trap: "課本跨學科藝術色彩題！"
-  },
-  {
-    id: "u3_4", unit: "e_u3", unitName: "Unit 3: What Color Is It?", type: "choice",
-    title: "早晨八點遇見老師，應該有禮貌地打招呼說：",
-    options: ["Good morning.", "Good afternoon.", "Good night.", "Good bye."], ans: 0,
-    explain: "早上打招呼用 Good morning；下午用 Good afternoon。",
-    trap: "注意早晚時間之分。"
-  },
-  {
-    id: "u3_5", unit: "e_u3", unitName: "Unit 3: What Color Is It?", type: "choice",
-    title: "單字『y-e-l-l-o-w』是指哪一種顏色？",
-    options: ["黃色", "綠色", "藍色", "黑色"], ans: 0,
-    explain: "yellow 是黃色。",
-    trap: "基礎顏色單字熟記。"
-  },
-  {
-    id: "u3_6", unit: "e_u3", unitName: "Unit 3: What Color Is It?", type: "tf",
-    title: "『這顆蘋果是紅色的。』英文可以說：『The apple is a red.』",
-    options: ["⭕ 正確", "❌ 錯誤"], ans: 1,
-    explain: "red 是形容詞，不能加冠詞 a，正確說法是『The apple is red.』。",
-    trap: "考卷超常出現的文法陷阱：形容詞前不能加 a！"
-  },
-  {
-    id: "u3_7", unit: "e_u3", unitName: "Unit 3: What Color Is It?", type: "tf",
-    title: "黑色的英文是 black，白色的英文是 white。",
-    options: ["⭕ 正確", "❌ 錯誤"], ans: 0,
-    explain: "black (黑色)、white (白色) 為課本必背顏色單字。",
-    trap: "兩者為相反色對比。"
-  },
+  // Unit 3
+  { u: "u3", title: "A: What ________ is it?  B: It's blue.", opts: ["color", "old", "name", "this"], ans: 0, exp: "詢問顏色使用句型 What color is it?" },
+  { u: "u3", title: "A: What color is the book?  B: It's ________.", opts: ["red", "a red", "an red", "two red"], ans: 0, exp: "顏色為形容詞，直接說 It's red，不可加冠詞 a/an。" },
+  { u: "u3", title: "黃色 (Yellow) 加上藍色 (Blue) 會混合成什麼顏色？", opts: ["green (綠色)", "red (紅色)", "black (黑色)", "white (白色)"], ans: 0, exp: "黃色加藍色混合為綠色 (Green)。" },
+  { u: "u3", title: "『這顆蘋果是紅色的』可以說成『The apple is a red.』", opts: ["❌ 錯誤", "⭕ 正確"], ans: 0, exp: "形容詞前不能加冠詞 a，應為 The apple is red。" },
 
-  // --- Unit 4 & 節慶: Halloween (萬聖節討糖、節慶單字、想要句型) ---
-  {
-    id: "u4_1", unit: "e_u4", unitName: "Unit 4 & 節慶: Halloween", type: "choice",
-    title: "萬聖節小朋友打扮成鬼怪去要糖果，會大喊什麼經典口號？",
-    options: ["Trick or treat!", "Happy New Year!", "Thank you!", "Good morning!"], ans: 0,
-    explain: "『Trick or treat!』意為『不給糖就搗蛋！』。",
-    trap: "萬聖節必考經典應景句。"
-  },
-  {
-    id: "u4_2", unit: "e_u4", unitName: "Unit 4 & 節慶: Halloween", type: "choice",
-    title: "萬聖節最代表性的『南瓜燈』，南瓜的英文單字是：",
-    options: ["a pumpkin", "a ghost", "a bat", "a witch"], ans: 0,
-    explain: "pumpkin 是南瓜；ghost 是鬼魂；bat 是蝙蝠；witch 是女巫。",
-    trap: "辨別萬聖節四大代表性名詞。"
-  },
-  {
-    id: "u4_3", unit: "e_u4", unitName: "Unit 4 & 節慶: Halloween", type: "choice",
-    title: "在黑夜空中倒掛飛行的哺乳動物『蝙蝠』英文是：",
-    options: ["a bat", "a cat", "a rat", "a hat"], ans: 0,
-    explain: "bat 是蝙蝠。",
-    trap: "注意字首發音 /b/ 的 bat。"
-  },
-  {
-    id: "u4_4", unit: "e_u4", unitName: "Unit 4 & 節慶: Halloween", type: "choice",
-    title: "騎著飛天掃帚、戴尖尖帽子的『女巫』英文是：",
-    options: ["a witch", "a vampire", "a spider", "a ghost"], ans: 0,
-    explain: "witch 是女巫；vampire 是吸血鬼；spider 是蜘蛛。",
-    trap: "witch 字尾是 ch。"
-  },
-  {
-    id: "u4_5", unit: "e_u4", unitName: "Unit 4 & 節慶: Halloween", type: "choice",
-    title: "A: What do you want?  B: I want ________.",
-    options: ["some juice", "a juice", "an juice", "juices"], ans: 0,
-    explain: "果汁 (juice) 是不可數名詞，使用 『some juice』。",
-    trap: "液體不可數，前面不能直接加 a 或 an。"
-  },
-  {
-    id: "u4_6", unit: "e_u4", unitName: "Unit 4 & 節慶: Halloween", type: "tf",
-    title: "萬聖節是 Halloween，見面時可以說『Happy Halloween!』。",
-    options: ["⭕ 正確", "❌ 錯誤"], ans: 0,
-    explain: "Happy Halloween! 是標準萬聖節祝福用語。",
-    trap: "節慶問候句。"
-  },
-
-  // --- Phonics 自然發音與字母大小寫接續 (真題考卷第 3, 4, 7 大題) ---
-  {
-    id: "ph_1", unit: "e_phonics", unitName: "Phonics & 字母真題", type: "choice",
-    title: "請找出小寫字母的正確接續順序：『c - d - e - ____』",
-    options: ["f", "g", "b", "h"], ans: 0,
-    explain: "字母表順序：c, d, e 後面接 f。",
-    trap: "小心 b 與 d 的字母反向混淆！"
-  },
-  {
-    id: "ph_2", unit: "e_phonics", unitName: "Phonics & 字母真題", type: "choice",
-    title: "請找出大寫字母的正確接續順序：『G - H - I - ____』",
-    options: ["J", "K", "L", "M"], ans: 0,
-    explain: "大寫字母順序：G, H, I 後面接 J。",
-    trap: "真題考卷第 7 大題字母接龍！"
-  },
-  {
-    id: "ph_3", unit: "e_phonics", unitName: "Phonics & 字母真題", type: "choice",
-    title: "下列哪一個單字的『字首發音』是 /b/？",
-    options: ["book", "pen", "dog", "apple"], ans: 0,
-    explain: "book 的字首字母是 b，發音為 /b/。",
-    trap: "真題考卷第 3 大題字首聽辨！"
-  },
-  {
-    id: "ph_4", unit: "e_phonics", unitName: "Phonics & 字母真題", type: "choice",
-    title: "單字『cat』和『cap』的第一個字母 c 發什麼音？",
-    options: ["/k/", "/s/", "/tʃ/", "/d/"], ans: 0,
-    explain: "字母 c 在 a 前面發硬音 /k/。",
-    trap: "自然發音基礎規則。"
-  },
-  {
-    id: "ph_5", unit: "e_phonics", unitName: "Phonics & 字母真題", type: "tf",
-    title: "小寫字母『b』的肚子在右邊，小寫字母『d』的肚子在左邊。",
-    options: ["⭕ 正確", "❌ 錯誤"], ans: 0,
-    explain: "b 和 d 是三年級最容易混淆顛倒的字母，b 右邊肚子，d 左邊肚子。",
-    trap: "書寫方向特別注意！"
-  },
-
-  // --- 圖表素養閱讀題組 (真題考卷第 9 大題：借書證與票價) ---
-  {
-    id: "read_1", unit: "e_u1", unitName: "素養圖表閱讀題組", type: "choice",
-    title: "【借書證閱讀】：
-Name: Leo Chen
-Age: 9
-Library Card No.: 1-2-3
-請問 Leo 的借書證號碼應該怎麼讀？",
-    options: ["one-two-three", "one-two-four", "two-three-one", "nine-one-two"], ans: 0,
-    explain: "號碼 1-2-3 讀作 one-two-three。",
-    trap: "真題考卷第 9 大題：數字編號讀法！"
-  },
-  {
-    id: "read_2", unit: "e_u1", unitName: "素養圖表閱讀題組", type: "choice",
-    title: "【借書證閱讀】：依據上題借書證資料，How old is Leo?",
-    options: ["He is nine years old.", "He is ten.", "He is eight.", "He is seven."], ans: 0,
-    explain: "借書證上 Age: 9，所以他是 9 歲 (He is nine years old)。",
-    trap: "從表格中抓取 Age 欄位資料。"
-  }
+  // Unit 4
+  { u: "u4", title: "萬聖節討糖時說的『不給糖就搗蛋』英文是：", opts: ["Trick or treat!", "Happy Birthday!", "Good job!", "Thank you!"], ans: 0, exp: "Trick or treat! 為萬聖節經典用語。" },
+  { u: "u4", title: "萬聖節的『南瓜』英文單字是：", opts: ["a pumpkin", "a ghost", "a bat", "a witch"], ans: 0, exp: "pumpkin 是南瓜，ghost 是鬼魂，bat 是蝙蝠，witch 是女巫。" },
+  { u: "u4", title: "騎掃帚的『女巫』英文是：", opts: ["a witch", "a vampire", "a spider", "a ghost"], ans: 0, exp: "witch 是女巫。" },
+  { u: "u4", title: "在夜空中飛行的『蝙蝠』英文是：", opts: ["a bat", "a cat", "a rat", "a hat"], ans: 0, exp: "bat 是蝙蝠。" }
 ];
 
-// ==========================================
-// ⌨️ 星際拼字機詞庫 (必考核心單字)
-// ==========================================
-const SPELL_WORDS = [
-  { word: "RULER", hint: "直尺", detail: "R-U-L-E-R，長條狀測量工具。" },
-  { word: "ERASER", hint: "橡皮擦", detail: "E-R-A-S-E-R，母音開頭要用 an eraser。" },
-  { word: "PENCIL", hint: "鉛筆", detail: "P-E-N-C-I-L，寫作業常用的鉛筆。" },
-  { word: "BOOK", hint: "書本", detail: "B-O-O-K，閱讀的書本。" },
-  { word: "MARKER", hint: "白板筆/彩色筆", detail: "M-A-R-K-E-R，彩色筆或白板筆。" },
-  { word: "SEVEN", hint: "數字 7", detail: "S-E-V-E-N，數字七。" },
-  { word: "EIGHT", hint: "數字 8", detail: "E-I-G-H-T，最常拼錯的數字八！" },
-  { word: "NINE", hint: "數字 9", detail: "N-I-N-E，字尾有不發音的 e。" },
-  { word: "TEN", hint: "數字 10", detail: "T-E-N，數字十。" },
-  { word: "BLUE", hint: "藍色", detail: "B-L-U-E，天空與大海的藍色。" },
-  { word: "GREEN", hint: "綠色", detail: "G-R-E-E-N，樹葉的綠色。" },
-  { word: "YELLOW", hint: "黃色", detail: "Y-E-L-L-O-W，香蕉與太陽的黃色。" },
-  { word: "BLACK", hint: "黑色", detail: "B-L-A-C-K，深邃的黑色。" },
-  { word: "WHITE", hint: "白色", detail: "W-H-I-T-E，白雪的白色。" },
-  { word: "PUMPKIN", hint: "南瓜", detail: "P-U-M-P-K-I-N，萬聖節必備南瓜燈。" },
-  { word: "GHOST", hint: "鬼魂/幽靈", detail: "G-H-O-S-T，漂浮的幽靈。" },
-  { word: "WITCH", hint: "女巫", detail: "W-I-T-C-H，騎掃帚的萬聖節女巫。" },
-  { word: "BAT", hint: "蝙蝠", detail: "B-A-T，倒掛飛行的蝙蝠。" },
-  { word: "SPIDER", hint: "蜘蛛", detail: "S-P-I-D-E-R，結八腳網的蜘蛛。" },
-  { word: "APPLE", hint: "蘋果", detail: "A-P-P-L-E，母音開頭用 an apple。" }
+const SPELL_DATA = [
+  { w: "RULER", h: "直尺" },
+  { w: "ERASER", h: "橡皮擦" },
+  { w: "PENCIL", h: "鉛筆" },
+  { w: "BOOK", h: "書本" },
+  { w: "EIGHT", h: "數字 8" },
+  { w: "NINE", h: "數字 9" },
+  { w: "BLUE", h: "藍色" },
+  { w: "GREEN", h: "綠色" },
+  { w: "PUMPKIN", h: "南瓜" },
+  { w: "WITCH", h: "女巫" }
 ];
 
-// ==========================================
-// 系統狀態
-// ==========================================
-let currentNavMode = 'units'; // units, spell, midterm, final, traps, notebook
-let currentLesson = 'all';
-let currentQuizList = [];
-let currentQuizIndex = 0;
-let quizScore = 0;
+let curMode = 'quiz';
+let curList = [];
+let curIdx = 0;
+let curScore = 0;
 
-// 拼字狀態
-let spellList = [];
-let spellIndex = 0;
-let currentSpellTarget = "";
-let userEnteredLetters = "";
-let spellScore = 0;
-
-// 考卷狀態
-let paperExamList = [];
-let paperUserAnswers = {};
-
-// 錯題筆記
-let wrongQuestions = [];
+let curSpellTarget = "";
+let curSpellInput = "";
+let spellIdx = 0;
+let spellScoreVal = 0;
 
 function init() {
-  switchNavMode('units');
+  renderKeyboard();
+  loadQuiz();
 }
 
-// ---------------- 頂部主選單切換 ----------------
-function switchNavMode(mode) {
-  currentNavMode = mode;
+function setMode(m) {
+  curMode = m;
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  const btn = document.querySelector(`.nav-btn[onclick*="${mode}"]`);
+  const btn = document.querySelector(`.nav-btn[onclick*="${m}"]`);
   if (btn) btn.classList.add('active');
 
-  // 控制區顯示
-  const ctrlBar = document.getElementById('subControlBar');
-  ctrlBar.style.display = (mode === 'units' || mode === 'traps') ? 'flex' : 'none';
+  document.getElementById('ctrlBar').style.display = (m === 'spell') ? 'none' : 'flex';
+  document.getElementById('quizPanel').style.display = (m === 'spell') ? 'none' : 'block';
+  document.getElementById('spellPanel').style.display = (m === 'spell') ? 'block' : 'none';
 
-  // 視窗切換
-  document.getElementById('quizContainer').style.display = 'none';
-  document.getElementById('spellContainer').style.display = 'none';
-  document.getElementById('paperContainer').style.display = 'none';
-  document.getElementById('notebookContainer').style.display = 'none';
-
-  if (mode === 'units') {
-    document.getElementById('quizContainer').style.display = 'block';
-    loadUnitsQuiz();
-  } else if (mode === 'spell') {
-    document.getElementById('spellContainer').style.display = 'block';
-    startSpellingMode();
-  } else if (mode === 'midterm') {
-    document.getElementById('paperContainer').style.display = 'block';
-    openPaperMode('midterm');
-  } else if (mode === 'final') {
-    document.getElementById('paperContainer').style.display = 'block';
-    openPaperMode('final');
-  } else if (mode === 'traps') {
-    document.getElementById('quizContainer').style.display = 'block';
-    loadTrapsQuiz();
-  } else if (mode === 'notebook') {
-    document.getElementById('notebookContainer').style.display = 'block';
-    renderNotebookView();
+  if (m === 'spell') {
+    startSpell();
+  } else {
+    loadQuiz();
   }
 }
 
-// ---------------- 單元與隨機題庫 ----------------
-function onLessonSelectChange() {
-  currentLesson = document.getElementById('lessonSelect').value;
-  if (currentNavMode === 'traps') loadTrapsQuiz();
-  else loadUnitsQuiz();
-}
+function onUnitChange() { loadQuiz(); }
 
-function reloadRandomQuestions() {
-  if (currentNavMode === 'traps') loadTrapsQuiz();
-  else loadUnitsQuiz();
-}
-
-function loadUnitsQuiz() {
-  let pool = [...ENGLISH_DATABASE];
-  if (currentLesson !== 'all') {
-    pool = pool.filter(q => q.unit === currentLesson);
+function loadQuiz() {
+  const u = document.getElementById('unitSelect').value;
+  let pool = (u === 'all') ? [...QUESTIONS] : QUESTIONS.filter(q => q.u === u);
+  if (curMode === 'traps') {
+    pool = pool.filter(q => q.exp.includes('不可') || q.exp.includes('需使用') || q.title.includes('錯誤'));
   }
-  // 強制隨機打亂洗牌
   pool.sort(() => Math.random() - 0.5);
-  currentQuizList = pool.slice(0, 10);
-  currentQuizIndex = 0;
-  quizScore = 0;
+  curList = pool.slice(0, 10);
+  curIdx = 0;
+  curScore = 0;
 
-  document.getElementById('poolBadge').innerText = `題庫共 ${pool.length} 題 (隨機抽選)`;
-  document.getElementById('typeBadge').innerText = "單元挑戰";
-  renderCurrentQuestion();
+  document.getElementById('poolBadge').innerText = `題庫量：${pool.length} 題`;
+  renderQuestion();
 }
 
-function loadTrapsQuiz() {
-  // 篩選所有帶有 trap 說明的易錯陷阱題
-  let pool = ENGLISH_DATABASE.filter(q => q.trap || q.type === 'tf');
-  pool.sort(() => Math.random() - 0.5);
-  currentQuizList = pool.slice(0, 10);
-  currentQuizIndex = 0;
-  quizScore = 0;
-
-  document.getElementById('poolBadge').innerText = `易錯陷阱題庫共 ${pool.length} 題`;
-  document.getElementById('typeBadge').innerText = "⚠️ 易錯陷阱特訓";
-  renderCurrentQuestion();
-}
-
-function renderCurrentQuestion() {
-  const fb = document.getElementById('feedbackBox');
-  fb.style.display = 'none';
-
-  if (currentQuizIndex >= currentQuizList.length) {
-    document.getElementById('qTitle').innerText = `🎉 太棒了！本輪特訓完成！總得分：${quizScore} / ${currentQuizList.length * 10} 分`;
-    document.getElementById('qSub').innerText = "點選下方按鈕再抽一組全新題目挑戰！";
-    document.getElementById('optionArea').innerHTML = `
-      <div style="text-align:center; padding:20px;">
-        <button class="action-btn" style="padding:14px 28px; font-size:16px;" onclick="reloadRandomQuestions()">🎲 換一套全新考題繼續特訓 ➔</button>
-      </div>
-    `;
+function renderQuestion() {
+  document.getElementById('feedback').style.display = 'none';
+  if (curIdx >= curList.length) {
+    document.getElementById('qTitle').innerText = `🎉 練習完成！總分：${curScore} 分`;
+    document.getElementById('choiceList').innerHTML = `<button class="choice-btn" onclick="loadQuiz()">🎲 換一套新題目繼續練習</button>`;
     return;
   }
-
-  const q = currentQuizList[currentQuizIndex];
-  document.getElementById('progressText').innerText = `第 ${currentQuizIndex + 1} / ${currentQuizList.length} 題`;
-  document.getElementById('scoreBadge').innerText = `得分：${quizScore}`;
+  const q = curList[curIdx];
+  document.getElementById('progressText').innerText = `第 ${curIdx + 1} / ${curList.length} 題`;
+  document.getElementById('scoreText').innerText = `得分：${curScore}`;
   document.getElementById('qTitle').innerText = q.title;
-  document.getElementById('qSub').innerText = `單元歸屬：${q.unitName}`;
 
-  const optArea = document.getElementById('optionArea');
-  optArea.innerHTML = "";
-
-  if (q.type === 'tf') {
-    optArea.innerHTML = `
-      <div class="tf-group">
-        <button class="tf-btn o" id="btn_tf_0" onclick="chooseAnswer(0)">⭕ 正確 (True)</button>
-        <button class="tf-btn x" id="btn_tf_1" onclick="chooseAnswer(1)">❌ 錯誤 (False)</button>
-      </div>
-    `;
-  } else {
-    let html = `<div class="choice-list">`;
-    const labels = ['A', 'B', 'C', 'D'];
-    q.options.forEach((opt, idx) => {
-      html += `<button class="choice-btn" id="btn_choice_${idx}" onclick="chooseAnswer(${idx})">
-        <b>${labels[idx]}.</b> ${opt}
-      </button>`;
-    });
-    html += `</div>`;
-    optArea.innerHTML = html;
-  }
+  let html = '';
+  q.opts.forEach((opt, i) => {
+    html += `<button class="choice-btn" id="opt_${i}" onclick="checkAns(${i})">${opt}</button>`;
+  });
+  document.getElementById('choiceList').innerHTML = html;
 }
 
-function chooseAnswer(userChoice) {
-  const q = currentQuizList[currentQuizIndex];
-  const isCorrect = (userChoice === q.ans);
+function checkAns(choice) {
+  const q = curList[curIdx];
+  const isCorrect = (choice === q.ans);
+  document.querySelectorAll('.choice-btn').forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.ans) b.classList.add('correct');
+    else if (i === choice && !isCorrect) b.classList.add('wrong');
+  });
 
-  // 選項立即變色反饋
-  if (q.type === 'tf') {
-    const btns = [document.getElementById('btn_tf_0'), document.getElementById('btn_tf_1')];
-    btns.forEach((btn, idx) => {
-      if (!btn) return;
-      btn.disabled = true;
-      if (idx === q.ans) {
-        btn.classList.add('selected-correct');
-        btn.innerHTML = "✅ " + btn.innerHTML;
-      } else if (idx === userChoice && !isCorrect) {
-        btn.classList.add('selected-wrong');
-        btn.innerHTML = "❌ " + btn.innerHTML;
-      }
-    });
-  } else {
-    q.options.forEach((opt, idx) => {
-      const btn = document.getElementById(`btn_choice_${idx}`);
-      if (!btn) return;
-      btn.disabled = true;
-      if (idx === q.ans) {
-        btn.classList.add('selected-correct');
-        btn.innerHTML = "✅ " + btn.innerHTML;
-      } else if (idx === userChoice && !isCorrect) {
-        btn.classList.add('selected-wrong');
-        btn.innerHTML = "❌ " + btn.innerHTML;
-      }
-    });
-  }
+  if (isCorrect) curScore += 10;
+  document.getElementById('scoreText').innerText = `得分：${curScore}`;
 
-  if (isCorrect) {
-    quizScore += 10;
-  } else {
-    recordWrongQuestion(q, userChoice);
-  }
-
-  document.getElementById('scoreBadge').innerText = `得分：${quizScore}`;
-
-  // 顯示詳細反饋橫幅
-  const fb = document.getElementById('feedbackBox');
-  const fbHeader = document.getElementById('fbHeader');
-  const fbBody = document.getElementById('fbBody');
-
-  if (isCorrect) {
-    fb.className = "feedback-box correct";
-    fbHeader.innerHTML = `<span>🎉</span> <span>回答完全正確！(+10分)</span>`;
-  } else {
-    fb.className = "feedback-box wrong";
-    const correctText = (q.type === 'tf') ? (q.ans === 0 ? '⭕ 正確' : '❌ 錯誤') : `${['A','B','C','D'][q.ans]}. ${q.options[q.ans]}`;
-    fbHeader.innerHTML = `<span>❌</span> <span>答錯了！正確答案是：【${correctText}】</span>`;
-  }
-
-  fbBody.innerHTML = `
-    <div>📖 <b>解析說明：</b>${q.explain}</div>
-    ${q.trap ? `<div class="fb-trap-tag">⚠️ 考卷避坑指南：${q.trap}</div>` : ''}
-  `;
+  const fb = document.getElementById('feedback');
+  fb.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
+  document.getElementById('fbTitle').innerText = isCorrect ? '🎉 回答完全正確！(+10分)' : `❌ 答錯了！正確答案是：${q.opts[q.ans]}`;
+  document.getElementById('fbDetail').innerText = q.exp;
   fb.style.display = 'block';
-  fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function nextQuestion() {
-  currentQuizIndex++;
-  renderCurrentQuestion();
+  curIdx++;
+  renderQuestion();
 }
 
-// ---------------- ⌨️ 星際拼字機邏輯 ----------------
-function startSpellingMode() {
-  spellList = [...SPELL_WORDS].sort(() => Math.random() - 0.5).slice(0, 10);
-  spellIndex = 0;
-  spellScore = 0;
-  renderSpellQuestion();
+function speakCurrent() {
+  if (curList[curIdx]) speak(curList[curIdx].title);
 }
 
-function renderSpellQuestion() {
-  const fb = document.getElementById('spellFeedbackBox');
-  fb.style.display = 'none';
+// 拼字邏輯
+function startSpell() {
+  spellIdx = 0;
+  spellScoreVal = 0;
+  renderSpell();
+}
 
-  if (spellIndex >= spellList.length) {
-    document.getElementById('spellPrompt').innerText = `🏆 星際拼字特訓完成！總得分：${spellScore} / 100 分`;
-    document.getElementById('spellSlots').innerHTML = "";
-    document.getElementById('keyboardGrid').innerHTML = "";
-    document.querySelector('.spell-action-bar').innerHTML = `
-      <button class="spell-ctl-btn btn-submit-spell" onclick="startSpellingMode()">🎲 再玩一組全新單字 ➔</button>
-    `;
+function renderSpell() {
+  document.getElementById('spellFeedback').style.display = 'none';
+  if (spellIdx >= SPELL_DATA.length) {
+    document.getElementById('spellHint').innerText = `🏆 拼字完成！得分：${spellScoreVal} 分`;
+    document.getElementById('spellSlots').innerHTML = '';
     return;
   }
+  const item = SPELL_DATA[spellIdx];
+  curSpellTarget = item.w;
+  curSpellInput = '';
+  document.getElementById('spellProgress').innerText = `第 ${spellIdx + 1} / ${SPELL_DATA.length} 關`;
+  document.getElementById('spellScore').innerText = `得分：${spellScoreVal}`;
+  document.getElementById('spellHint').innerText = `請拼出單字：【${item.h}】`;
 
-  const item = spellList[spellIndex];
-  currentSpellTarget = item.word.toUpperCase();
-  userEnteredLetters = "";
-
-  document.getElementById('spellProgress').innerText = `第 ${spellIndex + 1} / ${spellList.length} 關`;
-  document.getElementById('spellScore').innerText = `拼字得分：${spellScore}`;
-  document.getElementById('spellPrompt').innerText = `請拼出英文單字：【${item.hint}】`;
-
-  renderSpellSlots();
-  renderKeyboardGrid();
+  updateSlots();
+  document.querySelectorAll('.key, .btn-del, .btn-sub').forEach(b => b.disabled = false);
 }
 
-function renderSpellSlots() {
-  const container = document.getElementById('spellSlots');
-  let html = "";
-  for (let i = 0; i < currentSpellTarget.length; i++) {
-    const ch = userEnteredLetters[i] || "";
-    const isActive = (i === userEnteredLetters.length) ? "active" : "";
-    html += `<div class="slot-letter ${isActive}">${ch}</div>`;
+function updateSlots() {
+  let html = '';
+  for (let i = 0; i < curSpellTarget.length; i++) {
+    html += `<div class="slot">${curSpellInput[i] || ''}</div>`;
   }
-  container.innerHTML = html;
+  document.getElementById('spellSlots').innerHTML = html;
 }
 
-function renderKeyboardGrid() {
-  const grid = document.getElementById('keyboardGrid');
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-  let html = "";
-  letters.forEach(letter => {
-    html += `<button class="key-btn" onclick="pressSpellKey('${letter}')">${letter}</button>`;
+function renderKeyboard() {
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+  let html = '';
+  letters.forEach(l => {
+    html += `<button class="key" onclick="pressLetter('${l}')">${l}</button>`;
   });
-  grid.innerHTML = html;
+  document.getElementById('keyboard').innerHTML = html;
 }
 
-function pressSpellKey(letter) {
-  if (userEnteredLetters.length < currentSpellTarget.length) {
-    userEnteredLetters += letter;
-    renderSpellSlots();
+function pressLetter(l) {
+  if (curSpellInput.length < curSpellTarget.length) {
+    curSpellInput += l;
+    updateSlots();
   }
 }
 
 function deleteSpellLetter() {
-  if (userEnteredLetters.length > 0) {
-    userEnteredLetters = userEnteredLetters.slice(0, -1);
-    renderSpellSlots();
+  if (curSpellInput.length > 0) {
+    curSpellInput = curSpellInput.slice(0, -1);
+    updateSlots();
   }
 }
 
-function submitSpellAnswer() {
-  if (userEnteredLetters.length < currentSpellTarget.length) {
-    alert("請拼完所有字母後再送出！");
-    return;
-  }
-
-  const isCorrect = (userEnteredLetters === currentSpellTarget);
-  const item = spellList[spellIndex];
-  const fb = document.getElementById('spellFeedbackBox');
-  const h = document.getElementById('spellFbHeader');
-  const b = document.getElementById('spellFbBody');
-
+function submitSpell() {
+  if (curSpellInput.length < curSpellTarget.length) return;
+  const isCorrect = (curSpellInput === curSpellTarget);
   if (isCorrect) {
-    spellScore += 10;
-    fb.className = "feedback-box correct";
-    h.innerHTML = `<span>🎉</span> <span>太棒了！拼寫完全正確！</span>`;
-    playVoice(currentSpellTarget);
-  } else {
-    fb.className = "feedback-box wrong";
-    h.innerHTML = `<span>❌</span> <span>拼錯囉！你拼成【${userEnteredLetters}】，正確是【${currentSpellTarget}】</span>`;
-    recordWrongQuestion({
-      title: `單字拼寫【${item.hint}】`,
-      explain: `正確拼法為：${currentSpellTarget}。${item.detail}`
-    }, userEnteredLetters);
+    spellScoreVal += 10;
+    speak(curSpellTarget);
   }
-
-  b.innerHTML = `<div>📖 <b>單字記憶解析：</b>${item.detail}</div>`;
+  document.getElementById('spellScore').innerText = `得分：${spellScoreVal}`;
+  const fb = document.getElementById('spellFeedback');
+  fb.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
+  document.getElementById('spellFbTitle').innerText = isCorrect ? '🎉 拼寫正確！' : `❌ 拼錯了！正確拼法為：${curSpellTarget}`;
+  document.getElementById('spellFbDetail').innerText = `單字中文：${SPELL_DATA[spellIdx].h}`;
   fb.style.display = 'block';
-
-  document.querySelectorAll('.key-btn, .spell-ctl-btn').forEach(btn => btn.disabled = true);
+  document.querySelectorAll('.key, .btn-del, .btn-sub').forEach(b => b.disabled = true);
 }
 
-function nextSpellQuestion() {
-  spellIndex++;
-  renderSpellQuestion();
+function nextSpell() {
+  spellIdx++;
+  renderSpell();
 }
 
-// ---------------- 📜 考卷長卷模式 (期中/期末) ----------------
-function openPaperMode(examType) {
-  paperUserAnswers = {};
-  const isMid = (examType === 'midterm');
+function speakSpellWord() { speak(curSpellTarget); }
 
-  document.getElementById('paperTitle').innerText = isMid ? "📜 國小三年級英語科・期中考全真試卷 (96分真題題型)" : "📜 國小三年級英語科・期末考全真模擬試卷 (Unit 1~4 全範圍)";
-  document.getElementById('paperSubtitle').innerText = isMid ? "涵蓋：大小寫字母、字首自然發音、看圖選單字、核心對話、借書證閱讀題組" : "涵蓋：年齡、文具冠詞 a/an、顏色問答、萬聖節單字與生活對話";
-  document.getElementById('paperScoreLive').innerText = "得分：尚未交卷";
-  document.getElementById('btnSubmitPaper').style.display = 'block';
-
-  // 篩選題目
-  let pool = isMid 
-    ? ENGLISH_DATABASE.filter(q => q.unit === 'e_u1' || q.unit === 'e_u2' || q.unit === 'e_phonics')
-    : [...ENGLISH_DATABASE];
-
-  pool.sort(() => Math.random() - 0.5);
-  paperExamList = pool.slice(0, 15);
-
-  renderPaperContent();
-}
-
-function renderPaperContent() {
-  const container = document.getElementById('paperBody');
-  let html = "";
-
-  // 分類成是非題與選擇題
-  const tfList = paperExamList.filter(q => q.type === 'tf');
-  const choiceList = paperExamList.filter(q => q.type !== 'tf');
-
-  if (tfList.length > 0) {
-    html += `<div class="paper-sec-title">一、是非題 (對的選 ⭕，錯的選 ❌，共 ${tfList.length} 題)</div>`;
-    tfList.forEach((q, idx) => {
-      html += `
-        <div class="paper-item" id="p_item_${q.id}">
-          <div class="paper-item-title">${idx + 1}. ${q.title}</div>
-          <div class="tf-group" style="max-width:320px;">
-            <button class="tf-btn o" id="p_btn_${q.id}_0" onclick="recordPaperAns('${q.id}', 0)">⭕ 正確</button>
-            <button class="tf-btn x" id="p_btn_${q.id}_1" onclick="recordPaperAns('${q.id}', 1)">❌ 錯誤</button>
-          </div>
-          <div class="paper-explain" id="p_exp_${q.id}"></div>
-        </div>
-      `;
-    });
-  }
-
-  if (choiceList.length > 0) {
-    html += `<div class="paper-sec-title">二、單一選擇題 (選出最適合的答案，共 ${choiceList.length} 題)</div>`;
-    const labels = ['A', 'B', 'C', 'D'];
-    choiceList.forEach((q, idx) => {
-      html += `
-        <div class="paper-item" id="p_item_${q.id}">
-          <div class="paper-item-title">${idx + 1}. ${q.title}</div>
-          <div class="choice-list">
-      `;
-      q.options.forEach((opt, optIdx) => {
-        html += `
-          <button class="choice-btn" id="p_btn_${q.id}_${optIdx}" onclick="recordPaperAns('${q.id}', ${optIdx})">
-            <b>${labels[optIdx]}.</b> ${opt}
-          </button>
-        `;
-      });
-      html += `
-          </div>
-          <div class="paper-explain" id="p_exp_${q.id}"></div>
-        </div>
-      `;
-    });
-  }
-
-  container.innerHTML = html;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function recordPaperAns(qid, choiceIdx) {
-  paperUserAnswers[qid] = choiceIdx;
-  const q = paperExamList.find(item => item.id === qid);
-  if (!q) return;
-
-  if (q.type === 'tf') {
-    [0, 1].forEach(i => {
-      const btn = document.getElementById(`p_btn_${qid}_${i}`);
-      if (btn) btn.classList.toggle('selected-correct', i === choiceIdx);
-    });
-  } else {
-    q.options.forEach((opt, i) => {
-      const btn = document.getElementById(`p_btn_${qid}_${i}`);
-      if (btn) btn.classList.toggle('selected-correct', i === choiceIdx);
-    });
-  }
-}
-
-function submitPaperExam() {
-  let correct = 0;
-  const total = paperExamList.length;
-
-  paperExamList.forEach(q => {
-    const userAns = paperUserAnswers[q.id];
-    const isCorrect = (userAns === q.ans);
-    if (isCorrect) correct++;
-
-    const expBox = document.getElementById(`p_exp_${q.id}`);
-    if (expBox) {
-      expBox.className = "paper-explain show " + (isCorrect ? "c" : "w");
-      const correctTxt = (q.type === 'tf') ? (q.ans === 0 ? '⭕ 正確' : '❌ 錯誤') : `${['A','B','C','D'][q.ans]}. ${q.options[q.ans]}`;
-      expBox.innerHTML = `<b>${isCorrect ? "✅ 答對了！" : "❌ 答錯了！"} 正確答案：【${correctTxt}】</b><br>${q.explain} ${q.trap ? `<br>⚠️ 陷阱提示：${q.trap}` : ''}`;
-    }
-
-    // 標示選項按鈕
-    if (q.type === 'tf') {
-      [0, 1].forEach(i => {
-        const btn = document.getElementById(`p_btn_${q.id}_${i}`);
-        if (!btn) return;
-        btn.disabled = true;
-        btn.classList.remove('selected-correct', 'selected-wrong');
-        if (i === q.ans) btn.classList.add('selected-correct');
-        else if (i === userAns && !isCorrect) btn.classList.add('selected-wrong');
-      });
-    } else {
-      q.options.forEach((opt, i) => {
-        const btn = document.getElementById(`p_btn_${q.id}_${i}`);
-        if (!btn) return;
-        btn.disabled = true;
-        btn.classList.remove('selected-correct', 'selected-wrong');
-        if (i === q.ans) btn.classList.add('selected-correct');
-        else if (i === userAns && !isCorrect) btn.classList.add('selected-wrong');
-      });
-    }
-
-    if (!isCorrect) {
-      recordWrongQuestion(q, userAns);
-    }
-  });
-
-  const finalScore = Math.round((correct / total) * 100);
-  document.getElementById('paperScoreLive').innerHTML = `🎉 試卷總分：<span style="font-size:22px; color:#34d399;">${finalScore}</span> / 100 分 (答對 ${correct} / ${total} 題)`;
-  document.getElementById('btnSubmitPaper').style.display = 'none';
-}
-
-function exitPaperView() {
-  switchNavMode('units');
-}
-
-// ---------------- 語音朗讀 (Speech Synthesis) ----------------
-function playVoice(textToSpeak) {
-  let text = textToSpeak;
-  if (!text) {
-    const q = currentQuizList[currentQuizIndex];
-    if (q) text = q.title;
-  }
-  if (!text) return;
-
+function speak(txt) {
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
-    // 過濾中文提示，只朗讀英文句子或單字
-    const engText = text.replace(/[一-龥]/g, '').replace(/[_（）()]/g, ' ').trim();
-    const u = new SpeechSynthesisUtterance(engText || text);
+    const clean = txt.replace(/[_]/g, ' ').replace(/[\u4e00-\u9fa5]/g, '').trim();
+    const u = new SpeechSynthesisUtterance(clean || txt);
     u.lang = 'en-US';
     u.rate = 0.9;
     window.speechSynthesis.speak(u);
   }
-}
-
-// ---------------- 錯題筆記本 ----------------
-function recordWrongQuestion(q, userChoice) {
-  const title = q.title || "題目";
-  if (!wrongQuestions.some(item => item.title === title)) {
-    wrongQuestions.push({
-      title: title,
-      explain: q.explain || "",
-      trap: q.trap || ""
-    });
-  }
-}
-
-function renderNotebookView() {
-  const container = document.getElementById('wrongList');
-  if (wrongQuestions.length === 0) {
-    container.innerHTML = "<p style='color:#34d399; font-weight:800; padding:20px 0;'>太厲害了！目前沒有任何錯題記錄喔！</p>";
-    return;
-  }
-
-  let html = "";
-  wrongQuestions.forEach((item, idx) => {
-    html += `
-      <div class="nb-card">
-        <div style="font-size:13px; color:#c084fc; font-weight:bold;">錯題 ${idx + 1}</div>
-        <div style="font-size:16px; font-weight:800; margin:6px 0; color:#ffffff;">${item.title}</div>
-        <div style="font-size:13.5px; color:#fca5a5; background:rgba(239,68,68,0.15); padding:8px 12px; border-radius:8px; border:1px solid rgba(239,68,68,0.3);">
-          📌 核心考點解析：${item.explain}
-          ${item.trap ? `<br>⚠️ 考卷避坑提醒：${item.trap}` : ''}
-        </div>
-      </div>
-    `;
-  });
-  container.innerHTML = html;
-}
-
-function clearWrongQuestions() {
-  wrongQuestions = [];
-  renderNotebookView();
 }
 
 window.onload = init;
