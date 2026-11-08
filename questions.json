@@ -240,6 +240,354 @@
       "zh": "糖果",
       "phonics": "萬聖節主題",
       "ex": "Trick or treat, give me candy!"
+    },
+    {
+      "en": "one",
+      "zh": "一",
+      "phonics": "數字 1",
+      "ex": "I see one dog."
+    },
+    {
+      "en": "two",
+      "zh": "二",
+      "phonics": "數字 2",
+      "ex": "Two cats are playing."
+    },
+    {
+      "en": "three",
+      "zh": "三",
+      "phonics": "數字 3",
+      "ex": "Three red apples."
+    },
+    {
+      "en": "four",
+      "zh": "四",
+      "phonics": "數字 4",
+      "ex": "Four yellow pencils."
+    },
+    {
+      "en": "five",
+      "zh": "五",
+      "phonics": "數字 5",
+      "ex": "High five!"
+    },
+    {
+      "en": "boy",
+      "zh": "男孩",
+      "phonics": "子音 b",
+      "ex": "He is a good boy."
+    },
+    {
+      "en": "duck",
+      "zh": "鴨子",
+      "phonics": "短母音 u",
+      "ex": "The duck swims."
+    },
+    {
+      "en": "name",
+      "zh": "名字",
+      "phonics": "長母音 a_e",
+      "ex": "What's your name?"
+    },
+    {
+      "en": "fan",
+      "zh": "風扇/扇子",
+      "phonics": "短母音 a",
+      "ex": "Turn on the fan."
+    },
+    {
+      "en": "goat",
+      "zh": "山羊",
+      "phonics": "雙母音 oa",
+      "ex": "The goat eats grass."
+    },
+    {
+      "en": "ink",
+      "zh": "墨水",
+      "phonics": "母音 i 開頭接 an",
+      "ex": "It is an ink bottle."
+    },
+    {
+      "en": "insect",
+      "zh": "昆蟲",
+      "phonics": "母音 i 開頭接 an",
+      "ex": "Look at the insect."
+    },
+    {
+      "en": "jet",
+      "zh": "噴射機",
+      "phonics": "子音 j",
+      "ex": "The jet is fast."
+    },
+    {
+      "en": "jam",
+      "zh": "果醬",
+      "phonics": "短母音 a",
+      "ex": "I like strawberry jam."
+    },
+    {
+      "en": "six",
+      "zh": "六",
+      "phonics": "數字 6",
+      "ex": "I am six years old."
+    },
+    {
+      "en": "seven",
+      "zh": "七",
+      "phonics": "數字 7",
+      "ex": "She is seven."
+    },
+    {
+      "en": "eight",
+      "zh": "八",
+      "phonics": "數字 8 (gh不發音)",
+      "ex": "He is eight years old."
+    },
+    {
+      "en": "nine",
+      "zh": "九",
+      "phonics": "數字 9",
+      "ex": "I am nine."
+    },
+    {
+      "en": "ten",
+      "zh": "十",
+      "phonics": "數字 10",
+      "ex": "Count to ten."
+    },
+    {
+      "en": "birthday",
+      "zh": "生日",
+      "phonics": "生活名詞",
+      "ex": "Happy Birthday to you!"
+    },
+    {
+      "en": "year",
+      "zh": "歲/年",
+      "phonics": "單數名詞",
+      "ex": "one year old"
+    },
+    {
+      "en": "years",
+      "zh": "歲 (複數)",
+      "phonics": "複數名詞",
+      "ex": "eight years old"
+    },
+    {
+      "en": "key",
+      "zh": "鑰匙",
+      "phonics": "子音 k",
+      "ex": "Here is the key."
+    },
+    {
+      "en": "leg",
+      "zh": "腿",
+      "phonics": "短母音 e",
+      "ex": "Stand on one leg."
+    },
+    {
+      "en": "ox",
+      "zh": "公牛",
+      "phonics": "母音 o 開頭接 an",
+      "ex": "An ox is strong."
+    },
+    {
+      "en": "otter",
+      "zh": "水獺",
+      "phonics": "母音 o 開頭接 an",
+      "ex": "An otter is swimming."
+    },
+    {
+      "en": "ticket",
+      "zh": "門票",
+      "phonics": "生活名詞",
+      "ex": "How much is the ticket?"
+    },
+    {
+      "en": "adult",
+      "zh": "大人 (NT$30)",
+      "phonics": "票價類別",
+      "ex": "One adult ticket, please."
+    },
+    {
+      "en": "kids",
+      "zh": "小孩 (NT$15)",
+      "phonics": "票價類別",
+      "ex": "Kids aged 7-12 are NT$15."
+    },
+    {
+      "en": "free",
+      "zh": "免費 (0~6歲)",
+      "phonics": "票價類別",
+      "ex": "Kids under 6 are free."
+    },
+    {
+      "en": "number",
+      "zh": "號碼",
+      "phonics": "生活名詞",
+      "ex": "My number is 123."
+    },
+    {
+      "en": "marker",
+      "zh": "彩色筆/麥克筆",
+      "phonics": "教室文具",
+      "ex": "It's a blue marker."
+    },
+    {
+      "en": "bus",
+      "zh": "公車 (複數 buses)",
+      "phonics": "短母音 u",
+      "ex": "Two buses are coming."
+    },
+    {
+      "en": "pig",
+      "zh": "小豬",
+      "phonics": "短母音 i",
+      "ex": "A pink pig."
+    },
+    {
+      "en": "queen",
+      "zh": "女王",
+      "phonics": "子音組 qu [kw]",
+      "ex": "The queen wears a crown."
+    },
+    {
+      "en": "quiz",
+      "zh": "隨堂測驗",
+      "phonics": "子音組 qu [kw]",
+      "ex": "We have an English quiz."
+    },
+    {
+      "en": "rabbit",
+      "zh": "兔子",
+      "phonics": "短母音 a",
+      "ex": "A white rabbit jumps."
+    },
+    {
+      "en": "sun",
+      "zh": "太陽",
+      "phonics": "短母音 u",
+      "ex": "The sun is hot."
+    },
+    {
+      "en": "snake",
+      "zh": "蛇",
+      "phonics": "長母音 a_e",
+      "ex": "The snake is long."
+    },
+    {
+      "en": "tiger",
+      "zh": "老虎",
+      "phonics": "長母音 i",
+      "ex": "The tiger is strong."
+    },
+    {
+      "en": "turtle",
+      "zh": "烏龜",
+      "phonics": "子音 t",
+      "ex": "A small turtle."
+    },
+    {
+      "en": "black",
+      "zh": "黑色",
+      "phonics": "顏色形容詞",
+      "ex": "The bag is black."
+    },
+    {
+      "en": "white",
+      "zh": "白色",
+      "phonics": "顏色形容詞",
+      "ex": "Snow is white."
+    },
+    {
+      "en": "purple",
+      "zh": "紫色",
+      "phonics": "顏色形容詞",
+      "ex": "Purple grapes."
+    },
+    {
+      "en": "umbrella",
+      "zh": "雨傘",
+      "phonics": "母音 u 開頭接 an",
+      "ex": "It's an umbrella."
+    },
+    {
+      "en": "vest",
+      "zh": "背心",
+      "phonics": "子音 v",
+      "ex": "He wears a green vest."
+    },
+    {
+      "en": "van",
+      "zh": "廂型車",
+      "phonics": "子音 v",
+      "ex": "A blue van."
+    },
+    {
+      "en": "watch",
+      "zh": "手錶",
+      "phonics": "子音 w",
+      "ex": "This is my watch."
+    },
+    {
+      "en": "window",
+      "zh": "窗戶",
+      "phonics": "子音 w",
+      "ex": "Open the window, please."
+    },
+    {
+      "en": "fox",
+      "zh": "狐狸 (複數 foxes)",
+      "phonics": "短母音 o",
+      "ex": "A clever fox."
+    },
+    {
+      "en": "yo-yo",
+      "zh": "溜溜球",
+      "phonics": "子音 y",
+      "ex": "Play with a yo-yo."
+    },
+    {
+      "en": "yogurt",
+      "zh": "優格",
+      "phonics": "子音 y",
+      "ex": "I like strawberry yogurt."
+    },
+    {
+      "en": "zebra",
+      "zh": "斑馬",
+      "phonics": "子音 z",
+      "ex": "The zebra has stripes."
+    },
+    {
+      "en": "pumpkin lantern",
+      "zh": "南瓜燈 (Jack-o'-lantern)",
+      "phonics": "節慶主題",
+      "ex": "Light up the pumpkin lantern."
+    },
+    {
+      "en": "bat",
+      "zh": "蝙蝠",
+      "phonics": "短母音 a",
+      "ex": "Bats fly at night."
+    },
+    {
+      "en": "spider",
+      "zh": "蜘蛛",
+      "phonics": "長母音 i",
+      "ex": "The spider has eight legs."
+    },
+    {
+      "en": "vampire",
+      "zh": "吸血鬼",
+      "phonics": "節慶主題",
+      "ex": "The vampire wears a cape."
+    },
+    {
+      "en": "all_vocab",
+      "zh": "全冊核心單字大統整",
+      "phonics": "後半學期(U3,U4,Halloween)為主",
+      "ex": "Comprehensive review"
     }
   ],
   "spelling": [

@@ -29,12 +29,12 @@
     overflow-x: hidden;
   }
 
-  /* 遊戲頂級響應式主容器 (支援平板、電腦與手機自適應) */
+  /* 遊戲頂級自適應主容器 (平板、筆電與手機無縫適配) */
   .game-app-container {
     width: 100%;
-    max-width: 1080px;
-    height: 94vh;
-    min-height: 800px;
+    max-width: 1100px;
+    height: 95vh;
+    min-height: 820px;
     background: var(--bg-dark);
     display: flex;
     flex-direction: column;
@@ -45,7 +45,7 @@
     overflow: hidden;
   }
 
-  /* 頂部全域 HUD */
+  /* 頂部全域 HUD 狀態列 */
   .top-hud-bar {
     background: rgba(10, 17, 32, 0.96);
     border-bottom: 2px solid #1e2d4a;
@@ -94,7 +94,7 @@
   }
   .btn-audio-pill:hover { background: #38bdf8; color: #020617; }
 
-  /* 主導航分頁列 (Nav Tabs) */
+  /* 主導航分頁列 */
   .main-nav-tabs-bar {
     background: #090e1a;
     border-bottom: 1.5px solid #1e2d4a;
@@ -148,15 +148,22 @@
   .game-view-layer.active { display: flex; flex-direction: column; }
 
   /* ==============================================================
-     1. 🌌 太陽系自然星軌大地圖 (自然貼合星雲曲線)
+     1. 🌌 太陽系星空大地圖 (徹底修復比例坍塌，全螢幕均勻分布！)
      ============================================================== */
   #layer-map {
-    position: relative;
-    padding: 16px;
+    position: absolute !important;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding: 0;
   }
   .map-header-badge {
+    position: absolute;
+    top: 14px; left: 0; right: 0;
     text-align: center;
-    margin: 8px 0 16px 0;
+    z-index: 20;
+    pointer-events: none;
     text-shadow: 0 2px 10px rgba(0,0,0,0.9);
   }
   .map-header-badge h2 {
@@ -171,7 +178,7 @@
     margin-top: 4px;
   }
 
-  /* 曲線星光軌道 SVG */
+  /* 平滑星光軌道 SVG */
   .cosmic-trail-svg {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -179,7 +186,7 @@
     z-index: 5;
   }
 
-  /* 星球島嶼節點 */
+  /* 星球島嶼節點 (S曲線分布於全畫面) */
   .stage-cosmic-pin {
     position: absolute;
     transform: translate(-50%, -50%);
@@ -203,7 +210,6 @@
     align-items: center;
     justify-content: center;
     font-size: 28px;
-    position: relative;
   }
   .pin-orb-sphere.midterm {
     width: 76px;
@@ -316,7 +322,7 @@
     font-weight: 800;
   }
 
-  /* 獨立萌寵卡牌 (並排站在主角旁邊) */
+  /* 獨立萌寵卡牌 (並排站在主角身旁) */
   .pet-companion-box {
     width: 92px;
     height: 135px;
@@ -523,62 +529,77 @@
   }
 
   /* ==============================================================
-     3. 📖 單元重點全覽 (一頁展開全部單字與必考句子)
+     3. 📖 單元重點全覽 (一頁展開全書所有單元，98+單字一次看足！)
      ============================================================== */
   #layer-guide {
     background: rgba(7, 12, 24, 0.96);
     padding: 24px;
   }
-  .guide-tab-strip {
+  .guide-quick-jump-bar {
     display: flex;
     gap: 8px;
     overflow-x: auto;
     padding-bottom: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     border-bottom: 1px solid #1e293b;
+    position: sticky;
+    top: 0;
+    background: rgba(7, 12, 24, 0.98);
+    z-index: 20;
   }
-  .guide-select-btn {
+  .jump-anchor-chip {
     padding: 8px 14px;
     background: #111c30;
     border: 1px solid #1e3a5f;
     border-radius: 8px;
-    color: var(--text-dim);
+    color: #38bdf8;
     font-weight: 800;
     font-size: 13px;
     white-space: nowrap;
     cursor: pointer;
+    text-decoration: none;
   }
-  .guide-select-btn.active {
-    background: #2563eb;
-    color: #fff;
-    border-color: #38bdf8;
-  }
-  .guide-page-container {
+  .jump-anchor-chip:hover { background: #2563eb; color: #fff; }
+  
+  .all-units-scroll-deck {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 22px;
   }
-  .guide-panel-card {
+  .unit-summary-card {
     background: #0f172a;
-    border: 1.5px solid #1e293b;
-    border-radius: 14px;
-    padding: 16px 20px;
+    border: 1.5px solid #1e3a5f;
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
   }
-  .vocab-overview-table {
+  .unit-card-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #fbbf24;
+    border-bottom: 2px solid #1e2d4a;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .vocab-table-full {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
+    margin-bottom: 14px;
   }
-  .vocab-overview-table th, .vocab-overview-table td {
-    padding: 8px 12px;
+  .vocab-table-full th, .vocab-table-full td {
+    padding: 9px 12px;
     text-align: left;
     border-bottom: 1px solid #1e293b;
     font-size: 14.5px;
   }
-  .vocab-overview-table th { color: #38bdf8; }
+  .vocab-table-full th { color: #38bdf8; background: #13213a; }
+  .vocab-table-full tr:hover { background: #162540; }
 
   /* ==============================================================
-     4. ⚡ 刷幣試煉場 (無限怪獸 + 俄羅斯單字掉落)
+     4. ⚡ 刷幣試煉場 (無限怪物 + 俄羅斯單字掉落)
      ============================================================== */
   #layer-challenge {
     background: rgba(7, 12, 24, 0.96);
@@ -625,7 +646,7 @@
   }
 
   /* ==============================================================
-     5. 🎒 冒險酒館與商店 (招募夥伴、領養萌寵)
+     5. 🎒 冒險酒館與商店
      ============================================================== */
   #layer-shop {
     background: rgba(7, 12, 24, 0.96);
@@ -708,62 +729,62 @@
     <button class="nav-tab-btn" id="btn-tab-shop" onclick="navigateToLayer('layer-shop')">🎒 酒館商店</button>
   </div>
 
-  <!-- 視圖內容容器 (全螢幕星空) -->
+  <!-- 視圖內容容器 (滿版星空) -->
   <div class="viewport-content-deck">
     <!-- ==================== 1. 🌌 太陽系自然星軌大地圖 ==================== -->
     <div class="game-view-layer active" id="layer-map">
       <div class="map-header-badge">
         <h2>🌌 太陽系星際航線・英語冒險地圖</h2>
-        <p>點擊星球島嶼，出發進行 RPG 實體對戰！每關 50 題海量題庫＋聽力真題！</p>
+        <p>點擊星球島嶼，出發進行 RPG 實體對戰！每關海量真題＋聽力稿！</p>
       </div>
 
       <!-- 金色星光軌道 SVG -->
       <svg class="cosmic-trail-svg" id="svgCosmicTrail"></svg>
 
-      <!-- 8 大行星節點 (自然貼合星雲曲線) -->
-      <div class="stage-cosmic-pin" style="left:14%; top:78%;" onclick="launchStageCombat(0)">
+      <!-- 8 大行星節點 (自然貼合星雲曲線，全螢幕均勻分布！) -->
+      <div class="stage-cosmic-pin" style="left:10%; top:72%;" onclick="launchStageCombat(0)">
         <div class="pin-orb-sphere">🚀</div>
         <div class="pin-stars-row">⭐⭐⭐</div>
         <div class="pin-label-plate">Starter 字母與數字</div>
       </div>
 
-      <div class="stage-cosmic-pin" style="left:26%; top:64%;" onclick="launchStageCombat(1)">
+      <div class="stage-cosmic-pin" style="left:20%; top:48%;" onclick="launchStageCombat(1)">
         <div class="pin-orb-sphere">👋</div>
         <div class="pin-stars-row">⭐⭐⭐</div>
         <div class="pin-label-plate">Unit 1 自我介紹</div>
       </div>
 
-      <div class="stage-cosmic-pin" style="left:38%; top:52%;" onclick="launchStageCombat(2)">
+      <div class="stage-cosmic-pin" style="left:33%; top:70%;" onclick="launchStageCombat(2)">
         <div class="pin-orb-sphere">🎂</div>
         <div class="pin-stars-row">⭐⭐⭐</div>
         <div class="pin-label-plate">Unit 2 年齡與禮貌</div>
       </div>
 
-      <div class="stage-cosmic-pin" style="left:50%; top:42%;" onclick="launchStageCombat(3)">
+      <div class="stage-cosmic-pin" style="left:46%; top:38%;" onclick="launchStageCombat(3)">
         <div class="pin-orb-sphere midterm">🎖️</div>
         <div class="pin-stars-row">⭐⭐⭐</div>
         <div class="pin-label-plate">期中全真檢定</div>
       </div>
 
-      <div class="stage-cosmic-pin" style="left:64%; top:32%;" onclick="launchStageCombat(4)">
+      <div class="stage-cosmic-pin" style="left:58%; top:66%;" onclick="launchStageCombat(4)">
         <div class="pin-orb-sphere">🎒</div>
         <div class="pin-stars-row">⭐⭐⭐</div>
         <div class="pin-label-plate">Unit 3 校園文具</div>
       </div>
 
-      <div class="stage-cosmic-pin" style="left:76%; top:22%;" onclick="launchStageCombat(5)">
+      <div class="stage-cosmic-pin" style="left:71%; top:38%;" onclick="launchStageCombat(5)">
         <div class="pin-orb-sphere">🎨</div>
         <div class="pin-stars-row">⭐⭐⭐</div>
         <div class="pin-label-plate">Unit 4 顏色調色</div>
       </div>
 
-      <div class="stage-cosmic-pin" style="left:86%; top:16%;" onclick="launchStageCombat(6)">
+      <div class="stage-cosmic-pin" style="left:82%; top:62%;" onclick="launchStageCombat(6)">
         <div class="pin-orb-sphere">🎃</div>
         <div class="pin-stars-row">⭐⭐⭐</div>
         <div class="pin-label-plate">Halloween 萬聖節</div>
       </div>
 
-      <div class="stage-cosmic-pin" style="left:92%; top:9%;" onclick="launchStageCombat(7)">
+      <div class="stage-cosmic-pin" style="left:91%; top:80%;" onclick="launchStageCombat(7)">
         <div class="pin-orb-sphere final">👑</div>
         <div class="pin-stars-row">⭐⭐⭐</div>
         <div class="pin-label-plate">期末魔龍大滿貫</div>
@@ -812,7 +833,7 @@
         <button class="btn-audio-pill" onclick="speakCurrentQuestionPrompt()">📢 朗讀題目</button>
       </div>
 
-      <!-- 答題控制台 (支援 聽力 / 選擇 / 是非 / 拼字 / 算術) -->
+      <!-- 答題控制台 -->
       <div class="battle-action-console">
         <div class="console-q-prompt">
           <span id="promptQuestionTitle">題目載入中...</span>
@@ -821,14 +842,21 @@
       </div>
     </div>
 
-    <!-- ==================== 3. 📖 單元重點全覽 (一頁展開) ==================== -->
+    <!-- ==================== 3. 📖 單元重點全覽 (一頁展開全書所有單元) ==================== -->
     <div class="game-view-layer" id="layer-guide">
-      <h2 style="font-size:24px; color:#38bdf8; font-weight:900; margin-bottom:12px;">📖 三年級各單元重點全覽 (單頁集中複習)</h2>
-      <div class="guide-tab-strip" id="guideTabStrip"></div>
-      <div class="guide-page-container" id="guidePageDeck"></div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h2 style="font-size:24px; color:#38bdf8; font-weight:900;">📖 三年級各單元重點全覽 (單頁集中複習・全書單字表)</h2>
+        <span style="font-size:13px; color:#fbbf24; font-weight:800;" id="totalVocabCountTag">收錄 98 個單字</span>
+      </div>
+      
+      <!-- 快速跳轉錨點 -->
+      <div class="guide-quick-jump-bar" id="guideQuickJumpBar"></div>
+      
+      <!-- 單頁滾動呈現全書單元 -->
+      <div class="all-units-scroll-deck" id="allUnitsScrollDeck"></div>
     </div>
 
-    <!-- ==================== 4. ⚡ 刷幣試煉場 (無限怪物 + 俄羅斯方塊) ==================== -->
+    <!-- ==================== 4. ⚡ 刷幣試煉場 ==================== -->
     <div class="game-view-layer" id="layer-challenge">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <h2 style="font-size:24px; color:#fbbf24; font-weight:900;">⚡ 星際試煉之塔・刷幣特訓</h2>
@@ -926,8 +954,7 @@ fetch('questions.json')
   .then(res => res.json())
   .then(data => {
     DB = data;
-    initGuideView();
-    renderStudyGuidePage(0);
+    renderAllUnitsSinglePageGuide();
     renderPetsShop();
     drawSmoothGalaxyTrail();
   })
@@ -954,14 +981,14 @@ function navigateToLayer(layerId) {
   }
 }
 
-// 繪製自然曲線金色星軌 (沿著星雲自然弧度流動)
+// 繪製自然曲線金色星軌
 function drawSmoothGalaxyTrail() {
   const svg = document.getElementById('svgCosmicTrail');
   const mapLayer = document.getElementById('layer-map');
   if (!svg || !mapLayer) return;
   
-  const w = mapLayer.clientWidth;
-  const h = mapLayer.clientHeight;
+  const w = mapLayer.clientWidth || 1000;
+  const h = mapLayer.clientHeight || 700;
   svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
   svg.innerHTML = '';
 
@@ -973,7 +1000,6 @@ function drawSmoothGalaxyTrail() {
     pts.push({ x: pin.offsetLeft, y: pin.offsetTop });
   });
 
-  // 繪製平滑曲線 (Cubic Bezier Spline)
   let d = `M ${pts[0].x} ${pts[0].y}`;
   for (let i = 0; i < pts.length - 1; i++) {
     const p0 = pts[i];
@@ -984,22 +1010,22 @@ function drawSmoothGalaxyTrail() {
   }
   d += ` T ${pts[pts.length - 1].x} ${pts[pts.length - 1].y}`;
 
-  // 柔和外光暈線
-  const auraPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-  auraPath.setAttribute('d', d);
-  auraPath.setAttribute('stroke', 'rgba(56, 189, 248, 0.25)');
-  auraPath.setAttribute('stroke-width', '16');
-  auraPath.setAttribute('fill', 'none');
-  svg.appendChild(auraPath);
+  // 柔和星雲外光暈
+  const aura = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  aura.setAttribute('d', d);
+  aura.setAttribute('stroke', 'rgba(56, 189, 248, 0.3)');
+  aura.setAttribute('stroke-width', '18');
+  aura.setAttribute('fill', 'none');
+  svg.appendChild(aura);
 
-  // 金色星光虛線
-  const starPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-  starPath.setAttribute('d', d);
-  starPath.setAttribute('stroke', '#fbbf24');
-  starPath.setAttribute('stroke-width', '4');
-  starPath.setAttribute('stroke-dasharray', '8 8');
-  starPath.setAttribute('fill', 'none');
-  svg.appendChild(starPath);
+  // 金色星光流動虛線
+  const starLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  starLine.setAttribute('d', d);
+  starLine.setAttribute('stroke', '#fbbf24');
+  starLine.setAttribute('stroke-width', '4');
+  starLine.setAttribute('stroke-dasharray', '8 8');
+  starLine.setAttribute('fill', 'none');
+  svg.appendChild(starLine);
 }
 window.addEventListener('resize', drawSmoothGalaxyTrail);
 
@@ -1091,7 +1117,7 @@ function loadCombatQuestion() {
     area.appendChild(stack);
   }
 
-  // 若為聽力題目自動播放
+  // 聽力題自動語音播報
   if (activeQuestion.audio) {
     speakText(activeQuestion.audio);
   }
@@ -1200,62 +1226,73 @@ function closeSettlementModal() {
   navigateToLayer('layer-map');
 }
 
-// ==================== 📖 單元重點全覽 (一頁展開) ====================
-function initGuideView() {
-  const strip = document.getElementById('guideTabStrip');
+// ==================== 📖 單頁集中呈現全書各單元重點 ====================
+function renderAllUnitsSinglePageGuide() {
+  const jumpBar = document.getElementById('guideQuickJumpBar');
+  const deck = document.getElementById('allUnitsScrollDeck');
   if (!DB || !DB.study_guides) return;
-  strip.innerHTML = '';
+
+  jumpBar.innerHTML = '';
+  deck.innerHTML = '';
+
+  let totalWordsAcrossAll = 0;
+
   Object.keys(DB.study_guides).forEach(id => {
     const g = DB.study_guides[id];
-    const btn = document.createElement('button');
-    btn.className = `guide-select-btn ${id == 0 ? 'active' : ''}`;
-    btn.innerText = g.unit;
-    btn.onclick = () => {
-      document.querySelectorAll('.guide-select-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderStudyGuidePage(id);
+    totalWordsAcrossAll += g.vocab.length;
+
+    // 建立頂部快速跳轉按鈕
+    const chip = document.createElement('button');
+    chip.className = 'jump-anchor-chip';
+    chip.innerText = g.unit.split(':')[0].split('·')[0].trim();
+    chip.onclick = () => {
+      const targetSec = document.getElementById(`unit-section-${id}`);
+      if (targetSec) targetSec.scrollIntoView({ behavior: 'smooth' });
     };
-    strip.appendChild(btn);
-  });
-}
+    jumpBar.appendChild(chip);
 
-function renderStudyGuidePage(unitId) {
-  const container = document.getElementById('guidePageDeck');
-  const g = DB.study_guides[unitId];
-  if (!g) return;
+    // 建立單元大卡片
+    const card = document.createElement('div');
+    card.className = 'unit-summary-card';
+    card.id = `unit-section-${id}`;
 
-  let vocabRows = '';
-  g.vocab.forEach(v => {
-    vocabRows += `<tr><td><b>${v.en}</b></td><td>${v.zh}</td><td>${v.phonics}</td><td>${v.ex}</td></tr>`;
-  });
+    let vocabRows = '';
+    g.vocab.forEach(v => {
+      vocabRows += `<tr><td><b>${v.en}</b></td><td>${v.zh}</td><td style="color:#38bdf8;">${v.phonics}</td><td style="color:var(--text-dim);">${v.ex}</td></tr>`;
+    });
 
-  let sentList = '';
-  g.sentences.forEach(s => {
-    sentList += `<li style="margin-bottom:8px;"><b>${s.en}</b><br><span style="color:#94a3b8; font-size:13px;">${s.zh} ｜ 提示: ${s.note}</span></li>`;
-  });
+    let sentList = '';
+    g.sentences.forEach(s => {
+      sentList += `<li style="margin-bottom:8px;"><b>${s.en}</b><br><span style="color:#94a3b8; font-size:13.5px;">${s.zh} ｜ 提示: ${s.note}</span></li>`;
+    });
 
-  let tipsList = '';
-  g.tips.forEach(t => {
-    tipsList += `<li style="color:#fbbf24; margin-bottom:6px;">${t}</li>`;
-  });
+    let tipsList = '';
+    g.tips.forEach(t => {
+      tipsList += `<li style="color:#fbbf24; margin-bottom:6px;">${t}</li>`;
+    });
 
-  container.innerHTML = `
-    <div class="guide-panel-card">
-      <h3 style="color:#38bdf8; font-size:18px; margin-bottom:8px;">📚 核心單字表 (${g.vocab.length} 字)</h3>
-      <table class="vocab-overview-table">
-        <thead><tr><th>單字</th><th>中文</th><th>發音規律</th><th>例句</th></tr></thead>
+    card.innerHTML = `
+      <div class="unit-card-title">
+        <span>📖 ${g.unit} - ${g.title}</span>
+        <span style="font-size:13px; color:#38bdf8; font-weight:800;">共 ${g.vocab.length} 單字</span>
+      </div>
+      <table class="vocab-table-full">
+        <thead><tr><th>單字</th><th>中文</th><th>發音規律</th><th>課堂例句</th></tr></thead>
         <tbody>${vocabRows}</tbody>
       </table>
-    </div>
-    <div class="guide-panel-card">
-      <h3 style="color:#34d399; font-size:18px; margin-bottom:8px;">💬 必考重點句型</h3>
-      <ul style="padding-left:20px; line-height:1.6;">${sentList}</ul>
-    </div>
-    <div class="guide-panel-card">
-      <h3 style="color:#fbbf24; font-size:18px; margin-bottom:8px;">⚠️ 段考易錯避坑指南</h3>
-      <ul style="padding-left:20px; line-height:1.6;">${tipsList}</ul>
-    </div>
-  `;
+      <div style="background:#132038; border-radius:10px; padding:12px 16px; margin-bottom:10px;">
+        <h4 style="color:#34d399; font-size:15px; margin-bottom:8px;">💬 核心對話句型</h4>
+        <ul style="padding-left:18px; line-height:1.6;">${sentList}</ul>
+      </div>
+      <div style="background:#231a0e; border:1px solid #d97706; border-radius:10px; padding:12px 16px;">
+        <h4 style="color:#fbbf24; font-size:15px; margin-bottom:6px;">⚠️ 段考易錯避坑指南</h4>
+        <ul style="padding-left:18px; line-height:1.6;">${tipsList}</ul>
+      </div>
+    `;
+    deck.appendChild(card);
+  });
+
+  document.getElementById('totalVocabCountTag').innerText = `全書收錄 ${totalWordsAcrossAll} 個核心單字`;
 }
 
 // ==================== ⚡ 俄羅斯方塊掉落戰 ====================
