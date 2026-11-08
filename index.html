@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小學三年級英語・星際冒險任務系統</title>
+    <title>小學三年級英語・浮空群島冒險任務系統</title>
     <style>
         :root {
             --sky-bg: #e0f2fe;
             --primary: #0284c7;
+            --primary-dark: #0369a1;
             --accent: #f59e0b;
             --success: #16a34a;
             --danger: #dc2626;
             --text-main: #0f172a;
+            --text-sub: #475569;
             --card-border: #bae6fd;
             --gold-border: #d97706;
         }
@@ -82,11 +84,11 @@
             box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
         }
 
-        /* 主工作面板 (內距充裕，絕不被頂部遮擋) */
+        /* 主工作面板 */
         .workspace-panel {
             width: 100%;
             max-width: 1120px;
-            background: rgba(255, 255, 255, 0.97);
+            background: rgba(255, 255, 255, 0.98);
             border: 2px solid #bae6fd;
             border-radius: 22px;
             min-height: 700px;
@@ -99,10 +101,10 @@
         }
         .workspace-panel.active { display: flex !important; }
 
-        /* 1. 浮空島嶼地圖 (支援 map_bg2 全圖自適應！) */
+        /* ==================== 1. 浮空島嶼地圖 (立體浮動島嶼美學) ==================== */
         #panel-map {
-            background-color: #bae6fd;
-            background-image: url('assets/map_bg2.jfif'), url('assets/map_bg2.jpg'), url('assets/map_bg2.png'), url('assets/map_bg.jfif'), linear-gradient(180deg, #bae6fd 0%, #e0f2fe 50%, #f0fdf4 100%);
+            background: linear-gradient(180deg, #38bdf8 0%, #7dd3fc 30%, #bae6fd 60%, #e0f2fe 100%);
+            background-image: url('assets/map_bg2.jfif'), url('assets/map_bg2.jpg'), url('assets/map_bg.jfif'), linear-gradient(180deg, #38bdf8 0%, #7dd3fc 35%, #bae6fd 70%, #f0fdf4 100%);
             background-size: cover;
             background-position: center;
             position: relative;
@@ -112,42 +114,53 @@
             border-radius: 22px;
             padding: 0;
         }
+        .map-cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.65);
+            border-radius: 60px;
+            filter: blur(5px);
+            pointer-events: none;
+            animation: floatCloud 25s infinite linear;
+        }
+        @keyframes floatCloud {
+            0% { transform: translateX(-150px); }
+            100% { transform: translateX(1150px); }
+        }
         .island-node {
             position: absolute;
             transform: translate(-50%, -50%);
             display: flex; flex-direction: column; align-items: center;
             cursor: pointer; z-index: 15;
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .island-node:hover { transform: translate(-50%, -50%) scale(1.15); }
+        .island-body-3d {
+            width: 72px; height: 72px; border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #86efac 0%, #22c55e 60%, #15803d 100%);
+            border: 3.5px solid #ffffff; display: flex; justify-content: center; align-items: center;
+            font-size: 32px; box-shadow: 0 10px 25px rgba(22, 163, 74, 0.45), 0 2px 6px rgba(0,0,0,0.15);
+        }
+        .island-body-3d.boss {
+            width: 82px; height: 82px;
+            background: radial-gradient(circle at 35% 35%, #fca5a5 0%, #ef4444 60%, #991b1b 100%);
+            box-shadow: 0 12px 28px rgba(239, 68, 68, 0.55);
+        }
         .island-card-tag {
-            background: rgba(255, 255, 255, 0.92);
+            margin-top: 6px;
+            background: rgba(255, 255, 255, 0.95);
             border: 2px solid #0284c7;
             border-radius: 14px;
-            padding: 5px 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            padding: 4px 12px;
             font-size: 13px;
             font-weight: 900;
             color: #0369a1;
             white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        .island-card-tag.midterm {
-            border-color: #d97706;
-            color: #b45309;
-            background: #fffbeb;
-            box-shadow: 0 4px 18px rgba(217, 119, 6, 0.3);
-        }
-        .island-card-tag.final {
-            border-color: #dc2626;
-            color: #991b1b;
-            background: #fef2f2;
-            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
-        }
+        .island-card-tag.midterm { border-color: #d97706; color: #b45309; background: #fffbeb; }
+        .island-card-tag.final { border-color: #dc2626; color: #991b1b; background: #fef2f2; }
 
-        /* 2. RPG 雙向回合制對決舞台 */
+        /* ==================== 2. RPG 雙向回合制對決舞台 ==================== */
         .battle-arena-pc {
             min-height: 310px;
             background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 60%, #f8fafc 100%);
@@ -159,108 +172,55 @@
             padding: 4px 18px; border-radius: 14px; font-size: 13.5px; font-weight: 900;
             box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3); z-index: 10;
         }
-        .hero-combat-group {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
+        .hero-combat-group { display: flex; align-items: center; gap: 14px; }
         .fighter-col { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 155px; }
 
         /* 實體立體金屬卡牌邊框 (零白邊滿版貼合) */
         .trading-card-frame {
-            width: 145px;
-            height: 195px;
-            background: #090e1a;
-            border: 3.5px solid #d97706;
-            border-radius: 16px;
+            width: 145px; height: 195px; background: #090e1a;
+            border: 3.5px solid #d97706; border-radius: 16px;
             box-shadow: 0 0 25px rgba(217, 119, 6, 0.5), inset 0 0 12px rgba(0,0,0,0.9);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            position: relative; display: flex; flex-direction: column; overflow: hidden;
             transition: transform 0.15s ease;
         }
         .trading-card-frame.monster {
-            border-color: #ef4444;
-            box-shadow: 0 0 25px rgba(239, 68, 68, 0.5), inset 0 0 12px rgba(0,0,0,0.9);
+            border-color: #ef4444; box-shadow: 0 0 25px rgba(239, 68, 68, 0.5), inset 0 0 12px rgba(0,0,0,0.9);
         }
         .card-header-bar {
             background: linear-gradient(180deg, #d97706 0%, #78350f 100%);
-            color: #fff;
-            font-size: 11.5px;
-            font-weight: 900;
-            text-align: center;
-            padding: 3.5px 0;
-            border-bottom: 1.5px solid rgba(255,255,255,0.2);
-            white-space: nowrap;
+            color: #fff; font-size: 11.5px; font-weight: 900; text-align: center;
+            padding: 3.5px 0; border-bottom: 1.5px solid rgba(255,255,255,0.2); white-space: nowrap;
         }
-        .monster .card-header-bar {
-            background: linear-gradient(180deg, #ef4444 0%, #991b1b 100%);
-        }
+        .monster .card-header-bar { background: linear-gradient(180deg, #ef4444 0%, #991b1b 100%); }
         .card-artwork-fill {
-            flex: 1;
-            width: 100%;
-            background: #020617;
-            position: relative;
-            overflow: hidden;
+            flex: 1; width: 100%; background: #ffffff;
+            position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center;
         }
-        .card-artwork-fill img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        .card-artwork-fill img { width: 95%; height: 95%; object-fit: contain; }
         .card-footer-bar {
-            background: #0f172a;
-            color: #e2e8f0;
-            border-top: 1.5px solid rgba(255,255,255,0.15);
-            padding: 4px;
-            text-align: center;
-            font-size: 11.5px;
-            font-weight: 800;
+            background: #0f172a; color: #e2e8f0; border-top: 1.5px solid rgba(255,255,255,0.15);
+            padding: 4px; text-align: center; font-size: 11.5px; font-weight: 800;
         }
 
         /* 隨行萌寵獨立卡牌 (並排放在英雄身旁) */
         .companion-pet-card {
-            width: 92px;
-            height: 135px;
-            background: #0b1322;
-            border: 2.5px solid #10b981;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            width: 95px; height: 140px; background: #0b1322;
+            border: 2.5px solid #10b981; border-radius: 12px;
+            display: flex; flex-direction: column; overflow: hidden;
             box-shadow: 0 0 16px rgba(16, 185, 129, 0.45);
         }
         .pet-card-title {
             background: linear-gradient(180deg, #10b981 0%, #065f46 100%);
-            color: #fff;
-            font-size: 10.5px;
-            font-weight: 900;
-            text-align: center;
-            padding: 3px 0;
-            white-space: nowrap;
+            color: #fff; font-size: 10.5px; font-weight: 900; text-align: center; padding: 3px 0; white-space: nowrap;
         }
         .pet-art-fill {
-            flex: 1;
-            width: 100%;
-            background: #020617;
-            overflow: hidden;
+            flex: 1; width: 100%; background: #ffffff; overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
         }
-        .pet-art-fill img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        .pet-art-fill img { width: 92%; height: 92%; object-fit: contain; }
         .pet-card-perk {
-            background: #064e3b;
-            font-size: 10px;
-            font-weight: 800;
-            color: #a7f3d0;
-            text-align: center;
-            padding: 3px 2px;
-            white-space: nowrap;
+            background: #064e3b; font-size: 10px; font-weight: 800; color: #a7f3d0;
+            text-align: center; padding: 3px 2px; white-space: nowrap;
         }
 
         .trading-card-frame.hit { animation: cardDamageShake 0.35s ease-in-out; }
@@ -302,8 +262,6 @@
             border-radius: 14px; font-size: 17px; font-weight: 800; text-align: left; cursor: pointer; transition: all 0.2s;
         }
         .btn-ans-pc:hover { background: #e0f2fe; border-color: #38bdf8; }
-        
-        /* 雙色高對比反饋：答錯紅底，正確答案翠綠色底！ */
         .btn-ans-pc.correct-reveal { background: #dcfce7 !important; border-color: #22c55e !important; color: #15803d !important; font-weight: 900; }
         .btn-ans-pc.user-wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #b91c1c !important; }
 
@@ -323,7 +281,7 @@
             font-size: 16px; font-weight: 800; cursor: pointer;
         }
 
-        /* 練習單元切換過濾條 */
+        /* 各大練習模式專用單元過濾列 (橫向滾動，整齊明亮！) */
         .practice-unit-filter-bar {
             display: flex; gap: 6px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 14px;
             border-bottom: 1.5px solid #e2e8f0;
@@ -336,7 +294,6 @@
         .btn-filter-chip:hover { background: #e0f2fe; color: #0284c7; }
         .btn-filter-chip.active { background: #0284c7; color: #fff; border-color: #0284c7; }
 
-        /* 10 題專項練習頭部資訊列 */
         .practice-header-strip {
             display: flex; justify-content: space-between; align-items: center;
             border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 14px;
@@ -365,7 +322,7 @@
         .word-btn-pc.punct-btn { background: #fff7ed; border-color: #fb923c; color: #c2410c; }
         .word-btn-pc.used { opacity: 0.25; pointer-events: none; }
 
-        /* 自然發音積木 (點擊按鍵只發清脆點擊音，絕不唸 c, u, p！只在最後唸完整單字！) */
+        /* 自然發音積木 (點擊按鍵只發清脆點擊音，絕不唸 c, u, p！拼完才唸單字！) */
         .spell-display-box {
             font-size: 40px; font-weight: 900; letter-spacing: 12px; color: #0284c7;
             background: #f0f9ff; padding: 18px; border-radius: 18px; text-align: center;
@@ -385,18 +342,20 @@
             background: #f8fafc; border: 3px solid #cbd5e1; cursor: pointer; transition: all 0.2s;
         }
 
-        /* 📖 各單元重點全覽 (頂部跳轉零遮擋，全書 98 個核心單字＋句子＋避坑指南) */
+        /* 📖 各單元重點全覽 (頂部跳轉零遮擋修復！) */
         #panel-flashcard { padding: 28px; }
         .guide-jump-nav {
-            display: flex; gap: 8px; overflow-x: auto; padding: 6px 0 14px; margin-bottom: 20px;
-            border-bottom: 2px solid #e2e8f0; position: sticky; top: 0; background: rgba(255,255,255,0.98); z-index: 20;
+            display: flex; flex-wrap: wrap; gap: 10px; padding: 14px 18px; margin-bottom: 24px;
+            background: #ffffff; border: 2px solid #bae6fd; border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08); position: relative;
         }
         .btn-jump-pill {
-            background: #f0f9ff; border: 1.5px solid #bae6fd; color: #0369a1;
-            padding: 7px 14px; border-radius: 12px; font-size: 13px; font-weight: 800;
-            cursor: pointer; white-space: nowrap; text-decoration: none;
+            background: #f0f9ff; border: 1.5px solid #0284c7; color: #0369a1;
+            padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 800;
+            cursor: pointer; text-decoration: none; display: inline-flex; align-items: center;
+            justify-content: center; min-height: 38px; line-height: 1.4; transition: all 0.2s;
         }
-        .btn-jump-pill:hover { background: #0284c7; color: #fff; }
+        .btn-jump-pill:hover { background: #0284c7; color: #ffffff; transform: translateY(-2px); }
         .unit-study-card {
             background: #ffffff; border: 2px solid #e2e8f0; border-radius: 20px;
             padding: 22px 26px; margin-bottom: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.04);
@@ -405,24 +364,14 @@
             font-size: 21px; font-weight: 900; color: #0369a1; border-bottom: 2px solid #e0f2fe;
             padding-bottom: 10px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;
         }
-        .unit-vocab-table {
-            width: 100%; border-collapse: collapse; margin-bottom: 16px;
-        }
-        .unit-vocab-table th, .unit-vocab-table td {
-            padding: 10px 14px; text-align: left; border-bottom: 1px solid #f1f5f9; font-size: 15px;
-        }
+        .unit-vocab-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+        .unit-vocab-table th, .unit-vocab-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #f1f5f9; font-size: 15px; }
         .unit-vocab-table th { background: #f0f9ff; color: #0284c7; font-weight: 800; }
         .unit-vocab-table tr:hover { background: #f8fafc; }
-        .unit-sentence-box {
-            background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 12px;
-            padding: 14px 18px; margin-bottom: 12px;
-        }
-        .unit-pitfall-box {
-            background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 12px;
-            padding: 14px 18px;
-        }
+        .unit-sentence-box { background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 12px; padding: 14px 18px; margin-bottom: 12px; }
+        .unit-pitfall-box { background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 12px; padding: 14px 18px; }
 
-        /* 🎒 冒險補給商店 (原裝全部保留！) */
+        /* 🎒 冒險補給商店 (寵物升級養成專區) */
         #panel-shop, #panel-scramble, #panel-spelling, #panel-vocab-quiz, #panel-tf, #panel-listening, #panel-defense { padding: 26px; }
         .shop-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 26px; }
         .shop-item-card {
@@ -440,7 +389,7 @@
         }
         .btn-buy-pc.active-use { background: #e2e8f0; color: #64748b; cursor: default; }
 
-        /* 👾 單字雷射防禦戰 (隨機橫向坐標生成、光箭射擊向上浮起爆裂、暫停功能) */
+        /* 👾 單字雷射防禦戰 */
         .defense-layout { display: grid; grid-template-columns: 1fr 280px; gap: 20px; }
         .defense-canvas-wrap {
             height: 440px; background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 70%, #ffffff 100%);
@@ -459,8 +408,7 @@
         }
         .laser-arrow {
             position: absolute; width: 6px; height: 40px; background: linear-gradient(180deg, #38bdf8, #0284c7);
-            border-radius: 3px; display: none; z-index: 25;
-            box-shadow: 0 0 12px #38bdf8;
+            border-radius: 3px; display: none; z-index: 25; box-shadow: 0 0 12px #38bdf8;
         }
         .defense-redline {
             position: absolute; bottom: 25px; left: 0; right: 0;
@@ -471,7 +419,7 @@
             padding: 18px; display: flex; flex-direction: column; gap: 10px; height: 440px; overflow-y: auto;
         }
 
-        /* 🏆 通用結算獎勵彈窗 (明確告知本次練習賺得幾個幣！) */
+        /* 🏆 通用結算獎勵彈窗 */
         .settlement-modal-overlay {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.75); z-index: 999;
@@ -490,7 +438,7 @@
     <div class="desktop-nav-wrap">
         <div class="app-brand">
             <span>🏝️</span>
-            <span>三年級英語・浮空島冒險系統</span>
+            <span>三年級英語・浮空群島冒險系統</span>
             <span style="font-size: 12px; background: #0284c7; color: #fff; padding: 3px 10px; border-radius: 12px;" id="db-source-tag">題庫載入中</span>
         </div>
         <div class="user-status-strip">
@@ -501,7 +449,7 @@
         </div>
     </div>
 
-    <!-- 任務分頁切換列 (完整 9 大分頁無閹割！) -->
+    <!-- 任務分頁切換列 (完整 9 大分頁) -->
     <div class="mission-tab-bar">
         <button class="mission-tab active" id="tab-btn-map" onclick="navTo('panel-map')">🗺️ 冒險闖關地圖</button>
         <button class="mission-tab" id="tab-btn-listening" onclick="navTo('panel-listening')">🎧 段考聽力挑戰</button>
@@ -514,32 +462,45 @@
         <button class="mission-tab" id="tab-btn-defense" onclick="navTo('panel-defense')">👾 單字雷射防禦戰</button>
     </div>
 
-    <!-- 1. 浮空島嶼地圖 (完全對應 map_bg2 上的 8 個區域！) -->
+    <!-- 1. 浮空島嶼地圖 -->
     <div id="panel-map" class="workspace-panel active">
-        <!-- 8 個區域的點擊節點 (對標 map_bg2 插畫位置) -->
-        <div class="island-node" style="left: 14%; top: 78%;" onclick="startRPGCombat(0)">
-            <div class="island-card-tag">🚀 Starter: 字母與數字</div>
+        <!-- 浮雲動畫 -->
+        <div class="map-cloud" style="top: 50px; left: -100px; width: 140px; height: 42px;"></div>
+        <div class="map-cloud" style="top: 140px; left: -250px; width: 220px; height: 50px; animation-duration: 35s;"></div>
+        <div class="map-cloud" style="bottom: 120px; left: -180px; width: 180px; height: 45px; animation-duration: 28s;"></div>
+
+        <!-- 8 個區域的立體浮空島節點 -->
+        <div class="island-node" style="left: 12%; top: 72%;" onclick="startRPGCombat(0)">
+            <div class="island-body-3d">🚀</div>
+            <div class="island-card-tag">Starter: 字母與數字</div>
         </div>
-        <div class="island-node" style="left: 16%; top: 46%;" onclick="startRPGCombat(1)">
-            <div class="island-card-tag">👋 Unit 1: 自我介紹</div>
+        <div class="island-node" style="left: 15%; top: 38%;" onclick="startRPGCombat(1)">
+            <div class="island-body-3d">👋</div>
+            <div class="island-card-tag">Unit 1: 自我介紹</div>
         </div>
-        <div class="island-node" style="left: 38%; top: 56%;" onclick="startRPGCombat(2)">
-            <div class="island-card-tag">🎂 Unit 2: 年齡與禮貌</div>
+        <div class="island-node" style="left: 36%; top: 52%;" onclick="startRPGCombat(2)">
+            <div class="island-body-3d">🎂</div>
+            <div class="island-card-tag">Unit 2: 年齡與禮貌</div>
         </div>
-        <div class="island-node" style="left: 49%; top: 78%;" onclick="startRPGCombat(3)">
-            <div class="island-card-tag midterm">🎖️ 期中考: 巨石守門員</div>
+        <div class="island-node" style="left: 49%; top: 75%;" onclick="startRPGCombat(3)">
+            <div class="island-body-3d boss">🎖️</div>
+            <div class="island-card-tag midterm">期中考: 巨石守門員</div>
         </div>
-        <div class="island-node" style="left: 63%; top: 56%;" onclick="startRPGCombat(4)">
-            <div class="island-card-tag">🎒 Unit 3: 校園文具用品</div>
+        <div class="island-node" style="left: 62%; top: 50%;" onclick="startRPGCombat(4)">
+            <div class="island-body-3d">🎒</div>
+            <div class="island-card-tag">Unit 3: 文具用品</div>
         </div>
-        <div class="island-node" style="left: 68%; top: 28%;" onclick="startRPGCombat(5)">
-            <div class="island-card-tag">🎨 Unit 4: 顏色與調色</div>
+        <div class="island-node" style="left: 68%; top: 22%;" onclick="startRPGCombat(5)">
+            <div class="island-body-3d">🎨</div>
+            <div class="island-card-tag">Unit 4: 顏色調色</div>
         </div>
-        <div class="island-node" style="left: 88%; top: 46%;" onclick="startRPGCombat(6)">
-            <div class="island-card-tag">🎃 Festival: 萬聖節不給糖</div>
+        <div class="island-node" style="left: 88%; top: 40%;" onclick="startRPGCombat(6)">
+            <div class="island-body-3d">🎃</div>
+            <div class="island-card-tag">Festival: 萬聖節</div>
         </div>
-        <div class="island-node" style="left: 87%; top: 82%;" onclick="startRPGCombat(7)">
-            <div class="island-card-tag final">👑 期末考: 星際魔龍大滿貫</div>
+        <div class="island-node" style="left: 86%; top: 78%;" onclick="startRPGCombat(7)">
+            <div class="island-body-3d boss">👑</div>
+            <div class="island-card-tag final">期末考: 星際魔龍</div>
         </div>
     </div>
 
@@ -550,14 +511,12 @@
 
             <!-- 我方戰隊 (英雄立體卡牌 ＋ 獨立隨行萌寵卡牌並排在旁！) -->
             <div class="hero-combat-group">
-                <!-- 隨行萌寵 (獨立放置在身側) -->
                 <div class="companion-pet-card" id="sidePetCard">
                     <div class="pet-card-title" id="sidePetName">🐕 太空柴犬</div>
                     <div class="pet-art-fill"><img id="sidePetImg" src="assets/pet_dog.jfif" alt="Pet"></div>
                     <div class="pet-card-perk" id="sidePetPerk">星幣 +20%</div>
                 </div>
 
-                <!-- 英雄實體金屬卡牌 (零白邊滿版貼合！) -->
                 <div class="fighter-col">
                     <div class="trading-card-frame" id="heroCardFrame">
                         <div class="card-header-bar" id="card-hero-role">【星際劍士】</div>
@@ -571,7 +530,7 @@
 
             <div style="font-size: 32px; font-weight: 900; color: #0284c7;">⚔️</div>
 
-            <!-- 敵方怪獸立體卡牌 (零白邊滿版貼合！) -->
+            <!-- 敵方怪獸立體卡牌 -->
             <div class="fighter-col">
                 <div class="trading-card-frame monster" id="enemyCardFrame">
                     <div class="card-header-bar" id="card-enemy-role">【史萊姆幼體】</div>
@@ -615,7 +574,7 @@
             </div>
         </div>
 
-        <!-- 單元切換條 -->
+        <!-- 專用單元切換過濾條 -->
         <div class="practice-unit-filter-bar" id="lis-unit-filter-bar"></div>
 
         <div style="text-align: center; background: #f0f9ff; border-radius: 20px; padding: 26px; margin-bottom: 20px; border: 2px solid #bae6fd;">
@@ -634,7 +593,7 @@
         </div>
     </div>
 
-    <!-- 4. 句型重組 (10 題隨機挑戰) -->
+    <!-- 4. 句型重組 (10 題挑戰，支援單元切換) -->
     <div id="panel-scramble" class="workspace-panel">
         <div class="practice-header-strip">
             <div>
@@ -646,6 +605,9 @@
                 <button class="btn-exit-practice" onclick="exitChallengePrematurely('scramble')">✖ 結束結算</button>
             </div>
         </div>
+
+        <!-- 專用單元切換過濾條 -->
+        <div class="practice-unit-filter-bar" id="scramble-unit-filter-bar"></div>
 
         <div class="q-prompt-box-pc">
             <span id="scramble-hint-text">題目提示：詢問對方的名字</span>
@@ -665,7 +627,7 @@
         </div>
     </div>
 
-    <!-- 5. 自然發音積木拼字 (點按鍵只出音效，不發 c,u,p 雜音！拼完才唸單字！) -->
+    <!-- 5. 自然發音積木拼字 (支援單元切換，點按鍵不發音，拼完才唸單字！) -->
     <div id="panel-spelling" class="workspace-panel">
         <div class="practice-header-strip">
             <div>
@@ -677,6 +639,9 @@
                 <button class="btn-exit-practice" onclick="exitChallengePrematurely('spelling')">✖ 結束結算</button>
             </div>
         </div>
+
+        <!-- 專用單元切換過濾條 -->
+        <div class="practice-unit-filter-bar" id="spell-unit-filter-bar"></div>
 
         <div style="text-align: center; margin-top: 10px;">
             <div style="font-size: 30px; font-weight: 900; color: #d97706;" id="sp-chinese">貓咪</div>
@@ -697,7 +662,7 @@
         </div>
     </div>
 
-    <!-- 6. 單字測驗 (英選中 10 題挑戰) -->
+    <!-- 6. 單字測驗 (英選中 10 題挑戰，支援單元切換) -->
     <div id="panel-vocab-quiz" class="workspace-panel">
         <div class="practice-header-strip">
             <div>
@@ -709,6 +674,9 @@
                 <button class="btn-exit-practice" onclick="exitChallengePrematurely('vocab')">✖ 結束結算</button>
             </div>
         </div>
+
+        <!-- 專用單元切換過濾條 -->
+        <div class="practice-unit-filter-bar" id="vocab-unit-filter-bar"></div>
 
         <div style="text-align: center; background: #f0f9ff; border-radius: 20px; padding: 24px; margin-bottom: 20px; border: 2px solid #bae6fd;">
             <div style="font-size: 40px; font-weight: 900; color: #0284c7; margin-bottom: 8px;" id="vq-word">pencil</div>
@@ -724,7 +692,7 @@
         </div>
     </div>
 
-    <!-- 7. 是非觀念題 (10 題挑戰) -->
+    <!-- 7. 是非觀念題 (10 題挑戰，支援單元切換，64 題全開放！) -->
     <div id="panel-tf" class="workspace-panel">
         <div class="practice-header-strip">
             <div>
@@ -736,6 +704,9 @@
                 <button class="btn-exit-practice" onclick="exitChallengePrematurely('tf')">✖ 結束結算</button>
             </div>
         </div>
+
+        <!-- 專用單元切換過濾條 -->
+        <div class="practice-unit-filter-bar" id="tf-unit-filter-bar"></div>
         
         <div class="q-prompt-box-pc">
             <span id="tf-statement-text">題目載入中...</span>
@@ -754,7 +725,7 @@
         </div>
     </div>
 
-    <!-- 8. 📖 各單元重點全覽 (頂部跳轉零遮擋，全書 98 個核心單字＋句子＋避坑指南) -->
+    <!-- 8. 📖 各單元重點全覽 (頂部跳轉零遮擋修復，全書 98 個核心單字＋句子＋避坑指南) -->
     <div id="panel-flashcard" class="workspace-panel">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
             <div>
@@ -764,16 +735,16 @@
             <span style="font-size: 14px; font-weight: 800; color: #d97706;" id="all-vocab-counter-tag">全書共 98 單字</span>
         </div>
 
-        <!-- 頂部快速跳轉錨點 (乾淨明亮，零遮擋！) -->
+        <!-- 頂部快速跳轉錨點 (完整展開！零遮擋！) -->
         <div class="guide-jump-nav" id="guide-jump-links"></div>
 
         <!-- 單元大卡片列表 (長卷軸一次看足) -->
         <div id="all-units-content-list" style="display: flex; flex-direction: column; gap: 16px;"></div>
     </div>
 
-    <!-- 9. 冒險補給商店 (原裝全部保留！) -->
+    <!-- 9. 冒險補給商店 (裝備與寵物升級養成專區) -->
     <div id="panel-shop" class="workspace-panel">
-        <h2 style="font-size: 24px; color: #0369a1; margin-bottom: 16px;">🎒 冒險補給商店 (分開養成)</h2>
+        <h2 style="font-size: 24px; color: #0369a1; margin-bottom: 16px;">🎒 冒險補給商店 (裝備與寵物養成)</h2>
         
         <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">🧙‍♂️ 解鎖冒險夥伴小隊</h3>
         <div class="shop-cards-grid">
@@ -814,42 +785,11 @@
             </div>
         </div>
 
-        <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">🐾 6 大太空萌寵跟班庫</h3>
-        <div class="shop-cards-grid">
-            <div class="shop-item-card">
-                <div class="shop-item-thumb"><img src="assets/pet_dog.jfif" alt="柴犬"></div>
-                <div><b>🐕 太空柴犬</b><br><span style="font-size: 12px; color: #64748b;">星幣掉落 +20%</span></div>
-                <button class="btn-buy-pc active-use" id="btn-pet-dog" onclick="equipPet('dog')">跟隨中</button>
-            </div>
-            <div class="shop-item-card">
-                <div class="shop-item-thumb"><img src="assets/pet_cat.jfif" alt="橘貓"></div>
-                <div><b>🐈 浮空橘貓</b><br><span style="font-size: 12px; color: #64748b;">連勝經驗 Combo 加倍</span></div>
-                <button class="btn-buy-pc" id="btn-pet-cat" onclick="buyPet('cat', 150)">150 ⭐ 收養</button>
-            </div>
-            <div class="shop-item-card">
-                <div class="shop-item-thumb"><img src="assets/pet_otter.jfif" alt="水獺"></div>
-                <div><b>🦦 呆萌水獺</b><br><span style="font-size: 12px; color: #64748b;">每場免死抵擋 1 次暴擊失誤</span></div>
-                <button class="btn-buy-pc" id="btn-pet-otter" onclick="buyPet('otter', 200)">200 ⭐ 收養</button>
-            </div>
-            <div class="shop-item-card">
-                <div class="shop-item-thumb"><img src="assets/pet_rabbit.jfif" alt="白兔"></div>
-                <div><b>🐇 垂耳白兔</b><br><span style="font-size: 12px; color: #64748b;">經驗值大幅提升 30%</span></div>
-                <button class="btn-buy-pc" id="btn-pet-rabbit" onclick="buyPet('rabbit', 250)">250 ⭐ 收養</button>
-            </div>
-            <div class="shop-item-card">
-                <div class="shop-item-thumb"><img src="assets/pet_penguin.jfif" alt="企鵝"></div>
-                <div><b>🐧 太空企鵝</b><br><span style="font-size: 12px; color: #64748b;">怪獸反擊傷害減免 30%</span></div>
-                <button class="btn-buy-pc" id="btn-pet-penguin" onclick="buyPet('penguin', 300)">300 ⭐ 收養</button>
-            </div>
-            <div class="shop-item-card">
-                <div class="shop-item-thumb"><img src="assets/pet_bot.jfif" alt="機械球"></div>
-                <div><b>🤖 浮空機械球</b><br><span style="font-size: 12px; color: #64748b;">戰鬥自動排除 1 個錯誤選項</span></div>
-                <button class="btn-buy-pc" id="btn-pet-bot" onclick="buyPet('bot', 350)">350 ⭐ 收養</button>
-            </div>
-        </div>
+        <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">🐾 6 大太空萌寵升級養成庫 (支援等級強化！)</h3>
+        <div class="shop-cards-grid" id="pets-shop-cards-grid"></div>
     </div>
 
-    <!-- 10. 👾 單字雷射防禦戰 (隨機橫向位置、向上浮起爆裂、支援暫停) -->
+    <!-- 10. 👾 單字雷射防禦戰 -->
     <div id="panel-defense" class="workspace-panel">
         <h2 style="font-size: 24px; color: #0369a1; margin-bottom: 4px;">👾 單字雷射防禦戰 (多字飄落)</h2>
         <p style="color: #64748b; font-size: 14px; margin-bottom: 16px;">
@@ -889,14 +829,14 @@
         </div>
     </div>
 
-    <!-- 🏆 通用結算獎勵彈窗 (明確告知本次練習賺得幾個幣！) -->
+    <!-- 🏆 通用結算獎勵彈窗 -->
     <div class="settlement-modal-overlay" id="settlementModalOverlay">
         <div class="settlement-modal-box">
             <h3 style="color: #d97706; font-size: 26px; font-weight: 900; margin-bottom: 12px;">🎉 挑戰完成結算！</h3>
             <p style="font-size: 16px; color: #475569; margin-bottom: 16px;" id="settle-summary-txt">表現優異！獲得星幣獎勵！</p>
             
             <div style="background: #fffbeb; border: 2px solid #f59e0b; border-radius: 16px; padding: 18px; margin-bottom: 20px;">
-                <div style="font-size: 32px; font-weight: 900; color: #d97706;" id="settle-coins-badge">+50 ⭐ 星幣</div>
+                <div style="font-size: 32px; font-weight: 900; color: #d97706;" id="settle-coins-badge">+15 ⭐ 星幣</div>
                 <div style="font-size: 13.5px; color: #16a34a; font-weight: 800; margin-top: 6px;" id="settle-pet-bonus"></div>
                 <div style="font-size: 13px; color: #64748b; margin-top: 4px;">當前累積星幣：<b id="settle-current-total" style="color: #d97706;">200</b> ⭐</div>
             </div>
@@ -906,7 +846,7 @@
     </div>
 
 <script>
-    /* ==================== 乾淨單字防禦庫 (徹底剔除分類標籤、非單詞項目與括號答案) ==================== */
+    /* ==================== 乾淨單字防禦庫 ==================== */
     const PURE_DEFENSE_VOCAB = [
         { en: "apple", zh: "蘋果" }, { en: "ant", zh: "螞蟻" }, { en: "book", zh: "書本" },
         { en: "box", zh: "盒子" }, { en: "bus", zh: "公車" }, { en: "bat", zh: "蝙蝠" },
@@ -929,7 +869,7 @@
         { en: "window", zh: "窗戶" }, { en: "zebra", zh: "斑馬" }
     ];
 
-    /* ==================== 題目反劇透修復器 (徹底移除 dog, cat, fingers 等直接洩題文字) ==================== */
+    /* ==================== 題目反劇透修復器 ==================== */
     function sanitizeQuestionText(qStr) {
         if (!qStr) return "";
         let s = qStr;
@@ -988,18 +928,26 @@
             initPanels();
         })
         .catch(err => {
-            console.log("使用備援機制:", err);
+            console.log("使用備援題庫:", err);
             document.getElementById('db-source-tag').innerText = "保底題庫就緒";
         });
 
     /* ==================== 玩家狀態與裝備 ==================== */
     let state = {
         coins: 150, hearts: 3, streak: 0, activeHero: 'warrior',
-        heroGear: {
-            warrior_weap: 1, mage_weap: 1, healer_weap: 1, team_armor: 1
-        },
+        heroGear: { warrior_weap: 1, mage_weap: 1, healer_weap: 1, team_armor: 1 },
         activePet: 'dog',
+        petLevels: { dog: 1, cat: 1, otter: 1, rabbit: 1, penguin: 1, bot: 1 },
         unlockedPets: ['dog'], unlockedHeroes: ['warrior']
+    };
+
+    const PET_CONFIG = {
+        dog: { name: "🐕 太空柴犬", img: "assets/pet_dog.jfif", cost: 150, getPerk: (lvl) => `星幣掉落 +${10 + lvl * 10}%` },
+        cat: { name: "🐈 浮空橘貓", img: "assets/pet_cat.jfif", cost: 150, getPerk: (lvl) => `連勝Combo +${lvl}` },
+        otter: { name: "🦦 呆萌水獺", img: "assets/pet_otter.jfif", cost: 200, getPerk: (lvl) => `每場抵擋 ${lvl} 次暴擊失誤` },
+        rabbit: { name: "🐇 垂耳白兔", img: "assets/pet_rabbit.jfif", cost: 250, getPerk: (lvl) => `經驗值 +${15 + lvl * 10}%` },
+        penguin: { name: "🐧 太空企鵝", img: "assets/pet_penguin.jfif", cost: 300, getPerk: (lvl) => `怪物反擊傷害減免 ${15 + lvl * 10}%` },
+        bot: { name: "🤖 浮空機械球", img: "assets/pet_bot.jfif", cost: 350, getPerk: (lvl) => lvl >= 3 ? "排除 2 個錯誤選項" : "排除 1 個錯誤選項" }
     };
 
     function navTo(panelId) {
@@ -1024,18 +972,49 @@
             startDefenseGame();
         } else if (panelId === 'panel-flashcard') {
             renderAllUnitsGuide();
+        } else if (panelId === 'panel-shop') {
+            renderShopPetCards();
         }
+    }
+
+    /* 通用單元切換按鈕渲染工具 (給各大練習模式使用！) */
+    function renderUnitFilterBar(containerId, activeUnitId, onSelectCallback) {
+        const bar = document.getElementById(containerId);
+        if (!bar) return;
+        bar.innerHTML = '';
+        const units = [
+            { id: "all", label: "全部綜合 (All)" },
+            { id: "starter", label: "Starter 字母數字" },
+            { id: "u1", label: "Unit 1 招呼" },
+            { id: "u2", label: "Unit 2 年齡" },
+            { id: "midterm", label: "期中考真題" },
+            { id: "u3", label: "Unit 3 文具" },
+            { id: "u4", label: "Unit 4 顏色" },
+            { id: "halloween", label: "萬聖節專題" },
+            { id: "final", label: "期末考真題" }
+        ];
+        units.forEach(u => {
+            const btn = document.createElement('button');
+            btn.className = `btn-filter-chip ${u.id === activeUnitId ? 'active' : ''}`;
+            btn.innerText = u.label;
+            btn.onclick = () => {
+                bar.querySelectorAll('.btn-filter-chip').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                onSelectCallback(u.id === 'all' ? null : u.id);
+            };
+            bar.appendChild(btn);
+        });
     }
 
     function initPanels() {
         if (!ACTIVE_DATA) return;
         initListeningChallenge(null);
-        initScrambleChallenge();
-        initSpellingChallenge();
-        initVocabChallenge();
-        initTFChallenge();
+        initScrambleChallenge(null);
+        initSpellingChallenge(null);
+        initVocabChallenge(null);
+        initTFChallenge(null);
         renderAllUnitsGuide();
-        renderListeningUnitFilters();
+        renderShopPetCards();
     }
 
     /* ==================== 1. RPG 雙向回合制戰鬥 ==================== */
@@ -1045,14 +1024,17 @@
     let fightQueue = [];
     let curQ = null;
     let hHp = 100, eHp = 60;
-    let otterShieldActive = true;
+    let otterShieldCount = 1;
     let combatCoinsEarnedThisSession = 0;
 
     function startRPGCombat(stageId) {
         if (!ACTIVE_DATA) return;
         curStage = ACTIVE_DATA.stages[stageId] || ACTIVE_DATA.stages[0];
         curWaveIdx = 0;
-        otterShieldActive = true;
+        
+        // 水獺護盾次數由等級決定
+        const otterLvl = (state.petLevels && state.petLevels.otter) ? state.petLevels.otter : 1;
+        otterShieldCount = otterLvl;
         combatCoinsEarnedThisSession = 0;
 
         const maxH = 100 + (state.heroGear.team_armor - 1) * 25;
@@ -1078,18 +1060,11 @@
         document.getElementById('battle-hero-pic').src = "assets/hero_" + state.activeHero + ".jfif";
 
         // 身側隨行萌寵卡牌 (放旁邊！)
-        const petInfo = {
-            dog: { name: "🐕 太空柴犬", img: "assets/pet_dog.jfif", perk: "星幣 +20%" },
-            cat: { name: "🐈 浮空橘貓", img: "assets/pet_cat.jfif", perk: "雙倍Combo" },
-            otter: { name: "🦦 呆萌水獺", img: "assets/pet_otter.jfif", perk: "失誤護盾" },
-            rabbit: { name: "🐇 垂耳白兔", img: "assets/pet_rabbit.jfif", perk: "+30%XP" },
-            penguin: { name: "🐧 太空企鵝", img: "assets/pet_penguin.jfif", perk: "-30%傷害" },
-            bot: { name: "🤖 浮空機械球", img: "assets/pet_bot.jfif", perk: "排除錯選" }
-        };
-        const p = petInfo[state.activePet] || petInfo.dog;
-        document.getElementById('sidePetName').innerText = p.name;
-        document.getElementById('sidePetImg').src = p.img;
-        document.getElementById('sidePetPerk').innerText = p.perk;
+        const petConfig = PET_CONFIG[state.activePet] || PET_CONFIG.dog;
+        const petLvl = (state.petLevels && state.petLevels[state.activePet]) ? state.petLevels[state.activePet] : 1;
+        document.getElementById('sidePetName').innerText = `${petConfig.name} (Lv.${petLvl})`;
+        document.getElementById('sidePetImg').src = petConfig.img;
+        document.getElementById('sidePetPerk').innerText = petConfig.getPerk(petLvl);
 
         updateCombatUI();
         loadNextBattleQ();
@@ -1115,13 +1090,15 @@
         box.innerHTML = '';
 
         let opts = [...curQ.opts];
-        let removeIdx = -1;
-        if (state.activePet === 'bot' && opts.length > 2) {
-            removeIdx = (curQ.ans === 0) ? 1 : 0;
-        }
+        let removeCount = 0;
+        const botLvl = (state.petLevels && state.petLevels.bot) ? state.petLevels.bot : 1;
+        const maxRemove = (state.activePet === 'bot' && botLvl >= 3) ? 2 : (state.activePet === 'bot' ? 1 : 0);
 
         opts.forEach((opt, idx) => {
-            if (idx === removeIdx) return;
+            if (idx !== curQ.ans && removeCount < maxRemove && opts.length > 2) {
+                removeCount++;
+                return;
+            }
             const btn = document.createElement('button');
             btn.className = 'btn-ans-pc';
             btn.id = `battle-opt-btn-${idx}`;
@@ -1130,10 +1107,7 @@
             box.appendChild(btn);
         });
 
-        // 聽力題自動朗讀
-        if (curQ.audio) {
-            speakText(curQ.audio);
-        }
+        if (curQ.audio) speakText(curQ.audio);
     }
 
     function submitBattleAns(idx, btn) {
@@ -1142,7 +1116,6 @@
         const heroCard = document.getElementById('heroCardFrame');
         const enemyCard = document.getElementById('enemyCardFrame');
 
-        // 雙色高對比反饋：答錯時，被選的按鈕變紅底，正確答案按鈕亮翠綠底！
         if (right) {
             btn.classList.add('correct-reveal');
             heroCard.classList.add('attack');
@@ -1156,8 +1129,13 @@
 
             eHp = Math.max(0, eHp - playerDmg);
 
+            // 企鵝減傷依等級
             let counterDmg = curWave.dmg;
-            if (state.activePet === 'penguin') counterDmg = Math.round(counterDmg * 0.7);
+            if (state.activePet === 'penguin') {
+                const pLvl = state.petLevels.penguin || 1;
+                const reduction = 0.15 + pLvl * 0.10;
+                counterDmg = Math.round(counterDmg * (1 - reduction));
+            }
 
             let healText = "";
             if (state.activeHero === 'healer') {
@@ -1174,13 +1152,14 @@
                 document.getElementById('battle-exp-title').innerText = `💥 致命爆擊！成功消滅 ${curWave.name}！${healText}`;
             }
 
-            const earned = (state.activePet === 'dog') ? 12 : 10;
+            // 柴犬星幣加成依等級 (平衝數值：基礎 +3 ⭐)
+            const dogLvl = (state.activePet === 'dog') ? (state.petLevels.dog || 1) : 0;
+            const earned = 3 + dogLvl;
             state.coins += earned;
             combatCoinsEarnedThisSession += earned;
             state.streak++;
         } else {
             btn.classList.add('user-wrong');
-            // 將正確按鈕亮綠色
             const correctBtn = document.getElementById(`battle-opt-btn-${curQ.ans}`);
             if (correctBtn) correctBtn.classList.add('correct-reveal');
 
@@ -1190,11 +1169,14 @@
 
             let monsterCrit = Math.round(curWave.dmg * 2.2);
 
-            if (state.activePet === 'otter' && otterShieldActive) {
-                otterShieldActive = false;
-                document.getElementById('battle-exp-title').innerText = "❌ 答錯了！但跟班呆萌水獺發動護盾，為你抵擋了本次暴擊！";
+            if (state.activePet === 'otter' && otterShieldCount > 0) {
+                otterShieldCount--;
+                document.getElementById('battle-exp-title').innerText = `❌ 答錯了！但跟班水獺發動護盾為你抵擋本次暴擊！(剩餘護盾: ${otterShieldCount} 次)`;
             } else {
-                if (state.activePet === 'penguin') monsterCrit = Math.round(monsterCrit * 0.7);
+                if (state.activePet === 'penguin') {
+                    const pLvl = state.petLevels.penguin || 1;
+                    monsterCrit = Math.round(monsterCrit * (1 - (0.15 + pLvl * 0.10)));
+                }
                 hHp = Math.max(0, hHp - monsterCrit);
                 document.getElementById('battle-exp-title').innerText = `❌ 答錯受到怪獸暴擊重擊，損失 ${monsterCrit} HP！`;
             }
@@ -1217,12 +1199,12 @@
 
         if (eHp <= 0) {
             if (curWaveIdx < 2) {
-                alert(`✨ 成功擊倒 ${curWave.name}！前進第 ${curWaveIdx + 2} 波次！(當前剩餘 HP 繼承至下一波)`);
+                alert(`✨ 成功擊倒 ${curWave.name}！前進第 ${curWaveIdx + 2} 波次！(剩餘 HP 繼承)`);
                 setupWave(curWaveIdx + 1);
                 return;
             } else {
-                state.coins += 50;
-                combatCoinsEarnedThisSession += 50;
+                state.coins += 25;
+                combatCoinsEarnedThisSession += 25;
                 document.getElementById('val-coins').innerText = state.coins;
                 showSettlementCard(`恭喜徹底擊退 ${curStage.title} 守護首領！`, combatCoinsEarnedThisSession);
                 return;
@@ -1233,58 +1215,23 @@
     }
     function speakBattleQ() { if (curQ) speakText(curQ.audio || curQ.q); }
 
-    /* ==================== 2. 段考聽力測驗 (支援單元篩選、題幹隱藏、清晰慢速) ==================== */
+    /* ==================== 2. 段考聽力測驗 (10 題隨機挑戰) ==================== */
     let lisQueue = [];
     let curLis = null;
     let lisRound = 0;
     let lisScore = 0;
     let lisCoinsEarned = 0;
-
-    const RAW_LISTENING_BANK = [
-        { unit: "u3", audio: "an eraser", prompt: "請聽音檔，選出對應的文具：", opts: ["橡皮擦 (eraser)", "直尺 (ruler)", "鉛筆 (pencil)", "原子筆 (pen)"], ans: 0, trans: "an eraser = 一塊橡皮擦", note: "HWG1 U3 考卷 Track 20 聽力真題" },
-        { unit: "final", audio: "What's that? It's a ruler.", prompt: "請聽對話，選出對應的問答意思：", opts: ["那是什麼？它是一把尺。", "這是什麼？它是一枝鉛筆。", "你幾歲？我八歲。", "它是什麼顏色？它是紅色。"], ans: 0, trans: "What's that? It's a ruler.", note: "HWG1 期末考 Track 08 聽力真題" },
-        { unit: "u4", audio: "The pen is blue. What color is the pen?", prompt: "請聽對話並回答問題：What color is the pen?", opts: ["It is blue.", "It is black.", "It is white.", "It is green."], ans: 0, trans: "原子筆是藍色的 (blue)。", note: "HWG1 U4 考卷 Track 30 聽力真題" },
-        { unit: "u4", audio: "I'm Mandy. I'm seven. How old is the girl?", prompt: "請聽對話並回答問題：How old is the girl?", opts: ["seven (7歲)", "eight (8歲)", "nine (9歲)", "six (6歲)"], ans: 0, trans: "女孩七歲 (seven)。", note: "HWG1 U4 綜合卷 B 聽力真題" },
-        { unit: "u3", audio: "queen", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["q", "p", "r", "s"], ans: 0, trans: "queen 開頭是 q [kw]", note: "HWG1 U3 Track 19 聽力真題" },
-        { unit: "u3", audio: "sun", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["s", "c", "z", "t"], ans: 0, trans: "sun 開頭是 s [s]", note: "HWG1 U3 Track 19 聽力真題" },
-        { unit: "final", audio: "vest", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["v", "w", "f", "b"], ans: 0, trans: "vest 開頭是 v [v]", note: "HWG1 期末考 Track 11 聽力真題" },
-        { unit: "final", audio: "zebra", prompt: "請聽自然發音代表字，選出開頭字母發音：", opts: ["z", "s", "c", "j"], ans: 0, trans: "zebra 開頭是 z [z]", note: "HWG1 期末考 Track 11 聽力真題" },
-        { unit: "final", audio: "Good morning.", prompt: "請聽問候語，選出最適當的應答：", opts: ["Good morning.", "Good afternoon.", "Good night.", "Good job!"], ans: 0, trans: "早安對應早安。", note: "HWG1 期末考 C 卷真題" },
-        { unit: "final", audio: "What's this? It's a pencil.", prompt: "請聽對話，選出對應的文具物品：", opts: ["鉛筆 (pencil)", "原子筆 (pen)", "直尺 (ruler)", "書桌 (desk)"], ans: 0, trans: "pencil = 鉛筆", note: "HWG1 期末考 Track 12 真題" },
-        { unit: "u1", audio: "What's your name? My name is Mia.", prompt: "請聽對話，選出女孩的名字：", opts: ["Mia", "Amber", "Tina", "Rocky"], ans: 0, trans: "My name is Mia.", note: "Unit 1 自我介紹聽辨" },
-        { unit: "u2", audio: "How old are you? I am eight years old.", prompt: "請聽對話，選出男孩的年齡：", opts: ["8 歲 (eight)", "7 歲 (seven)", "9 歲 (nine)", "10 歲 (ten)"], ans: 0, trans: "I am eight years old.", note: "Unit 2 年齡聽辨" }
-    ];
-
-    function renderListeningUnitFilters() {
-        const bar = document.getElementById('lis-unit-filter-bar');
-        bar.innerHTML = '';
-        const units = [
-            { id: "all", label: "全部綜合" },
-            { id: "u1", label: "Unit 1 招呼" },
-            { id: "u2", label: "Unit 2 年齡" },
-            { id: "u3", label: "Unit 3 文具" },
-            { id: "u4", label: "Unit 4 顏色" },
-            { id: "final", label: "期末真題" }
-        ];
-        units.forEach(u => {
-            const btn = document.createElement('button');
-            btn.className = `btn-filter-chip ${u.id === 'all' ? 'active' : ''}`;
-            btn.innerText = u.label;
-            btn.onclick = () => {
-                document.querySelectorAll('.btn-filter-chip').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                initListeningChallenge(u.id === 'all' ? null : u.id);
-            };
-            bar.appendChild(btn);
-        });
-    }
+    let currentLisUnit = "all";
 
     function initListeningChallenge(filterUnit) {
+        currentLisUnit = filterUnit || "all";
+        renderUnitFilterBar('lis-unit-filter-bar', currentLisUnit, (uid) => initListeningChallenge(uid));
+
         lisRound = 0;
         lisScore = 0;
         lisCoinsEarned = 0;
-        let pool = [...RAW_LISTENING_BANK];
-        if (filterUnit) {
+        let pool = (ACTIVE_DATA && ACTIVE_DATA.listening) ? [...ACTIVE_DATA.listening] : [];
+        if (filterUnit && filterUnit !== 'all') {
             pool = pool.filter(item => item.unit === filterUnit);
         }
         lisQueue = pool.sort(() => Math.random() - 0.5).slice(0, 10);
@@ -1294,14 +1241,17 @@
     function loadNextListeningQ() {
         document.getElementById('lis-exp-card').style.display = 'none';
         if (lisRound >= 10 || lisQueue.length === 0) {
+            const finalBonus = 15;
+            state.coins += finalBonus;
+            lisCoinsEarned += finalBonus;
+            document.getElementById('val-coins').innerText = state.coins;
             showSettlementCard(`恭喜完成 10 題聽力測驗！得分：${lisScore} 分`, lisCoinsEarned);
             return;
         }
 
         curLis = lisQueue.pop();
         lisRound++;
-        document.getElementById('listening-progress').innerText = `第 ${lisRound} / 10 題 (已得 ${lisScore}分)`;
-        // 題幹絕對不提前顯示英文，防止洩題！
+        document.getElementById('listening-progress').innerText = `第 ${lisRound} / 10 題 (得分: ${lisScore})`;
         document.getElementById('lis-prompt').innerText = curLis.prompt;
 
         const box = document.getElementById('lis-options-box');
@@ -1328,7 +1278,7 @@
         if (right) {
             btn.classList.add('correct-reveal');
             lisScore += 10;
-            const reward = (state.activePet === 'dog') ? 12 : 10;
+            const reward = 2; // 平衡星幣：每題 +2 ⭐
             state.coins += reward;
             lisCoinsEarned += reward;
             document.getElementById('val-coins').innerText = state.coins;
@@ -1344,17 +1294,25 @@
     }
     function nextListeningQ() { loadNextListeningQ(); }
 
-    /* ==================== 3. 句型重組 ==================== */
+    /* ==================== 3. 句型重組 (10 題挑戰，支援單元切換) ==================== */
     let scrambleQueue = [];
     let curScramble = null;
     let scrambleRound = 0;
     let userTokens = [];
     let scrambleCoinsEarned = 0;
+    let currentScrambleUnit = "all";
 
-    function initScrambleChallenge() {
+    function initScrambleChallenge(filterUnit) {
+        currentScrambleUnit = filterUnit || "all";
+        renderUnitFilterBar('scramble-unit-filter-bar', currentScrambleUnit, (uid) => initScrambleChallenge(uid));
+
         scrambleRound = 0;
         scrambleCoinsEarned = 0;
-        scrambleQueue = [...ACTIVE_DATA.scramble].sort(() => Math.random() - 0.5);
+        let pool = (ACTIVE_DATA && ACTIVE_DATA.scramble) ? [...ACTIVE_DATA.scramble] : [];
+        if (filterUnit && filterUnit !== 'all') {
+            pool = pool.filter(item => item.unit === filterUnit);
+        }
+        scrambleQueue = pool.sort(() => Math.random() - 0.5).slice(0, 10);
         loadNextScramble();
     }
 
@@ -1364,6 +1322,10 @@
         if (!ACTIVE_DATA) return;
         document.getElementById('scramble-exp-card').style.display = 'none';
         if (scrambleRound >= 10 || scrambleQueue.length === 0) {
+            const finalBonus = 15;
+            state.coins += finalBonus;
+            scrambleCoinsEarned += finalBonus;
+            document.getElementById('val-coins').innerText = state.coins;
             showSettlementCard(`恭喜完成 10 題句型重組！`, scrambleCoinsEarned);
             return;
         }
@@ -1443,7 +1405,7 @@
         const card = document.getElementById('scramble-exp-card');
         if (isRight) {
             document.getElementById('scramble-exp-title').innerText = "🎉 標點與語序完全正確！太棒了！";
-            const reward = (state.activePet === 'dog') ? 12 : 10;
+            const reward = 2; // 平衡星幣：每題 +2 ⭐
             state.coins += reward;
             scrambleCoinsEarned += reward;
             state.streak++;
@@ -1458,17 +1420,25 @@
     }
     function nextScrambleQ() { loadNextScramble(); }
 
-    /* ==================== 4. 自然發音積木 (點擊不出音效，拼完才唸單字！) ==================== */
+    /* ==================== 4. 自然發音積木 (支援單元切換) ==================== */
     let spellQueue = [];
     let curSp = null;
     let spellRound = 0;
     let userSpelled = [];
     let spellCoinsEarned = 0;
+    let currentSpellUnit = "all";
 
-    function initSpellingChallenge() {
+    function initSpellingChallenge(filterUnit) {
+        currentSpellUnit = filterUnit || "all";
+        renderUnitFilterBar('spell-unit-filter-bar', currentSpellUnit, (uid) => initSpellingChallenge(uid));
+
         spellRound = 0;
         spellCoinsEarned = 0;
-        spellQueue = [...ACTIVE_DATA.spelling].sort(() => Math.random() - 0.5);
+        let pool = (ACTIVE_DATA && ACTIVE_DATA.spelling) ? [...ACTIVE_DATA.spelling] : [];
+        if (filterUnit && filterUnit !== 'all') {
+            pool = pool.filter(item => item.unit === filterUnit);
+        }
+        spellQueue = pool.sort(() => Math.random() - 0.5).slice(0, 10);
         loadNextSpelling();
     }
 
@@ -1476,6 +1446,10 @@
         if (!ACTIVE_DATA) return;
         document.getElementById('sp-exp-card').style.display = 'none';
         if (spellRound >= 10 || spellQueue.length === 0) {
+            const finalBonus = 15;
+            state.coins += finalBonus;
+            spellCoinsEarned += finalBonus;
+            document.getElementById('val-coins').innerText = state.coins;
             showSettlementCard(`恭喜完成 10 題發音積木拼字！`, spellCoinsEarned);
             return;
         }
@@ -1507,7 +1481,6 @@
             btn.innerText = letter;
             btn.id = "spell-btn-" + i;
             btn.onclick = () => {
-                // 點擊只發出清脆點擊音，絕不唸 c, u, p！
                 AudioEngine.playClick();
                 userSpelled.push({ letter: letter, btnId: btn.id });
                 btn.classList.add('used');
@@ -1520,11 +1493,10 @@
                     if (isRight) {
                         document.getElementById('sp-exp-title').innerText = "🎉 拼字完全正確！發音超標準！";
                         document.getElementById('sp-exp-body').innerText = `正確單字：${curSp.en} (${curSp.zh})`;
-                        const reward = (state.activePet === 'dog') ? 12 : 10;
+                        const reward = 2;
                         state.coins += reward;
                         spellCoinsEarned += reward;
                         state.streak++;
-                        // 拼對才朗讀完整單字發音！
                         speakText(curSp.en);
                     } else {
                         document.getElementById('sp-exp-title').innerText = "❌ 字母選錯或順序有誤，請看正確拼法：";
@@ -1562,23 +1534,34 @@
     function speakSpellingWord() { if (curSp) speakText(curSp.en); }
     function nextSpellingQ() { loadNextSpelling(); }
 
-    /* ==================== 5. 單字測驗 ==================== */
+    /* ==================== 5. 單字測驗 (英選中 10 題挑戰，支援單元切換) ==================== */
     let vocabQueue = [];
     let curVQ = null;
     let vocabRound = 0;
     let vqCoinsEarned = 0;
+    let currentVocabUnit = "all";
 
-    function initVocabChallenge() {
+    function initVocabChallenge(filterUnit) {
+        currentVocabUnit = filterUnit || "all";
+        renderUnitFilterBar('vocab-unit-filter-bar', currentVocabUnit, (uid) => initVocabChallenge(uid));
+
         vocabRound = 0;
         vqCoinsEarned = 0;
-        vocabQueue = [...ACTIVE_DATA.vocab].sort(() => Math.random() - 0.5);
+        let pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? [...ACTIVE_DATA.vocab] : [];
+        if (filterUnit && filterUnit !== 'all') {
+            pool = pool.filter(item => item.unit === filterUnit);
+        }
+        vocabQueue = pool.sort(() => Math.random() - 0.5).slice(0, 10);
         loadNextVocabQ();
     }
 
     function loadNextVocabQ() {
-        if (!ACTIVE_DATA) return;
         document.getElementById('vq-exp-card').style.display = 'none';
         if (vocabRound >= 10 || vocabQueue.length === 0) {
+            const finalBonus = 15;
+            state.coins += finalBonus;
+            vqCoinsEarned += finalBonus;
+            document.getElementById('val-coins').innerText = state.coins;
             showSettlementCard(`恭喜完成 10 題單字測驗！`, vqCoinsEarned);
             return;
         }
@@ -1587,7 +1570,8 @@
         document.getElementById('vocab-progress').innerText = `第 ${vocabRound} / 10 題`;
         document.getElementById('vq-word').innerText = curVQ.en;
 
-        let wrongPool = ACTIVE_DATA.vocab.filter(v => v.zh !== curVQ.zh).map(v => v.zh).sort(() => Math.random() - 0.5);
+        const allV = ACTIVE_DATA ? ACTIVE_DATA.vocab : PURE_DEFENSE_VOCAB;
+        let wrongPool = allV.filter(v => v.zh !== curVQ.zh).map(v => v.zh).sort(() => Math.random() - 0.5);
         let choices = [curVQ.zh, wrongPool[0], wrongPool[1], wrongPool[2]].sort(() => Math.random() - 0.5);
 
         const list = document.getElementById('vq-options-list');
@@ -1603,13 +1587,12 @@
                 if (right) {
                     btn.classList.add('correct-reveal');
                     document.getElementById('vq-exp-title').innerText = "✅ 答對了！字彙力提升！";
-                    const reward = (state.activePet === 'dog') ? 12 : 10;
+                    const reward = 2;
                     state.coins += reward;
                     vqCoinsEarned += reward;
                     state.streak++;
                 } else {
                     btn.classList.add('user-wrong');
-                    // 標記正確選項
                     choices.forEach((ch, i) => {
                         if (ch === curVQ.zh) {
                             const cb = document.getElementById(`vq-opt-btn-${i}`);
@@ -1629,23 +1612,34 @@
     }
     function nextVocabQ() { loadNextVocabQ(); }
 
-    /* ==================== 6. 是非題 ==================== */
+    /* ==================== 6. 是非觀念題 (支援單元切換，64 題全開放！) ==================== */
     let tfQueue = [];
     let curTF = null;
     let tfRound = 0;
     let tfCoinsEarned = 0;
+    let currentTFUnit = "all";
 
-    function initTFChallenge() {
+    function initTFChallenge(filterUnit) {
+        currentTFUnit = filterUnit || "all";
+        renderUnitFilterBar('tf-unit-filter-bar', currentTFUnit, (uid) => initTFChallenge(uid));
+
         tfRound = 0;
         tfCoinsEarned = 0;
-        tfQueue = [...ACTIVE_DATA.tf].sort(() => Math.random() - 0.5);
+        let pool = (ACTIVE_DATA && ACTIVE_DATA.tf) ? [...ACTIVE_DATA.tf] : [];
+        if (filterUnit && filterUnit !== 'all') {
+            pool = pool.filter(item => item.unit === filterUnit);
+        }
+        tfQueue = pool.sort(() => Math.random() - 0.5).slice(0, 10);
         loadNextTF();
     }
 
     function loadNextTF() {
-        if (!ACTIVE_DATA) return;
         document.getElementById('tf-exp-card').style.display = 'none';
         if (tfRound >= 10 || tfQueue.length === 0) {
+            const finalBonus = 15;
+            state.coins += finalBonus;
+            tfCoinsEarned += finalBonus;
+            document.getElementById('val-coins').innerText = state.coins;
             showSettlementCard(`恭喜完成 10 題觀念是非測驗！`, tfCoinsEarned);
             return;
         }
@@ -1661,7 +1655,7 @@
         document.getElementById('tf-exp-body').innerHTML = `<p><b>中文解析：</b>${curTF.trans}</p><p>${curTF.note}</p>`;
         document.getElementById('tf-exp-card').style.display = 'block';
         if (right) {
-            const reward = (state.activePet === 'dog') ? 12 : 10;
+            const reward = 2;
             state.coins += reward;
             tfCoinsEarned += reward;
             state.streak++;
@@ -1671,7 +1665,7 @@
     }
     function nextTFQ() { loadNextTF(); }
 
-    /* ==================== 7. 📖 各單元重點全覽 (一頁展開！全書 98 個單字＋句子＋避坑指南，頂部絕不遮擋！) ==================== */
+    /* ==================== 7. 📖 各單元重點全覽 (頂部跳轉零遮擋修復！) ==================== */
     function renderAllUnitsGuide() {
         const jumpBox = document.getElementById('guide-jump-links');
         const contentBox = document.getElementById('all-units-content-list');
@@ -1747,7 +1741,7 @@
         document.getElementById('all-vocab-counter-tag').innerText = `全書共收錄 ${totalWords} 個核心單字`;
     }
 
-    /* ==================== 8. 冒險補給商店 (原裝全部保留！) ==================== */
+    /* ==================== 8. 冒險補給商店 (寵物升級養成專區) ==================== */
     function equipHero(h) {
         state.activeHero = h;
         document.querySelectorAll('#panel-shop .btn-buy-pc').forEach(b => {
@@ -1769,16 +1763,49 @@
         } else alert(`❌ 星幣不足！需要 ${cost} 星幣。`);
     }
 
+    function renderShopPetCards() {
+        const grid = document.getElementById('pets-shop-cards-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+
+        Object.keys(PET_CONFIG).forEach(k => {
+            const p = PET_CONFIG[k];
+            const isOwned = state.unlockedPets.includes(k);
+            const isEquipped = state.activePet === k;
+            const lvl = (state.petLevels && state.petLevels[k]) ? state.petLevels[k] : 1;
+            const upgradeCost = lvl === 1 ? 80 : 150;
+
+            const card = document.createElement('div');
+            card.className = 'shop-item-card';
+
+            let actionBtnHtml = '';
+            if (!isOwned) {
+                actionBtnHtml = `<button class="btn-buy-pc" onclick="buyPet('${k}', ${p.cost})">${p.cost} ⭐ 收養</button>`;
+            } else {
+                actionBtnHtml = `<button class="btn-buy-pc ${isEquipped ? 'active-use' : ''}" onclick="equipPet('${k}')">${isEquipped ? '出戰中' : '選擇出戰'}</button>`;
+                if (lvl < 3) {
+                    actionBtnHtml += `<button class="btn-buy-pc" style="background:#10b981; color:#fff; margin-top:6px;" onclick="upgradePet('${k}')">升級 Lv.${lvl+1} (${upgradeCost} ⭐)</button>`;
+                } else {
+                    actionBtnHtml += `<button class="btn-buy-pc active-use" style="margin-top:6px;">已達最高等 Lv.3 MAX</button>`;
+                }
+            }
+
+            card.innerHTML = `
+                <div class="shop-item-thumb"><img src="${p.img}" alt="${p.name}"></div>
+                <div>
+                    <b>${p.name} <span style="color:#0284c7;">(Lv.${lvl})</span></b><br>
+                    <span style="font-size: 12px; color: #16a34a; font-weight:800;">技能：${p.getPerk(lvl)}</span>
+                </div>
+                ${actionBtnHtml}
+            `;
+            grid.appendChild(card);
+        });
+    }
+
     function equipPet(p) {
         state.activePet = p;
-        document.querySelectorAll('#panel-shop .btn-buy-pc').forEach(b => {
-            if (b.id === 'btn-pet-' + p) { b.classList.add('active-use'); b.innerText = '跟隨中'; }
-            else if (b.id && b.id.startsWith('btn-pet-')) {
-                const petKey = b.id.replace('btn-pet-', '');
-                if (state.unlockedPets.includes(petKey)) { b.classList.remove('active-use'); b.innerText = '選擇出戰'; }
-            }
-        });
         alert("🐾 已更換出戰跟隨萌寵！");
+        renderShopPetCards();
     }
     function buyPet(p, cost) {
         if (state.coins >= cost) {
@@ -1786,11 +1813,28 @@
             state.unlockedPets.push(p);
             state.activePet = p;
             document.getElementById('val-coins').innerText = state.coins;
-            const btn = document.getElementById('btn-pet-' + p);
-            btn.onclick = () => equipPet(p);
-            equipPet(p);
             alert("🎉 成功收養萌寵！已帶上出戰！");
+            renderShopPetCards();
         } else alert(`❌ 星幣不足！需要 ${cost} 星幣。`);
+    }
+
+    function upgradePet(petKey) {
+        if (!state.petLevels) state.petLevels = { dog: 1, cat: 1, otter: 1, rabbit: 1, penguin: 1, bot: 1 };
+        const curLvl = state.petLevels[petKey] || 1;
+        if (curLvl >= 3) {
+            alert("✨ 該萌寵已達到最高等級 Lv.3！");
+            return;
+        }
+        const upgradeCost = curLvl === 1 ? 80 : 150;
+        if (state.coins >= upgradeCost) {
+            state.coins -= upgradeCost;
+            state.petLevels[petKey]++;
+            document.getElementById('val-coins').innerText = state.coins;
+            alert(`🎉 恭喜萌寵升級至 Lv.${state.petLevels[petKey]}！技能大幅強化！`);
+            renderShopPetCards();
+        } else {
+            alert(`❌ 星幣不足！升級需要 ${upgradeCost} ⭐ 星幣。`);
+        }
     }
 
     function upgradeHeroGear(gearKey) {
@@ -1811,7 +1855,7 @@
         } else alert("❌ 星幣不足！多做練習題挑戰賺取星幣吧！");
     }
 
-    /* ==================== 9. 👾 單字雷射防禦戰 (隨機橫向位置、向上浮起爆裂、支援暫停) ==================== */
+    /* ==================== 9. 單字雷射防禦戰 (隨機橫向位置、向上浮起爆裂、支援暫停) ==================== */
     let defenseScore = 0;
     let defenseActive = false;
     let defensePaused = false;
@@ -1888,7 +1932,6 @@
 
     function spawnBalloon() {
         if (!defenseActive) return;
-        // 只從純淨過濾庫抽選單字，絕不出現題庫分類標籤！
         const w = PURE_DEFENSE_VOCAB[Math.floor(Math.random() * PURE_DEFENSE_VOCAB.length)];
         const container = document.getElementById('defense-words-container');
         
@@ -1896,7 +1939,6 @@
         el.className = 'falling-word-balloon';
         el.innerText = w.zh;
         
-        // 隨機橫向位置分布在 10% ~ 78% 之間，不再擠在同一條通道！
         const randX = 10 + Math.random() * 68;
         el.style.left = randX + '%';
         el.style.top = '40px';
@@ -1930,7 +1972,6 @@
             const b = activeBalloons[hitIdx];
             b.popping = true;
 
-            // 光箭發射軌跡動畫
             AudioEngine.playLaser();
             const laser = document.getElementById('defense-laser');
             laser.style.display = 'block';
@@ -1940,12 +1981,11 @@
             
             setTimeout(() => { laser.style.display = 'none'; }, 160);
 
-            // 被擊中氣泡變成綠色、向上浮起爆開！
             AudioEngine.playPop();
             b.el.classList.add('popping');
 
             defenseScore += 10;
-            const reward = (state.activePet === 'dog') ? 12 : 10;
+            const reward = 2; // 平衡星幣：每字 +2 ⭐
             state.coins += reward;
             defenseCoinsEarned += reward;
             document.getElementById('val-coins').innerText = state.coins;
