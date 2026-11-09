@@ -102,7 +102,7 @@
             width: 100%;
             max-width: 1120px;
             background: rgba(255, 255, 255, 0.98);
-            background-image: url('assets/practice_bg.jpg'), linear-gradient(180deg, rgba(255,255,255,0.95), rgba(240,249,255,0.95));
+            background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.72) 40%, rgba(240, 249, 255, 0.86) 100%), url('assets/practice_bg.jpg');
             background-size: cover;
             background-position: center;
             border: 2px solid #bae6fd;
@@ -270,8 +270,14 @@
 
         /* 練習單元切換列 */
         .practice-unit-filter-bar {
-            display: flex; gap: 6px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 14px;
-            border-bottom: 1.5px solid #e2e8f0;
+            display: flex; gap: 8px; overflow-x: auto;
+            background: rgba(255, 255, 255, 0.94);
+            border: 1.5px solid #bae6fd;
+            border-radius: 16px;
+            padding: 10px 14px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.05);
+            backdrop-filter: blur(4px);
         }
         .btn-filter-chip {
             background: #f8fafc; border: 1.5px solid #cbd5e1; color: #475569;
@@ -283,7 +289,13 @@
 
         .practice-header-strip {
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 14px;
+            background: rgba(255, 255, 255, 0.96);
+            border: 2px solid #bae6fd;
+            border-radius: 18px;
+            padding: 16px 22px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 16px rgba(2, 132, 199, 0.08);
+            backdrop-filter: blur(6px);
         }
         .practice-progress { font-size: 16px; font-weight: 900; color: #0284c7; }
         .btn-exit-practice {
@@ -1004,7 +1016,7 @@
 
     <!-- 8. 各單元重點全覽 -->
     <div id="panel-flashcard" class="workspace-panel">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <div class="practice-header-strip" style="margin-bottom: 16px;">
             <div>
                 <h2 style="font-size: 24px; color: #0369a1; font-weight: 900;">📖 三年級各單元重點全覽 (單頁集中複習)</h2>
                 <p style="color: #64748b; font-size: 14px; margin-top: 4px;">依課次完整收錄全書 98 個核心單字、必考句型與段考避坑指南！</p>
@@ -1018,7 +1030,12 @@
 
     <!-- 9. 冒險補給商店 (合理進階定價) -->
     <div id="panel-shop" class="workspace-panel">
-        <h2 style="font-size: 24px; color: #0369a1; margin-bottom: 16px;">🎒 冒險補給商店 (裝備與寵物養成)</h2>
+        <div class="practice-header-strip" style="margin-bottom: 18px;">
+            <div>
+                <h2 style="font-size: 24px; color: #0369a1; font-weight: 900;">🎒 冒險補給商店 (裝備與寵物養成)</h2>
+                <p style="color: #64748b; font-size: 13.5px; margin-top: 4px;">闖關或完成測驗賺取星幣，強化英雄隊伍裝備與解鎖萌寵！</p>
+            </div>
+        </div>
         
         <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">🧙‍♂️ 解鎖冒險夥伴小隊</h3>
         <div class="shop-cards-grid">
