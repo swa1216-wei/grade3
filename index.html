@@ -1127,34 +1127,58 @@
             </div>
         </div>
 
-        <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">⚔️ 三大夥伴專屬武器強化庫</h3>
+        <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">⚔️ 三大夥伴專屬武器強化庫 (最高 Lv.10)</h3>
         <div class="shop-cards-grid">
             <div class="shop-item-card">
-                <div><b>劍士・光刃 Lv.<span id="ui-weap-warrior">1</span></b><br><span style="font-size: 12px; color: #64748b;">物攻打擊: <span id="ui-dmg-warrior">85</span> HP</span></div>
+                <div>
+                    <b>劍士・光刃 Lv.<span id="ui-weap-warrior">1</span></b><br>
+                    <span style="font-size: 12.5px; color: #0f172a; font-weight:800;">物攻打擊: <span id="ui-dmg-warrior" style="color:#d97706;">85</span> HP</span><br>
+                    <span style="font-size: 11.5px;" id="ui-dmg-warrior-note"></span>
+                </div>
                 <button class="btn-buy-pc" id="btn-up-weap-warrior" onclick="upgradeHeroGear('warrior_weap')">升級 (<span id="cost-up-weap-warrior">120</span> ⭐)</button>
             </div>
             <div class="shop-item-card">
-                <div><b>法師・星杖 Lv.<span id="ui-weap-mage">1</span></b><br><span style="font-size: 12px; color: #64748b;">全體群傷: <span id="ui-dmg-mage">65</span> HP</span></div>
+                <div>
+                    <b>法師・星杖 Lv.<span id="ui-weap-mage">1</span></b><br>
+                    <span style="font-size: 12.5px; color: #0f172a; font-weight:800;">全體群傷: <span id="ui-dmg-mage" style="color:#d97706;">65</span> HP</span><br>
+                    <span style="font-size: 11.5px;" id="ui-dmg-mage-note"></span>
+                </div>
                 <button class="btn-buy-pc" id="btn-up-weap-mage" onclick="upgradeHeroGear('mage_weap')">升級 (<span id="cost-up-weap-mage">120</span> ⭐)</button>
             </div>
             <div class="shop-item-card">
-                <div><b>治療・神權杖 Lv.<span id="ui-weap-healer">1</span></b><br><span style="font-size: 12px; color: #64748b;">治癒回血: +<span id="ui-heal-val">55</span> HP</span></div>
+                <div>
+                    <b>治療・神權杖 Lv.<span id="ui-weap-healer">1</span></b><br>
+                    <span style="font-size: 12.5px; color: #0f172a; font-weight:800;">治癒回血: +<span id="ui-heal-val" style="color:#16a34a;">55</span> HP</span><br>
+                    <span style="font-size: 11.5px;" id="ui-heal-healer-note"></span>
+                </div>
                 <button class="btn-buy-pc" id="btn-up-weap-healer" onclick="upgradeHeroGear('healer_weap')">升級 (<span id="cost-up-weap-healer">120</span> ⭐)</button>
             </div>
         </div>
 
-        <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">🛡️ 三大夥伴專屬防具強化庫 (生命上限 100 ➔ 500 HP)</h3>
+        <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">🛡️ 三大夥伴專屬防具強化庫 (最高 Lv.10)</h3>
         <div class="shop-cards-grid">
             <div class="shop-item-card">
-                <div><b>劍士・重裝戰甲 Lv.<span id="ui-armor-warrior">1</span></b><br><span style="font-size: 12px; color: #64748b;">生命上限: <span id="ui-hp-warrior">100</span> HP</span></div>
+                <div>
+                    <b>劍士・重裝戰甲 Lv.<span id="ui-armor-warrior">1</span></b><br>
+                    <span style="font-size: 12.5px; color: #0f172a; font-weight:800;">生命上限: <span id="ui-hp-warrior" style="color:#0284c7;">100</span> HP</span><br>
+                    <span style="font-size: 11.5px;" id="ui-hp-warrior-note"></span>
+                </div>
                 <button class="btn-buy-pc" id="btn-up-armor-warrior" onclick="upgradeHeroGear('warrior_armor')">升級 (<span id="cost-up-armor-warrior">120</span> ⭐)</button>
             </div>
             <div class="shop-item-card">
-                <div><b>法師・星空法袍 Lv.<span id="ui-armor-mage">1</span></b><br><span style="font-size: 12px; color: #64748b;">生命上限: <span id="ui-hp-mage">100</span> HP</span></div>
+                <div>
+                    <b>法師・星空法袍 Lv.<span id="ui-armor-mage">1</span></b><br>
+                    <span style="font-size: 12.5px; color: #0f172a; font-weight:800;">生命上限: <span id="ui-hp-mage" style="color:#0284c7;">100</span> HP</span><br>
+                    <span style="font-size: 11.5px;" id="ui-hp-mage-note"></span>
+                </div>
                 <button class="btn-buy-pc" id="btn-up-armor-mage" onclick="upgradeHeroGear('mage_armor')">升級 (<span id="cost-up-armor-mage">120</span> ⭐)</button>
             </div>
             <div class="shop-item-card">
-                <div><b>治療・神聖法衣 Lv.<span id="ui-armor-healer">1</span></b><br><span style="font-size: 12px; color: #64748b;">生命上限: <span id="ui-hp-healer">100</span> HP</span></div>
+                <div>
+                    <b>治療・神聖法衣 Lv.<span id="ui-armor-healer">1</span></b><br>
+                    <span style="font-size: 12.5px; color: #0f172a; font-weight:800;">生命上限: <span id="ui-hp-healer" style="color:#0284c7;">100</span> HP</span><br>
+                    <span style="font-size: 11.5px;" id="ui-hp-healer-note"></span>
+                </div>
                 <button class="btn-buy-pc" id="btn-up-armor-healer" onclick="upgradeHeroGear('healer_armor')">升級 (<span id="cost-up-armor-healer">120</span> ⭐)</button>
             </div>
         </div>
@@ -9415,7 +9439,7 @@
         unlockedPets: ['dog'], unlockedHeroes: ['warrior']
     };
 
-    const HP_LEVEL_TABLE = { 1: 100, 2: 180, 3: 270, 4: 380, 5: 500 };
+    const HP_LEVEL_TABLE = { 1: 100, 2: 180, 3: 270, 4: 380, 5: 500, 6: 630, 7: 770, 8: 920, 9: 1080, 10: 1250 };
     function getHeroMaxHp(h = state.activeHero) {
         const armorLvl = (state.heroGear && state.heroGear[`${h}_armor`]) || 1;
         return HP_LEVEL_TABLE[armorLvl] || 100;
@@ -10479,6 +10503,18 @@
     }
     
 
+    function getPetUpgradePerkPreview(petKey, curLvl) {
+        const nextLvl = curLvl + 1;
+        if (nextLvl > 3) return "已達最高級 Lv.3 MAX";
+        if (petKey === 'dog') return `星幣掉落 +${10 + nextLvl * 10}% (+10%)`;
+        if (petKey === 'cat') return `連勝Combo +${nextLvl} (+1)`;
+        if (petKey === 'otter') return `每場抵擋 ${nextLvl} 次暴擊失誤 (+1次)`;
+        if (petKey === 'rabbit') return `經驗值 +${15 + nextLvl * 10}% (+10%)`;
+        if (petKey === 'penguin') return `反擊傷害減免 ${15 + nextLvl * 10}% (+10%)`;
+        if (petKey === 'bot') return nextLvl >= 3 ? `排除 2 個錯誤選項 (+1選項)` : `排除 1 個錯誤選項 (延長思考時間)`;
+        return "";
+    }
+
     function renderShopPetCards() {
         const grid = document.getElementById('pets-shop-cards-grid');
         if (!grid) return;
@@ -10506,11 +10542,18 @@
                 }
             }
 
+            const upgradePreviewHtml = (lvl < 3)
+                ? `<div style="font-size: 11.5px; color: #d97706; font-weight:800; background:#fffbeb; padding:5px 8px; border-radius:8px; border:1px dashed #f59e0b; margin-top:5px; text-align:left;">
+                     🔼 <b>升級 Lv.${lvl+1} 效果：</b><br>${getPetUpgradePerkPreview(k, lvl)}
+                   </div>`
+                : `<div style="font-size: 11.5px; color: #64748b; font-weight:800; margin-top:4px;">✨ 已達最高等級 Lv.3 MAX</div>`;
+
             card.innerHTML = `
                 <div class="shop-item-thumb"><img src="${p.img}" alt="${p.name}"></div>
-                <div>
+                <div style="width: 100%;">
                     <b>${p.name} <span style="color:#0284c7;">(Lv.${lvl})</span></b><br>
-                    <span style="font-size: 12px; color: #16a34a; font-weight:800;">${p.getPerk(lvl)}</span>
+                    <div style="font-size: 12px; color: #16a34a; font-weight:800; margin-top:2px;">【當前效果】${p.getPerk(lvl)}</div>
+                    ${upgradePreviewHtml}
                 </div>
                 ${actionBtnHtml}
             `;
@@ -10529,7 +10572,24 @@
     
 
     function getGearUpgradeCost(lvl) {
-        return [120, 250, 450, 750][lvl - 1] || 1000;
+        const costs = [120, 250, 450, 700, 1000, 1400, 1900, 2500, 3200];
+        return costs[lvl - 1] || 3200;
+    }
+
+    function getArmorUpgradeHpText(curLvl) {
+        if (curLvl >= 10) return `<span style="color:#64748b; font-weight:800;">(已達最高級 Lv.10 MAX)</span>`;
+        const curHp = HP_LEVEL_TABLE[curLvl] || 100;
+        const nextHp = HP_LEVEL_TABLE[curLvl + 1] || 1250;
+        const diff = nextHp - curHp;
+        return `<span style="color:#d97706; font-weight:800;">(升級 +${diff} HP ➔ 達 ${nextHp} HP)</span>`;
+    }
+
+    function getWeaponUpgradeDmgText(heroKey, curLvl) {
+        if (curLvl >= 10) return `<span style="color:#64748b; font-weight:800;">(已達最高級 Lv.10 MAX)</span>`;
+        if (heroKey === 'warrior') return `<span style="color:#d97706; font-weight:800;">(升級 +20 打擊 ➔ ${85 + (curLvl + 1) * 20} HP)</span>`;
+        if (heroKey === 'mage') return `<span style="color:#d97706; font-weight:800;">(升級 +15 群傷 ➔ ${65 + (curLvl + 1) * 15} HP)</span>`;
+        if (heroKey === 'healer') return `<span style="color:#16a34a; font-weight:800;">(升級 +15 治癒 ➔ +${55 + (curLvl + 1) * 15} HP / +10 攻擊)</span>`;
+        return "";
     }
 
     
@@ -10576,44 +10636,80 @@
         const isHealer = state.unlockedHeroes.includes('healer');
 
         // 劍士武器與防具數值
-        document.getElementById('ui-weap-warrior').innerText = state.heroGear.warrior_weap || 1;
-        document.getElementById('ui-dmg-warrior').innerText = 85 + (state.heroGear.warrior_weap || 1) * 20;
-        document.getElementById('cost-up-weap-warrior').innerText = getGearUpgradeCost(state.heroGear.warrior_weap || 1);
+        const wWeapLvl = state.heroGear.warrior_weap || 1;
+        const wArmorLvl = state.heroGear.warrior_armor || 1;
+        document.getElementById('ui-weap-warrior').innerText = wWeapLvl;
+        document.getElementById('ui-dmg-warrior').innerText = 85 + wWeapLvl * 20;
+        const wWeapNote = document.getElementById('ui-dmg-warrior-note');
+        if (wWeapNote) wWeapNote.innerHTML = getWeaponUpgradeDmgText('warrior', wWeapLvl);
+        const btnWWeap = document.getElementById('btn-up-weap-warrior');
+        if (btnWWeap) {
+            if (wWeapLvl >= 10) { btnWWeap.innerText = "已達 Lv.10 MAX"; btnWWeap.className = "btn-buy-pc active-use"; btnWWeap.disabled = true; }
+            else { btnWWeap.innerText = `升級 (${getGearUpgradeCost(wWeapLvl)} ⭐)`; btnWWeap.className = "btn-buy-pc"; btnWWeap.disabled = false; }
+        }
 
-        document.getElementById('ui-armor-warrior').innerText = state.heroGear.warrior_armor || 1;
+        document.getElementById('ui-armor-warrior').innerText = wArmorLvl;
         document.getElementById('ui-hp-warrior').innerText = getHeroMaxHp('warrior');
-        document.getElementById('cost-up-armor-warrior').innerText = getGearUpgradeCost(state.heroGear.warrior_armor || 1);
+        const wArmorNote = document.getElementById('ui-hp-warrior-note');
+        if (wArmorNote) wArmorNote.innerHTML = getArmorUpgradeHpText(wArmorLvl);
+        const btnWArmor = document.getElementById('btn-up-armor-warrior');
+        if (btnWArmor) {
+            if (wArmorLvl >= 10) { btnWArmor.innerText = "已達 Lv.10 MAX"; btnWArmor.className = "btn-buy-pc active-use"; btnWArmor.disabled = true; }
+            else { btnWArmor.innerText = `升級 (${getGearUpgradeCost(wArmorLvl)} ⭐)`; btnWArmor.className = "btn-buy-pc"; btnWArmor.disabled = false; }
+        }
 
         // 法師武器與防具鎖定與數值
         const btnMageW = document.getElementById('btn-up-weap-mage');
         const btnMageA = document.getElementById('btn-up-armor-mage');
+        const mWeapLvl = state.heroGear.mage_weap || 1;
+        const mArmorLvl = state.heroGear.mage_armor || 1;
         if (btnMageW && btnMageA) {
-            btnMageW.className = isMage ? 'btn-buy-pc' : 'btn-buy-pc locked';
-            btnMageW.disabled = !isMage;
-            btnMageW.innerText = isMage ? `升級 (${getGearUpgradeCost(state.heroGear.mage_weap || 1)} ⭐)` : "🔒 需先解鎖角色";
-            btnMageA.className = isMage ? 'btn-buy-pc' : 'btn-buy-pc locked';
-            btnMageA.disabled = !isMage;
-            btnMageA.innerText = isMage ? `升級 (${getGearUpgradeCost(state.heroGear.mage_armor || 1)} ⭐)` : "🔒 需先解鎖角色";
-            document.getElementById('ui-weap-mage').innerText = state.heroGear.mage_weap || 1;
-            document.getElementById('ui-dmg-mage').innerText = 65 + (state.heroGear.mage_weap || 1) * 15;
-            document.getElementById('ui-armor-mage').innerText = state.heroGear.mage_armor || 1;
+            if (!isMage) {
+                btnMageW.className = 'btn-buy-pc locked'; btnMageW.disabled = true; btnMageW.innerText = "🔒 需先解鎖角色";
+                btnMageA.className = 'btn-buy-pc locked'; btnMageA.disabled = true; btnMageA.innerText = "🔒 需先解鎖角色";
+            } else {
+                if (mWeapLvl >= 10) { btnMageW.innerText = "已達 Lv.10 MAX"; btnMageW.className = "btn-buy-pc active-use"; btnMageW.disabled = true; }
+                else { btnMageW.innerText = `升級 (${getGearUpgradeCost(mWeapLvl)} ⭐)`; btnMageW.className = "btn-buy-pc"; btnMageW.disabled = false; }
+
+                if (mArmorLvl >= 10) { btnMageA.innerText = "已達 Lv.10 MAX"; btnMageA.className = "btn-buy-pc active-use"; btnMageA.disabled = true; }
+                else { btnMageA.innerText = `升級 (${getGearUpgradeCost(mArmorLvl)} ⭐)`; btnMageA.className = "btn-buy-pc"; btnMageA.disabled = false; }
+            }
+            document.getElementById('ui-weap-mage').innerText = mWeapLvl;
+            document.getElementById('ui-dmg-mage').innerText = 65 + mWeapLvl * 15;
+            const mWeapNote = document.getElementById('ui-dmg-mage-note');
+            if (mWeapNote) mWeapNote.innerHTML = isMage ? getWeaponUpgradeDmgText('mage', mWeapLvl) : "";
+
+            document.getElementById('ui-armor-mage').innerText = mArmorLvl;
             document.getElementById('ui-hp-mage').innerText = getHeroMaxHp('mage');
+            const mArmorNote = document.getElementById('ui-hp-mage-note');
+            if (mArmorNote) mArmorNote.innerHTML = isMage ? getArmorUpgradeHpText(mArmorLvl) : "";
         }
 
         // 治療師武器與防具鎖定與數值
         const btnHealerW = document.getElementById('btn-up-weap-healer');
         const btnHealerA = document.getElementById('btn-up-armor-healer');
+        const hWeapLvl = state.heroGear.healer_weap || 1;
+        const hArmorLvl = state.heroGear.healer_armor || 1;
         if (btnHealerW && btnHealerA) {
-            btnHealerW.className = isHealer ? 'btn-buy-pc' : 'btn-buy-pc locked';
-            btnHealerW.disabled = !isHealer;
-            btnHealerW.innerText = isHealer ? `升級 (${getGearUpgradeCost(state.heroGear.healer_weap || 1)} ⭐)` : "🔒 需先解鎖角色";
-            btnHealerA.className = isHealer ? 'btn-buy-pc' : 'btn-buy-pc locked';
-            btnHealerA.disabled = !isHealer;
-            btnHealerA.innerText = isHealer ? `升級 (${getGearUpgradeCost(state.heroGear.healer_armor || 1)} ⭐)` : "🔒 需先解鎖角色";
-            document.getElementById('ui-weap-healer').innerText = state.heroGear.healer_weap || 1;
-            document.getElementById('ui-heal-val').innerText = 55 + (state.heroGear.healer_weap || 1) * 15;
-            document.getElementById('ui-armor-healer').innerText = state.heroGear.healer_armor || 1;
+            if (!isHealer) {
+                btnHealerW.className = 'btn-buy-pc locked'; btnHealerW.disabled = true; btnHealerW.innerText = "🔒 需先解鎖角色";
+                btnHealerA.className = 'btn-buy-pc locked'; btnHealerA.disabled = true; btnHealerA.innerText = "🔒 需先解鎖角色";
+            } else {
+                if (hWeapLvl >= 10) { btnHealerW.innerText = "已達 Lv.10 MAX"; btnHealerW.className = "btn-buy-pc active-use"; btnHealerW.disabled = true; }
+                else { btnHealerW.innerText = `升級 (${getGearUpgradeCost(hWeapLvl)} ⭐)`; btnHealerW.className = "btn-buy-pc"; btnHealerW.disabled = false; }
+
+                if (hArmorLvl >= 10) { btnHealerA.innerText = "已達 Lv.10 MAX"; btnHealerA.className = "btn-buy-pc active-use"; btnHealerA.disabled = true; }
+                else { btnHealerA.innerText = `升級 (${getGearUpgradeCost(hArmorLvl)} ⭐)`; btnHealerA.className = "btn-buy-pc"; btnHealerA.disabled = false; }
+            }
+            document.getElementById('ui-weap-healer').innerText = hWeapLvl;
+            document.getElementById('ui-heal-val').innerText = 55 + hWeapLvl * 15;
+            const hWeapNote = document.getElementById('ui-heal-healer-note');
+            if (hWeapNote) hWeapNote.innerHTML = isHealer ? getWeaponUpgradeDmgText('healer', hWeapLvl) : "";
+
+            document.getElementById('ui-armor-healer').innerText = hArmorLvl;
             document.getElementById('ui-hp-healer').innerText = getHeroMaxHp('healer');
+            const hArmorNote = document.getElementById('ui-hp-healer-note');
+            if (hArmorNote) hArmorNote.innerHTML = isHealer ? getArmorUpgradeHpText(hArmorLvl) : "";
         }
     }
 
@@ -10624,8 +10720,8 @@
             return;
         }
         const curLvl = state.heroGear[gearKey] || 1;
-        if (curLvl >= 5) {
-            showCenterDialog("裝備強化", "該裝備已達到最高等級 Lv.5 MAX！");
+        if (curLvl >= 10) {
+            showCenterDialog("裝備強化", "該裝備已達到最高等級 Lv.10 MAX！");
             return;
         }
         const cost = getGearUpgradeCost(curLvl);
@@ -10760,7 +10856,7 @@
         });
     }
 
-    /* 10. 單字雷射防禦戰 (防劇透・底部堆積・即時中英文方格戰報) */
+    /* 10. 單字雷射防禦戰 (防劇透・堆疊紅線抬升・失守虛線自動判定・雙欄戰報) */
     let defenseScore = 0;
     let defenseActive = false;
     let defensePaused = false;
@@ -10770,6 +10866,17 @@
     let balloonMoveTimer = null;
     let defenseCoinsEarned = 0;
     let balloonIdCounter = 0;
+    const MAX_LANDED_LIMIT = 6; // 堆疊上限：達到 6 顆即觸碰虛線失守
+
+    function updateDefenseRedlinePosition() {
+        const redline = document.getElementById('defense-redline');
+        if (!redline) return;
+        // 基本高度 25px，每多一個堆疊單字紅線往上抬升 42px
+        const currentLanded = landedBalloons.length;
+        const newBottom = 25 + currentLanded * 42;
+        redline.style.bottom = `${newBottom}px`;
+        redline.innerHTML = `⚠️ 堆疊警戒紅線 (已堆疊: <b style="color:#fff; background:#dc2626; padding:1px 6px; border-radius:8px;">${currentLanded}/${MAX_LANDED_LIMIT}</b>・輸入對應英文可消除防線) ⚠️`;
+    }
 
     function prepareDefenseStandby() {
         stopDefenseGame(false);
@@ -10778,8 +10885,13 @@
         document.getElementById('defense-words-container').innerHTML = '';
         const landedContainer = document.getElementById('defense-landed-container');
         if (landedContainer) landedContainer.innerHTML = '';
+        const redline = document.getElementById('defense-redline');
+        if (redline) {
+            redline.style.bottom = '25px';
+            redline.innerHTML = '⚠️ 堆疊警戒紅線 (輸入對應英文可消滅清除・逼近虛線將失守) ⚠️';
+        }
         const wordList = document.getElementById('defense-word-list');
-        if (wordList) wordList.innerHTML = '<div id="defense-empty-hint" style="text-align: center; color: #94a3b8; font-size: 14px; margin-top: 50px;">🎮 點擊開始挑戰後<br>所有出現與堆積的單字方格<br>將即時記錄於此處供對照學習！</div>';
+        if (wordList) wordList.innerHTML = '<div id="defense-empty-hint" style="text-align: center; color: #94a3b8; font-size: 14px; margin-top: 50px;">🎮 點擊開始挑戰後<br>空中擊破或掉落地面的單字<br>將即時記錄於此處供對照學習！<br>(空中飄落中絕不劇透)</div>';
         const badge = document.getElementById('defense-word-count-badge');
         if (badge) badge.innerText = '共 0 題';
     }
@@ -10807,6 +10919,8 @@
             if (e.key === 'Enter') fireLaser();
         };
 
+        updateDefenseRedlinePosition();
+
         spawnBalloon();
         balloonSpawnTimer = setInterval(() => {
             if (!defenseActive || defensePaused) return;
@@ -10821,8 +10935,11 @@
                 b.y += b.speed;
                 b.el.style.top = b.y + 'px';
 
-                // 當氣球觸碰底線警戒區：不再消失，而是停留在底部堆積！
-                if (b.y >= 370) {
+                // 當氣球觸碰當前紅線高度 (480 - redlineHeight - 40)
+                const currentRedlineBottom = 25 + landedBalloons.length * 42;
+                const contactThreshold = 480 - currentRedlineBottom - 35;
+
+                if (b.y >= contactThreshold) {
                     state.hearts--;
                     if (state.hearts <= 0) state.hearts = 3;
                     document.getElementById('val-hearts').innerText = "❤️".repeat(Math.max(0, state.hearts)) + "🖤".repeat(Math.max(0, 3 - state.hearts));
@@ -10844,11 +10961,32 @@
                         word: b.word
                     });
 
-                    // 同步更新右側戰報清單為「底部堆積中」
+                    // 紅線往上移動
+                    updateDefenseRedlinePosition();
+
+                    // 掉落到地上才產出顯示在右側戰報清單中
                     addOrUpdateDefenseWordLog(b.id, b.word, 'landed');
+
+                    // 檢查是否堆疊達到失守警戒虛線 (達到上限自動輸掉)
+                    if (landedBalloons.length >= MAX_LANDED_LIMIT) {
+                        triggerDefenseGameOver();
+                        return;
+                    }
                 }
             }
         }, 30);
+    }
+
+    function triggerDefenseGameOver() {
+        stopDefenseGame(false);
+        showCenterDialog(
+            "🚨 基地防線失守！",
+            `未消滅的單字向上堆疊觸碰到<b>警戒虛線</b>，防線徹底瓦解！<br>本次防禦得分：<b style="color:#d97706; font-size:22px;">${defenseScore}</b> 分！`,
+            "查看結算",
+            () => {
+                showSettlementCard(`基地失守！最終防禦得分：${defenseScore} 分`, defenseCoinsEarned);
+            }
+        );
     }
 
     function toggleDefensePause() {
@@ -10893,7 +11031,6 @@
 
         activeBalloons.push({
             id: bId,
-            el: el,
             word: w,
             x: randX,
             y: 40,
@@ -10901,8 +11038,7 @@
             popping: false
         });
 
-        // 即時產出在右側單字對照清單中
-        addOrUpdateDefenseWordLog(bId, w, 'falling');
+        // 注意：空中飄落時不提前加入右側對照表，避免劇透！
     }
 
     function fireLaser() {
@@ -10911,7 +11047,7 @@
         const val = inp.value.trim().toLowerCase();
         if (!val) return;
 
-        // 1. 先檢驗空中飄落中的氣球
+        // 1. 先檢驗空中飄落中的氣球 (成功擊破才顯示在右邊！)
         let hitAirIdx = activeBalloons.findIndex(b => !b.popping && b.word.en.toLowerCase() === val);
         if (hitAirIdx !== -1) {
             const b = activeBalloons[hitAirIdx];
@@ -10935,7 +11071,7 @@
             document.getElementById('val-coins').innerText = state.coins;
             document.getElementById('defense-score').innerText = defenseScore;
 
-            // 更新右側方格為「空中擊破」
+            // 成功擊破，正式產出並加入右側方格
             addOrUpdateDefenseWordLog(b.id, b.word, 'shot');
 
             setTimeout(() => {
@@ -10948,7 +11084,7 @@
             return;
         }
 
-        // 2. 檢驗留在底部堆積的單字 (玩家亦可輸入英文予以消除！)
+        // 2. 檢驗留在底部堆積的單字 (玩家輸入英文即可消滅堆積單字，讓紅線回落！)
         let hitLandedIdx = landedBalloons.findIndex(b => b.word.en.toLowerCase() === val);
         if (hitLandedIdx !== -1) {
             const b = landedBalloons[hitLandedIdx];
@@ -10957,8 +11093,8 @@
             const laser = document.getElementById('defense-laser');
             laser.style.display = 'block';
             laser.style.left = '50%';
-            laser.style.top = '380px';
-            laser.style.height = '40px';
+            laser.style.top = '360px';
+            laser.style.height = '60px';
             setTimeout(() => { laser.style.display = 'none'; }, 160);
 
             SoundEngine.playPop();
@@ -10980,6 +11116,8 @@
                 b.el.remove();
                 const idx = landedBalloons.indexOf(b);
                 if (idx !== -1) landedBalloons.splice(idx, 1);
+                // 紅線隨堆疊減少即時回落！
+                updateDefenseRedlinePosition();
             }, 250);
 
             inp.value = '';
@@ -11007,9 +11145,7 @@
         item.className = `defense-log-item status-${status}`;
 
         let statusBadge = "";
-        if (status === 'falling') {
-            statusBadge = `<span style="background:#fef3c7; color:#b45309; padding:3px 8px; border-radius:8px; font-size:11.5px; font-weight:800;">⏳ 飄落中</span>`;
-        } else if (status === 'shot') {
+        if (status === 'shot') {
             statusBadge = `<span style="background:#dcfce7; color:#15803d; padding:3px 8px; border-radius:8px; font-size:11.5px; font-weight:900;">💥 空中擊破 (+10)</span>`;
         } else if (status === 'landed') {
             statusBadge = `<span style="background:#ffedd5; color:#c2410c; padding:3px 8px; border-radius:8px; font-size:11.5px; font-weight:900;">⚠️ 底部堆積中</span>`;
