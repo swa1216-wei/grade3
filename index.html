@@ -1286,11 +1286,14 @@
         return "";
     }
 
-    /* ==================== Web Audio 音效與放鬆奇幻輕音樂 ==================== */
+        /* ==================== Web Audio 音效與雙模背景音樂系統 (MP3 + 內建備援) ==================== */
     const SoundEngine = {
         ctx: null,
         bgmActive: false,
         bgmTimer: null,
+        bgmAudio: null,
+        bgmSource: 'synth', // 'file' 或 'synth'
+
         init() {
             if (!this.ctx) {
                 const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -1335,30 +1338,80 @@
         },
         playPop() { this.playTone(880, 'triangle', 0.09, 0.12); setTimeout(()=>this.playTone(1320, 'sine', 0.15, 0.1), 60); },
 
-        /* 奇幻冒險輕音樂琶音生成 (零外部 MP3，安靜放鬆，無卡頓) */
-        bgmAudio: null,
+        /* 雙模背景音樂：優先播放 assets/bgm.mp3，若未放置或出錯則自動切換為內建輕音樂 */
         startBGM() {
+            this.init();
+            if (this.ctx && this.ctx.state === 'suspended') {
+                this.ctx.resume();
+            }
+
+            const btn = document.getElementById('btn-bgm-toggle');
+
+            // 1. 嘗試播放自訂 MP3 檔
             if (!this.bgmAudio) {
                 this.bgmAudio = new Audio('assets/bgm.mp3');
-                this.bgmAudio.loop = true; // 循環播放
-                this.bgmAudio.volume = 0.3; // 音量大小 (0.0 ~ 1.0)
+                this.bgmAudio.loop = true;
+                this.bgmAudio.volume = 0.35;
             }
-            this.bgmAudio.play().then(() => {
-                this.bgmActive = true;
-                const btn = document.getElementById('btn-bgm-toggle');
-                if (btn) btn.innerText = "🎵 音樂: 開";
-            }).catch(err => {
-                console.log("背景音樂播放失敗（可能需使用者先點擊頁面）:", err);
-            });
+
+            const playPromise = this.bgmAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    this.bgmActive = true;
+                    this.bgmSource = 'file';
+                    if (btn) btn.innerText = "🎵 音樂: 開 (MP3)";
+                }).catch(err => {
+                    console.log("未偵測到 assets/bgm.mp3 或載入受限，自動啟動內建輕音樂:", err);
+                    // 2. 自動切換至內建 Web Audio 輕音樂
+                    this.startSynthBGM();
+                });
+            } else {
+                this.startSynthBGM();
+            }
         },
+
+        /* 內建輕音樂生成（琶音旋律，零外部依賴） */
+        startSynthBGM() {
+            this.init();
+            if (!this.ctx) return;
+            if (this.ctx.state === 'suspended') this.ctx.resume();
+            this.bgmActive = true;
+            this.bgmSource = 'synth';
+            const btn = document.getElementById('btn-bgm-toggle');
+            if (btn) btn.innerText = "🎵 音樂: 開 (內建)";
+
+            if (this.bgmTimer) clearInterval(this.bgmTimer);
+            const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
+            let noteIdx = 0;
+            this.bgmTimer = setInterval(() => {
+                if (!this.bgmActive || this.bgmSource !== 'synth') return;
+                const f = notes[noteIdx % notes.length];
+                this.playTone(f, 'sine', 0.45, 0.025);
+                noteIdx++;
+            }, 600);
+        },
+
+        /* 停止背景音樂 */
         stopBGM() {
             this.bgmActive = false;
-            if (this.bgmTimer) { clearInterval(this.bgmTimer); this.bgmTimer = null; }
-            document.getElementById('btn-bgm-toggle').innerText = "🎵 音樂: 關";
+            if (this.bgmAudio) {
+                this.bgmAudio.pause();
+                this.bgmAudio.currentTime = 0;
+            }
+            if (this.bgmTimer) {
+                clearInterval(this.bgmTimer);
+                this.bgmTimer = null;
+            }
+            const btn = document.getElementById('btn-bgm-toggle');
+            if (btn) btn.innerText = "🎵 音樂: 關";
         },
+
         toggleBGM() {
-            if (this.bgmActive) this.stopBGM();
-            else this.startBGM();
+            if (this.bgmActive) {
+                this.stopBGM();
+            } else {
+                this.startBGM();
+            }
         }
     };
     function toggleBGM() { SoundEngine.toggleBGM(); }
