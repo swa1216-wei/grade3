@@ -117,7 +117,7 @@
         }
         .workspace-panel.active { display: flex !important; }
 
-        /* 1. 地圖：百分比鎖定底圖長寬比 (1023:620)，零可見框框 */
+        /* 1. 地圖：精確自適應鎖定底圖長寬比 (1023:620)，零可見框框！純游標感應！ */
         #panel-map {
             width: 100%;
             max-width: 1120px;
@@ -134,6 +134,7 @@
             padding: 0;
             margin: 0 auto;
         }
+        /* 100% 透明無邊框熱區，滑鼠移過不變色不浮框，只變小手手 */
         .map-station-hotspot {
             position: absolute;
             cursor: pointer;
@@ -144,7 +145,7 @@
             outline: none !important;
         }
 
-        /* 2. 戰鬥舞台 */
+        /* 2. 史詩級戰鬥舞台：精緻奇幻夜空與魔法符文陣背景 */
         .battle-arena-pc {
             min-height: 330px;
             background-color: #0f172a;
@@ -155,6 +156,13 @@
             padding: 24px 30px 18px; border-bottom: 3px solid #38bdf8;
             overflow: hidden;
         }
+        /* 魔法符文光環陣地 */
+        .battle-arena-pc::before {
+            content: ''; position: absolute; bottom: 8px; left: 10%; right: 10%; height: 60px;
+            background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.35) 0%, rgba(56, 189, 248, 0) 75%);
+            border-top: 1.5px solid rgba(56, 189, 248, 0.4);
+            pointer-events: none;
+        }
         .wave-badge-top {
             position: absolute; top: 12px; background: rgba(2, 132, 199, 0.9); color: #fff;
             padding: 4px 20px; border-radius: 20px; font-size: 13.5px; font-weight: 900;
@@ -163,6 +171,7 @@
         .hero-combat-group { display: flex; align-items: center; gap: 16px; }
         .fighter-col { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 160px; }
 
+        /* 卡牌：拔除冗餘頂部抬頭，乾淨大圖展示！ */
         .trading-card-frame {
             width: 150px; height: 195px; background: #090e1a;
             border: 3.5px solid #f59e0b; border-radius: 16px;
@@ -183,23 +192,24 @@
             padding: 6px 4px; text-align: center; font-size: 12.5px; font-weight: 900;
         }
 
-        /* 隨行寵物卡牌：移除綠色螢光，統一質感 */
+        /* 隨行萌寵卡牌 (乾淨無冗餘文字) */
         .companion-pet-card {
-            width: 100px; height: 150px; background: #0f172a;
-            border: 3px solid #f59e0b; border-radius: 14px;
+            width: 95px; height: 145px; background: #064e3b;
+            border: 2.5px solid #10b981; border-radius: 14px;
             display: flex; flex-direction: column; overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.35);
+            box-shadow: 0 0 18px rgba(16, 185, 129, 0.4);
         }
         .pet-art-fill {
             flex: 1; width: 100%; background: #ffffff; overflow: hidden;
             display: flex; justify-content: center; align-items: center;
         }
-        .pet-art-fill img { width: 92%; height: 92%; object-fit: contain; }
+        .pet-art-fill img { width: 90%; height: 90%; object-fit: contain; }
         .pet-card-footer {
-            background: #0f172a; font-size: 11px; font-weight: 900; color: #f8fafc;
-            text-align: center; padding: 5px 2px; border-top: 1px solid rgba(255,255,255,0.15);
+            background: #064e3b; font-size: 11px; font-weight: 900; color: #a7f3d0;
+            text-align: center; padding: 4px 2px;
         }
 
+        /* 攻擊位移與被擊中強烈震動動畫！ */
         .trading-card-frame.hit { animation: cardDamageShake 0.4s ease-in-out; }
         .trading-card-frame.attack { animation: cardAttackLunge 0.35s ease-in-out; }
         @keyframes cardDamageShake {
@@ -281,7 +291,7 @@
             border-radius: 12px; font-size: 13.5px; font-weight: 900; cursor: pointer;
         }
 
-        /* 測驗準備室 */
+        /* 測驗準備室（點選開始後才開局！） */
         .practice-lobby-cover {
             background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
             border: 2px dashed #bae6fd; border-radius: 20px;
@@ -381,7 +391,7 @@
         }
         .btn-buy-pc.active-use { background: #e2e8f0; color: #64748b; cursor: default; }
 
-        /* 防禦戰 */
+        /* 防禦戰 (含中央開始按鈕遮罩層) */
         .defense-layout { display: grid; grid-template-columns: 1fr 280px; gap: 20px; }
         .defense-canvas-wrap {
             height: 440px; background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 70%, #ffffff 100%);
@@ -414,29 +424,26 @@
             padding: 18px; display: flex; flex-direction: column; gap: 10px; height: 440px; overflow-y: auto;
         }
 
-        /* 冒險小屋 (小隊配置彈窗) - 3 欄大空間，完整展開 */
+        /* 冒險小屋 (小隊配置彈窗) */
         .cabin-modal-overlay {
             display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75);
             z-index: 999; align-items: center; justify-content: center; backdrop-filter: blur(4px);
         }
         .cabin-modal-box {
             background: #ffffff; border: 3.5px solid #d97706; border-radius: 24px;
-            padding: 24px 30px; max-width: 980px; width: 95%; max-height: 90vh; overflow-y: auto;
-            box-shadow: 0 16px 50px rgba(0,0,0,0.45);
+            padding: 26px 32px; max-width: 980px; width: 95%; max-height: 90vh; overflow-y: auto;
+            box-shadow: 0 14px 50px rgba(0,0,0,0.45);
         }
         .cabin-squad-row {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 12px 0 20px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 14px 0 22px;
         }
         .cabin-card-slot {
             background: #f8fafc; border: 2px solid #bae6fd; border-radius: 18px;
-            padding: 16px 14px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.06); transition: all 0.2s;
-        }
-        .cabin-card-slot.active-equipped {
-            border-color: #d97706; background: #fffbeb; box-shadow: 0 0 15px rgba(217, 119, 6, 0.25);
+            padding: 16px 14px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.06);
         }
         .cabin-card-slot img {
-            width: 85px; height: 90px; object-fit: contain;
+            width: 95px; height: 100px; object-fit: contain;
             border-radius: 12px; background: #ffffff; border: 1.5px solid #e2e8f0;
         }
 
@@ -451,7 +458,170 @@
             padding: 32px 36px; text-align: center; max-width: 450px; width: 90%;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
-    </style>
+    
+        /* 考卷專用試卷面板樣式 (真實學校考卷風格) */
+        .exam-paper-container {
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 20px;
+            padding: 30px 36px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            margin: 10px 0 30px;
+        }
+        .exam-paper-header {
+            text-align: center;
+            border-bottom: 3px double #0284c7;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+        .exam-title-main {
+            font-size: 26px;
+            font-weight: 900;
+            color: #0369a1;
+            letter-spacing: 1px;
+        }
+        .exam-info-strip {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 12px;
+            font-size: 14.5px;
+            font-weight: 800;
+            color: #475569;
+        }
+        .exam-score-stamp {
+            position: absolute;
+            right: 20px;
+            top: 0;
+            width: 100px;
+            height: 100px;
+            border: 4px solid #dc2626;
+            border-radius: 50%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #dc2626;
+            font-weight: 900;
+            transform: rotate(-12deg);
+            background: rgba(254, 242, 242, 0.95);
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.25);
+            z-index: 10;
+        }
+        .exam-section-title {
+            background: #f0f9ff;
+            border-left: 6px solid #0284c7;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: 900;
+            color: #0369a1;
+            margin: 24px 0 14px;
+        }
+        .exam-q-row {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+        }
+        .exam-q-row.graded-correct {
+            background: #f0fdf4 !important;
+            border: 1.5px solid #86efac !important;
+        }
+        .exam-q-row.graded-wrong {
+            background: #fef2f2 !important;
+            border: 1.5px solid #fca5a5 !important;
+        }
+        .exam-opts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .exam-opt-btn {
+            background: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 8px 14px;
+            text-align: left;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .exam-opt-btn:hover {
+            border-color: #38bdf8;
+            background: #f0f9ff;
+        }
+        .exam-opt-btn.selected {
+            background: #0284c7 !important;
+            color: #ffffff !important;
+            border-color: #0284c7 !important;
+        }
+        .exam-opt-btn.reveal-correct {
+            background: #22c55e !important;
+            color: #ffffff !important;
+            border-color: #16a34a !important;
+        }
+        .exam-opt-btn.reveal-wrong {
+            background: #ef4444 !important;
+            color: #ffffff !important;
+            border-color: #dc2626 !important;
+        }
+
+        /* 冠詞特訓填空高亮樣式 */
+        .blank-target-pill {
+            background: #fef08a;
+            border: 2px dashed #f59e0b;
+            padding: 2px 14px;
+            border-radius: 8px;
+            color: #b45309;
+            font-weight: 900;
+            display: inline-block;
+            margin: 0 4px;
+        }
+        .grammar-type-tag {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 900;
+            border: 1px solid #bae6fd;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+
+        /* 通用置中彈窗樣式 (取代瀏覽器醜醜的 alert) */
+        .custom-center-dialog-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .custom-center-dialog-box {
+            background: #ffffff;
+            border: 3.5px solid #0284c7;
+            border-radius: 22px;
+            padding: 28px 32px;
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+            animation: dialogPop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes dialogPop {
+            0% { transform: scale(0.85); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+</style>
 </head>
 <body>
 
@@ -474,6 +644,8 @@
     <!-- 任務分頁切換列 -->
     <div class="mission-tab-bar">
         <button class="mission-tab active" id="tab-btn-map" onclick="navTo('panel-map')">🗺️ 冒險闖關地圖</button>
+        <button class="mission-tab" id="tab-btn-exam-paper" onclick="navTo('panel-exam-paper')">📑 期末全真模擬試卷</button>
+        <button class="mission-tab" id="tab-btn-grammar" onclick="navTo('panel-grammar')">✏️ 冠詞與文法特訓</button>
         <button class="mission-tab" id="tab-btn-listening" onclick="navTo('panel-listening')">🎧 段考聽力挑戰</button>
         <button class="mission-tab" id="tab-btn-spelling" onclick="navTo('panel-spelling')">🔤 自然發音積木拼字</button>
         <button class="mission-tab" id="tab-btn-scramble" onclick="navTo('panel-scramble')">🧩 句型重組 (獨立標點)</button>
@@ -496,7 +668,7 @@
         <div class="map-station-hotspot" style="left: 77.42%; top: 74.84%; width: 11.93%; height: 18.39%;" onclick="startRPGCombat(7)" title="點選進入 期末魔龍決戰"></div>
     </div>
 
-    <!-- 2. 史詩級戰鬥舞台 (乾淨封閉，絕不外溢) -->
+    <!-- 2. 史詩級戰鬥舞台 (卡牌震動與位移動畫，拔除冗餘頂頭) -->
     <div id="panel-battle" class="workspace-panel">
         <div class="battle-arena-pc">
             <div class="wave-badge-top" id="battle-wave-indicator">WAVE 1/3</div>
@@ -508,20 +680,20 @@
                     <div class="pet-card-footer" id="sidePetPerk">🐕 柴犬 Lv.1</div>
                 </div>
 
-                <!-- 英雄卡牌 (HP 100起步，滿等500) -->
+                <!-- 英雄卡牌 (HP 500) -->
                 <div class="fighter-col">
                     <div class="trading-card-frame" id="heroCardFrame">
                         <div class="card-artwork-fill"><img id="battle-hero-pic" src="assets/hero_warrior.jfif" alt="Hero"></div>
                         <div class="card-footer-bar" id="heroLevelTag">⚔️ 星際劍士 Lv.1</div>
                     </div>
                     <div class="hp-bar-outer"><div class="hp-bar-inner-hero" id="hero-hp-fill"></div></div>
-                    <div class="fighter-meta" id="hero-hp-label">勇者 HP: 100/100</div>
+                    <div class="fighter-meta" id="hero-hp-label">勇者 HP: 500/500</div>
                 </div>
             </div>
 
             <div style="font-size: 32px; font-weight: 900; color: #38bdf8; text-shadow: 0 0 15px #38bdf8;">⚔️</div>
 
-            <!-- 怪獸軍團容器 -->
+            <!-- 怪獸軍團容器 (支援 2 隻以上怪獸同時在場，讓法師群攻真正生效！) -->
             <div class="enemy-combat-group" id="enemy-combat-group" style="display: flex; gap: 14px; align-items: center;"></div>
         </div>
 
@@ -544,8 +716,87 @@
         </div>
     </div>
 
-    <!-- 3. 段考聽力測驗 -->
-    <div id="panel-listening" class="workspace-panel">
+    
+    <!-- 📑 期末全真模擬試卷 (整卷作答・非闖關・模擬學校段考) -->
+    <div id="panel-exam-paper" class="workspace-panel">
+        <div class="exam-paper-container">
+            <div class="exam-paper-header">
+                <div class="exam-score-stamp" id="examScoreStamp">
+                    <span style="font-size:12px;">評量成績</span>
+                    <span style="font-size:26px;" id="examFinalScore">100</span>
+                    <span style="font-size:11px;">POINTS</span>
+                </div>
+                <div style="font-size: 14px; font-weight: 800; color: #64748b; margin-bottom: 4px;">115 學年度 第一學期 國民小學 英語領域</div>
+                <h1 class="exam-title-main">期末定期評量全真模擬試卷 (Here We Go 1)</h1>
+                <div class="exam-info-strip">
+                    <span>三年級 班級：三年 <input type="text" value="忠" style="width:36px; text-align:center; border:none; border-bottom:1.5px solid #64748b; font-weight:800; font-size:14px;"> 班</span>
+                    <span>座號：<input type="text" value="08" style="width:36px; text-align:center; border:none; border-bottom:1.5px solid #64748b; font-weight:800; font-size:14px;"> 號</span>
+                    <span>姓名：<input type="text" value="CHIEN CHENG CHEN" style="width:160px; text-align:center; border:none; border-bottom:1.5px solid #64748b; font-weight:800; font-size:14px;"></span>
+                    <span>得分：<b style="color:#dc2626; font-size:18px;" id="headerScoreDisplay">待交卷評分</b> / 100 分</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 10px; border-top: 1px dashed #cbd5e1;">
+                    <span style="font-size: 13.5px; color: #0284c7; font-weight: 800;">
+                        📋 題數：共 25 題 (每題 4 分，滿分 100 分) ｜ 已完成：<b id="exam-done-counter" style="color:#16a34a;">0</b> / 25 題
+                    </span>
+                    <button class="btn-top-feature" style="padding: 6px 16px;" onclick="generateNewExamPaper()">🎲 隨機全新出卷</button>
+                </div>
+            </div>
+
+            <!-- 考卷 4 大題型容器 -->
+            <div id="exam-paper-questions-list"></div>
+
+            <!-- 底部交卷與重新測驗按鈕 -->
+            <div style="text-align: center; margin: 30px 0 10px; display: flex; gap: 16px; justify-content: center;">
+                <button class="btn-start-challenge" id="btn-submit-exam" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); padding: 16px 52px; font-size: 20px;" onclick="submitExamPaper()">
+                    📝 完成檢查・交卷並批改評分
+                </button>
+                <button class="btn-start-challenge" id="btn-re-exam" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); padding: 16px 36px; font-size: 18px; display: none;" onclick="generateNewExamPaper()">
+                    🎲 重新隨機出題再測一次
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✏️ 冠詞與文法特訓 (a/an/所有格/單複數 - 附帶高亮彩色框) -->
+    <div id="panel-grammar" class="workspace-panel">
+        <div class="practice-header-strip">
+            <div>
+                <h2 style="font-size: 22px; color: #0369a1;">✏️ 國小英語冠詞與文法特訓 (a/an/所有格)</h2>
+                <p style="color: #64748b; font-size: 13.5px; margin-top: 4px;">精熟 a vs. an 不定冠詞、所有格 your vs. you're、顏色形容詞不加 a 與名詞單複數！</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <span class="practice-progress" id="grammar-progress">準備中</span>
+                <button class="btn-exit-practice" onclick="exitChallengePrematurely('grammar')">✖ 結束結算</button>
+            </div>
+        </div>
+
+        <div class="practice-unit-filter-bar" id="grammar-unit-filter-bar"></div>
+
+        <div class="practice-lobby-cover" id="grammar-lobby-cover">
+            <h3 style="font-size: 24px; color: #0369a1; margin-bottom: 8px;">✏️ 冠詞與所有格文法挑戰</h3>
+            <p style="color: #64748b; font-size: 15px; max-width: 520px;">段考最高頻失分點專項突破！填空部分以彩色醒目標註，答對賺取星幣！</p>
+            <button class="btn-start-challenge" onclick="startGrammarExam()">🚀 開始特訓 (10題)</button>
+        </div>
+
+        <div id="grammar-exam-area" style="display: none;">
+            <div class="q-prompt-box-pc">
+                <div>
+                    <span class="grammar-type-tag" id="grammar-q-type">【冠詞 a/an】</span><br>
+                    <span id="grammar-q-text" style="font-size:22px;">題目載入中...</span>
+                </div>
+                <button class="btn-audio-pc" onclick="speakCurrentGrammar()">🔊 朗讀句子</button>
+            </div>
+
+            <div class="answers-grid-pc" id="grammar-options-box"></div>
+
+            <div class="explanation-pc-card" id="grammar-exp-card">
+                <div style="font-size: 17px; font-weight: 900;" id="grammar-exp-title"></div>
+                <div style="font-size: 15px; color: #334155; margin: 8px 0;" id="grammar-exp-body"></div>
+                <button class="btn-next-pc" onclick="nextGrammarQ()">下一題 ➔</button>
+            </div>
+        </div>
+    </div>
+<div id="panel-listening" class="workspace-panel">
         <div class="practice-header-strip">
             <div>
                 <h2 style="font-size: 22px; color: #0369a1;">🎧 國小英語段考聽力測驗 (教用原卷真題)</h2>
@@ -559,12 +810,14 @@
 
         <div class="practice-unit-filter-bar" id="lis-unit-filter-bar"></div>
 
+        <!-- 開始測驗大卡片 -->
         <div class="practice-lobby-cover" id="lis-lobby-cover">
             <h3 style="font-size: 24px; color: #0369a1; margin-bottom: 8px;">🎧 段考聽力大挑戰</h3>
             <p style="color: #64748b; font-size: 15px; max-width: 500px;">本模式包含全冊課綱與教用原卷聽力真題。每輪 10 題，隨機抽樣，絕不重複！</p>
             <button class="btn-start-challenge" onclick="startListeningExam()">🚀 開始測驗 (10題)</button>
         </div>
 
+        <!-- 測驗內容區 (點開始後顯現) -->
         <div id="lis-exam-area" style="display: none;">
             <div style="text-align: center; background: #f0f9ff; border-radius: 20px; padding: 26px; margin-bottom: 20px; border: 2px solid #bae6fd;">
                 <div style="font-size: 17px; font-weight: 800; color: #0369a1; margin-bottom: 12px;" id="lis-prompt">🎧 請點擊按鈕仔細聆聽對話或單字：</div>
@@ -583,7 +836,7 @@
         </div>
     </div>
 
-    <!-- 4. 句型重組 -->
+    <!-- 4. 句型重組 (附帶開始卡片) -->
     <div id="panel-scramble" class="workspace-panel">
         <div class="practice-header-strip">
             <div>
@@ -630,7 +883,7 @@
         </div>
     </div>
 
-    <!-- 5. 自然發音積木拼字 -->
+    <!-- 5. 自然發音積木拼字 (附帶開始卡片) -->
     <div id="panel-spelling" class="workspace-panel">
         <div class="practice-header-strip">
             <div>
@@ -672,7 +925,7 @@
         </div>
     </div>
 
-    <!-- 6. 單字測驗 -->
+    <!-- 6. 單字測驗 (附帶開始卡片) -->
     <div id="panel-vocab-quiz" class="workspace-panel">
         <div class="practice-header-strip">
             <div>
@@ -709,7 +962,7 @@
         </div>
     </div>
 
-    <!-- 7. 是非觀念題 -->
+    <!-- 7. 是非觀念題 (附帶開始卡片) -->
     <div id="panel-tf" class="workspace-panel">
         <div class="practice-header-strip">
             <div>
@@ -763,7 +1016,7 @@
         <div id="all-units-content-list" style="display: flex; flex-direction: column; gap: 16px;"></div>
     </div>
 
-    <!-- 9. 冒險補給商店 -->
+    <!-- 9. 冒險補給商店 (合理進階定價) -->
     <div id="panel-shop" class="workspace-panel">
         <h2 style="font-size: 24px; color: #0369a1; margin-bottom: 16px;">🎒 冒險補給商店 (裝備與寵物養成)</h2>
         
@@ -786,7 +1039,7 @@
             </div>
         </div>
 
-        <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">⚔️ 夥伴專屬裝備強化庫</h3>
+        <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">⚔️ 夥伴專屬裝備強化庫 (進階升級消耗)</h3>
         <div class="shop-cards-grid">
             <div class="shop-item-card">
                 <div><b>劍士・光刃 Lv.<span id="ui-weap-warrior">1</span></b><br><span style="font-size: 12px; color: #64748b;">物攻: <span id="ui-dmg-warrior">25</span> HP</span></div>
@@ -810,9 +1063,10 @@
         <div class="shop-cards-grid" id="pets-shop-cards-grid"></div>
     </div>
 
-    <!-- 10. 單字雷射防禦戰 -->
+    <!-- 10. 單字雷射防禦戰 (具備點擊開始按鈕) -->
     <div id="panel-defense" class="workspace-panel">
         <div class="defense-canvas-wrap" id="defense-arena">
+            <!-- 開始防禦遮罩層 -->
             <div class="defense-start-cover" id="defenseStartCover">
                 <button class="btn-start-challenge" onclick="launchDefensePlay()">
                     🚀 開始防禦挑戰
@@ -833,12 +1087,12 @@
         </div>
 
         <div style="display: flex; gap: 12px; margin-top: 14px;">
-            <input type="text" style="flex-grow: 1; background: #ffffff; border: 2px solid #cbd5e1; color: #0f172a; padding: 14px 20px; border-radius: 14px; font-size: 18px; outline: none; font-weight: 700;" id="defense-input-box" placeholder="看中文提示，輸入英文按 Enter 發射 (例如 apple)..." autocomplete="off">
+            <input type="text" style="flex-grow: 1; background: #ffffff; border: 2px solid #cbd5e1; color: #0f172a; padding: 14px 20px; border-radius: 14px; font-size: 18px; outline: none; font-weight: 700;" id="defense-input-box" placeholder="看中文提示，輸入英文按 Enter 發射光箭 (例如 apple)..." autocomplete="off">
             <button class="btn-next-pc" onclick="fireLaser()">發射 🚀</button>
         </div>
     </div>
 
-    <!-- 11. 冒險小屋 (3 欄橫向並排大版面) -->
+    <!-- 11. 冒險小屋 (小隊配置彈窗) -->
     <div class="cabin-modal-overlay" id="cabinModalOverlay">
         <div class="cabin-modal-box">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
@@ -895,6 +1149,7 @@
         { en: "window", zh: "窗戶" }, { en: "zebra", zh: "斑馬" }
     ];
 
+    /* 題目防劇透轉換 */
     function sanitizeQuestionText(qStr) {
         if (!qStr) return "";
         let s = qStr;
@@ -908,10 +1163,14 @@
         return s.trim();
     }
 
+    /* 語音只唸英文 (智能提取英文對話或核心詞，絕不讀中文題幹！) */
     function extractEnglishOnly(text) {
         if (!text) return "";
+        // 如果包含引號內的英文
         const quoted = text.match(/['"“”]([a-zA-Z0-9\s,.?!'-]+)['"“”]/);
         if (quoted && quoted[1].trim()) return quoted[1].trim();
+
+        // 提取連續的英文片段
         const englishParts = text.match(/[a-zA-Z][a-zA-Z0-9\s,.?!'-]*/g);
         if (englishParts && englishParts.length > 0) {
             return englishParts.join(' ').replace(/[_]/g, '').trim();
@@ -919,6 +1178,7 @@
         return "";
     }
 
+    /* ==================== Web Audio 音效與放鬆奇幻輕音樂 ==================== */
     const SoundEngine = {
         ctx: null,
         bgmActive: false,
@@ -949,6 +1209,7 @@
         playLaser() { this.playTone(550, 'sawtooth', 0.08, 0.1); setTimeout(()=>this.playTone(320, 'sine', 0.1, 0.08), 50); },
         playPop() { this.playTone(880, 'triangle', 0.09, 0.12); setTimeout(()=>this.playTone(1320, 'sine', 0.15, 0.1), 60); },
 
+        /* 奇幻冒險輕音樂琶音生成 (零外部 MP3，安靜放鬆，無卡頓) */
         startBGM() {
             this.init();
             if (!this.ctx) return;
@@ -977,6 +1238,7 @@
     };
     function toggleBGM() { SoundEngine.toggleBGM(); }
 
+    /* ==================== 題庫動態讀取與真實不重複洗牌系統 ==================== */
     let ACTIVE_DATA = null;
 
     fetch('questions.json')
@@ -994,6 +1256,7 @@
             document.getElementById('db-source-tag').innerText = "保底題庫就緒";
         });
 
+    /* 真正的 Fisher-Yates 嚴格隨機洗牌 */
     function shuffleArray(arr) {
         const a = [...arr];
         for (let i = a.length - 1; i > 0; i--) {
@@ -1031,16 +1294,22 @@
             stopDefenseGame(false);
         }
 
-        document.querySelectorAll('.workspace-panel').forEach(p => { p.classList.remove('active'); p.style.display = 'none'; });
+        document.querySelectorAll('.workspace-panel').forEach(p => { 
+            p.classList.remove('active'); 
+            p.style.display = 'none'; 
+        });
         const target = document.getElementById(panelId);
-        if (target) { target.classList.add('active'); target.style.display = 'flex'; }
+        if (target) { 
+            target.classList.add('active'); 
+            target.style.display = 'flex'; 
+        }
 
         document.querySelectorAll('.mission-tab').forEach(t => t.classList.remove('active'));
-        
-        // 關鍵修正：將 panel-battle 映射到 tab-btn-map，打怪時左上角保持深色高亮
         const tabMap = {
             'panel-map': 'tab-btn-map',
             'panel-battle': 'tab-btn-map',
+            'panel-exam-paper': 'tab-btn-exam-paper',
+            'panel-grammar': 'tab-btn-grammar',
             'panel-listening': 'tab-btn-listening',
             'panel-spelling': 'tab-btn-spelling',
             'panel-scramble': 'tab-btn-scramble',
@@ -1053,7 +1322,11 @@
         const activeTab = document.getElementById(tabMap[panelId]);
         if (activeTab) activeTab.classList.add('active');
 
-        if (panelId === 'panel-flashcard') {
+        if (panelId === 'panel-exam-paper') {
+            if (currentExamQuestions.length === 0) generateNewExamPaper();
+        } else if (panelId === 'panel-grammar') {
+            if (!curGrammar || grammarRound === 0) initGrammarChallenge(currentGrammarUnit, false);
+        } else if (panelId === 'panel-flashcard') {
             renderAllUnitsGuide();
         } else if (panelId === 'panel-shop') {
             renderShopPetCards();
@@ -1093,6 +1366,7 @@
     function initPanels() {
         if (!ACTIVE_DATA) return;
         renderUnitFilterBar('lis-unit-filter-bar', 'all', (u) => { currentLisUnit = u; });
+        renderUnitFilterBar('grammar-unit-filter-bar', 'all', (u) => { currentGrammarUnit = u; });
         renderUnitFilterBar('scramble-unit-filter-bar', 'all', (u) => { currentScrambleUnit = u; });
         renderUnitFilterBar('spell-unit-filter-bar', 'all', (u) => { currentSpellUnit = u; });
         renderUnitFilterBar('vocab-unit-filter-bar', 'all', (u) => { currentVocabUnit = u; });
@@ -1101,30 +1375,19 @@
         renderShopPetCards();
     }
 
-    /* 1. RPG 戰鬥 (勇者 HP 從 100 起步，滿等升到 500) */
+    /* 1. RPG 戰鬥 (支援 2 隻以上怪獸同時在場 + 勇者 HP 500 + 法師全體群攻) */
     let curStage = null;
     let curWaveIdx = 0;
-    let curEnemies = [];
+    let curEnemies = []; // 當前波次在場的怪獸列表
     let fightQueue = [];
     let curQ = null;
     let hHp = 100;
+    let waveStartHpHero = 100;
     let otterShieldCount = 1;
     let combatCoinsEarnedThisSession = 0;
 
     function getHeroMaxHp() {
-        const hpTable = { 1: 100, 2: 180, 3: 270, 4: 380, 5: 500 };
-        const armorLvl = state.heroGear.team_armor || 1;
-        return hpTable[armorLvl] || 100;
-    }
-
-    function getHeroAtk(heroKey) {
-        const atks = {
-            warrior: { 1: 25, 2: 45, 3: 70, 4: 100, 5: 140 },
-            mage: { 1: 20, 2: 38, 3: 60, 4: 85, 5: 120 },
-            healer: { 1: 18, 2: 32, 3: 50, 4: 72, 5: 100 }
-        };
-        const weapLvl = state.heroGear[heroKey + '_weap'] || 1;
-        return (atks[heroKey] && atks[heroKey][weapLvl]) || 25;
+        return 500 + (state.heroGear.team_armor - 1) * 60;
     }
 
     function startRPGCombat(stageId) {
@@ -1137,6 +1400,7 @@
         combatCoinsEarnedThisSession = 0;
 
         hHp = getHeroMaxHp();
+        waveStartHpHero = hHp;
         fightQueue = shuffleArray(curStage.questions);
         setupWave(0);
         navTo('panel-battle');
@@ -1146,27 +1410,30 @@
         curWaveIdx = wIdx;
         const stageWave = curStage.waves[wIdx] || curStage.waves[0];
 
+        // 依波次配置怪獸軍團：Wave 1 與 Wave 2 出現 2 隻怪獸！Wave 3 首領決戰！
         if (wIdx === 0) {
             curEnemies = [
-                { id: 0, name: stageWave.name + " A", img: stageWave.img, maxHp: 50, hp: 50, dmg: 4 },
-                { id: 1, name: stageWave.name + " B", img: stageWave.img, maxHp: 50, hp: 50, dmg: 4 }
+                { id: 0, name: stageWave.name + " A", img: stageWave.img, maxHp: 120, hp: 120, dmg: 12 },
+                { id: 1, name: stageWave.name + " B", img: stageWave.img, maxHp: 120, hp: 120, dmg: 12 }
             ];
+            waveStartHpHero = hHp;
             document.getElementById('battle-wave-indicator').innerText = `WAVE 1/3 (小怪軍團 x2)`;
         } else if (wIdx === 1) {
             curEnemies = [
-                { id: 0, name: stageWave.name, img: stageWave.img, maxHp: 85, hp: 85, dmg: 8 },
-                { id: 1, name: "巡邏護衛", img: curStage.waves[0].img, maxHp: 50, hp: 50, dmg: 4 }
+                { id: 0, name: stageWave.name, img: stageWave.img, maxHp: 200, hp: 200, dmg: 18 },
+                { id: 1, name: "巡邏護衛", img: curStage.waves[0].img, maxHp: 130, hp: 130, dmg: 12 }
             ];
             document.getElementById('battle-wave-indicator').innerText = `WAVE 2/3 (菁英怪與護衛 x2)`;
         } else {
-            const bossHp = 160 + (curStage.id * 15);
-            const bossDmg = 12 + Math.floor(curStage.id * 1.5);
+            // Wave 3 關卡大首領 (HP 強化至 550~750)
+            const bossHp = 500 + (curStage.id * 35);
             curEnemies = [
-                { id: 0, name: stageWave.name, img: stageWave.img, maxHp: bossHp, hp: bossHp, dmg: bossDmg }
+                { id: 0, name: stageWave.name, img: stageWave.img, maxHp: bossHp, hp: bossHp, dmg: 32 }
             ];
             document.getElementById('battle-wave-indicator').innerText = `WAVE 3/3 (終極魔王決戰)`;
         }
 
+        // 渲染我方英雄與寵物
         document.getElementById('battle-hero-pic').src = "assets/hero_" + state.activeHero + ".jfif";
         document.getElementById('heroLevelTag').innerText = `${HERO_CONFIG[state.activeHero].title} Lv.${state.heroGear[state.activeHero + '_weap'] || 1}`;
 
@@ -1263,8 +1530,9 @@
             let attackMsg = "";
 
             if (state.activeHero === 'warrior') {
+                // 劍士：單體物理重斬，鎖定第一隻存活的怪獸！
                 const target = curEnemies.find(e => e.hp > 0);
-                const dmg = getHeroAtk('warrior');
+                const dmg = 85 + state.heroGear.warrior_weap * 18;
                 if (target) {
                     target.hp = Math.max(0, target.hp - dmg);
                     const targetIdx = curEnemies.indexOf(target);
@@ -1276,7 +1544,8 @@
                     attackMsg = `🗡️ 星際劍士發動物理重斬！對【${target.name}】造成 ${dmg} 點致命打擊！`;
                 }
             } else if (state.activeHero === 'mage') {
-                const aoeDmg = getHeroAtk('mage');
+                // 魔法師：真正的全體群攻！召喚元素隕石轟炸在場所有怪獸！
+                const aoeDmg = 65 + state.heroGear.mage_weap * 14;
                 curEnemies.forEach((e, i) => {
                     if (e.hp > 0) {
                         e.hp = Math.max(0, e.hp - aoeDmg);
@@ -1289,9 +1558,10 @@
                 });
                 attackMsg = `🔮 星空魔法師召喚元素隕石全體群攻！對所有怪獸造成 ${aoeDmg} 點群體爆擊！`;
             } else if (state.activeHero === 'healer') {
+                // 治療師：單體攻擊 + 隊伍神聖回血！
                 const target = curEnemies.find(e => e.hp > 0);
-                const dmg = getHeroAtk('healer');
-                const healAmt = 15 + state.heroGear.healer_weap * 12;
+                const dmg = 50 + state.heroGear.healer_weap * 10;
+                const healAmt = 55 + state.heroGear.healer_weap * 16;
                 if (target) {
                     target.hp = Math.max(0, target.hp - dmg);
                     const targetIdx = curEnemies.indexOf(target);
@@ -1306,6 +1576,7 @@
                 attackMsg = `🧚‍♀️ 時空治療師施放神聖光環！造成 ${dmg} 傷害並為隊伍恢復 ${healAmt} HP！`;
             }
 
+            // 雙向反擊：在場所有存活的怪獸反擊！
             let totalCounter = 0;
             curEnemies.forEach(e => {
                 if (e.hp > 0) totalCounter += e.dmg;
@@ -1329,6 +1600,7 @@
             combatCoinsEarnedThisSession += earned;
             state.streak++;
         } else {
+            // 答錯受到怪獸暴擊
             btn.classList.add('user-wrong');
             const correctBtn = document.getElementById(`battle-opt-btn-${curQ.ans}`);
             if (correctBtn) correctBtn.classList.add('correct-reveal');
@@ -1340,7 +1612,7 @@
             curEnemies.forEach(e => {
                 if (e.hp > 0) critTotal += Math.round(e.dmg * 2.2);
             });
-            if (critTotal === 0) critTotal = 15;
+            if (critTotal === 0) critTotal = 25;
 
             if (state.activePet === 'otter' && otterShieldCount > 0) {
                 otterShieldCount--;
@@ -1365,7 +1637,7 @@
 
     function nextBattleTurn() {
         if (hHp <= 0) {
-            alert("💔 勇者體力耗盡！先回到地圖整備，升級防具或更換治療師再來挑戰！");
+            showCenterDialog("系統提示", "💔 勇者體力耗盡！先回到地圖整備，升級防具或更換治療師再來挑戰！");
             navTo('panel-map');
             return;
         }
@@ -1373,7 +1645,7 @@
         const livingEnemies = curEnemies.filter(e => e.hp > 0);
         if (livingEnemies.length === 0) {
             if (curWaveIdx < 2) {
-                alert(`✨ 成功擊倒本波怪獸！前進第 ${curWaveIdx + 2} 波次！(剩餘 HP 繼承)`);
+                showCenterDialog("系統提示", `✨ 成功擊倒本波怪獸！前進第 ${curWaveIdx + 2} 波次！(當前剩餘 HP 繼承)`);
                 setupWave(curWaveIdx + 1);
                 return;
             } else {
@@ -1393,7 +1665,7 @@
         speakText(speech);
     }
 
-    /* 2. 聽力測驗 (有開始卡片，點擊後才開局) */
+    /* 2. 聽力測驗/* 2. 聽力測驗 (有開始卡片，點擊後才開局) */
     let lisQueue = [];
     let curLis = null;
     let lisRound = 0;
@@ -1603,7 +1875,7 @@
 
     function checkScrambleResult() {
         if (userTokens.length === 0) {
-            alert("請先點選氣泡排列句子喔！");
+            showCenterDialog("系統提示", "請先點選氣泡排列句子喔！");
             return;
         }
         const formed = userTokens.map(t => t.token).join(' ');
@@ -1995,10 +2267,10 @@
         document.getElementById('all-vocab-counter-tag').innerText = `全書共收錄 ${totalWords} 個核心單字`;
     }
 
-    /* 8. 商店 */
+    /* 8. 商店與小隊配置 (合理的進階數值) */
     function equipHero(h) {
         state.activeHero = h;
-        alert(`⚔️ 已切換出戰英雄為：${HERO_CONFIG[h].name}！`);
+        showCenterDialog("系統提示", `⚔️ 已切換出戰英雄為：${HERO_CONFIG[h].name}！`);
         renderCabinSquad();
     }
     function buyHero(h, cost) {
@@ -2007,9 +2279,9 @@
             state.unlockedHeroes.push(h);
             state.activeHero = h;
             document.getElementById('val-coins').innerText = state.coins;
-            alert(`🎉 成功解鎖英雄：${HERO_CONFIG[h].name}！`);
+            showCenterDialog("系統提示", `🎉 成功解鎖英雄：${HERO_CONFIG[h].name}！`);
             renderCabinSquad();
-        } else alert(`❌ 星幣不足！需要 ${cost} 星幣。`);
+        } else showCenterDialog("系統提示", `❌ 星幣不足！需要 ${cost} 星幣。`);
     }
 
     function renderShopPetCards() {
@@ -2053,7 +2325,7 @@
 
     function equipPet(p) {
         state.activePet = p;
-        alert(`🐾 已更換出戰萌寵為：${PET_CONFIG[p].name}！`);
+        showCenterDialog("系統提示", `🐾 已更換出戰萌寵為：${PET_CONFIG[p].name}！`);
         renderShopPetCards();
         renderCabinSquad();
     }
@@ -2063,17 +2335,17 @@
             state.unlockedPets.push(p);
             state.activePet = p;
             document.getElementById('val-coins').innerText = state.coins;
-            alert(`🎉 成功收養萌寵：${PET_CONFIG[p].name}！已帶上出戰！`);
+            showCenterDialog("系統提示", `🎉 成功收養萌寵：${PET_CONFIG[p].name}！已帶上出戰！`);
             renderShopPetCards();
             renderCabinSquad();
-        } else alert(`❌ 星幣不足！需要 ${cost} 星幣。`);
+        } else showCenterDialog("系統提示", `❌ 星幣不足！需要 ${cost} 星幣。`);
     }
 
     function upgradePet(petKey) {
         if (!state.petLevels) state.petLevels = { dog: 1, cat: 1, otter: 1, rabbit: 1, penguin: 1, bot: 1 };
         const curLvl = state.petLevels[petKey] || 1;
         if (curLvl >= 3) {
-            alert("✨ 該萌寵已達到最高等級 Lv.3！");
+            showCenterDialog("系統提示", "✨ 該萌寵已達到最高等級 Lv.3！");
             return;
         }
         const upgradeCost = curLvl === 1 ? 250 : 500;
@@ -2081,11 +2353,11 @@
             state.coins -= upgradeCost;
             state.petLevels[petKey]++;
             document.getElementById('val-coins').innerText = state.coins;
-            alert(`🎉 恭喜萌寵升級至 Lv.${state.petLevels[petKey]}！技能大幅強化！`);
+            showCenterDialog("系統提示", `🎉 恭喜萌寵升級至 Lv.${state.petLevels[petKey]}！技能大幅強化！`);
             renderShopPetCards();
             renderCabinSquad();
         } else {
-            alert(`❌ 星幣不足！升級需要 ${upgradeCost} ⭐ 星幣。`);
+            showCenterDialog("系統提示", `❌ 星幣不足！升級需要 ${upgradeCost} ⭐ 星幣。`);
         }
     }
 
@@ -2096,7 +2368,7 @@
     function upgradeHeroGear(gearKey) {
         const curLvl = state.heroGear[gearKey] || 1;
         if (curLvl >= 5) {
-            alert("✨ 裝備已強化至最高等級！");
+            showCenterDialog("系統提示", "✨ 裝備已強化至最高等級！");
             return;
         }
         const cost = getGearUpgradeCost(curLvl);
@@ -2105,27 +2377,28 @@
             state.heroGear[gearKey]++;
             document.getElementById('val-coins').innerText = state.coins;
             
+            // 更新 UI
             document.getElementById('ui-weap-warrior').innerText = state.heroGear.warrior_weap;
-            document.getElementById('ui-dmg-warrior').innerText = getHeroAtk('warrior');
+            document.getElementById('ui-dmg-warrior').innerText = 25 + state.heroGear.warrior_weap * 7;
             document.getElementById('cost-up-warrior').innerText = getGearUpgradeCost(state.heroGear.warrior_weap);
 
             document.getElementById('ui-weap-mage').innerText = state.heroGear.mage_weap;
-            document.getElementById('ui-dmg-mage').innerText = getHeroAtk('mage');
+            document.getElementById('ui-dmg-mage').innerText = 30 + state.heroGear.mage_weap * 8;
             document.getElementById('cost-up-mage').innerText = getGearUpgradeCost(state.heroGear.mage_weap);
 
             document.getElementById('ui-weap-healer').innerText = state.heroGear.healer_weap;
-            document.getElementById('ui-heal-val').innerText = 15 + state.heroGear.healer_weap * 12;
+            document.getElementById('ui-heal-val').innerText = 12 + state.heroGear.healer_weap * 4;
             document.getElementById('cost-up-healer').innerText = getGearUpgradeCost(state.heroGear.healer_weap);
 
             document.getElementById('ui-armor-lvl').innerText = state.heroGear.team_armor;
-            document.getElementById('ui-armor-hp').innerText = getHeroMaxHp();
+            document.getElementById('ui-armor-hp').innerText = 100 + (state.heroGear.team_armor - 1) * 35;
             document.getElementById('cost-up-armor').innerText = getGearUpgradeCost(state.heroGear.team_armor);
 
-            alert("✨ 裝備強化升級成功！");
-        } else alert(`❌ 星幣不足！需要 ${cost} 星幣。`);
+            showCenterDialog("系統提示", "✨ 裝備強化升級成功！");
+        } else showCenterDialog("系統提示", `❌ 星幣不足！需要 ${cost} 星幣。`);
     }
 
-    /* 9. 冒險小屋 (小隊配置整軍室 - 3 欄並列大空間) */
+    /* 9. 冒險小屋 (小隊配置整軍室) */
     function openCabinModal() {
         renderCabinSquad();
         document.getElementById('cabinModalOverlay').style.display = 'flex';
@@ -2144,19 +2417,13 @@
             const h = HERO_CONFIG[k];
             const isOwned = state.unlockedHeroes.includes(k);
             const isEquipped = state.activeHero === k;
-            const weapLvl = state.heroGear[k + '_weap'] || 1;
-            const currentMaxHp = getHeroMaxHp();
-            const currentAtk = getHeroAtk(k);
-
             const slot = document.createElement('div');
-            slot.className = `cabin-card-slot ${isEquipped ? 'active-equipped' : ''}`;
+            slot.className = 'cabin-card-slot';
             slot.innerHTML = `
-                <img src="assets/hero_${k}.jfif" alt="${h.name}">
-                <b style="font-size:16px; color:#0f172a;">${h.title} <span style="color:#0284c7;">Lv.${weapLvl}</span></b>
-                <div style="font-size:13.5px; font-weight:900; color:#dc2626;">❤️ HP: ${currentMaxHp} / 500 (滿等)</div>
-                <div style="font-size:13px; font-weight:800; color:#d97706;">💥 攻擊力: ${currentAtk} HP ${k === 'mage' ? '(全體群攻)' : ''}</div>
-                <div style="font-size:12px; color:#64748b; margin-top:2px;">${h.desc}</div>
-                ${isOwned ? `<button class="btn-buy-pc ${isEquipped ? 'active-use':''}" style="margin-top:6px;" onclick="equipHero('${k}')">${isEquipped ? '出戰中':'選擇出戰'}</button>` : `<span style="font-size:13px; color:#d97706; font-weight:900; margin-top:8px;">需商店解鎖 (${h.cost} ⭐)</span>`}
+                <img src="assets/hero_${k}.jfif" style="width:75px; height:75px; border-radius:50%; border:2px solid #0284c7;" alt="${h.name}">
+                <b>${h.title}</b>
+                <span style="font-size:12px; color:#64748b;">${h.desc}</span>
+                ${isOwned ? `<button class="btn-buy-pc ${isEquipped ? 'active-use':''}" onclick="equipHero('${k}')">${isEquipped ? '出戰中':'選擇出戰'}</button>` : `<span style="font-size:12px; color:#d97706; font-weight:800;">需商店解鎖 (${h.cost} ⭐)</span>`}
             `;
             hRow.appendChild(slot);
         });
@@ -2167,14 +2434,13 @@
             const isOwned = state.unlockedPets.includes(k);
             const isEquipped = state.activePet === k;
             const lvl = (state.petLevels && state.petLevels[k]) ? state.petLevels[k] : 1;
-            
             const slot = document.createElement('div');
-            slot.className = `cabin-card-slot ${isEquipped ? 'active-equipped' : ''}`;
+            slot.className = 'cabin-card-slot';
             slot.innerHTML = `
-                <img src="${p.img}" alt="${p.name}">
-                <b style="font-size:15px; color:#0f172a;">${p.name} <span style="color:#0284c7;">(Lv.${lvl})</span></b>
-                <div style="font-size:12.5px; color:#15803d; font-weight:800; min-height:34px; margin-top:4px;">🌟 ${p.getPerk(lvl)}</div>
-                ${isOwned ? `<button class="btn-buy-pc ${isEquipped ? 'active-use':''}" style="margin-top:6px;" onclick="equipPet('${k}')">${isEquipped ? '跟隨中':'攜帶出戰'}</button>` : `<span style="font-size:13px; color:#d97706; font-weight:900; margin-top:8px;">需商店收養 (${p.cost} ⭐)</span>`}
+                <img src="${p.img}" style="width:65px; height:65px; border-radius:50%; border:2px solid #10b981;" alt="${p.name}">
+                <b>${p.name} (Lv.${lvl})</b>
+                <span style="font-size:11.5px; color:#15803d; font-weight:700;">${p.getPerk(lvl)}</span>
+                ${isOwned ? `<button class="btn-buy-pc ${isEquipped ? 'active-use':''}" onclick="equipPet('${k}')">${isEquipped ? '攜帶中':'攜帶出戰'}</button>` : `<span style="font-size:12px; color:#d97706; font-weight:800;">需商店收養 (${p.cost} ⭐)</span>`}
             `;
             pRow.appendChild(slot);
         });
@@ -2365,6 +2631,308 @@
             window.speechSynthesis.speak(u);
         }
     }
+
+    /* ==================== 通用置中彈窗系統 (取代瀏覽器原生 alert) ==================== */
+    let centerDialogCallback = null;
+    function showCenterDialog(title, msg, btnText = "確定", onConfirm = null) {
+        document.getElementById('centerDialogTitle').innerText = title;
+        document.getElementById('centerDialogMsg').innerHTML = msg;
+        document.getElementById('centerDialogBtn').innerText = btnText;
+        centerDialogCallback = onConfirm;
+        document.getElementById('customCenterDialogOverlay').style.display = 'flex';
+    }
+    function closeCenterDialog() {
+        document.getElementById('customCenterDialogOverlay').style.display = 'none';
+        if (typeof centerDialogCallback === 'function') {
+            const cb = centerDialogCallback;
+            centerDialogCallback = null;
+            cb();
+        }
+    }
+
+    /* ==================== 語音只唸英文 (智能過濾 A:、B: 標籤與中文題幹) ==================== */
+    function cleanDialogueSpeech(text) {
+        if (!text) return "";
+        let s = text;
+        // 移除說話者標籤 A: / B: / A. / B.
+        s = s.replace(/\b[AB]\s*[:.]\s*/gi, '');
+        // 移除引號
+        s = s.replace(/['"“”]/g, '');
+        // 移除中文
+        s = s.replace(/[一-龥]/g, '');
+        // 移除特殊標點
+        s = s.replace(/[_（）()【】：:?]/g, ' ');
+        return s.trim();
+    }
+
+    /* ==================== ✏️ 冠詞與文法特訓 (a/an/所有格/單複數) ==================== */
+    let grammarQueue = [];
+    let curGrammar = null;
+    let grammarRound = 0;
+    let grammarScore = 0;
+    let grammarCoinsEarned = 0;
+    let currentGrammarUnit = "all";
+
+    function startGrammarExam() {
+        document.getElementById('grammar-lobby-cover').style.display = 'none';
+        document.getElementById('grammar-exam-area').style.display = 'block';
+
+        grammarRound = 0;
+        grammarScore = 0;
+        grammarCoinsEarned = 0;
+
+        let pool = (ACTIVE_DATA && ACTIVE_DATA.grammar_articles) ? [...ACTIVE_DATA.grammar_articles] : [];
+        if (currentGrammarUnit !== 'all') {
+            pool = pool.filter(item => item.unit === currentGrammarUnit);
+        }
+        if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.grammar_articles) pool = [...ACTIVE_DATA.grammar_articles];
+        grammarQueue = shuffleArray(pool);
+
+        loadNextGrammarQ();
+    }
+
+    function loadNextGrammarQ() {
+        document.getElementById('grammar-exp-card').style.display = 'none';
+        if (grammarRound >= 10) {
+            const finalBonus = 15;
+            state.coins += finalBonus;
+            grammarCoinsEarned += finalBonus;
+            document.getElementById('val-coins').innerText = state.coins;
+            document.getElementById('grammar-lobby-cover').style.display = 'flex';
+            document.getElementById('grammar-exam-area').style.display = 'none';
+            document.getElementById('grammar-progress').innerText = `準備中`;
+            showSettlementCard(`恭喜完成 10 題冠詞與文法特訓！得分：${grammarScore} 分`, grammarCoinsEarned);
+            return;
+        }
+
+        if (grammarQueue.length === 0) {
+            let pool = (ACTIVE_DATA && ACTIVE_DATA.grammar_articles) ? [...ACTIVE_DATA.grammar_articles] : [];
+            if (currentGrammarUnit !== 'all') pool = pool.filter(item => item.unit === currentGrammarUnit);
+            if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.grammar_articles) pool = [...ACTIVE_DATA.grammar_articles];
+            grammarQueue = shuffleArray(pool);
+        }
+
+        curGrammar = grammarQueue.pop();
+        grammarRound++;
+        document.getElementById('grammar-progress').innerText = `第 ${grammarRound} / 10 題 (得分: ${grammarScore})`;
+        document.getElementById('grammar-q-type').innerText = `【${curGrammar.type || "冠詞與文法"}】`;
+
+        // 將底線以彩色高亮標記
+        const formattedQ = curGrammar.q.replace(/____/g, '<span class="blank-target-pill">____</span>');
+        document.getElementById('grammar-q-text').innerHTML = formattedQ;
+
+        const box = document.getElementById('grammar-options-box');
+        box.innerHTML = '';
+        curGrammar.opts.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-ans-pc';
+            btn.id = `grammar-opt-btn-${idx}`;
+            btn.innerText = `${String.fromCharCode(65 + idx)}. ${opt}`;
+            btn.onclick = () => submitGrammarAns(idx, btn);
+            box.appendChild(btn);
+        });
+    }
+
+    function submitGrammarAns(idx, btn) {
+        document.querySelectorAll('#grammar-options-box .btn-ans-pc').forEach(b => b.disabled = true);
+        const right = idx === curGrammar.ans;
+        if (right) {
+            btn.classList.add('correct-reveal');
+            grammarScore += 10;
+            const reward = 2;
+            state.coins += reward;
+            grammarCoinsEarned += reward;
+            document.getElementById('val-coins').innerText = state.coins;
+            document.getElementById('grammar-exp-title').innerText = "✅ 文法判斷完全正確！";
+        } else {
+            btn.classList.add('user-wrong');
+            const correctBtn = document.getElementById(`grammar-opt-btn-${curGrammar.ans}`);
+            if (correctBtn) correctBtn.classList.add('correct-reveal');
+            document.getElementById('grammar-exp-title').innerText = "❌ 文法選錯囉！請看考點解析：";
+        }
+        document.getElementById('grammar-exp-body').innerHTML = `<p><b>標準語義：</b>${curGrammar.trans}</p><p><b>💡 考點解析：</b>${curGrammar.note}</p>`;
+        document.getElementById('grammar-exp-card').style.display = 'block';
+    }
+
+    function speakCurrentGrammar() {
+        if (!curGrammar) return;
+        const speech = cleanDialogueSpeech(curGrammar.q.replace(/____/g, curGrammar.opts[curGrammar.ans]));
+        speakText(speech);
+    }
+    function nextGrammarQ() { loadNextGrammarQ(); }
+
+    /* ==================== 📑 期末全真模擬試卷 (整卷作答・非闖關) ==================== */
+    let currentExamQuestions = [];
+    let examUserAnswers = {};
+    let isExamGraded = false;
+
+    function generateNewExamPaper() {
+        if (!ACTIVE_DATA) return;
+        isExamGraded = false;
+        examUserAnswers = {};
+        document.getElementById('examScoreStamp').style.display = 'none';
+        document.getElementById('headerScoreDisplay').innerText = '待交卷評分';
+        document.getElementById('headerScoreDisplay').style.color = '#dc2626';
+        document.getElementById('btn-submit-exam').style.display = 'inline-block';
+        document.getElementById('btn-re-exam').style.display = 'none';
+        document.getElementById('exam-done-counter').innerText = '0';
+
+        // 挑選 25 題組成一張高標準的期末考卷：
+        // 1. 聽力測驗 5 題 (每題4分，共20分)
+        const lisPool = shuffleArray(ACTIVE_DATA.listening || []).slice(0, 5);
+        // 2. 字母與發音 5 題 (每題4分，共20分)
+        const phonicsPool = shuffleArray(ACTIVE_DATA.stages[0].questions.filter(q => q.opts && q.opts.length === 4)).slice(0, 5);
+        // 3. 冠詞與文法 8 題 (每題4分，共32分)
+        const grammarPool = shuffleArray(ACTIVE_DATA.grammar_articles || []).slice(0, 8);
+        // 4. 情境對話與閱讀 7 題 (每題4分，共28分)
+        const finalQs = shuffleArray([...ACTIVE_DATA.stages[7].questions, ...ACTIVE_DATA.stages[3].questions]).filter(q => q.opts && q.opts.length === 4).slice(0, 7);
+
+        currentExamQuestions = [
+            ...lisPool.map(q => ({ ...q, section: "part1", secTitle: "一、 聽力理解測驗 (每題 4 分，共 20 分)" })),
+            ...phonicsPool.map(q => ({ ...q, section: "part2", secTitle: "二、 字母與自然發音辨識 (每題 4 分，共 20 分)" })),
+            ...grammarPool.map(q => ({ ...q, section: "part3", secTitle: "三、 冠詞與文法選擇題 (每題 4 分，共 32 分)" })),
+            ...finalQs.map(q => ({ ...q, section: "part4", secTitle: "四、 情境會話與日常素養 (每題 4 分，共 28 分)" }))
+        ];
+
+        renderExamPaperList();
+    }
+
+    function renderExamPaperList() {
+        const container = document.getElementById('exam-paper-questions-list');
+        container.innerHTML = '';
+
+        let lastSec = "";
+        currentExamQuestions.forEach((q, idx) => {
+            if (q.section !== lastSec) {
+                lastSec = q.section;
+                const secH = document.createElement('div');
+                secH.className = 'exam-section-title';
+                secH.innerText = q.secTitle;
+                container.appendChild(secH);
+            }
+
+            const row = document.createElement('div');
+            row.className = 'exam-q-row';
+            row.id = `exam-q-row-${idx}`;
+
+            const qText = q.q || q.prompt || "";
+            const cleanQ = sanitizeQuestionText(qText).replace(/____/g, '<span class="blank-target-pill">____</span>');
+            const hasAudio = !!q.audio;
+
+            let optsHtml = '';
+            (q.opts || []).forEach((opt, optIdx) => {
+                optsHtml += `
+                    <button type="button" class="exam-opt-btn" id="exam-opt-btn-${idx}-${optIdx}" onclick="selectExamOption(${idx}, ${optIdx})">
+                        ${String.fromCharCode(65 + optIdx)}. ${opt}
+                    </button>
+                `;
+            });
+
+            row.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <div style="font-size: 16px; font-weight: 800; color: #0f172a;">
+                        <span style="color:#0284c7; margin-right:4px;">${idx + 1}.</span> ${cleanQ}
+                    </div>
+                    ${hasAudio ? `<button type="button" class="btn-audio-pc" style="padding:4px 10px; font-size:12.5px;" onclick="speakText('${q.audio}')">🔊 播放聽力</button>` : ''}
+                </div>
+                <div class="exam-opts-grid">${optsHtml}</div>
+                <div id="exam-q-exp-${idx}" style="display:none; font-size:13.5px; color:#475569; margin-top:8px; padding-top:6px; border-top:1px dashed #cbd5e1;"></div>
+            `;
+            container.appendChild(row);
+        });
+    }
+
+    function selectExamOption(qIdx, optIdx) {
+        if (isExamGraded) return; // 已批改不可更動
+        examUserAnswers[qIdx] = optIdx;
+
+        // 清除該題其他按鈕的選取狀態
+        for (let i = 0; i < 4; i++) {
+            const btn = document.getElementById(`exam-opt-btn-${qIdx}-${i}`);
+            if (btn) btn.classList.remove('selected');
+        }
+        const curBtn = document.getElementById(`exam-opt-btn-${qIdx}-${optIdx}`);
+        if (curBtn) curBtn.classList.add('selected');
+
+        // 更新完成計數
+        const doneCount = Object.keys(examUserAnswers).length;
+        document.getElementById('exam-done-counter').innerText = doneCount;
+    }
+
+    function submitExamPaper() {
+        if (isExamGraded) return;
+        const totalQs = currentExamQuestions.length;
+        const answeredCount = Object.keys(examUserAnswers).length;
+
+        if (answeredCount < totalQs) {
+            showCenterDialog("還有題目未完成", `你還有 <b>${totalQs - answeredCount}</b> 題尚未作答！請先將所有題目填寫完畢再交卷喔！`);
+            return;
+        }
+
+        isExamGraded = true;
+        let correctCount = 0;
+
+        currentExamQuestions.forEach((q, idx) => {
+            const row = document.getElementById(`exam-q-row-${idx}`);
+            const userAns = examUserAnswers[idx];
+            const isRight = userAns === q.ans;
+            if (isRight) correctCount++;
+
+            // 標示題目答對或答錯
+            row.classList.add(isRight ? 'graded-correct' : 'graded-wrong');
+
+            // 標註選項顏色
+            for (let i = 0; i < (q.opts || []).length; i++) {
+                const btn = document.getElementById(`exam-opt-btn-${idx}-${i}`);
+                if (!btn) continue;
+                if (i === q.ans) btn.classList.add('reveal-correct');
+                else if (i === userAns && !isRight) btn.classList.add('reveal-wrong');
+            }
+
+            // 顯示名師解析
+            const expEl = document.getElementById(`exam-q-exp-${idx}`);
+            if (expEl) {
+                expEl.style.display = 'block';
+                expEl.innerHTML = `
+                    <div style="font-weight:800; color:${isRight ? '#16a34a' : '#dc2626'}; margin-bottom:2px;">
+                        ${isRight ? '✔ 答對了！(得 4 分)' : '✘ 答錯了！正確答案是 (' + String.fromCharCode(65 + q.ans) + ')'}
+                    </div>
+                    <div><b>💡 考點解析：</b>${q.note || q.trans || "掌握 108 課綱核心規範"}</div>
+                `;
+            }
+        });
+
+        const totalScore = correctCount * 4;
+        document.getElementById('examFinalScore').innerText = totalScore;
+        document.getElementById('examScoreStamp').style.display = 'flex';
+        document.getElementById('headerScoreDisplay').innerText = totalScore;
+        document.getElementById('headerScoreDisplay').style.color = totalScore >= 90 ? '#16a34a' : '#dc2626';
+
+        document.getElementById('btn-submit-exam').style.display = 'none';
+        document.getElementById('btn-re-exam').style.display = 'inline-block';
+
+        // 獎勵星幣
+        const starReward = Math.round(totalScore / 3);
+        state.coins += starReward;
+        document.getElementById('val-coins').innerText = state.coins;
+
+        // 平滑滾動至考卷上方看成績
+        document.querySelector('.exam-paper-header').scrollIntoView({ behavior: 'smooth' });
+
+        showCenterDialog(
+            "🎉 模擬考卷批改完成！",
+            `總分：<b style="font-size:26px; color:#dc2626;">${totalScore}</b> / 100 分！<br>答對 <b>${correctCount}</b> / 25 題！獎勵 <b>+${starReward} ⭐</b> 星幣！<br>考卷下方已附上每道題目的完整名師解析，請仔細訂正喔！`
+        );
+    }
 </script>
+
+    <!-- 通用置中彈窗 (取代瀏覽器醜醜的 alert) -->
+    <div class="custom-center-dialog-overlay" id="customCenterDialogOverlay">
+        <div class="custom-center-dialog-box">
+            <h3 style="color: #0369a1; font-size: 23px; font-weight: 900; margin-bottom: 12px;" id="centerDialogTitle">通知</h3>
+            <div style="font-size: 15.5px; color: #334155; line-height: 1.6; margin-bottom: 22px;" id="centerDialogMsg"></div>
+            <button class="btn-next-pc" style="width: 100%; font-size: 16.5px;" id="centerDialogBtn" onclick="closeCenterDialog()">確定</button>
+        </div>
+    </div>
 </body>
 </html>

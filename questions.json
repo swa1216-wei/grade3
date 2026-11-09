@@ -1,5 +1,5 @@
 {
-  "version": "5.0",
+  "version": "6.0",
   "vocab": [
     {
       "en": "apple",
@@ -369,7 +369,7 @@
     },
     {
       "en": "years",
-      "zh": "歲 (複數)",
+      "zh": "歲",
       "phonics": "複數名詞",
       "ex": "eight years old"
     },
@@ -405,19 +405,19 @@
     },
     {
       "en": "adult",
-      "zh": "大人 (NT$30)",
+      "zh": "大人",
       "phonics": "票價類別",
       "ex": "One adult ticket, please."
     },
     {
       "en": "kids",
-      "zh": "小孩 (NT$15)",
+      "zh": "小孩",
       "phonics": "票價類別",
       "ex": "Kids aged 7-12 are NT$15."
     },
     {
       "en": "free",
-      "zh": "免費 (0~6歲)",
+      "zh": "免費",
       "phonics": "票價類別",
       "ex": "Kids under 6 are free."
     },
@@ -435,7 +435,7 @@
     },
     {
       "en": "bus",
-      "zh": "公車 (複數 buses)",
+      "zh": "公車",
       "phonics": "短母音 u",
       "ex": "Two buses are coming."
     },
@@ -537,7 +537,7 @@
     },
     {
       "en": "fox",
-      "zh": "狐狸 (複數 foxes)",
+      "zh": "狐狸",
       "phonics": "短母音 o",
       "ex": "A clever fox."
     },
@@ -561,7 +561,7 @@
     },
     {
       "en": "pumpkin lantern",
-      "zh": "南瓜燈 (Jack-o'-lantern)",
+      "zh": "南瓜燈",
       "phonics": "節慶主題",
       "ex": "Light up the pumpkin lantern."
     },
@@ -7346,5 +7346,525 @@
         "⚠️ 全冊綜合貫通：What's this/that? What color is it? What's your name? How old are you? You're welcome!"
       ]
     }
-  }
+  },
+  "grammar_articles": [
+    {
+      "unit": "u3",
+      "q": "Look at the desk! It is ____ eraser.",
+      "opts": [
+        "an",
+        "a",
+        "two",
+        "the a"
+      ],
+      "ans": 0,
+      "type": "冠詞 a/an",
+      "trans": "It is an eraser. (它是一塊橡皮擦。)",
+      "note": "eraser 為短母音 /e/ 開頭發音，不定冠詞必須使用 an！"
+    },
+    {
+      "unit": "u3",
+      "q": "I have ____ ruler in my pencil case.",
+      "opts": [
+        "a",
+        "an",
+        "two",
+        "the an"
+      ],
+      "ans": 0,
+      "type": "冠詞 a/an",
+      "trans": "I have a ruler. (我有一把尺。)",
+      "note": "ruler 為子音 /r/ 開頭，前面使用不定冠詞 a。"
+    },
+    {
+      "unit": "u3",
+      "q": "Look! There is ____ yellow pencil on the chair.",
+      "opts": [
+        "a",
+        "an",
+        "two",
+        "the an"
+      ],
+      "ans": 0,
+      "type": "冠詞 a/an",
+      "trans": "a yellow pencil (一枝黃色鉛筆)",
+      "note": "yellow 為子音 /j/ 開頭發音，使用冠詞 a。"
+    },
+    {
+      "unit": "starter",
+      "q": "My mom eats ____ apple every morning.",
+      "opts": [
+        "an",
+        "a",
+        "two",
+        "an a"
+      ],
+      "ans": 0,
+      "type": "冠詞 a/an",
+      "trans": "an apple (一顆蘋果)",
+      "note": "apple 為母音 /æ/ 開頭，前面必須接 an！"
+    },
+    {
+      "unit": "starter",
+      "q": "There is ____ egg in the small nest.",
+      "opts": [
+        "an",
+        "a",
+        "two",
+        "the an"
+      ],
+      "ans": 0,
+      "type": "冠詞 a/an",
+      "trans": "an egg (一顆雞蛋)",
+      "note": "egg 為母音 /e/ 開頭，前面接 an。"
+    },
+    {
+      "unit": "starter",
+      "q": "Look at that big animal! It is ____ elephant.",
+      "opts": [
+        "an",
+        "a",
+        "two",
+        "the a"
+      ],
+      "ans": 0,
+      "type": "冠詞 a/an",
+      "trans": "an elephant (一隻大象)",
+      "note": "elephant 為母音 /e/ 開頭，前面接 an。"
+    },
+    {
+      "unit": "u1",
+      "q": "I see ____ tiny insect on the green leaf.",
+      "opts": [
+        "an",
+        "a",
+        "two",
+        "the a"
+      ],
+      "ans": 0,
+      "type": "冠詞 a/an",
+      "trans": "an insect (一隻昆蟲)",
+      "note": "insect 為母音 /ɪ/ 開頭，前面接 an。"
+    },
+    {
+      "unit": "u1",
+      "q": "The teacher needs ____ ink bottle.",
+      "opts": [
+        "an",
+        "a",
+        "two",
+        "the an"
+      ],
+      "ans": 0,
+      "type": "冠詞 a/an",
+      "trans": "an ink bottle (一瓶墨水)",
+      "note": "ink 為母音 /ɪ/ 開頭，前面接 an。"
+    },
+    {
+      "unit": "u2",
+      "q": "Look at the farm! There is ____ strong ox.",
+      "opts": [
+        "an",
+        "a",
+        "two",
+        "the a"
+      ],
+      "ans": 0,
+      "type": "冠詞 a/an",
+      "trans": "an ox (一隻公牛)",
+      "note": "ox 為母音 /ɑ/ 開頭，前面接 an。"
+    },
+    {
+      "unit": "u2",
+      "q": "In the river, we can see ____ cute otter.",
+      "opts": [
+        "an",
+        "a",
+        "two",
+        "the a"
+      ],
+      "ans": 0,
+      "type": "冠詞 a/an",
+      "trans": "an otter (一隻水獺)",
+      "note": "otter 為母音 /ɑ/ 開頭，前面接 an。"
+    },
+    {
+      "unit": "u4",
+      "q": "It's raining outside. Take ____ umbrella with you.",
+      "opts": [
+        "an",
+        "a",
+        "two",
+        "the a"
+      ],
+      "ans": 0,
+      "type": "冠詞 a/an",
+      "trans": "an umbrella (一把雨傘)",
+      "note": "umbrella 為母音 /ʌ/ 開頭，前面接 an。"
+    },
+    {
+      "unit": "halloween",
+      "q": "In the castle, there lives ____ old witch.",
+      "opts": [
+        "an",
+        "a",
+        "two",
+        "the a"
+      ],
+      "ans": 0,
+      "type": "冠詞 a/an",
+      "trans": "an old witch (一位老女巫)",
+      "note": "old 為母音 /oʊ/ 開頭，前面接 an！"
+    },
+    {
+      "unit": "halloween",
+      "q": "Look at the window! It is ____ ghost.",
+      "opts": [
+        "a",
+        "an",
+        "two",
+        "the an"
+      ],
+      "ans": 0,
+      "type": "冠詞 a/an",
+      "trans": "a ghost (一隻幽靈)",
+      "note": "ghost 為子音 /ɡ/ 開頭，前面接 a。"
+    },
+    {
+      "unit": "halloween",
+      "q": "We carve ____ pumpkin for the Halloween party.",
+      "opts": [
+        "a",
+        "an",
+        "two",
+        "the an"
+      ],
+      "ans": 0,
+      "type": "冠詞 a/an",
+      "trans": "a pumpkin (一顆南瓜)",
+      "note": "pumpkin 為子音 /p/ 開頭，接 a。"
+    },
+    {
+      "unit": "u4",
+      "q": "A: What color is the bag? B: It is ____.",
+      "opts": [
+        "red",
+        "a red",
+        "an red",
+        "reds"
+      ],
+      "ans": 0,
+      "type": "顏色形容詞",
+      "trans": "It is red. (它是紅色的。)",
+      "note": "顏色是形容詞，單獨當表語時絕對不加冠詞 a 或 an！"
+    },
+    {
+      "unit": "u4",
+      "q": "A: What color is the sky? B: It is ____.",
+      "opts": [
+        "blue",
+        "a blue",
+        "an blue",
+        "the a blue"
+      ],
+      "ans": 0,
+      "type": "顏色形容詞",
+      "trans": "It is blue. (它是藍色的。)",
+      "note": "顏色形容詞不加 a/an。"
+    },
+    {
+      "unit": "u4",
+      "q": "A: What color is snow? B: It is ____.",
+      "opts": [
+        "white",
+        "a white",
+        "an white",
+        "whites"
+      ],
+      "ans": 0,
+      "type": "顏色形容詞",
+      "trans": "It is white. (它是白色的。)",
+      "note": "顏色形容詞單獨使用不可加 a 或 an。"
+    },
+    {
+      "unit": "u4",
+      "q": "A: What color is your marker? B: It is ____.",
+      "opts": [
+        "black",
+        "a black",
+        "an black",
+        "two black"
+      ],
+      "ans": 0,
+      "type": "顏色形容詞",
+      "trans": "It is black. (它是黑色的。)",
+      "note": "單獨回答顏色，嚴禁加 a！"
+    },
+    {
+      "unit": "u4",
+      "q": "Look at the apple on the desk! It is a ____ apple.",
+      "opts": [
+        "red",
+        "a red",
+        "an red",
+        "reds"
+      ],
+      "ans": 0,
+      "type": "顏色與名詞",
+      "trans": "a red apple (一顆紅蘋果)",
+      "note": "已有冠詞 a，中間填入顏色形容詞 red 即可。"
+    },
+    {
+      "unit": "u4",
+      "q": "This is ____ yellow book.",
+      "opts": [
+        "a",
+        "an",
+        "the an",
+        "two"
+      ],
+      "ans": 0,
+      "type": "冠詞修飾顏色名詞",
+      "trans": "a yellow book (一本黃色的書)",
+      "note": "yellow 為子音開頭，使用 a。"
+    },
+    {
+      "unit": "u1",
+      "q": "A: What's ____ name? B: My name is Edison.",
+      "opts": [
+        "your",
+        "you're",
+        "you",
+        "my"
+      ],
+      "ans": 0,
+      "type": "所有格辨析",
+      "trans": "What's your name? (你的名字是什麼？)",
+      "note": "表示「你的」要用所有格 your！you're 是 you are (你是)！"
+    },
+    {
+      "unit": "u1",
+      "q": "A: Hello! I'm Leo. What's ____ name?",
+      "opts": [
+        "your",
+        "you're",
+        "you",
+        "she"
+      ],
+      "ans": 0,
+      "type": "所有格辨析",
+      "trans": "What's your name? (你的名字是什麼？)",
+      "note": "詢問對方的名字，使用所有格 your。"
+    },
+    {
+      "unit": "u1",
+      "q": "A: Hello, Mia! ____ nice to meet you.",
+      "opts": [
+        "It's",
+        "Its",
+        "It",
+        "Is"
+      ],
+      "ans": 0,
+      "type": "代名詞縮寫",
+      "trans": "It's nice to meet you.",
+      "note": "It's 是 It is 的縮寫。Its 是所有格(它的)。"
+    },
+    {
+      "unit": "u2",
+      "q": "A: Thank you very much! B: ____ welcome.",
+      "opts": [
+        "You're",
+        "Your",
+        "You",
+        "I'm"
+      ],
+      "ans": 0,
+      "type": "生活禮貌文法",
+      "trans": "You're welcome. (不客氣。)",
+      "note": "段考最高頻陷阱：You're (You are 縮寫) ⭕ vs. Your (所有格) ❌！"
+    },
+    {
+      "unit": "u2",
+      "q": "A: How old are you? B: ____ eight years old.",
+      "opts": [
+        "I'm",
+        "My",
+        "I",
+        "Mine"
+      ],
+      "ans": 0,
+      "type": "人稱代名詞",
+      "trans": "I'm eight years old. (我八歲。)",
+      "note": "主詞 + be動詞縮寫 I'm。"
+    },
+    {
+      "unit": "u3",
+      "q": "A: Is this ____ pencil? B: Yes, it is my pencil.",
+      "opts": [
+        "your",
+        "you're",
+        "you",
+        "she"
+      ],
+      "ans": 0,
+      "type": "所有格辨析",
+      "trans": "Is this your pencil? (這是你的鉛筆嗎？)",
+      "note": "名詞 pencil 前面使用所有格 your。"
+    },
+    {
+      "unit": "u3",
+      "q": "A: Is that an eraser? B: No, it is not ____ eraser.",
+      "opts": [
+        "my",
+        "I'm",
+        "me",
+        "I"
+      ],
+      "ans": 0,
+      "type": "所有格辨析",
+      "trans": "not my eraser (不是我的橡皮擦)",
+      "note": "表示「我的」使用所有格 my。"
+    },
+    {
+      "unit": "u3",
+      "q": "I have one box, but Tom has two ____.",
+      "opts": [
+        "boxes",
+        "boxs",
+        "boxies",
+        "boxen"
+      ],
+      "ans": 0,
+      "type": "名詞複數 -es",
+      "trans": "two boxes (兩個盒子)",
+      "note": "名詞字尾為 x，複數必須加 -es！"
+    },
+    {
+      "unit": "u3",
+      "q": "Look at the road! Three yellow ____ are coming.",
+      "opts": [
+        "buses",
+        "buss",
+        "bus's",
+        "busies"
+      ],
+      "ans": 0,
+      "type": "名詞複數 -es",
+      "trans": "three buses (三台公車)",
+      "note": "名詞字尾為 s，複數必須加 -es！"
+    },
+    {
+      "unit": "halloween",
+      "q": "Three flying ____ are riding on brooms.",
+      "opts": [
+        "witches",
+        "witchs",
+        "witchies",
+        "witchen"
+      ],
+      "ans": 0,
+      "type": "名詞複數 -es",
+      "trans": "three witches (三位女巫)",
+      "note": "名詞字尾為 ch，複數必須加 -es！"
+    },
+    {
+      "unit": "u4",
+      "q": "In the forest, we saw two red ____.",
+      "opts": [
+        "foxes",
+        "foxs",
+        "foxies",
+        "foxen"
+      ],
+      "ans": 0,
+      "type": "名詞複數 -es",
+      "trans": "two foxes (兩隻狐狸)",
+      "note": "名詞字尾為 x，複數加 -es！"
+    },
+    {
+      "unit": "u3",
+      "q": "Amber has five ____ on her desk.",
+      "opts": [
+        "pencils",
+        "pencil",
+        "pencil's",
+        "penciles"
+      ],
+      "ans": 0,
+      "type": "規則複數 -s",
+      "trans": "five pencils (五枝鉛筆)",
+      "note": "一般名詞複數直接加 -s。"
+    },
+    {
+      "unit": "u2",
+      "q": "My little brother is only one ____ old.",
+      "opts": [
+        "year",
+        "years",
+        "year's",
+        "yeares"
+      ],
+      "ans": 0,
+      "type": "單複數數值",
+      "trans": "one year old (一歲)",
+      "note": "只有 1 歲使用單數 year！大於 1 歲才加 s。"
+    },
+    {
+      "unit": "u2",
+      "q": "Leo is nine ____ old this year.",
+      "opts": [
+        "years",
+        "year",
+        "year's",
+        "yeares"
+      ],
+      "ans": 0,
+      "type": "單複數數值",
+      "trans": "nine years old (九歲)",
+      "note": "大於 1 歲名詞 year 必須加 s！"
+    },
+    {
+      "unit": "u3",
+      "q": "A: Is this your ruler? B: Yes, ____.",
+      "opts": [
+        "it is",
+        "this is",
+        "that is",
+        "I am"
+      ],
+      "ans": 0,
+      "type": "代名詞簡答",
+      "trans": "Yes, it is. (是的，它是。)",
+      "note": "以 Is this 或 Is that 提問，簡答代名詞一律回歸 it！"
+    },
+    {
+      "unit": "u3",
+      "q": "A: Is that an eraser? B: No, ____.",
+      "opts": [
+        "it isn't",
+        "that isn't",
+        "this isn't",
+        "I'm not"
+      ],
+      "ans": 0,
+      "type": "代名詞簡答",
+      "trans": "No, it isn't. (不，它不是。)",
+      "note": "否定簡答代名詞回歸 it isn't。"
+    },
+    {
+      "unit": "midterm",
+      "q": "She ____ an eraser and two pencils.",
+      "opts": [
+        "has",
+        "have",
+        "is",
+        "are"
+      ],
+      "ans": 0,
+      "type": "主詞動詞一致性",
+      "trans": "She has an eraser... (她有一塊橡皮擦...)",
+      "note": "主詞為第三人稱單數 She，動詞「有」必須使用 has！"
+    }
+  ]
 }
