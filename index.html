@@ -403,10 +403,10 @@
         }
         .btn-buy-pc.active-use { background: #e2e8f0; color: #64748b; cursor: default; }
 
-        /* 防禦戰 (含中央開始按鈕遮罩層) */
-        .defense-layout { display: grid; grid-template-columns: 1fr 280px; gap: 20px; }
+        /* 防禦戰 (含中央開始按鈕遮罩層與雙欄布局) */
+        .defense-layout { display: grid; grid-template-columns: 1fr 340px; gap: 20px; }
         .defense-canvas-wrap {
-            height: 440px; background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 70%, #ffffff 100%);
+            height: 480px; background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 70%, #ffffff 100%);
             border: 2px solid #38bdf8; border-radius: 22px; position: relative; overflow: hidden;
         }
         .defense-start-cover {
@@ -423,6 +423,17 @@
         .falling-word-balloon.popping {
             background: #22c55e !important; transform: translateY(-40px) scale(1.25) !important; opacity: 0 !important;
         }
+        .landed-word-pill {
+            background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+            color: #fff; padding: 6px 14px; border-radius: 14px; font-size: 14px; font-weight: 900;
+            box-shadow: 0 3px 10px rgba(194, 65, 12, 0.35); border: 1.5px solid #ffedd5;
+            animation: landedBounce 0.35s ease-out;
+        }
+        @keyframes landedBounce {
+            0% { transform: translateY(-20px) scale(0.8); opacity: 0; }
+            60% { transform: translateY(4px) scale(1.1); opacity: 1; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
         .laser-arrow {
             position: absolute; width: 6px; height: 40px; background: linear-gradient(180deg, #38bdf8, #0284c7);
             border-radius: 3px; display: none; z-index: 25; box-shadow: 0 0 12px #38bdf8;
@@ -433,8 +444,17 @@
         }
         .defense-status-card {
             background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 20px;
-            padding: 18px; display: flex; flex-direction: column; gap: 10px; height: 440px; overflow-y: auto;
+            padding: 18px; display: flex; flex-direction: column; gap: 10px; height: 546px; overflow-y: auto;
         }
+        .defense-log-item {
+            background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px;
+            padding: 10px 12px; display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.25s; box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+        .defense-log-item.status-falling { border-color: #f59e0b; background: #fffbeb; }
+        .defense-log-item.status-shot { border-color: #86efac; background: #f0fdf4; }
+        .defense-log-item.status-landed { border-color: #fdba74; background: #fff7ed; }
+        .defense-log-item.status-cleared { border-color: #7dd3fc; background: #f0f9ff; }
 
         /* 冒險小屋 (小隊配置彈窗) */
         .cabin-modal-overlay {
@@ -1142,32 +1162,62 @@
         <div class="shop-cards-grid" id="pets-shop-cards-grid"></div>
     </div>
 
-    <!-- 10. 單字雷射防禦戰 (具備點擊開始按鈕) -->
+    <!-- 10. 單字雷射防禦戰 (左右雙欄布局) -->
     <div id="panel-defense" class="workspace-panel">
-        <div class="defense-canvas-wrap" id="defense-arena">
-            <!-- 開始防禦遮罩層 -->
-            <div class="defense-start-cover" id="defenseStartCover">
-                <button class="btn-start-challenge" onclick="launchDefensePlay()">
-                    🚀 開始防禦挑戰
-                </button>
-            </div>
+        <div style="padding: 20px;">
+            <div class="defense-layout">
+                <!-- 左側：防禦畫布與輸入發射區 -->
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div class="defense-canvas-wrap" id="defense-arena">
+                        <!-- 開始防禦遮罩層 -->
+                        <div class="defense-start-cover" id="defenseStartCover">
+                            <button class="btn-start-challenge" onclick="launchDefensePlay()">
+                                🚀 開始防禦挑戰
+                            </button>
+                        </div>
 
-            <div style="position: absolute; top: 10px; left: 16px; right: 16px; display: flex; justify-content: space-between; align-items: center; z-index: 30;">
-                <span style="font-size: 14.5px; font-weight: 800; color: #0369a1;">防禦積分: <b id="defense-score">0</b> 分</span>
-                <div style="display: flex; gap: 8px;">
-                    <button class="btn-exit-practice" style="background:#0284c7;" id="btn-defense-pause" onclick="toggleDefensePause()">⏸ 暫停</button>
-                    <button class="btn-exit-practice" onclick="exitDefensePrematurely()">✖ 結束結算</button>
+                        <div style="position: absolute; top: 10px; left: 16px; right: 16px; display: flex; justify-content: space-between; align-items: center; z-index: 30;">
+                            <span style="font-size: 15px; font-weight: 800; color: #0369a1;">防禦積分: <b id="defense-score" style="font-size:20px; color:#d97706;">0</b> 分</span>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn-exit-practice" style="background:#0284c7;" id="btn-defense-pause" onclick="toggleDefensePause()">⏸ 暫停</button>
+                                <button class="btn-exit-practice" onclick="exitDefensePrematurely()">✖ 結束結算</button>
+                            </div>
+                        </div>
+
+                        <!-- 飄落單字容器 (空中) -->
+                        <div id="defense-words-container"></div>
+
+                        <!-- 底部堆積單字容器 (掉落到底部留在下方) -->
+                        <div id="defense-landed-container" style="position: absolute; bottom: 30px; left: 12px; right: 12px; display: flex; flex-wrap: wrap; gap: 8px; z-index: 25; pointer-events: none; align-items: flex-end; min-height: 40px;"></div>
+
+                        <div class="laser-arrow" id="defense-laser"></div>
+                        <div class="defense-redline">⚠️ 底線警戒防禦區 (掉落單字將堆積於此，輸入英文亦可消滅) ⚠️</div>
+                    </div>
+
+                    <!-- 輸入發射列 -->
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" style="flex-grow: 1; background: #ffffff; border: 2px solid #cbd5e1; color: #0f172a; padding: 14px 20px; border-radius: 14px; font-size: 18px; outline: none; font-weight: 700;" id="defense-input-box" placeholder="看中文提示，輸入英文按 Enter 發射光箭 (例如 apple)..." autocomplete="off">
+                        <button class="btn-next-pc" style="padding: 12px 28px; font-size: 18px;" onclick="fireLaser()">發射 🚀</button>
+                    </div>
+                </div>
+
+                <!-- 右側：即時中英文單字對照與戰情報告方格清單 -->
+                <div class="defense-status-card" id="defense-status-panel">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e0f2fe; padding-bottom: 10px; margin-bottom: 10px;">
+                        <div>
+                            <b style="color: #0369a1; font-size: 16px;">📖 單字戰報與中英對照</b>
+                            <div style="font-size: 11.5px; color: #64748b; margin-top: 2px;">空中擊破或底部堆積皆同步列出</div>
+                        </div>
+                        <span id="defense-word-count-badge" style="background: #e0f2fe; color: #0284c7; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 800;">共 0 題</span>
+                    </div>
+
+                    <div id="defense-word-list" style="flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-right: 4px;">
+                        <div id="defense-empty-hint" style="text-align: center; color: #94a3b8; font-size: 14px; margin-top: 50px;">
+                            🎮 點擊開始挑戰後<br>所有出現與堆積的單字方格<br>將即時記錄於此處供對照學習！
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div id="defense-words-container"></div>
-            <div class="laser-arrow" id="defense-laser"></div>
-            <div class="defense-redline">⚠️ 底線警戒防禦區 ⚠️</div>
-        </div>
-
-        <div style="display: flex; gap: 12px; margin-top: 14px;">
-            <input type="text" style="flex-grow: 1; background: #ffffff; border: 2px solid #cbd5e1; color: #0f172a; padding: 14px 20px; border-radius: 14px; font-size: 18px; outline: none; font-weight: 700;" id="defense-input-box" placeholder="看中文提示，輸入英文按 Enter 發射光箭 (例如 apple)..." autocomplete="off">
-            <button class="btn-next-pc" onclick="fireLaser()">發射 🚀</button>
         </div>
     </div>
 
@@ -10660,12 +10710,31 @@
             const h = HERO_CONFIG[k];
             const isOwned = state.unlockedHeroes.includes(k);
             const isEquipped = state.activeHero === k;
+            const weapLvl = (state.heroGear && state.heroGear[`${k}_weap`]) || 1;
+            const armorLvl = (state.heroGear && state.heroGear[`${k}_armor`]) || 1;
+            const maxHp = getHeroMaxHp(k);
+
+            let statDetails = "";
+            if (k === 'warrior') {
+                const dmg = 85 + weapLvl * 20;
+                statDetails = `⚔️ 光刃 Lv.${weapLvl} (物理攻擊: ${dmg})<br>🛡️ 重裝戰甲 Lv.${armorLvl} (生命: ${maxHp} HP)`;
+            } else if (k === 'mage') {
+                const dmg = 65 + weapLvl * 15;
+                statDetails = `🔮 星杖 Lv.${weapLvl} (全體群傷: ${dmg})<br>🛡️ 星空法袍 Lv.${armorLvl} (生命: ${maxHp} HP)`;
+            } else if (k === 'healer') {
+                const heal = 55 + weapLvl * 15;
+                const dmg = 50 + weapLvl * 10;
+                statDetails = `🧚‍♀️ 神權杖 Lv.${weapLvl} (治癒: +${heal} / 攻擊: ${dmg})<br>🛡️ 神聖法衣 Lv.${armorLvl} (生命: ${maxHp} HP)`;
+            }
+
             const slot = document.createElement('div');
             slot.className = 'cabin-card-slot';
             slot.innerHTML = `
                 <img src="assets/hero_${k}.jfif" style="width:75px; height:75px; border-radius:50%; border:2px solid #0284c7;" alt="${h.name}">
-                <b>${h.title}</b>
-                <span style="font-size:12px; color:#64748b;">${h.desc}</span>
+                <b style="font-size:16px;">${h.title}</b>
+                <div style="font-size:12px; color:#0369a1; font-weight:800; line-height:1.6; background:#f0f9ff; padding:6px 10px; border-radius:12px; width:100%; border:1.5px solid #bae6fd; margin:4px 0; text-align:left;">
+                    ${statDetails}
+                </div>
                 ${isOwned ? `<button class="btn-buy-pc ${isEquipped ? 'active-use':''}" onclick="equipHero('${k}')">${isEquipped ? '出戰中':'選擇出戰'}</button>` : `<span style="font-size:12px; color:#d97706; font-weight:800;">需商店解鎖 (${h.cost} ⭐)</span>`}
             `;
             hRow.appendChild(slot);
@@ -10681,28 +10750,38 @@
             slot.className = 'cabin-card-slot';
             slot.innerHTML = `
                 <img src="${p.img}" style="width:65px; height:65px; border-radius:50%; border:2px solid #10b981;" alt="${p.name}">
-                <b>${p.name} (Lv.${lvl})</b>
-                <span style="font-size:11.5px; color:#15803d; font-weight:700;">${p.getPerk(lvl)}</span>
+                <b style="font-size:15px;">${p.name} (Lv.${lvl})</b>
+                <div style="font-size:12px; color:#15803d; font-weight:800; line-height:1.5; background:#f0fdf4; padding:6px 10px; border-radius:12px; width:100%; border:1.5px solid #bbf7d0; margin:4px 0; text-align:left;">
+                    🐾 當前加成功能：<br><span style="color:#047857;">${p.getPerk(lvl)}</span>
+                </div>
                 ${isOwned ? `<button class="btn-buy-pc ${isEquipped ? 'active-use':''}" onclick="equipPet('${k}')">${isEquipped ? '攜帶中':'攜帶出戰'}</button>` : `<span style="font-size:12px; color:#d97706; font-weight:800;">需商店收養 (${p.cost} ⭐)</span>`}
             `;
             pRow.appendChild(slot);
         });
     }
 
-    /* 10. 單字雷射防禦戰 */
+    /* 10. 單字雷射防禦戰 (防劇透・底部堆積・即時中英文方格戰報) */
     let defenseScore = 0;
     let defenseActive = false;
     let defensePaused = false;
     let activeBalloons = [];
+    let landedBalloons = [];
     let balloonSpawnTimer = null;
     let balloonMoveTimer = null;
     let defenseCoinsEarned = 0;
+    let balloonIdCounter = 0;
 
     function prepareDefenseStandby() {
         stopDefenseGame(false);
         document.getElementById('defenseStartCover').style.display = 'flex';
         document.getElementById('defense-score').innerText = '0';
         document.getElementById('defense-words-container').innerHTML = '';
+        const landedContainer = document.getElementById('defense-landed-container');
+        if (landedContainer) landedContainer.innerHTML = '';
+        const wordList = document.getElementById('defense-word-list');
+        if (wordList) wordList.innerHTML = '<div id="defense-empty-hint" style="text-align: center; color: #94a3b8; font-size: 14px; margin-top: 50px;">🎮 點擊開始挑戰後<br>所有出現與堆積的單字方格<br>將即時記錄於此處供對照學習！</div>';
+        const badge = document.getElementById('defense-word-count-badge');
+        if (badge) badge.innerText = '共 0 題';
     }
 
     function launchDefensePlay() {
@@ -10711,8 +10790,15 @@
         defensePaused = false;
         defenseScore = 0;
         defenseCoinsEarned = 0;
+        balloonIdCounter = 0;
         document.getElementById('btn-defense-pause').innerText = '⏸ 暫停';
         activeBalloons = [];
+        landedBalloons = [];
+
+        const wordList = document.getElementById('defense-word-list');
+        if (wordList) wordList.innerHTML = '';
+        const badge = document.getElementById('defense-word-count-badge');
+        if (badge) badge.innerText = '共 0 題';
 
         const inp = document.getElementById('defense-input-box');
         inp.value = '';
@@ -10735,12 +10821,31 @@
                 b.y += b.speed;
                 b.el.style.top = b.y + 'px';
 
+                // 當氣球觸碰底線警戒區：不再消失，而是停留在底部堆積！
                 if (b.y >= 370) {
                     state.hearts--;
                     if (state.hearts <= 0) state.hearts = 3;
                     document.getElementById('val-hearts').innerText = "❤️".repeat(Math.max(0, state.hearts)) + "🖤".repeat(Math.max(0, 3 - state.hearts));
+
+                    // 從空中移除，移至底部堆積容器
                     b.el.remove();
                     activeBalloons.splice(i, 1);
+
+                    const landedContainer = document.getElementById('defense-landed-container');
+                    const pill = document.createElement('div');
+                    pill.className = 'landed-word-pill';
+                    pill.id = `landed-pill-${b.id}`;
+                    pill.innerText = `⚠️ ${b.word.zh}`;
+                    landedContainer.appendChild(pill);
+
+                    landedBalloons.push({
+                        id: b.id,
+                        el: pill,
+                        word: b.word
+                    });
+
+                    // 同步更新右側戰報清單為「底部堆積中」
+                    addOrUpdateDefenseWordLog(b.id, b.word, 'landed');
                 }
             }
         }, 30);
@@ -10757,8 +10862,10 @@
         defensePaused = false;
         if (balloonSpawnTimer) { clearInterval(balloonSpawnTimer); balloonSpawnTimer = null; }
         if (balloonMoveTimer) { clearInterval(balloonMoveTimer); balloonMoveTimer = null; }
-        activeBalloons.forEach(b => b.el.remove());
+        activeBalloons.forEach(b => { if (b.el) b.el.remove(); });
         activeBalloons = [];
+        landedBalloons.forEach(b => { if (b.el) b.el.remove(); });
+        landedBalloons = [];
         if (returnToMap) navTo('panel-map');
     }
 
@@ -10770,18 +10877,22 @@
     function spawnBalloon() {
         if (!defenseActive) return;
         const w = PURE_DEFENSE_VOCAB[Math.floor(Math.random() * PURE_DEFENSE_VOCAB.length)];
+        balloonIdCounter++;
+        const bId = balloonIdCounter;
+
         const container = document.getElementById('defense-words-container');
-        
         const el = document.createElement('div');
         el.className = 'falling-word-balloon';
-        el.innerText = w.zh;
-        
+        el.innerText = w.zh; // 只有中文提示，絕不劇透英文！
+        el.id = `balloon-${bId}`;
+
         const randX = 10 + Math.random() * 68;
         el.style.left = randX + '%';
         el.style.top = '40px';
         container.appendChild(el);
 
         activeBalloons.push({
+            id: bId,
             el: el,
             word: w,
             x: randX,
@@ -10789,6 +10900,9 @@
             speed: 0.5 + Math.random() * 0.25,
             popping: false
         });
+
+        // 即時產出在右側單字對照清單中
+        addOrUpdateDefenseWordLog(bId, w, 'falling');
     }
 
     function fireLaser() {
@@ -10797,16 +10911,10 @@
         const val = inp.value.trim().toLowerCase();
         if (!val) return;
 
-        let hitIdx = -1;
-        for (let i = 0; i < activeBalloons.length; i++) {
-            if (!activeBalloons[i].popping && activeBalloons[i].word.en.toLowerCase() === val) {
-                hitIdx = i;
-                break;
-            }
-        }
-
-        if (hitIdx !== -1) {
-            const b = activeBalloons[hitIdx];
+        // 1. 先檢驗空中飄落中的氣球
+        let hitAirIdx = activeBalloons.findIndex(b => !b.popping && b.word.en.toLowerCase() === val);
+        if (hitAirIdx !== -1) {
+            const b = activeBalloons[hitAirIdx];
             b.popping = true;
 
             SoundEngine.playLaser();
@@ -10814,8 +10922,7 @@
             laser.style.display = 'block';
             laser.style.left = b.x + '%';
             laser.style.top = b.y + 'px';
-            laser.style.height = (400 - b.y) + 'px';
-            
+            laser.style.height = (440 - b.y) + 'px';
             setTimeout(() => { laser.style.display = 'none'; }, 160);
 
             SoundEngine.playPop();
@@ -10828,6 +10935,9 @@
             document.getElementById('val-coins').innerText = state.coins;
             document.getElementById('defense-score').innerText = defenseScore;
 
+            // 更新右側方格為「空中擊破」
+            addOrUpdateDefenseWordLog(b.id, b.word, 'shot');
+
             setTimeout(() => {
                 b.el.remove();
                 const idx = activeBalloons.indexOf(b);
@@ -10835,9 +10945,95 @@
             }, 250);
 
             inp.value = '';
-        } else {
-            inp.style.borderColor = '#ef4444';
-            setTimeout(() => { inp.style.borderColor = '#cbd5e1'; }, 300);
+            return;
+        }
+
+        // 2. 檢驗留在底部堆積的單字 (玩家亦可輸入英文予以消除！)
+        let hitLandedIdx = landedBalloons.findIndex(b => b.word.en.toLowerCase() === val);
+        if (hitLandedIdx !== -1) {
+            const b = landedBalloons[hitLandedIdx];
+
+            SoundEngine.playLaser();
+            const laser = document.getElementById('defense-laser');
+            laser.style.display = 'block';
+            laser.style.left = '50%';
+            laser.style.top = '380px';
+            laser.style.height = '40px';
+            setTimeout(() => { laser.style.display = 'none'; }, 160);
+
+            SoundEngine.playPop();
+            b.el.style.transform = 'scale(1.25)';
+            b.el.style.opacity = '0';
+            b.el.style.transition = 'all 0.25s';
+
+            defenseScore += 5;
+            const reward = 1;
+            state.coins += reward;
+            defenseCoinsEarned += reward;
+            document.getElementById('val-coins').innerText = state.coins;
+            document.getElementById('defense-score').innerText = defenseScore;
+
+            // 更新右側方格為「底部清除」
+            addOrUpdateDefenseWordLog(b.id, b.word, 'cleared');
+
+            setTimeout(() => {
+                b.el.remove();
+                const idx = landedBalloons.indexOf(b);
+                if (idx !== -1) landedBalloons.splice(idx, 1);
+            }, 250);
+
+            inp.value = '';
+            return;
+        }
+
+        // 沒打中任何目標
+        inp.style.borderColor = '#ef4444';
+        setTimeout(() => { inp.style.borderColor = '#cbd5e1'; }, 300);
+    }
+
+    function addOrUpdateDefenseWordLog(id, word, status) {
+        const list = document.getElementById('defense-word-list');
+        if (!list) return;
+        const emptyHint = document.getElementById('defense-empty-hint');
+        if (emptyHint) emptyHint.style.display = 'none';
+
+        let item = document.getElementById(`defense-log-${id}`);
+        if (!item) {
+            item = document.createElement('div');
+            item.id = `defense-log-${id}`;
+            list.insertBefore(item, list.firstChild);
+        }
+
+        item.className = `defense-log-item status-${status}`;
+
+        let statusBadge = "";
+        if (status === 'falling') {
+            statusBadge = `<span style="background:#fef3c7; color:#b45309; padding:3px 8px; border-radius:8px; font-size:11.5px; font-weight:800;">⏳ 飄落中</span>`;
+        } else if (status === 'shot') {
+            statusBadge = `<span style="background:#dcfce7; color:#15803d; padding:3px 8px; border-radius:8px; font-size:11.5px; font-weight:900;">💥 空中擊破 (+10)</span>`;
+        } else if (status === 'landed') {
+            statusBadge = `<span style="background:#ffedd5; color:#c2410c; padding:3px 8px; border-radius:8px; font-size:11.5px; font-weight:900;">⚠️ 底部堆積中</span>`;
+        } else if (status === 'cleared') {
+            statusBadge = `<span style="background:#e0f2fe; color:#0284c7; padding:3px 8px; border-radius:8px; font-size:11.5px; font-weight:900;">✨ 底部清除 (+5)</span>`;
+        }
+
+        item.innerHTML = `
+            <div style="display:flex; flex-direction:column; gap:2px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <b style="font-size:16px; color:#0f172a; letter-spacing:0.5px;">${word.en}</b>
+                    <button type="button" onclick="speakText('${word.en}')" style="background:none; border:none; cursor:pointer; font-size:14px;" title="聽英文發音">🔊</button>
+                </div>
+                <span style="font-size:13px; color:#475569; font-weight:700;">中文：${word.zh}</span>
+            </div>
+            <div>
+                ${statusBadge}
+            </div>
+        `;
+
+        const countBadge = document.getElementById('defense-word-count-badge');
+        if (countBadge) {
+            const count = list.querySelectorAll('.defense-log-item').length;
+            countBadge.innerText = `共 ${count} 題`;
         }
     }
 
