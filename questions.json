@@ -2119,8 +2119,8 @@
       "prompt": "請聽音檔，選出開頭字母發音為 /æ/ 的單字：",
       "opts": [
         "蘋果 (apple)",
-        "小狗 (dog)",
         "太陽 (sun)",
+        "小狗 (dog)",
         "書本 (book)"
       ],
       "ans": 0,
@@ -2132,12 +2132,12 @@
       "audio": "dog",
       "prompt": "請聽音檔，選出聽到的動物單字：",
       "opts": [
-        "小狗 (dog)",
         "小豬 (pig)",
-        "大象 (elephant)",
-        "小貓 (cat)"
+        "小狗 (dog)",
+        "小貓 (cat)",
+        "大象 (elephant)"
       ],
-      "ans": 0,
+      "ans": 1,
       "trans": "dog = 小狗",
       "note": "Starter 單字聽辨"
     },
@@ -2146,40 +2146,40 @@
       "audio": "One, two, three.",
       "prompt": "請聽音檔，選出聽到的數字順序：",
       "opts": [
-        "1, 2, 3",
+        "1, 3, 5",
         "3, 2, 1",
         "2, 3, 4",
-        "1, 3, 5"
+        "1, 2, 3"
       ],
-      "ans": 0,
+      "ans": 3,
       "trans": "One, two, three. (1, 2, 3)",
       "note": "數字 1 到 3 聽辨"
     },
     {
       "unit": "starter",
       "audio": "bed",
-      "prompt": "請聽自然發音代表字，選出開頭字母肚子朝右邊的單字：",
+      "prompt": "【字首聽辨】請聽音檔發音，選出聽到的代表字：",
       "opts": [
-        "bed (床鋪)",
-        "dog (狗狗)",
-        "pig (小豬)",
-        "egg (雞蛋)"
+        "egg",
+        "dog",
+        "bed",
+        "pig"
       ],
-      "ans": 0,
-      "trans": "bed 開頭是 b",
-      "note": "b 肚子朝右邊辨識"
+      "ans": 2,
+      "trans": "bed (床鋪) - 字首是 b",
+      "note": "聽出 /b/ 開頭為 bed，肚子在右邊。"
     },
     {
       "unit": "starter",
       "audio": "cat",
       "prompt": "請聽音檔，選出聽到的動物單字：",
       "opts": [
-        "小貓 (cat)",
-        "小狗 (dog)",
         "小鳥 (bird)",
+        "小狗 (dog)",
+        "小貓 (cat)",
         "小鴨 (duck)"
       ],
-      "ans": 0,
+      "ans": 2,
       "trans": "cat = 貓咪",
       "note": "Phonics c-a-t"
     },
@@ -2188,12 +2188,12 @@
       "audio": "egg",
       "prompt": "請聽音檔，選出聽到的食物單字：",
       "opts": [
-        "雞蛋 (egg)",
+        "糖果 (candy)",
         "蘋果 (apple)",
         "牛奶 (milk)",
-        "糖果 (candy)"
+        "雞蛋 (egg)"
       ],
-      "ans": 0,
+      "ans": 3,
       "trans": "egg = 雞蛋",
       "note": "短母音 e 代表字"
     },
@@ -2202,12 +2202,12 @@
       "audio": "Four, five.",
       "prompt": "請聽音檔，選出聽到的數字：",
       "opts": [
+        "5, 6",
         "4, 5",
-        "3, 4",
         "1, 2",
-        "5, 6"
+        "3, 4"
       ],
-      "ans": 0,
+      "ans": 1,
       "trans": "Four, five. (4, 5)",
       "note": "數字 4 與 5 聽辨"
     },
@@ -2216,12 +2216,12 @@
       "audio": "What's your name? My name is Mia.",
       "prompt": "請聽對話，選出女孩回答的名字：",
       "opts": [
-        "Mia",
         "Tina",
-        "Amber",
-        "Rocky"
+        "Mia",
+        "Rocky",
+        "Amber"
       ],
-      "ans": 0,
+      "ans": 1,
       "trans": "My name is Mia.",
       "note": "U1 自我介紹對話聽力"
     },
@@ -2230,12 +2230,12 @@
       "audio": "Hello, Miss Chen! Good morning.",
       "prompt": "請聽對話，選出說話者打招呼的對象與時間：",
       "opts": [
-        "向陳老師說早安",
-        "向陳老師說晚安",
         "向同學說再見",
-        "向媽媽說午安"
+        "向陳老師說早安",
+        "向媽媽說午安",
+        "向陳老師說晚安"
       ],
-      "ans": 0,
+      "ans": 1,
       "trans": "向 Miss Chen 說早安 (Good morning)",
       "note": "U1 晨間問候聽力"
     },
@@ -2244,12 +2244,12 @@
       "audio": "Are you OK? I'm fine. Thank you.",
       "prompt": "請聽對話，選出回答者的身體狀況：",
       "opts": [
-        "我很好，謝謝你。",
+        "我八歲。",
         "我很痛，走不動。",
         "我肚子餓了。",
-        "我八歲。"
+        "我很好，謝謝你。"
       ],
-      "ans": 0,
+      "ans": 3,
       "trans": "I'm fine. Thank you. (我很好)",
       "note": "U1 生活關懷應答"
     },
@@ -2258,12 +2258,12 @@
       "audio": "Nice to meet you, too.",
       "prompt": "請聽句子，選出這是屬於哪一種社交情境的用語：",
       "opts": [
-        "初次見面打招呼",
         "放學道別",
         "睡前說晚安",
+        "初次見面打招呼",
         "上課起立敬禮"
       ],
-      "ans": 0,
+      "ans": 2,
       "trans": "Nice to meet you, too. (很高興認識你)",
       "note": "U1 初次見面社交用語"
     },
@@ -2272,12 +2272,12 @@
       "audio": "Goodbye, Rocky! See you tomorrow.",
       "prompt": "請聽對話，選出人物對話的情境：",
       "opts": [
+        "介紹新同學",
         "放學揮手道別",
         "早晨見面問好",
-        "生日祝賀",
-        "介紹新同學"
+        "生日祝賀"
       ],
-      "ans": 0,
+      "ans": 1,
       "trans": "Goodbye! (再見！明天見！)",
       "note": "U1 道別用語聽力"
     },
@@ -2286,13 +2286,13 @@
       "audio": "fish",
       "prompt": "請聽自然發音代表字，選出開頭音是 /f/ 的單字：",
       "opts": [
-        "fish (魚)",
-        "hand (手)",
-        "goat (山羊)",
-        "jet (噴射機)"
+        "手掌 ✋",
+        "山羊 🐐",
+        "噴射機 ✈️",
+        "小魚 🐟"
       ],
-      "ans": 0,
-      "trans": "fish 字首發音為 /f/",
+      "ans": 3,
+      "trans": "fish = 小魚",
       "note": "Phonics Ff 聽辨"
     },
     {
@@ -2300,13 +2300,13 @@
       "audio": "hat",
       "prompt": "請聽自然發音代表字，選出開頭音是 /h/ 的單字：",
       "opts": [
-        "hat (帽子)",
-        "fan (風扇)",
-        "jam (果醬)",
-        "ink (墨水)"
+        "墨水 🖋️",
+        "風扇 🪭",
+        "果醬 🍯",
+        "帽子 🧢"
       ],
-      "ans": 0,
-      "trans": "hat 字首發音為 /h/",
+      "ans": 3,
+      "trans": "hat = 帽子",
       "note": "Phonics Hh 聽辨"
     },
     {
@@ -2314,12 +2314,12 @@
       "audio": "How old are you? I am eight years old.",
       "prompt": "請聽對話，選出男孩回答的年齡：",
       "opts": [
-        "8 歲 (eight)",
         "7 歲 (seven)",
+        "10 歲 (ten)",
         "9 歲 (nine)",
-        "10 歲 (ten)"
+        "8 歲 (eight)"
       ],
-      "ans": 0,
+      "ans": 3,
       "trans": "I am eight years old. (8歲)",
       "note": "U2 年齡聽力"
     },
@@ -2329,9 +2329,9 @@
       "prompt": "請聽音檔，選出女孩說出的年齡：",
       "opts": [
         "7 歲 (seven)",
-        "6 歲 (six)",
+        "9 歲 (nine)",
         "8 歲 (eight)",
-        "9 歲 (nine)"
+        "6 歲 (six)"
       ],
       "ans": 0,
       "trans": "seven = 7",
@@ -2343,9 +2343,9 @@
       "prompt": "請聽對話，選出致謝後的禮貌回應：",
       "opts": [
         "You're welcome.",
-        "Good morning.",
         "I'm fine.",
-        "Good job!"
+        "Good job!",
+        "Good morning."
       ],
       "ans": 0,
       "trans": "You're welcome. (不客氣)",
@@ -2356,12 +2356,12 @@
       "audio": "Line up, please.",
       "prompt": "請聽常規美語指令，選出老師請大家做什麼動作：",
       "opts": [
+        "把書打開 (Open book)",
         "排隊 (Line up)",
-        "坐下 (Sit down)",
         "起立 (Stand up)",
-        "把書打開 (Open book)"
+        "坐下 (Sit down)"
       ],
-      "ans": 0,
+      "ans": 1,
       "trans": "Line up, please. (請排隊)",
       "note": "U2 教室常規指令"
     },
@@ -2371,9 +2371,9 @@
       "prompt": "請聽音檔，選出說話者的年齡：",
       "opts": [
         "9 歲 (nine)",
+        "7 歲 (seven)",
         "8 歲 (eight)",
-        "10 歲 (ten)",
-        "7 歲 (seven)"
+        "10 歲 (ten)"
       ],
       "ans": 0,
       "trans": "nine = 9",
@@ -2398,12 +2398,12 @@
       "audio": "My number is 123.",
       "prompt": "請聽借書證卡號報讀，選出正確的號碼：",
       "opts": [
-        "123 (one-two-three)",
         "321 (three-two-one)",
         "132 (one-three-two)",
-        "213 (two-one-three)"
+        "213 (two-one-three)",
+        "123 (one-two-three)"
       ],
-      "ans": 0,
+      "ans": 3,
       "trans": "123 (one-two-three)",
       "note": "信義國小期中考第 9 大題真題"
     },
@@ -2412,12 +2412,12 @@
       "audio": "Two tickets, please.",
       "prompt": "請聽售票亭買票對話，選出買了幾張門票：",
       "opts": [
-        "2 張票 (Two tickets)",
-        "1 張票 (One ticket)",
         "3 張票 (Three tickets)",
-        "4 張票 (Four tickets)"
+        "4 張票 (Four tickets)",
+        "1 張票 (One ticket)",
+        "2 張票 (Two tickets)"
       ],
-      "ans": 0,
+      "ans": 3,
       "trans": "Two tickets (2張票)",
       "note": "售票亭情境真題"
     },
@@ -2426,12 +2426,12 @@
       "audio": "A, B, C, D, E",
       "prompt": "請聽字母順序朗讀，選出正確的字母序列：",
       "opts": [
+        "A, B, D, C, E",
         "A, B, C, D, E",
-        "A, C, B, D, E",
         "B, A, C, D, E",
-        "A, B, D, C, E"
+        "A, C, B, D, E"
       ],
-      "ans": 0,
+      "ans": 1,
       "trans": "A, B, C, D, E",
       "note": "字母聽力排序"
     },
@@ -2440,12 +2440,12 @@
       "audio": "How are you? I'm fine, thank you.",
       "prompt": "請聽問候對話，選出問句在問什麼：",
       "opts": [
-        "你好嗎？",
         "你幾歲？",
         "你叫什麼名字？",
-        "這是什麼？"
+        "這是什麼？",
+        "你好嗎？"
       ],
-      "ans": 0,
+      "ans": 3,
       "trans": "How are you? (你好嗎？)",
       "note": "問候與年齡問句辨析"
     },
@@ -2454,12 +2454,12 @@
       "audio": "an eraser",
       "prompt": "請聽音檔，選出對應的文具圖片：",
       "opts": [
-        "橡皮擦 (eraser)",
-        "直尺 (ruler)",
+        "原子筆 (pen)",
         "鉛筆 (pencil)",
-        "原子筆 (pen)"
+        "橡皮擦 (eraser)",
+        "直尺 (ruler)"
       ],
-      "ans": 0,
+      "ans": 2,
       "trans": "an eraser = 一塊橡皮擦",
       "note": "U3 A 卷 Track 20 聽力真題"
     },
@@ -2468,12 +2468,12 @@
       "audio": "a pencil",
       "prompt": "請聽音檔，選出聽到的文具：",
       "opts": [
-        "鉛筆 (pencil)",
         "原子筆 (pen)",
-        "彩色筆 (marker)",
-        "尺 (ruler)"
+        "尺 (ruler)",
+        "鉛筆 (pencil)",
+        "彩色筆 (marker)"
       ],
-      "ans": 0,
+      "ans": 2,
       "trans": "a pencil = 一枝鉛筆",
       "note": "U3 A 卷 Track 20 聽力真題"
     },
@@ -2484,8 +2484,8 @@
       "opts": [
         "彩色筆 (marker)",
         "橡皮擦 (eraser)",
-        "書本 (book)",
-        "尺 (ruler)"
+        "尺 (ruler)",
+        "書本 (book)"
       ],
       "ans": 0,
       "trans": "a marker = 一枝彩色筆",
@@ -2496,12 +2496,12 @@
       "audio": "What's that? It's a ruler.",
       "prompt": "請聽對話，選出回答的文具：",
       "opts": [
+        "書桌 (desk)",
         "直尺 (ruler)",
-        "書包 (bag)",
         "彩色筆 (marker)",
-        "書桌 (desk)"
+        "書包 (bag)"
       ],
-      "ans": 0,
+      "ans": 1,
       "trans": "It's a ruler. (它是一把尺)",
       "note": "U3 A 卷 Track 21 聽力真題"
     },
@@ -2510,12 +2510,12 @@
       "audio": "queen",
       "prompt": "請聽自然發音代表字，選出開頭音為 [kw] 的字母：",
       "opts": [
-        "q",
-        "p",
         "r",
+        "p",
+        "q",
         "s"
       ],
-      "ans": 0,
+      "ans": 2,
       "trans": "queen 開頭是 q",
       "note": "U3 A 卷 Track 19 聽力真題"
     },
@@ -2524,12 +2524,12 @@
       "audio": "sun",
       "prompt": "請聽自然發音代表字，選出開頭音為 /s/ 的字母：",
       "opts": [
-        "s",
         "c",
         "z",
+        "s",
         "t"
       ],
-      "ans": 0,
+      "ans": 2,
       "trans": "sun 開頭是 s",
       "note": "U3 A 卷 Track 19 聽力真題"
     },
@@ -2538,12 +2538,12 @@
       "audio": "It's a pen.",
       "prompt": "請聽句子，選出聽到的文具：",
       "opts": [
-        "原子筆 (pen)",
+        "橡皮擦 (eraser)",
         "鉛筆 (pencil)",
         "直尺 (ruler)",
-        "橡皮擦 (eraser)"
+        "原子筆 (pen)"
       ],
-      "ans": 0,
+      "ans": 3,
       "trans": "It's a pen.",
       "note": "U3 B 卷 Track 23 聽力真題"
     },
@@ -2553,9 +2553,9 @@
       "prompt": "請聽對話，選出對話的應答方式：",
       "opts": [
         "Thanks! (謝謝)",
+        "Good night.",
         "Goodbye!",
-        "I'm nine.",
-        "Good night."
+        "I'm nine."
       ],
       "ans": 0,
       "trans": "Good job! ➔ Thanks!",
@@ -2566,12 +2566,12 @@
       "audio": "The pen is blue. What color is the pen?",
       "prompt": "請聽對話並回答問題：What color is the pen?",
       "opts": [
-        "It is blue.",
         "It is black.",
+        "It is blue.",
         "It is white.",
         "It is green."
       ],
-      "ans": 0,
+      "ans": 1,
       "trans": "原子筆是藍色的 (blue)。",
       "note": "U4 A 卷 Track 30 聽力真題"
     },
@@ -2580,12 +2580,12 @@
       "audio": "My pencil is green. What color is the pencil?",
       "prompt": "請聽對話並回答問題：What color is the pencil?",
       "opts": [
-        "It is green.",
-        "It is red.",
         "It is yellow.",
-        "It is blue."
+        "It is red.",
+        "It is blue.",
+        "It is green."
       ],
-      "ans": 0,
+      "ans": 3,
       "trans": "鉛筆是綠色的 (green)。",
       "note": "U4 B 卷 Track 30 聽力真題"
     },
@@ -2594,12 +2594,12 @@
       "audio": "This book is yellow. What color is the book?",
       "prompt": "請聽對話並回答問題：What color is the book?",
       "opts": [
-        "It is yellow.",
         "It is white.",
-        "It is red.",
-        "It is black."
+        "It is black.",
+        "It is yellow.",
+        "It is red."
       ],
-      "ans": 0,
+      "ans": 2,
       "trans": "書本是黃色的 (yellow)。",
       "note": "U4 B 卷 Track 30 聽力真題"
     },
@@ -2608,13 +2608,13 @@
       "audio": "vest",
       "prompt": "請聽自然發音代表字，選出字首字母為 v 的單字：",
       "opts": [
-        "vest (背心)",
-        "watch (手錶)",
-        "sun (太陽)",
-        "window (窗戶)"
+        "太陽 ☀️",
+        "窗戶 🪟",
+        "背心 🎽",
+        "手錶 ⌚"
       ],
-      "ans": 0,
-      "trans": "vest 字首為 v",
+      "ans": 2,
+      "trans": "vest = 背心",
       "note": "U4 B 卷 Track 28 聽力真題"
     },
     {
@@ -2622,13 +2622,13 @@
       "audio": "watch",
       "prompt": "請聽自然發音代表字，選出字首字母為 w 的單字：",
       "opts": [
-        "watch (手錶)",
-        "vest (背心)",
-        "van (廂型車)",
-        "yogurt (優格)"
+        "廂型車 🚐",
+        "手錶 ⌚",
+        "優格 🥛",
+        "背心 🎽"
       ],
-      "ans": 0,
-      "trans": "watch 字首為 w",
+      "ans": 1,
+      "trans": "watch = 手錶",
       "note": "U4 B 卷 Track 28 聽力真題"
     },
     {
@@ -2636,13 +2636,13 @@
       "audio": "zebra",
       "prompt": "請聽自然發音代表字，選出字首字母為 z 的單字：",
       "opts": [
-        "zebra (斑馬)",
-        "yo-yo (溜溜球)",
-        "van (廂型車)",
-        "fox (狐狸)"
+        "狐狸 🦊",
+        "斑馬 🦓",
+        "溜溜球 🪀",
+        "廂型車 🚐"
       ],
-      "ans": 0,
-      "trans": "zebra 字首為 z",
+      "ans": 1,
+      "trans": "zebra = 斑馬",
       "note": "U4 B 卷 Track 28 聽力真題"
     },
     {
@@ -2650,12 +2650,12 @@
       "audio": "It's red.",
       "prompt": "請聽句子，選出聽到的顏色：",
       "opts": [
-        "紅色 (red)",
-        "藍色 (blue)",
-        "綠色 (green)",
-        "黃色 (yellow)"
+        "綠色",
+        "黃色",
+        "藍色",
+        "紅色"
       ],
-      "ans": 0,
+      "ans": 3,
       "trans": "It's red. (它是紅色的)",
       "note": "顏色聽辨"
     },
@@ -2664,12 +2664,12 @@
       "audio": "Good afternoon.",
       "prompt": "請聽招呼語，選出聽到的時間問候：",
       "opts": [
-        "午安 (Good afternoon)",
-        "早安 (Good morning)",
-        "晚安 (Good night)",
-        "再見 (Goodbye)"
+        "早安",
+        "再見",
+        "晚安",
+        "午安"
       ],
-      "ans": 0,
+      "ans": 3,
       "trans": "Good afternoon = 午安",
       "note": "下午問候聽力"
     },
@@ -2678,12 +2678,12 @@
       "audio": "Trick or treat!",
       "prompt": "請聽萬聖節口號，選出正確的英文發音句子：",
       "opts": [
-        "Trick or treat!",
         "Happy Birthday!",
         "Good afternoon!",
-        "Line up, please."
+        "Line up, please.",
+        "Trick or treat!"
       ],
-      "ans": 0,
+      "ans": 3,
       "trans": "Trick or treat! (不給糖就搗蛋)",
       "note": "萬聖節口號聽辨"
     },
@@ -2693,8 +2693,8 @@
       "prompt": "請聽節慶名詞，選出對應的物品：",
       "opts": [
         "南瓜燈 (pumpkin lantern)",
-        "黑貓 (black cat)",
         "糖果盒 (candy box)",
+        "黑貓 (black cat)",
         "巫婆掃帚 (broom)"
       ],
       "ans": 0,
@@ -2706,12 +2706,12 @@
       "audio": "a witch",
       "prompt": "請聽節慶角色，選出聽到的單字：",
       "opts": [
-        "女巫 (a witch)",
-        "幽靈 (a ghost)",
         "吸血鬼 (a vampire)",
-        "南瓜 (a pumpkin)"
+        "女巫 (a witch)",
+        "南瓜 (a pumpkin)",
+        "幽靈 (a ghost)"
       ],
-      "ans": 0,
+      "ans": 1,
       "trans": "a witch = 女巫",
       "note": "節慶單字聽辨"
     },
@@ -2720,12 +2720,12 @@
       "audio": "Happy Halloween!",
       "prompt": "請聽節慶祝福語，選出祝賀的節日：",
       "opts": [
-        "萬聖節快樂！",
-        "生日快樂！",
         "新年快樂！",
-        "教師節快樂！"
+        "萬聖節快樂！",
+        "教師節快樂！",
+        "生日快樂！"
       ],
-      "ans": 0,
+      "ans": 1,
       "trans": "Happy Halloween! (萬聖節快樂！)",
       "note": "節慶祝福聽辨"
     },
@@ -2734,10 +2734,10 @@
       "audio": "It's an eraser.",
       "prompt": "【期末考真題 Track 08】請聽句子，選出正確文具物品：",
       "opts": [
-        "橡皮擦 (eraser)",
-        "直尺 (ruler)",
-        "鉛筆 (pencil)",
-        "原子筆 (pen)"
+        "橡皮擦",
+        "鉛筆",
+        "直尺",
+        "原子筆"
       ],
       "ans": 0,
       "trans": "It's an eraser. (它是一塊橡皮擦)",
@@ -2748,10 +2748,10 @@
       "audio": "What color is it? It's blue.",
       "prompt": "【期末考真題 Track 10】請聽音檔對話，選出對話中提到的顏色：",
       "opts": [
-        "藍色 (blue)",
-        "黑色 (black)",
-        "綠色 (green)",
-        "黃色 (yellow)"
+        "藍色",
+        "黃色",
+        "黑色",
+        "綠色"
       ],
       "ans": 0,
       "trans": "It's blue. (藍色)",
@@ -2762,12 +2762,12 @@
       "audio": "What's this? It's a pencil.",
       "prompt": "【期末考真題 Track 12】請聽對話，選出對話中拿著的文具：",
       "opts": [
-        "鉛筆 (pencil)",
-        "原子筆 (pen)",
-        "直尺 (ruler)",
-        "書桌 (desk)"
+        "直尺",
+        "書桌",
+        "鉛筆",
+        "原子筆"
       ],
-      "ans": 0,
+      "ans": 2,
       "trans": "pencil = 鉛筆",
       "note": "期末考 C 卷 Track 12 原題"
     },
@@ -2776,12 +2776,12 @@
       "audio": "This is a pencil. It's yellow.",
       "prompt": "【期末考真題 Track 12】請聽對話，選出物品名稱與顏色：",
       "opts": [
-        "黃色的鉛筆 (yellow pencil)",
-        "黑色的書包 (black bag)",
-        "紅色的書本 (red book)",
-        "綠色的直尺 (green ruler)"
+        "綠色的直尺",
+        "紅色的書本",
+        "黃色的鉛筆",
+        "黑色的書包"
       ],
-      "ans": 0,
+      "ans": 2,
       "trans": "yellow pencil (黃色鉛筆)",
       "note": "期末考 C 卷 Track 12 原題"
     }
@@ -2816,46 +2816,46 @@
         {
           "q": "字母順序：What letter comes after C in the alphabet?",
           "opts": [
+            "E",
             "B",
             "D",
-            "E",
             "F"
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "C 後面接著 D",
           "note": "字母順序：A -> B -> C -> D。"
         },
         {
           "q": "字母前後：What letter comes before F in the alphabet?",
           "opts": [
-            "E",
-            "G",
             "H",
-            "D"
+            "D",
+            "G",
+            "E"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "F 前面的字母是 E",
           "note": "順序：D -> E -> F。"
         },
         {
           "q": "相鄰字母：What letter is between J and L?",
           "opts": [
-            "I",
             "K",
+            "H",
             "M",
-            "H"
+            "I"
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "J 與 L 中間是 K",
           "note": "順序：J -> K -> L。"
         },
         {
           "q": "大寫配小寫：大寫字母 \"G\" 的小寫是哪一個？",
           "opts": [
-            "j",
+            "y",
             "g",
-            "q",
-            "y"
+            "j",
+            "q"
           ],
           "ans": 1,
           "trans": "G 的小寫是 g",
@@ -2864,10 +2864,10 @@
         {
           "q": "小寫配大寫：小寫字母 \"d\" 的大寫是哪一個？",
           "opts": [
-            "B",
-            "D",
             "P",
-            "Q"
+            "D",
+            "Q",
+            "B"
           ],
           "ans": 1,
           "trans": "d 的大寫是 D",
@@ -2876,58 +2876,58 @@
         {
           "q": "小寫配大寫：小寫字母 \"b\" 的大寫是哪一個？",
           "opts": [
-            "B",
+            "R",
             "D",
-            "P",
-            "R"
+            "B",
+            "P"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "b 的大寫是 B",
           "note": "b 的圓圈在右邊，對應大寫 B。"
         },
         {
           "q": "易混淆字形：【小狗 🐕】的第一個字母圓圈在左邊，是哪一個字母？",
           "opts": [
-            "b",
             "d",
-            "p",
-            "q"
+            "b",
+            "q",
+            "p"
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "dog 是以 d 開頭",
           "note": "d 向左看，b 向右看。"
         },
         {
           "q": "字母接龍：請找出缺少的字母：p - q - [ ? ] - s",
           "opts": [
-            "r",
             "t",
-            "u",
-            "v"
+            "r",
+            "v",
+            "u"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "缺少的字母是 r",
           "note": "順序：p -> q -> r -> s。"
         },
         {
           "q": "字母接龍：請找出缺少的字母：w - x - [ ? ] - z",
           "opts": [
-            "u",
-            "v",
             "y",
-            "a"
+            "u",
+            "a",
+            "v"
           ],
-          "ans": 2,
+          "ans": 0,
           "trans": "缺少的字母是 y",
           "note": "順序：w -> x -> y -> z。"
         },
         {
           "q": "母音字母辨識：下列哪一個是「母音字母」？",
           "opts": [
-            "B",
             "C",
+            "F",
             "E",
-            "F"
+            "B"
           ],
           "ans": 2,
           "trans": "E 是母音字母",
@@ -2936,46 +2936,46 @@
         {
           "q": "母音字母辨識：下列哪一個「不是」母音字母？",
           "opts": [
+            "K",
             "A",
             "I",
-            "O",
-            "K"
+            "O"
           ],
-          "ans": 3,
+          "ans": 0,
           "trans": "K 是子音字母",
           "note": "母音只有 A, E, I, O, U 五個。"
         },
         {
           "q": "自然發音代表字：看提示：【蘋果 🍎】的開頭字母是？",
           "opts": [
-            "A",
+            "O",
             "E",
-            "I",
-            "O"
+            "A",
+            "I"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "A is for apple.",
           "note": "短母音 a 代表字是 apple。"
         },
         {
           "q": "自然發音代表字：看提示：【雞蛋 🥚】的開頭字母是？",
           "opts": [
+            "I",
             "A",
             "E",
-            "I",
             "U"
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "E is for egg.",
           "note": "短母音 e 代表字是 egg。"
         },
         {
           "q": "自然發音代表字：看提示：【小魚 🐟】的開頭字母是？",
           "opts": [
-            "E",
+            "T",
             "F",
             "P",
-            "T"
+            "E"
           ],
           "ans": 1,
           "trans": "F is for fish.",
@@ -2984,24 +2984,24 @@
         {
           "q": "數字英文拼法：英文單字 \"Three\" 代表哪一個數字？",
           "opts": [
-            "1",
             "2",
-            "3",
-            "5"
+            "5",
+            "1",
+            "3"
           ],
-          "ans": 2,
+          "ans": 3,
           "trans": "Three = 3",
           "note": "One=1, Two=2, Three=3。"
         },
         {
           "q": "數字英文拼法：數字「4」的英文拼法是：",
           "opts": [
-            "four",
+            "for",
             "five",
-            "fine",
-            "for"
+            "four",
+            "fine"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "4 的英文是 four",
           "note": "four 代表數字 4。"
         },
@@ -3009,119 +3009,119 @@
           "q": "數字英文拼法：數字「5」的英文拼法是：",
           "opts": [
             "fire",
-            "five",
+            "first",
             "fine",
-            "first"
+            "five"
           ],
-          "ans": 1,
+          "ans": 3,
           "trans": "5 的英文是 five",
           "note": "five 代表數字 5。"
         },
         {
           "q": "數字加法算術：One plus two is ____. (1 + 2 = ?)",
           "opts": [
-            "two",
             "three",
+            "two",
             "four",
             "five"
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "1 + 2 = 3 (three)",
           "note": "生活算術素養題。"
         },
         {
           "q": "數字加法算術：Two plus two is ____. (2 + 2 = ?)",
           "opts": [
-            "three",
             "four",
             "five",
-            "one"
+            "one",
+            "three"
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "2 + 2 = 4 (four)",
           "note": "生活算術素養題。"
         },
         {
           "q": "字母前後位置：What letter comes after M in the alphabet?",
           "opts": [
-            "L",
-            "N",
             "O",
-            "P"
+            "P",
+            "N",
+            "L"
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "M 後面接著 N",
           "note": "順序：L -> M -> N。"
         },
         {
           "q": "大寫配小寫：大寫字母 \"H\" 的小寫是哪一個？",
           "opts": [
-            "h",
             "n",
             "m",
+            "h",
             "b"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "H 的小寫是 h",
           "note": "H 對應 h，椅子造型。"
         },
         {
           "q": "大寫配小寫：大寫字母 \"Q\" 的小寫是哪一個？",
           "opts": [
+            "d",
             "p",
             "q",
-            "g",
-            "d"
+            "g"
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "Q 的小寫是 q",
           "note": "Q 對應小寫 q。"
         },
         {
           "q": "大寫配小寫：大寫字母 \"R\" 的小寫是哪一個？",
           "opts": [
-            "r",
             "n",
-            "m",
-            "v"
+            "v",
+            "r",
+            "m"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "R 的小寫是 r",
           "note": "R 對應小寫 r。"
         },
         {
           "q": "自然發音首音：單字 \"cat\" 的首字母發音對應哪一個字母？",
           "opts": [
-            "k",
-            "c",
+            "t",
             "s",
-            "t"
+            "c",
+            "k"
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "c 讀作 /k/",
           "note": "C is for cat."
         },
         {
           "q": "自然發音首音：單字 \"bed\" 的開頭字母是？",
           "opts": [
-            "d",
-            "b",
+            "t",
             "p",
-            "t"
+            "d",
+            "b"
           ],
-          "ans": 1,
+          "ans": 3,
           "trans": "bed 是以 b 開頭",
           "note": "b 的開頭像床頭。"
         },
         {
           "q": "字母表開頭：英文 26 個字母的第一個字母是：",
           "opts": [
-            "A",
-            "B",
             "C",
-            "Z"
+            "A",
+            "Z",
+            "B"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "第一個字母是 A",
           "note": "字母表以 A 開頭，以 Z 結尾。"
         },
@@ -3129,9 +3129,9 @@
           "q": "字母表結尾：英文 26 個字母的最後一個字母是：",
           "opts": [
             "X",
-            "Y",
+            "W",
             "Z",
-            "W"
+            "Y"
           ],
           "ans": 2,
           "trans": "最後一個字母是 Z",
@@ -3140,72 +3140,72 @@
         {
           "q": "字母大小寫判斷：下列哪一組大小寫配對是「正確」的？",
           "opts": [
-            "A - b",
             "D - d",
+            "A - b",
             "B - d",
             "E - f"
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "D 對應 d",
           "note": "D - d 是正確配對。"
         },
         {
           "q": "字母大小寫判斷：下列哪一組大小寫配對是「錯誤」的？",
           "opts": [
-            "F - f",
             "M - m",
-            "B - d",
-            "T - t"
+            "T - t",
+            "F - f",
+            "B - d"
           ],
-          "ans": 2,
+          "ans": 3,
           "trans": "B 的小寫是 b，不是 d",
           "note": "B 對應 b，D 對應 d。"
         },
         {
           "q": "字母接龍：A, B, [ ? ], D, E",
           "opts": [
-            "C",
-            "F",
             "G",
+            "F",
+            "C",
             "H"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "缺少的字母是 C",
           "note": "順序：A -> B -> C -> D -> E。"
         },
         {
           "q": "字母接龍：E, F, [ ? ], H, I",
           "opts": [
-            "G",
-            "J",
             "K",
-            "L"
+            "L",
+            "G",
+            "J"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "缺少的字母是 G",
           "note": "順序：E -> F -> G -> H。"
         },
         {
           "q": "數字英文拼法：英文單字 \"One\" 代表哪一個數字？",
           "opts": [
+            "4",
             "1",
             "2",
-            "3",
-            "4"
+            "3"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "One = 1",
           "note": "One 代表數字 1。"
         },
         {
           "q": "數字英文拼法：英文單字 \"Two\" 代表哪一個數字？",
           "opts": [
-            "1",
-            "2",
+            "4",
             "3",
-            "4"
+            "1",
+            "2"
           ],
-          "ans": 1,
+          "ans": 3,
           "trans": "Two = 2",
           "note": "Two 代表數字 2。"
         },
@@ -3213,23 +3213,23 @@
           "q": "數一數：一隻貓咪有幾隻眼睛？ (A cat has ____ eyes.)",
           "opts": [
             "one",
-            "two",
             "three",
+            "two",
             "four"
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "貓咪有兩隻眼睛 (two eyes)",
           "note": "生活常識英語題。"
         },
         {
           "q": "數一數：一隻狗狗有幾隻腳？ (A dog has ____ legs.)",
           "opts": [
-            "two",
-            "three",
+            "five",
             "four",
-            "five"
+            "three",
+            "two"
           ],
-          "ans": 2,
+          "ans": 1,
           "trans": "狗狗有四隻腳 (four legs)",
           "note": "生活常識英語題。"
         },
@@ -3248,12 +3248,12 @@
         {
           "q": "字母前後：What letter comes before S in the alphabet?",
           "opts": [
-            "R",
-            "T",
             "Q",
-            "P"
+            "T",
+            "P",
+            "R"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "S 前面是 R",
           "note": "順序：R -> S -> T。"
         },
@@ -3261,21 +3261,21 @@
           "q": "字母前後：What letter comes after T in the alphabet?",
           "opts": [
             "S",
-            "U",
+            "W",
             "V",
-            "W"
+            "U"
           ],
-          "ans": 1,
+          "ans": 3,
           "trans": "T 後面是 U",
           "note": "順序：S -> T -> U。"
         },
         {
           "q": "字母相鄰推斷：What letter is between U and W?",
           "opts": [
-            "T",
-            "V",
             "X",
-            "Y"
+            "V",
+            "Y",
+            "T"
           ],
           "ans": 1,
           "trans": "U 與 W 中間是 V",
@@ -3286,8 +3286,8 @@
           "opts": [
             "i",
             "l",
-            "j",
-            "t"
+            "t",
+            "j"
           ],
           "ans": 0,
           "trans": "I 的小寫是 i",
@@ -3296,60 +3296,60 @@
         {
           "q": "大寫配小寫：大寫字母 \"J\" 的小寫是哪一個？",
           "opts": [
-            "i",
             "j",
+            "i",
             "l",
             "g"
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "J 的小寫是 j",
           "note": "小寫 j 有勾勾並在上方加點。"
         },
         {
           "q": "易混淆字形辨析：小寫字母 \"p\" 的圓圈在上方右邊，那 \"q\" 的圓圈在哪邊？",
           "opts": [
-            "上方左邊",
             "下方左邊",
+            "上方左邊",
             "下方右邊",
             "中間"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "q 的圓圈在左邊，向下長尾巴",
           "note": "p 和 q 是左右鏡像字母。"
         },
         {
           "q": "易混淆字形：【小豬 🐷】的第一個字母是哪一個？",
           "opts": [
-            "p",
+            "d",
             "q",
-            "b",
-            "d"
+            "p",
+            "b"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "pig 是以 p 開頭",
           "note": "P is for pig。"
         },
         {
           "q": "自然發音代表字：看提示：【杯子 🥛】的開頭字母是？",
           "opts": [
-            "c",
             "k",
+            "t",
             "s",
-            "t"
+            "c"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "cup 是以 c 開頭",
           "note": "C is for cup。"
         },
         {
           "q": "自然發音代表字：看提示：【盒子 📦】的開頭字母是？",
           "opts": [
+            "q",
             "b",
             "d",
-            "p",
-            "q"
+            "p"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "box 是以 b 開頭",
           "note": "B is for box。"
         },
@@ -3358,8 +3358,8 @@
           "opts": [
             "s",
             "c",
-            "z",
-            "x"
+            "x",
+            "z"
           ],
           "ans": 0,
           "trans": "sun 是以 s 開頭",
@@ -3368,10 +3368,10 @@
         {
           "q": "數字減法算術：Five minus one is ____. (5 - 1 = ?)",
           "opts": [
-            "three",
+            "one",
             "four",
             "two",
-            "one"
+            "three"
           ],
           "ans": 1,
           "trans": "5 - 1 = 4 (four)",
@@ -3382,8 +3382,8 @@
           "opts": [
             "four",
             "five",
-            "three",
-            "two"
+            "two",
+            "three"
           ],
           "ans": 1,
           "trans": "一隻手有 5 根手指 (five)",
@@ -3393,9 +3393,9 @@
           "q": "字母大小寫判斷：下列哪一個小寫字母寫在四線格的「中下格」？",
           "opts": [
             "g",
+            "h",
             "b",
-            "d",
-            "h"
+            "d"
           ],
           "ans": 0,
           "trans": "g 的尾巴向下伸到下格",
@@ -3404,12 +3404,12 @@
         {
           "q": "字母大小寫判斷：下列哪一個小寫字母寫在四線格的「上中格」？",
           "opts": [
-            "b",
-            "g",
             "p",
-            "y"
+            "y",
+            "b",
+            "g"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "b 向上伸到上格",
           "note": "b, d, h, k, l, t 都是向上伸字母。"
         }
@@ -3444,36 +3444,36 @@
         {
           "q": "A: \"What's your name?\" B: \"________\"",
           "opts": [
-            "I am nine.",
             "My name is Mia.",
+            "I am nine.",
             "It is a dog.",
             "I'm fine."
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "你叫什麼名字？ -> 我叫 Mia。",
           "note": "課綱規範姓名標準回答為 My name is...。"
         },
         {
           "q": "A: \"Nice to meet you.\" B: \"________\"",
           "opts": [
+            "Goodbye.",
             "Good night.",
             "Nice to meet you, too.",
-            "Thank you.",
-            "Goodbye."
+            "Thank you."
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "很高興認識你。 -> 我也很高興認識你。",
           "note": "初次見面打招呼標準禮貌回應加 too。"
         },
         {
           "q": "早上在校門口遇見老師，應該說：",
           "opts": [
+            "See you, teacher.",
             "Good night, teacher.",
             "Good morning, teacher.",
-            "Goodbye, teacher.",
-            "See you, teacher."
+            "Goodbye, teacher."
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "早安，老師！",
           "note": "早晨見面問候語使用 Good morning。"
         },
@@ -3493,11 +3493,11 @@
           "q": "A: \"How are you?\" B: \"________\"",
           "opts": [
             "I am eight years old.",
-            "I'm fine, thank you.",
             "My name is Leo.",
+            "I'm fine, thank you.",
             "It is red."
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "你好嗎？ -> 我很好，謝謝你。",
           "note": "How are you 問候近況，不是問年齡！"
         },
@@ -3505,23 +3505,23 @@
           "q": "自我介紹時，如果對象是陳老師，英文稱謂應寫作：",
           "opts": [
             "miss chen",
-            "Miss Chen",
+            "Teacher Chen",
             "chen miss",
-            "Teacher Chen"
+            "Miss Chen"
           ],
-          "ans": 1,
+          "ans": 3,
           "trans": "Miss Chen (陳老師/陳小姐)",
           "note": "稱謂 Miss 與姓氏 Chen 首字母均必須大寫！"
         },
         {
           "q": "想詢問同學的名字時，疑問詞應該使用：",
           "opts": [
+            "Where",
             "How",
-            "What",
             "Who",
-            "Where"
+            "What"
           ],
-          "ans": 1,
+          "ans": 3,
           "trans": "What's your name?",
           "note": "詢問「什麼」使用疑問詞 What。"
         },
@@ -3530,8 +3530,8 @@
           "opts": [
             "Good morning!",
             "Goodbye! See you!",
-            "Hello!",
-            "Nice to meet you."
+            "Nice to meet you.",
+            "Hello!"
           ],
           "ans": 1,
           "trans": "再見！明天見！",
@@ -3540,60 +3540,60 @@
         {
           "q": "A: \"Hello, I am Ken.\" B: \"________\"",
           "opts": [
-            "Hello, Ken. I am Tina.",
-            "Good night, Ken.",
             "I am eight.",
-            "It is blue."
+            "Good night, Ken.",
+            "It is blue.",
+            "Hello, Ken. I am Tina."
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "哈囉 Ken，我是 Tina。",
           "note": "互相介紹基本社交對話。"
         },
         {
           "q": "文法檢查：下列哪一個自我介紹句子的標點與大小寫完全正確？",
           "opts": [
-            "my name is mia.",
-            "My name is Mia.",
+            "My name is mia",
             "my Name Is mia.",
-            "My name is mia"
+            "my name is mia.",
+            "My name is Mia."
           ],
-          "ans": 1,
+          "ans": 3,
           "trans": "My name is Mia.",
           "note": "句首大寫、名字大寫、句尾加句號。"
         },
         {
           "q": "A: \"Good morning, Tom.\" B: \"________, Amy.\"",
           "opts": [
-            "Good night",
             "Good morning",
             "Goodbye",
-            "Thank you"
+            "Thank you",
+            "Good night"
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "早安，Tom。 -> 早安，Amy。",
           "note": "晨間相對問候。"
         },
         {
           "q": "自我介紹時，\"I am\" 的標準縮寫寫法是：",
           "opts": [
-            "I'm",
             "Im",
+            "I'm",
             "I'am",
             "Iam"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "I am = I'm",
           "note": "注意縮寫有一撇撇號 (')。"
         },
         {
           "q": "打招呼時，下列哪一個單字代表「朋友」？",
           "opts": [
+            "book",
             "teacher",
             "friend",
-            "book",
             "desk"
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "friend (朋友)",
           "note": "friend 代表朋友。"
         },
@@ -3601,35 +3601,35 @@
           "q": "下列哪一個招呼用語是「睡前道晚安」時說的？",
           "opts": [
             "Good morning",
-            "Good afternoon",
             "Good night",
+            "Good afternoon",
             "Hello"
           ],
-          "ans": 2,
+          "ans": 1,
           "trans": "Good night (晚安)",
           "note": "睡前說 Good night。"
         },
         {
           "q": "在課堂上回答老師問題後，老師說 \"Good job!\"，意思是：",
           "opts": [
-            "做得很棒！",
-            "早安！",
+            "你叫什麼名字？",
             "再見！",
-            "你叫什麼名字？"
+            "做得很棒！",
+            "早安！"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "Good job! 做得好！",
           "note": "老師鼓勵學生的常用課堂用語。"
         },
         {
           "q": "想詢問「你好嗎？」英文是：",
           "opts": [
-            "What's your name?",
-            "How are you?",
             "How old are you?",
-            "Who are you?"
+            "Who are you?",
+            "How are you?",
+            "What's your name?"
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "How are you? (你好嗎？)",
           "note": "問候身體或心情近況。"
         },
@@ -3637,9 +3637,9 @@
           "q": "如果今天心情很好，回答 How are you? 可以說：",
           "opts": [
             "I'm fine, thank you.",
-            "I am a pencil.",
+            "No, it isn't.",
             "My name is Leo.",
-            "No, it isn't."
+            "I am a pencil."
           ],
           "ans": 0,
           "trans": "我很好，謝謝你。",
@@ -3648,24 +3648,24 @@
         {
           "q": "認識新朋友時，說 \"Nice to meet you.\" 中的 \"meet\" 意思是：",
           "opts": [
-            "遇見、認識",
             "跑",
+            "畫畫",
             "吃",
-            "畫畫"
+            "遇見、認識"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "meet = 遇見/認識",
           "note": "Nice to meet you = 很高興認識你。"
         },
         {
           "q": "A: \"Hi, Mia!\" B: \"________, Leo!\"",
           "opts": [
-            "Hi",
-            "Good night",
             "No",
-            "Thanks"
+            "Thanks",
+            "Good night",
+            "Hi"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "Hi 相互問好",
           "note": "Hi 或 Hello 的日常招呼。"
         },
@@ -3698,12 +3698,12 @@
           "q": "【聽力測驗】請聽音檔，選出對話中人物打招呼的對象：",
           "audio": "Hello, Rocky!",
           "opts": [
-            "Rocky (洛基)",
-            "Teddy (泰迪)",
             "Mia (米雅)",
+            "Teddy (泰迪)",
+            "Rocky (洛基)",
             "Amber (安珀)"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "Hello, Rocky! (哈囉，洛基！)",
           "note": "聽力姓名辨識。"
         },
@@ -3711,12 +3711,12 @@
           "q": "【聽力測驗】請聽自然發音代表字，選出開頭音是 /f/ 的單字：",
           "audio": "fish",
           "opts": [
+            "goat (山羊)",
             "fish (魚)",
             "hand (手)",
-            "goat (山羊)",
             "jet (噴射機)"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "fish 字首發音為 /f/",
           "note": "Phonics Ff 聽辨。"
         },
@@ -3726,21 +3726,21 @@
           "opts": [
             "hat (帽子)",
             "fan (風扇)",
-            "jam (果醬)",
-            "ink (墨水)"
+            "ink (墨水)",
+            "jam (果醬)"
           ],
           "ans": 0,
           "trans": "hat 字首發音為 /h/",
           "note": "Phonics Hh 聽辨。"
         },
         {
-          "q": "【聽力測驗】請聽對話，選出問候回答：",
-          "audio": "A: Are you OK? B: I'm fine. Thank you.",
+          "q": "【聽力測驗】請聽問句，選出正確的應答句子：",
+          "audio": "Are you OK?",
           "opts": [
             "I'm fine. Thank you.",
-            "My name is Mia.",
             "It's a pencil.",
-            "Good afternoon."
+            "Good afternoon.",
+            "My name is Mia."
           ],
           "ans": 0,
           "trans": "Are you OK? -> 我很好，謝謝你。",
@@ -3749,12 +3749,12 @@
         {
           "q": "【段考死穴】A: 'What's ________ name?' B: 'My name is Edison.'",
           "opts": [
-            "your",
+            "my",
             "you're",
             "you",
-            "my"
+            "your"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "What's your name? (所有格 your)",
           "note": "高頻陷阱：絕不可選 you're (you are 的縮寫)！"
         },
@@ -3762,9 +3762,9 @@
           "q": "【英文書寫鐵則】下列哪一個人名的英文書寫完全符合大小寫規範？",
           "opts": [
             "Rocky",
-            "rocky",
             "rOcky",
-            "ROCKY"
+            "ROCKY",
+            "rocky"
           ],
           "ans": 0,
           "trans": "人名首字母必須大寫：Rocky。",
@@ -3773,48 +3773,48 @@
         {
           "q": "【英文書寫鐵則】下列哪一個稱謂的英文書寫完全符合大寫規範？",
           "opts": [
-            "Miss Chen",
             "miss chen",
-            "Miss chen",
-            "miss Chen"
+            "Miss Chen",
+            "miss Chen",
+            "Miss chen"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "Miss Chen (稱謂與姓氏均大寫)",
           "note": "稱謂 Miss 與姓氏 Chen 首字母皆必須大寫！"
         },
         {
           "q": "A: 'Are you OK?' B: '________'",
           "opts": [
-            "I'm fine. Thank you.",
-            "My name is Abu.",
+            "Good night.",
             "Line up, please.",
-            "Good night."
+            "I'm fine. Thank you.",
+            "My name is Abu."
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "你還好嗎？ -> 我很好，謝謝你。",
           "note": "關心跌倒或受傷同學。"
         },
         {
           "q": "放學道別時，下列哪一句最適合跟同學說再見？",
           "opts": [
-            "Goodbye! See you!",
             "Good morning!",
+            "Goodbye! See you!",
             "Nice to meet you.",
             "Hello!"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "再見！明天見！",
           "note": "放學道別情境。"
         },
         {
           "q": "下列哪一個單字前面「必須使用 an」？",
           "opts": [
-            "insect",
-            "fish",
             "goat",
-            "hand"
+            "hand",
+            "insect",
+            "fish"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "an insect (母音 i 開頭接 an)",
           "note": "母音開頭單數冠詞用 an。"
         },
@@ -3822,8 +3822,8 @@
           "q": "下列哪一個單字前面「必須使用 an」？",
           "opts": [
             "ink",
-            "hat",
             "fan",
+            "hat",
             "girl"
           ],
           "ans": 0,
@@ -3833,36 +3833,36 @@
         {
           "q": "聽發音並看提示：【小魚 🐟】的字首發音字母是：",
           "opts": [
-            "f",
             "v",
             "p",
+            "f",
             "t"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "fish 字首為 f",
           "note": "自然發音 F 代表字。"
         },
         {
           "q": "看提示：【女孩 👧】和【山羊 🐐】的開頭字母是：",
           "opts": [
+            "q",
             "g",
             "j",
-            "q",
             "k"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "girl 與 goat 字首皆為 g",
           "note": "自然發音 G 代表字。"
         },
         {
           "q": "看提示：【果醬 🍯】和【噴射機 ✈️】的開頭字母是：",
           "opts": [
+            "i",
             "j",
             "g",
-            "i",
             "y"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "jam 與 jet 字首皆為 j",
           "note": "自然發音 J 代表字。"
         },
@@ -3870,9 +3870,9 @@
           "q": "看提示：【手掌 ✋】的開頭發音字母是：",
           "opts": [
             "h",
+            "m",
             "f",
-            "n",
-            "m"
+            "n"
           ],
           "ans": 0,
           "trans": "hand 字首為 h",
@@ -3881,24 +3881,24 @@
         {
           "q": "課堂禮貌對話：同學向全班介紹新朋友，你應該說：",
           "opts": [
-            "Nice to meet you.",
             "Good night.",
+            "Nice to meet you.",
             "What's that?",
             "How old are you?"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "很高興認識你。(Nice to meet you.)",
           "note": "初次認識禮貌社交用語。"
         },
         {
           "q": "自我介紹句型判斷：下列哪一個句子標點符號完全正確？",
           "opts": [
-            "My name is Mia.",
-            "my name is Mia",
             "My name is mia.",
+            "my name is Mia",
+            "My name is Mia.",
             "My Name Is Mia."
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "My name is Mia. (句首大寫、名字大寫、句尾句點)",
           "note": "標點與大小寫考核。"
         }
@@ -3933,12 +3933,12 @@
         {
           "q": "A: \"How old are you?\" B: \"________\"",
           "opts": [
+            "My name is Tom.",
             "I am fine.",
             "I am eight years old.",
-            "My name is Tom.",
             "You are welcome."
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "你幾歲？ -> 我八歲。",
           "note": "How old 問年齡，千萬別跟 How are you (問近況) 搞混！"
         },
@@ -3946,8 +3946,8 @@
           "q": "請問阿拉伯數字「10」的英文拼法是：",
           "opts": [
             "seven",
-            "eight",
             "nine",
+            "eight",
             "ten"
           ],
           "ans": 3,
@@ -3957,34 +3957,34 @@
         {
           "q": "別人生日吹蠟燭時，大家會唱：Happy ____ to you!",
           "opts": [
-            "Morning",
-            "Birthday",
             "Night",
-            "Name"
+            "Morning",
+            "Name",
+            "Birthday"
           ],
-          "ans": 1,
+          "ans": 3,
           "trans": "Happy Birthday! (生日快樂！)",
           "note": "生日慶祝情境必考名詞 Birthday。"
         },
         {
           "q": "別人對你說 Thank you!，最禮貌的回答是：",
           "opts": [
-            "Your welcome.",
-            "You're welcome.",
             "I am fine.",
-            "Good job."
+            "Good job.",
+            "You're welcome.",
+            "Your welcome."
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "You're welcome. (不客氣)",
           "note": "注意是 You're (You are 的縮寫)，不是 Your。"
         },
         {
           "q": "數字 Eight 的下一個數字是：",
           "opts": [
-            "Seven",
+            "Six",
             "Nine",
             "Ten",
-            "Six"
+            "Seven"
           ],
           "ans": 1,
           "trans": "Eight (8) 下一個是 Nine (9)",
@@ -3993,36 +3993,36 @@
         {
           "q": "請選出數字「7」的正確英文拼法：",
           "opts": [
-            "seven",
-            "sevn",
             "siven",
-            "sevan"
+            "seven",
+            "sevan",
+            "sevn"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "seven = 7",
           "note": "數字 7 的標準拼法是 seven。"
         },
         {
           "q": "當弟弟九歲時，他應該說：I am nine ____ old.",
           "opts": [
-            "year",
-            "years",
+            "year's",
             "yeares",
-            "year's"
+            "years",
+            "year"
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "I am nine years old.",
           "note": "大於 1 歲時，year 必須加 s 變複數 years！"
         },
         {
           "q": "數字「6」的英文拼法是：",
           "opts": [
-            "six",
+            "sex",
             "sax",
-            "sox",
-            "sex"
+            "six",
+            "sox"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "six = 6",
           "note": "短母音 i 發音對應 six。"
         },
@@ -4030,9 +4030,9 @@
           "q": "數字「8」的英文拼法是：",
           "opts": [
             "eight",
+            "aight",
             "eigt",
-            "eighte",
-            "aight"
+            "eighte"
           ],
           "ans": 0,
           "trans": "eight = 8",
@@ -4042,9 +4042,9 @@
           "q": "數字「9」的英文拼法是：",
           "opts": [
             "nine",
+            "nime",
             "nin",
-            "nyne",
-            "nime"
+            "nyne"
           ],
           "ans": 0,
           "trans": "nine = 9",
@@ -4053,58 +4053,58 @@
         {
           "q": "詢問「年齡」的標準疑問詞組是：",
           "opts": [
-            "How old",
-            "How many",
             "How are",
-            "What color"
+            "What color",
+            "How many",
+            "How old"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "How old = 多大年紀",
           "note": "How old are you? 詢問年齡。"
         },
         {
           "q": "如果你剛好一歲，應該說：I am one ____ old.",
           "opts": [
-            "year",
-            "years",
             "year's",
-            "yeares"
+            "yeares",
+            "years",
+            "year"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "one year old (單數不加 s)",
           "note": "只有 1 歲時使用單數 year！"
         },
         {
           "q": "A: \"How old are you?\" B: \"I am ________.\"",
           "opts": [
-            "fine",
             "seven years old",
+            "pencil",
             "Mia",
-            "pencil"
+            "fine"
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "我七歲。",
           "note": "回答年齡用 I am ... years old。"
         },
         {
           "q": "羅馬數字 \"V\" 代表阿拉伯數字：",
           "opts": [
-            "1",
             "5",
             "10",
-            "4"
+            "4",
+            "1"
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "V = 5",
           "note": "期中考常見羅馬數字考點。"
         },
         {
           "q": "羅馬數字 \"X\" 代表阿拉伯數字：",
           "opts": [
-            "5",
             "8",
+            "12",
             "10",
-            "12"
+            "5"
           ],
           "ans": 2,
           "trans": "X = 10",
@@ -4114,12 +4114,12 @@
           "q": "【聽力測驗】請點擊朗讀聽問句，選出正確的應答句子：",
           "audio": "How old are you?",
           "opts": [
-            "I'm eight years old.",
-            "I'm fine, thank you.",
             "My name is Rocky.",
-            "It's blue."
+            "It's blue.",
+            "I'm eight years old.",
+            "I'm fine, thank you."
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "你幾歲？ -> 我八歲。",
           "note": "How old are you 聽力問年齡。"
         },
@@ -4127,12 +4127,12 @@
           "q": "【聽力測驗】請聽音檔，選出女孩的真實年齡：",
           "audio": "I am nine years old.",
           "opts": [
-            "nine (9歲)",
             "seven (7歲)",
+            "ten (10歲)",
             "eight (8歲)",
-            "ten (10歲)"
+            "nine (9歲)"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "I am nine years old. (九歲)",
           "note": "聽力數字辨識。"
         },
@@ -4153,84 +4153,84 @@
           "q": "【聽力測驗】請聽音檔，選出聽到的數字：",
           "audio": "ten",
           "opts": [
-            "ten (10)",
             "two (2)",
-            "three (3)",
-            "twelve (12)"
+            "twelve (12)",
+            "ten (10)",
+            "three (3)"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "ten = 10",
           "note": "數字聽辨。"
         },
         {
           "q": "【段考死穴】A: 'Thank you very much.' B: '________ welcome.'",
           "opts": [
-            "You're",
-            "Your",
             "You",
-            "I'm"
+            "You're",
+            "I'm",
+            "Your"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "You're welcome. (不客氣)",
           "note": "段考最高失分點：You're ⭕ vs. Your ❌！"
         },
         {
           "q": "A: 'How are you?' B: '________' (看清楚有沒有 old！)",
           "opts": [
-            "I'm fine, thank you.",
-            "I'm eight years old.",
+            "Yes, it is.",
             "My name is Teddy.",
-            "Yes, it is."
+            "I'm eight years old.",
+            "I'm fine, thank you."
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "你好嗎？ -> 我很好，謝謝你。",
           "note": "How are you 問候近況，不是問年齡！"
         },
         {
           "q": "排隊買票或搭校車時，老師對全班下達的常規指令是：",
           "opts": [
-            "Line up, please.",
             "Sit down, please.",
+            "Line up, please.",
             "Stand up, please.",
             "Open your book."
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "Line up, please. (請排隊)",
           "note": "教室生活美語指令。"
         },
         {
           "q": "當弟弟剛好滿「一歲」時，英文正確說法是：",
           "opts": [
-            "one year old",
             "one years old",
+            "one year's old",
             "one yeares old",
-            "one year's old"
+            "one year old"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "one year old (只有 1 歲不加 s)",
           "note": "只有 1 歲用單數 year！大於 1 歲才加 s。"
         },
         {
           "q": "當姐姐八歲時，英文正確說法是：",
           "opts": [
-            "eight years old",
+            "eight yeares old",
             "eight year old",
             "eight a year old",
-            "eight yeares old"
+            "eight years old"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "eight years old (大於 1 歲加 s)",
           "note": "大於 1 歲名詞必須加 s。"
         },
         {
           "q": "【羅馬數字時鐘】時鐘上的羅馬數字「IX」代表阿拉伯數字：",
           "opts": [
-            "9",
             "11",
+            "6",
             "7",
-            "6"
+            "9"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "IX 代表 9 (10 - 1 = 9)",
           "note": "羅馬數字素養題。"
         },
@@ -4239,8 +4239,8 @@
           "opts": [
             "7",
             "8",
-            "6",
-            "5"
+            "5",
+            "6"
           ],
           "ans": 0,
           "trans": "VII 代表 7 (5 + 2 = 7)",
@@ -4249,60 +4249,60 @@
         {
           "q": "【羅馬數字時鐘】時鐘上的羅馬數字「IV」代表阿拉伯數字：",
           "opts": [
-            "4",
+            "3",
             "6",
-            "5",
-            "3"
+            "4",
+            "5"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "IV 代表 4 (5 - 1 = 4)",
           "note": "羅馬數字素養題。"
         },
         {
           "q": "下列哪一個動物單字前面「必須使用 an」？",
           "opts": [
-            "ox (公牛)",
-            "lion (獅子)",
+            "tiger (老虎)",
             "monkey (猴子)",
-            "tiger (老虎)"
+            "lion (獅子)",
+            "ox (公牛)"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "an ox (母音 o 開頭接 an)",
           "note": "ox 母音開頭用 an。"
         },
         {
           "q": "下列哪一個動物單字前面「必須使用 an」？",
           "opts": [
-            "otter (水獺)",
-            "nose (鼻子)",
+            "leg (腿)",
             "key (鑰匙)",
-            "leg (腿)"
+            "nose (鼻子)",
+            "otter (水獺)"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "an otter (母音 o 開頭接 an)",
           "note": "otter 母音開頭用 an。"
         },
         {
           "q": "數字「8」的英文拼法是：(注意 gh 不發音)",
           "opts": [
-            "eight",
             "eigt",
+            "eight",
             "eighte",
             "aight"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "eight = 8",
           "note": "拼寫注意中間有 gh。"
         },
         {
           "q": "數字「9」的英文拼法是：",
           "opts": [
-            "nine",
-            "nin",
             "nyne",
+            "nin",
+            "nine",
             "nime"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "nine = 9",
           "note": "長母音 i_e 拼寫。"
         },
@@ -4310,8 +4310,8 @@
           "q": "吹生日蛋糕蠟燭時，大家會唱的祝賀歌曲是：",
           "opts": [
             "Happy Birthday to You!",
-            "Good Morning to You!",
             "Good Night to You!",
+            "Good Morning to You!",
             "Trick or Treat!"
           ],
           "ans": 0,
@@ -4350,24 +4350,24 @@
         {
           "q": "【真題檢定】小明借書證號碼是 123，英文朗讀應為：",
           "opts": [
+            "Three-two-one",
             "One-two-three",
             "Ten-twenty-three",
-            "First-second-third",
-            "Three-two-one"
+            "First-second-third"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "證件編號單獨報讀：One, two, three。",
           "note": "電話號碼、編號都是單一數字分開唸。"
         },
         {
           "q": "字母小寫接龍：c -> d -> [ ? ] -> f",
           "opts": [
-            "b",
-            "e",
+            "h",
             "g",
-            "h"
+            "e",
+            "b"
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "字母小寫順序：c -> d -> e -> f",
           "note": "期中考核心考點：字母接龍排列！"
         },
@@ -4375,9 +4375,9 @@
           "q": "【素養對話】買票時售票員問 \"How many?\"，你想要買 2 張票應說：",
           "opts": [
             "Two, please.",
-            "I am two.",
             "My name is Two.",
-            "Yes, it is."
+            "Yes, it is.",
+            "I am two."
           ],
           "ans": 0,
           "trans": "請給我兩張。(Two, please.)",
@@ -4386,10 +4386,10 @@
         {
           "q": "下列哪一個單字的發音含有短母音 /a/ (例如 cat 的母音)？",
           "opts": [
-            "cake",
+            "make",
             "bag",
-            "name",
-            "make"
+            "cake",
+            "name"
           ],
           "ans": 1,
           "trans": "bag 含有短母音 a",
@@ -4398,10 +4398,10 @@
         {
           "q": "句子修改：找出錯誤 \"I is eight years old.\"",
           "opts": [
-            "I 改為 My",
+            "old 改為 years",
             "is 改為 am",
-            "eight 改為 an eight",
-            "old 改為 years"
+            "I 改為 My",
+            "eight 改為 an eight"
           ],
           "ans": 1,
           "trans": "主詞 I 搭配 be 動詞 am",
@@ -4411,11 +4411,11 @@
           "q": "日常應對：遇見新朋友初次見面，第一句禮貌問候是：",
           "opts": [
             "Good night.",
-            "Nice to meet you.",
             "How old are you?",
-            "Sit down."
+            "Sit down.",
+            "Nice to meet you."
           ],
-          "ans": 1,
+          "ans": 3,
           "trans": "Nice to meet you. (很高興認識你。)",
           "note": "初次見面社交素養。"
         },
@@ -4423,9 +4423,9 @@
           "q": "字母大寫接龍：G -> H -> [ ? ] -> J",
           "opts": [
             "I",
+            "E",
             "K",
-            "L",
-            "E"
+            "L"
           ],
           "ans": 0,
           "trans": "G -> H -> I -> J",
@@ -4434,22 +4434,22 @@
         {
           "q": "生活素養：班級教室號碼是 \"302\"，英文報讀為：",
           "opts": [
-            "Three-zero-two",
             "Thirty-two",
+            "Two-zero-three",
             "Three-hundred",
-            "Two-zero-three"
+            "Three-zero-two"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "Three-zero-two (單一報讀)",
           "note": "教室號碼分開唸。"
         },
         {
           "q": "【陷阱題】A: \"How are you?\" B: \"________\"",
           "opts": [
-            "I am eight years old.",
-            "I'm fine, thank you.",
             "My name is Leo.",
-            "Yes, it is."
+            "I'm fine, thank you.",
+            "Yes, it is.",
+            "I am eight years old."
           ],
           "ans": 1,
           "trans": "我很好，謝謝你。",
@@ -4458,12 +4458,12 @@
         {
           "q": "【陷阱題】A: \"How old are you?\" B: \"________\"",
           "opts": [
-            "I'm fine, thank you.",
             "I am eight years old.",
+            "I'm fine, thank you.",
             "My name is Leo.",
             "No, I'm not."
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "我八歲。",
           "note": "How old 問年齡！"
         },
@@ -4482,24 +4482,24 @@
         {
           "q": "【信義國小真題第9大題 售票亭計算】：幼童(0-6歲)是 Free 免費。5歲的妹妹去買票要付多少元？",
           "opts": [
-            "Free (免費)",
             "NT$15",
             "NT$30",
+            "Free (免費)",
             "NT$20"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "0-6 歲幼童是 Free 免費！",
           "note": "未滿 6 歲免費規則。"
         },
         {
           "q": "【售票亭跨學科算術】：Leo (9歲小孩 NT$15) 和媽媽 (大人 NT$30) 一起買票，總共要付多少元？",
           "opts": [
-            "NT$45",
+            "NT$60",
             "NT$35",
-            "NT$50",
-            "NT$60"
+            "NT$45",
+            "NT$50"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "小孩 15 元 ＋ 大人 30 元 ＝ 45 元！",
           "note": "生活算術素養加法題。"
         },
@@ -4507,9 +4507,9 @@
           "q": "【信義國小真題第9大題 借書證】：Amber 借書證卡號是 123，英文報讀應為：",
           "opts": [
             "one-two-three",
-            "one-two-four",
             "two-three-one",
-            "three-two-one"
+            "three-two-one",
+            "one-two-four"
           ],
           "ans": 0,
           "trans": "證件號碼單獨分開報讀：one-two-three。",
@@ -4544,8 +4544,8 @@
           "opts": [
             "N",
             "O",
-            "P",
-            "Q"
+            "Q",
+            "P"
           ],
           "ans": 0,
           "trans": "K -> L -> M -> N",
@@ -4555,9 +4555,9 @@
           "q": "【信義國小真題第3大題】：看提示【書本 📖】，它的字首發音字母是：",
           "opts": [
             "b",
+            "t",
             "d",
-            "p",
-            "t"
+            "p"
           ],
           "ans": 0,
           "trans": "book 字首字母為 b /b/",
@@ -4566,36 +4566,36 @@
         {
           "q": "【易混淆字母判別】小寫字母 'b' 和 'd' 的差別是：",
           "opts": [
-            "b 肚子在右邊，d 肚子在左邊",
-            "b 肚子在左邊，d 肚子在右邊",
+            "b 向上伸，d 向下伸",
             "兩者完全一樣",
-            "b 向上伸，d 向下伸"
+            "b 肚子在右邊，d 肚子在左邊",
+            "b 肚子在左邊，d 肚子在右邊"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "b 向右看，d 向左看",
           "note": "三年級最高頻手寫失分點！"
         },
         {
           "q": "【信義國小真題第4大題 四線三格填空】：單字 '_pple' 前面應填入哪一組字母？",
           "opts": [
-            "Aa",
             "Bb",
-            "Cc",
-            "Dd"
+            "Dd",
+            "Aa",
+            "Cc"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "apple 字首為 Aa",
           "note": "四線格字母大小寫規範。"
         },
         {
           "q": "【信義國小真題第8大題】A: 'Are you ok?' B: '________'",
           "opts": [
-            "Yes, I am fine.",
-            "I'm nine.",
             "You're welcome.",
-            "Good night."
+            "Good night.",
+            "Yes, I am fine.",
+            "I'm nine."
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "Are you ok? -> Yes, I am fine.",
           "note": "真題第 8 大題原題。"
         },
@@ -4604,8 +4604,8 @@
           "opts": [
             "You're",
             "Your",
-            "You",
-            "I'm"
+            "I'm",
+            "You"
           ],
           "ans": 0,
           "trans": "You're welcome. (不客氣)",
@@ -4615,12 +4615,12 @@
           "q": "【聽力測驗】請點擊朗讀聽音檔，選出正確的字母順序：",
           "audio": "A, B, C, D, E",
           "opts": [
-            "A, B, C, D, E",
-            "A, C, B, D, E",
             "B, A, C, D, E",
-            "A, B, D, C, E"
+            "A, C, B, D, E",
+            "A, B, D, C, E",
+            "A, B, C, D, E"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "A, B, C, D, E",
           "note": "字母聽力排序。"
         },
@@ -4628,25 +4628,25 @@
           "q": "【聽力測驗】請聽音檔，選出男子報出的年齡：",
           "audio": "I am eight years old.",
           "opts": [
-            "eight (8歲)",
-            "seven (7歲)",
             "nine (9歲)",
-            "ten (10歲)"
+            "eight (8歲)",
+            "ten (10歲)",
+            "seven (7歲)"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "八歲 (eight)",
           "note": "聽力年齡理解。"
         },
         {
-          "q": "【聽力測驗】請聽音檔，選出問候回答：",
-          "audio": "A: How are you? B: I am fine, thank you.",
+          "q": "【聽力測驗】請聽問句，選出正確的應答句子：",
+          "audio": "How are you?",
           "opts": [
-            "I am fine, thank you.",
             "I am eight years old.",
-            "My name is Leo.",
-            "Good job!"
+            "Good job!",
+            "I am fine, thank you.",
+            "My name is Leo."
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "I am fine, thank you.",
           "note": "問候聽力。"
         }
@@ -4681,36 +4681,36 @@
         {
           "q": "Look at the desk! It is ________ eraser.",
           "opts": [
-            "a",
             "an",
-            "two",
-            "the a"
+            "the a",
+            "a",
+            "two"
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "它是一塊橡皮擦。 -> It is an eraser.",
           "note": "eraser 是母音開頭發音，冠詞必須使用 an！"
         },
         {
           "q": "當你指著身邊近處的文具詢問「這是什麼？」時應說：",
           "opts": [
-            "What's this?",
             "What's that?",
-            "How are you?",
-            "Who is that?"
+            "What's this?",
+            "Who is that?",
+            "How are you?"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "這是什麼？ -> What's this?",
           "note": "近處問句用 this，遠處用 that。"
         },
         {
           "q": "哪一個單字代表用來畫直線或測量長度的「尺」？",
           "opts": [
-            "pencil",
             "book",
             "ruler",
+            "pencil",
             "desk"
           ],
-          "ans": 2,
+          "ans": 1,
           "trans": "ruler (尺)",
           "note": "教室必背單字。"
         },
@@ -4718,45 +4718,45 @@
           "q": "單字複數規則：單字 \"box\" (盒子) 變成兩個時應寫作：",
           "opts": [
             "boxs",
+            "boxen",
             "boxes",
-            "boxies",
-            "boxen"
+            "boxies"
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "one box -> two boxes",
           "note": "以 s, x, ch, sh 結尾的名詞，複數加 -es！"
         },
         {
           "q": "A: \"Is this your pencil?\" B: \"Yes, ________.\"",
           "opts": [
+            "that is",
             "this is",
             "it is",
-            "that is",
             "I am"
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "這是你的鉛筆嗎？ -> 是的，它是。(Yes, it is.)",
           "note": "以 Is this / Is that 提問時，簡答代名詞一律回歸 it！"
         },
         {
           "q": "Look at that yellow item! It is ________ pencil.",
           "opts": [
-            "a",
-            "an",
+            "two",
             "the an",
-            "two"
+            "an",
+            "a"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "It is a pencil. (它是一枝鉛筆。)",
           "note": "pencil 是子音開頭單字，前面用冠詞 a。"
         },
         {
           "q": "把書本打開的英文課室指令是：",
           "opts": [
-            "Close your book.",
-            "Open your book.",
             "Clean your desk.",
-            "Sit down."
+            "Open your book.",
+            "Sit down.",
+            "Close your book."
           ],
           "ans": 1,
           "trans": "Open your book. (把書打開。)",
@@ -4765,48 +4765,48 @@
         {
           "q": "把書本合起來的英文指令是：",
           "opts": [
-            "Open your book.",
             "Close your book.",
             "Sit on the chair.",
+            "Open your book.",
             "Stand up."
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "Close your book. (把書合上。)",
           "note": "課堂必考生活指令動詞 close。"
         },
         {
           "q": "學生背去上學裝課本的「書包」英文是：",
           "opts": [
-            "desk",
-            "chair",
             "bag",
-            "ruler"
+            "ruler",
+            "desk",
+            "chair"
           ],
-          "ans": 2,
+          "ans": 0,
           "trans": "bag (書包/提袋)",
           "note": "school bag 必學單字。"
         },
         {
           "q": "教室裡我們寫字坐的「椅子」英文是：",
           "opts": [
-            "chair",
             "desk",
             "eraser",
-            "pencil"
+            "pencil",
+            "chair"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "chair (椅子)",
           "note": "Sit on the chair, please."
         },
         {
           "q": "教室裡放課本的「書桌」英文是：",
           "opts": [
-            "desk",
             "chair",
+            "desk",
             "pencil",
             "book"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "desk (書桌)",
           "note": "desk 代表書桌。"
         },
@@ -4814,11 +4814,11 @@
           "q": "A: \"Is that an eraser?\" B: \"No, ________.\"",
           "opts": [
             "it is",
-            "it isn't",
             "that isn't",
+            "it isn't",
             "this is"
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "不，它不是。(No, it isn't.)",
           "note": "否定簡答用 No, it isn't。"
         },
@@ -4827,8 +4827,8 @@
           "opts": [
             "What's this?",
             "What's that?",
-            "How are you?",
-            "What color is it?"
+            "What color is it?",
+            "How are you?"
           ],
           "ans": 1,
           "trans": "What's that? (那是什麼？)",
@@ -4837,24 +4837,24 @@
         {
           "q": "單字 \"bus\" (公車) 的複數形式是：",
           "opts": [
-            "buss",
             "buses",
-            "busies",
-            "busen"
+            "buss",
+            "busen",
+            "busies"
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "buses (多台公車)",
           "note": "字尾為 s 複數加 -es。"
         },
         {
           "q": "一枝筆英文是 \"a pen\"，那五枝筆英文應該寫作：",
           "opts": [
-            "five pen",
             "five pens",
             "five penes",
-            "five a pen"
+            "five a pen",
+            "five pen"
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "five pens (複數加 s)",
           "note": "名詞大於 1 加 s。"
         },
@@ -4862,12 +4862,12 @@
           "q": "【U3 聽力真題 Track 20】請點擊朗讀聽句子，選出正確文具圖片：",
           "audio": "an eraser",
           "opts": [
-            "橡皮擦 (eraser)",
             "直尺 (ruler)",
-            "鉛筆 (pencil)",
-            "書本 (book)"
+            "橡皮擦 (eraser)",
+            "書本 (book)",
+            "鉛筆 (pencil)"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "an eraser (一塊橡皮擦)",
           "note": "U3 A 卷 Track 20 聽力原題。"
         },
@@ -4875,12 +4875,12 @@
           "q": "【U3 聽力真題 Track 20】請聽音檔，選出聽到的文具：",
           "audio": "a pencil",
           "opts": [
-            "鉛筆 (pencil)",
-            "原子筆 (pen)",
+            "尺 (ruler)",
             "彩色筆 (marker)",
-            "尺 (ruler)"
+            "鉛筆 (pencil)",
+            "原子筆 (pen)"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "a pencil (一枝鉛筆)",
           "note": "U3 A 卷 Track 20 原題。"
         },
@@ -4888,12 +4888,12 @@
           "q": "【U3 聽力真題 Track 20】請聽音檔，選出聽到的文具：",
           "audio": "a marker",
           "opts": [
-            "彩色筆 (marker)",
             "橡皮擦 (eraser)",
             "書本 (book)",
-            "尺 (ruler)"
+            "尺 (ruler)",
+            "彩色筆 (marker)"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "a marker (一枝彩色筆)",
           "note": "U3 A 卷 Track 20 原題。"
         },
@@ -4902,8 +4902,8 @@
           "audio": "It's a ruler.",
           "opts": [
             "It's a ruler.",
-            "It's an eraser.",
             "It's a book.",
+            "It's an eraser.",
             "It's a pencil."
           ],
           "ans": 0,
@@ -4914,12 +4914,12 @@
           "q": "【U3 聽力真題 Track 21】A: 'Good job!' B: '________'",
           "audio": "Good job! Thanks!",
           "opts": [
-            "Thanks!",
             "You're welcome.",
-            "I'm fine.",
-            "Good morning."
+            "Good morning.",
+            "Thanks!",
+            "I'm fine."
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "做得好！ -> 謝謝！",
           "note": "U3 A 卷 Track 21 原題。"
         },
@@ -4929,8 +4929,8 @@
           "opts": [
             "q",
             "p",
-            "r",
-            "s"
+            "s",
+            "r"
           ],
           "ans": 0,
           "trans": "queen 開頭字母為 q",
@@ -4940,12 +4940,12 @@
           "q": "【U3 聽力真題 Track 19】請聽自然發音代表字，選出開頭音為 /s/ 的字母：",
           "audio": "sun",
           "opts": [
-            "s",
             "c",
             "z",
+            "s",
             "t"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "sun 開頭字母為 s",
           "note": "U3 A 卷 Track 19 原題。"
         },
@@ -4953,12 +4953,12 @@
           "q": "【U3 聽力真題 Track 19】請聽自然發音代表字，選出開頭音為 /t/ 的字母：",
           "audio": "turtle",
           "opts": [
-            "t",
             "d",
-            "p",
-            "b"
+            "t",
+            "b",
+            "p"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "turtle 開頭字母為 t",
           "note": "U3 A 卷 Track 19 原題。"
         },
@@ -4966,12 +4966,12 @@
           "q": "【U3 聽力真題 Track 23】請聽句子，選出聽到的文具：",
           "audio": "It's a pen.",
           "opts": [
-            "原子筆 (pen)",
             "鉛筆 (pencil)",
             "直尺 (ruler)",
+            "原子筆 (pen)",
             "橡皮擦 (eraser)"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "It's a pen. (它是一枝原子筆)",
           "note": "U3 B 卷 Track 23 原題。"
         },
@@ -4979,24 +4979,24 @@
           "q": "【U3 聽力真題 Track 24】請聽問句，選出最適當的回應：",
           "audio": "What's this?",
           "opts": [
-            "It's a marker.",
-            "I'm fine.",
             "I'm nine.",
-            "My name is Mia."
+            "It's a marker.",
+            "My name is Mia.",
+            "I'm fine."
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "這是什麼？ -> 它是一枝彩色筆。(It's a marker.)",
           "note": "U3 B 卷 Track 24 原題。"
         },
         {
           "q": "【段考死穴】A: 'What's this?' B: 'It's ________ eraser.'",
           "opts": [
-            "an",
             "a",
             "two",
-            "the a"
+            "the a",
+            "an"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "It's an eraser.",
           "note": "eraser 為母音開頭發音，冠詞必須使用 an！"
         },
@@ -5005,8 +5005,8 @@
           "opts": [
             "boxes",
             "boxs",
-            "boxies",
-            "boxen"
+            "boxen",
+            "boxies"
           ],
           "ans": 0,
           "trans": "two boxes (以 x 結尾加 -es)",
@@ -5015,12 +5015,12 @@
         {
           "q": "單字 'bus' (公車) 變成複數時，正確寫法是：",
           "opts": [
-            "buses",
-            "buss",
             "bus's",
+            "buss",
+            "buses",
             "busies"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "buses (以 s 結尾加 -es)",
           "note": "以 s 結尾加 -es。"
         },
@@ -5029,8 +5029,8 @@
           "opts": [
             "What's that?",
             "What's this?",
-            "What color is it?",
-            "How are you?"
+            "How are you?",
+            "What color is it?"
           ],
           "ans": 0,
           "trans": "What's that? (那是什麼？)",
@@ -5041,8 +5041,8 @@
           "opts": [
             "What's this?",
             "What's that?",
-            "What's your name?",
-            "How old are you?"
+            "How old are you?",
+            "What's your name?"
           ],
           "ans": 0,
           "trans": "What's this? (這是什麼？)",
@@ -5051,12 +5051,12 @@
         {
           "q": "A: 'Is this your pencil?' B: 'Yes, ________.'",
           "opts": [
-            "it is",
             "this is",
             "that is",
+            "it is",
             "I am"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "Yes, it is. (是的，它是。)",
           "note": "以 Is this 提問，簡答代名詞回歸 it！"
         },
@@ -5075,36 +5075,36 @@
         {
           "q": "【書籍構造 Parts of a Book】：英文書本最外面的那一面「封面」叫做：",
           "opts": [
-            "Cover",
             "Page",
-            "Title",
-            "Author"
+            "Author",
+            "Cover",
+            "Title"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "Cover = 封面",
           "note": "課本素養專題：Cover 封面，Title 書名，Author 作者。"
         },
         {
           "q": "【書籍構造 Parts of a Book】：寫出這本書的「作者」英文是：",
           "opts": [
+            "Title",
             "Author",
-            "Cover",
             "Page",
-            "Title"
+            "Cover"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "Author = 作者",
           "note": "Author 代表作者。"
         },
         {
           "q": "文具複數：我有三枝鉛筆，英文應該寫作：",
           "opts": [
-            "three pencils",
             "three pencil",
-            "three a pencil",
-            "three an pencil"
+            "three pencils",
+            "three an pencil",
+            "three a pencil"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "three pencils (大於 1 加 s)",
           "note": "名詞大於 1 加 s。"
         }
@@ -5140,32 +5140,32 @@
           "q": "【跨領域調色魔法】：Yellow + Blue = ________",
           "opts": [
             "Red",
-            "Green",
             "Orange",
-            "Purple"
+            "Purple",
+            "Green"
           ],
-          "ans": 1,
+          "ans": 3,
           "trans": "黃色 ＋ 藍色 ＝ 綠色 (Green)。",
           "note": "三原色調色常識：黃配藍變成綠色！"
         },
         {
           "q": "晴朗無雲的白天天空中，太陽通常是 Yellow，天空則是：",
           "opts": [
-            "Blue",
+            "Green",
             "Red",
-            "Black",
-            "Green"
+            "Blue",
+            "Black"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "Blue (藍色)",
           "note": "日常生活顏色常識搭配。"
         },
         {
           "q": "文法診斷：下列哪一個句子是「完全正確」的？",
           "opts": [
-            "It is a red.",
-            "It is red.",
             "It is an red.",
+            "It is red.",
+            "It is a red.",
             "It is reds."
           ],
           "ans": 1,
@@ -5176,23 +5176,23 @@
           "q": "【調色魔法 2】：Red + Yellow = ________",
           "opts": [
             "Green",
+            "Blue",
             "Purple",
-            "Orange",
-            "Blue"
+            "Orange"
           ],
-          "ans": 2,
+          "ans": 3,
           "trans": "紅色 + 黃色 = 橘色 (Orange)",
           "note": "紅配黃為橘色。"
         },
         {
           "q": "【調色魔法 3】：Red + Blue = ________",
           "opts": [
-            "Green",
             "Purple",
-            "Orange",
-            "Yellow"
+            "Green",
+            "Yellow",
+            "Orange"
           ],
-          "ans": 1,
+          "ans": 0,
           "trans": "紅色 + 藍色 = 紫色 (Purple)",
           "note": "紅配藍為紫色。"
         },
@@ -5200,11 +5200,11 @@
           "q": "A: \"What color is the bag?\" B: \"It is ________.\"",
           "opts": [
             "an yellow",
-            "a blue",
             "green",
-            "two red"
+            "two red",
+            "a blue"
           ],
-          "ans": 2,
+          "ans": 1,
           "trans": "它是綠色的。(It is green.)",
           "note": "顏色形容詞標準答句。"
         },
@@ -5212,8 +5212,8 @@
           "q": "樹葉在春天生長時通常是什麼顏色？",
           "opts": [
             "Green",
-            "Red",
             "Black",
+            "Red",
             "Blue"
           ],
           "ans": 0,
@@ -5223,12 +5223,12 @@
         {
           "q": "成熟的香蕉 (banana) 通常是什麼顏色？",
           "opts": [
-            "Yellow",
-            "Blue",
             "Red",
-            "Black"
+            "Black",
+            "Blue",
+            "Yellow"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "Yellow (黃色)",
           "note": "常識搭配形容詞。"
         },
@@ -5236,23 +5236,23 @@
           "q": "想詢問物品是什麼顏色時，疑問句應該使用：",
           "opts": [
             "What's this?",
+            "How old are you?",
             "What color is it?",
-            "How are you?",
-            "How old are you?"
+            "How are you?"
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "What color is it? (它是什麼顏色？)",
           "note": "詢問顏色使用 What color。"
         },
         {
           "q": "如果有指定名詞，以下哪一句才是正確的？",
           "opts": [
-            "It is a red pen.",
-            "It is red pen.",
             "It is an red pen.",
-            "It is a red."
+            "It is a red.",
+            "It is red pen.",
+            "It is a red pen."
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "It is a red pen. (它是一枝紅筆。)",
           "note": "後面有單數名詞 pen 時，前面需要加上 a！"
         },
@@ -5260,12 +5260,12 @@
           "q": "【U4 聽力真題 Track 29】請點擊朗讀聽句子，選出正確的顏色：",
           "audio": "It's green.",
           "opts": [
+            "藍色 (blue)",
             "綠色 (green)",
             "紅色 (red)",
-            "藍色 (blue)",
             "黃色 (yellow)"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "It's green. (它是綠色的)",
           "note": "U4 B 卷 Track 29 原題。"
         },
@@ -5274,9 +5274,9 @@
           "audio": "It's yellow.",
           "opts": [
             "黃色 (yellow)",
-            "白色 (white)",
+            "藍色 (blue)",
             "黑色 (black)",
-            "藍色 (blue)"
+            "白色 (white)"
           ],
           "ans": 0,
           "trans": "It's yellow. (它是黃色的)",
@@ -5299,12 +5299,12 @@
           "q": "【U4 聽力真題 Track 30】請聽音檔問答：What color is the pen?",
           "audio": "The pen is blue. What color is the pen?",
           "opts": [
-            "It's blue.",
-            "It's black.",
             "It's red.",
-            "It's green."
+            "It's black.",
+            "It's green.",
+            "It's blue."
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "原子筆是藍色的 (blue)。",
           "note": "U4 B 卷 Track 30 原題。"
         },
@@ -5313,9 +5313,9 @@
           "audio": "My pencil is green. What color is the pencil?",
           "opts": [
             "It's green.",
-            "It's red.",
             "It's yellow.",
-            "It's blue."
+            "It's blue.",
+            "It's red."
           ],
           "ans": 0,
           "trans": "鉛筆是綠色的 (green)。",
@@ -5325,12 +5325,12 @@
           "q": "【U4 聽力真題 Track 30】請聽音檔問答：What color is the book?",
           "audio": "This book is yellow. What color is the book?",
           "opts": [
-            "It's yellow.",
             "It's white.",
             "It's black.",
+            "It's yellow.",
             "It's blue."
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "書本是黃色的 (yellow)。",
           "note": "U4 B 卷 Track 30 原題。"
         },
@@ -5338,12 +5338,12 @@
           "q": "【U4 聽力真題 Track 28】請聽自然發音代表字，選出字首字母為 v 的單字：",
           "audio": "vest",
           "opts": [
+            "umbrella (雨傘)",
             "vest (背心)",
-            "sun (太陽)",
             "watch (手錶)",
-            "umbrella (雨傘)"
+            "sun (太陽)"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "vest 字首為 v",
           "note": "U4 B 卷 Track 28 原題。"
         },
@@ -5351,12 +5351,12 @@
           "q": "【U4 聽力真題 Track 28】請聽自然發音代表字，選出字首字母為 w 的單字：",
           "audio": "watch",
           "opts": [
-            "watch (手錶)",
             "van (廂型車)",
-            "yogurt (優格)",
-            "fox (狐狸)"
+            "watch (手錶)",
+            "fox (狐狸)",
+            "yogurt (優格)"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "watch 字首為 w",
           "note": "U4 B 卷 Track 28 原題。"
         },
@@ -5364,12 +5364,12 @@
           "q": "【U4 聽力真題 Track 28】請聽自然發音代表字，選出字首字母為 u 的單字：",
           "audio": "umbrella",
           "opts": [
-            "umbrella (雨傘)",
             "vest (背心)",
             "sun (太陽)",
+            "umbrella (雨傘)",
             "window (窗戶)"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "umbrella 字首為 u",
           "note": "U4 B 卷 Track 28 原題。"
         },
@@ -5377,12 +5377,12 @@
           "q": "【U4 聽力真題 Track 28】請聽自然發音代表字，選出字首字母為 z 的單字：",
           "audio": "zebra",
           "opts": [
-            "zebra (斑馬)",
-            "yo-yo (溜溜球)",
             "van (廂型車)",
-            "fox (狐狸)"
+            "fox (狐狸)",
+            "yo-yo (溜溜球)",
+            "zebra (斑馬)"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "zebra 字首為 z",
           "note": "U4 B 卷 Track 28 原題。"
         },
@@ -5390,9 +5390,9 @@
           "q": "【段考高頻文法陷阱】A: 'What color is the bag?' B: 'It's ________.'",
           "opts": [
             "black",
-            "a black",
             "an black",
-            "two black"
+            "two black",
+            "a black"
           ],
           "ans": 0,
           "trans": "It's black. (它是黑色的。)",
@@ -5402,9 +5402,9 @@
           "q": "A: 'What color is the book?' B: 'It's ________.'",
           "opts": [
             "blue",
+            "the a blue",
             "a blue",
-            "an blue",
-            "the a blue"
+            "an blue"
           ],
           "ans": 0,
           "trans": "It's blue. (它是藍色的。)",
@@ -5413,36 +5413,36 @@
         {
           "q": "【調色魔法 I Spy Colors】：Yellow (黃) + Blue (藍) = ________",
           "opts": [
-            "Green (綠色)",
-            "Red (紅色)",
             "Purple (紫色)",
+            "Red (紅色)",
+            "Green (綠色)",
             "Orange (橘色)"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "黃色 ＋ 藍色 ＝ 綠色 (Green)",
           "note": "色彩三原色調色常識！"
         },
         {
           "q": "【調色魔法 I Spy Colors】：Red (紅) + Yellow (黃) = ________",
           "opts": [
-            "Orange (橘色)",
-            "Green (綠色)",
             "Purple (紫色)",
-            "Blue (藍色)"
+            "Orange (橘色)",
+            "Blue (藍色)",
+            "Green (綠色)"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "紅色 ＋ 黃色 ＝ 橘色 (Orange)",
           "note": "紅配黃為橘色。"
         },
         {
           "q": "【調色魔法 I Spy Colors】：Red (紅) + Blue (藍) = ________",
           "opts": [
-            "Purple (紫色)",
-            "Green (綠色)",
             "Orange (橘色)",
-            "Yellow (黃色)"
+            "Yellow (黃色)",
+            "Purple (紫色)",
+            "Green (綠色)"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "紅色 ＋ 藍色 ＝ 紫色 (Purple)",
           "note": "紅配藍為紫色。"
         },
@@ -5450,8 +5450,8 @@
           "q": "Teddy 著急地在教室找東西，他說：「I lost my ________!」",
           "opts": [
             "bag",
-            "name",
             "teacher",
+            "name",
             "ruler"
           ],
           "ans": 0,
@@ -5461,24 +5461,24 @@
         {
           "q": "Teddy 找到書包開心地說：「It's black. That's my ________!」",
           "opts": [
-            "bag",
-            "pencil",
+            "dog",
             "eraser",
-            "dog"
+            "pencil",
+            "bag"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "它是黑色的。那是我的書包！",
           "note": "課本 Story Time 經典對白。"
         },
         {
           "q": "下午 2:00 在圖書館遇見同學，打招呼應該說：",
           "opts": [
-            "Good afternoon.",
-            "Good morning.",
             "Good night.",
+            "Good morning.",
+            "Good afternoon.",
             "Good job!"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "Good afternoon. (午安)",
           "note": "下午時段使用 Good afternoon。"
         },
@@ -5486,8 +5486,8 @@
           "q": "早晨 7:30 在校門口遇見老師，打招呼應該說：",
           "opts": [
             "Good morning.",
-            "Good afternoon.",
             "Good night.",
+            "Good afternoon.",
             "Goodbye."
           ],
           "ans": 0,
@@ -5498,8 +5498,8 @@
           "q": "單字 'umbrella' (雨傘) 前面加上單數冠詞，正確寫法是：",
           "opts": [
             "an umbrella",
-            "a umbrella",
             "two umbrella",
+            "a umbrella",
             "the a umbrella"
           ],
           "ans": 0,
@@ -5537,82 +5537,82 @@
         {
           "q": "小朋友在萬聖節敲門要糖果時會大喊：",
           "opts": [
+            "See you later!",
             "Happy Birthday!",
-            "Trick or treat!",
             "Good afternoon!",
-            "See you later!"
+            "Trick or treat!"
           ],
-          "ans": 1,
+          "ans": 3,
           "trans": "不給糖就搗蛋！ (Trick or treat!)",
           "note": "萬聖節最核心的經典招呼句型。"
         },
         {
           "q": "騎著掃帚飛在空中的神祕角色是：",
           "opts": [
-            "Ghost",
-            "Pumpkin",
             "Witch",
+            "Pumpkin",
+            "Ghost",
             "Cat"
           ],
-          "ans": 2,
+          "ans": 0,
           "trans": "Witch (女巫，複數為 witches)。",
           "note": "Witch 是女巫，以 ch 結尾複數加 -es。"
         },
         {
           "q": "萬聖節雕刻有鬼臉發光的南瓜燈英文是：",
           "opts": [
-            "apple lantern",
-            "pumpkin lantern",
+            "black cat",
             "candy box",
-            "black cat"
+            "pumpkin lantern",
+            "apple lantern"
           ],
-          "ans": 1,
+          "ans": 2,
           "trans": "pumpkin lantern (南瓜燈)",
           "note": "節慶文化名詞。"
         },
         {
           "q": "Trick or treat, give me something good to ________!",
           "opts": [
+            "run",
             "eat",
             "sleep",
-            "run",
             "swim"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "給我好吃的東西！(something good to eat)",
           "note": "萬聖節經典歌謠押韻句。"
         },
         {
           "q": "幽靈 Ghost 發出的叫聲通常是：",
           "opts": [
-            "Meow",
             "Woof",
             "Boo",
+            "Meow",
             "Moo"
           ],
-          "ans": 2,
+          "ans": 1,
           "trans": "Boo! (嚇人的叫聲)",
           "note": "幽靈擬聲詞。"
         },
         {
           "q": "小朋友在萬聖節最喜歡拿到的甜食是：",
           "opts": [
-            "candy",
+            "desk",
             "ruler",
-            "pencil",
-            "desk"
+            "candy",
+            "pencil"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "candy (糖果)",
           "note": "節慶必備名詞。"
         },
         {
           "q": "單字 \"witch\" (女巫) 變成複數 (多位女巫) 時應寫作：",
           "opts": [
-            "witchs",
+            "witchen",
             "witches",
             "witchies",
-            "witchen"
+            "witchs"
           ],
           "ans": 1,
           "trans": "witches (多位女巫)",
@@ -5621,36 +5621,36 @@
         {
           "q": "大大的南瓜 (pumpkin) 通常是什麼顏色？",
           "opts": [
-            "Orange (橘色)",
             "Blue (藍色)",
+            "White (白色)",
             "Pink (粉色)",
-            "White (白色)"
+            "Orange (橘色)"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "Orange = 橘色",
           "note": "南瓜通常是亮橘色。"
         },
         {
           "q": "萬聖節小朋友敲門要糖果時，大喊的經典口號是：",
           "opts": [
-            "Trick or treat!",
             "Trick and treat!",
+            "Trick or treat!",
             "Happy Birthday!",
             "Good job!"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "Trick or treat! (不給糖就搗蛋！)",
           "note": "注意中間是 or 不是 and！"
         },
         {
           "q": "萬聖節主人給小朋友糖果時，會熱情祝賀：",
           "opts": [
-            "Happy Halloween!",
-            "Merry Christmas!",
+            "Good morning!",
             "Happy Birthday!",
-            "Good morning!"
+            "Merry Christmas!",
+            "Happy Halloween!"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "Happy Halloween! (萬聖節快樂！)",
           "note": "萬聖節祝福語。"
         },
@@ -5659,8 +5659,8 @@
           "opts": [
             "witches",
             "witchs",
-            "witchies",
-            "witchen"
+            "witchen",
+            "witchies"
           ],
           "ans": 0,
           "trans": "witches (以 ch 結尾加 -es)",
@@ -5669,12 +5669,12 @@
         {
           "q": "雕刻有鬼臉發光的南瓜燈英文是：",
           "opts": [
-            "pumpkin lantern",
-            "candy box",
+            "apple pie",
             "black cat",
-            "apple pie"
+            "candy box",
+            "pumpkin lantern"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "pumpkin lantern (南瓜燈)",
           "note": "節慶核心名詞。"
         },
@@ -5683,8 +5683,8 @@
           "opts": [
             "a vampire",
             "a witch",
-            "a ghost",
-            "a spider"
+            "a spider",
+            "a ghost"
           ],
           "ans": 0,
           "trans": "vampire = 吸血鬼",
@@ -5693,12 +5693,12 @@
         {
           "q": "飄在空中、發出 Boo! 叫聲的幽靈英文是：",
           "opts": [
-            "a ghost",
             "a pumpkin",
+            "a dog",
             "a witch",
-            "a dog"
+            "a ghost"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "ghost = 幽靈",
           "note": "節慶單字。"
         },
@@ -5706,9 +5706,9 @@
           "q": "Teddy 在萬聖節變裝成南瓜，他說：「Look, I'm ________ pumpkin!」",
           "opts": [
             "a",
-            "an",
+            "the a",
             "two",
-            "the a"
+            "an"
           ],
           "ans": 0,
           "trans": "Look, I'm a pumpkin!",
@@ -5717,36 +5717,36 @@
         {
           "q": "八隻腳會織網的蜘蛛英文是：",
           "opts": [
+            "a cat",
             "a spider",
-            "a bat",
             "a ghost",
-            "a cat"
+            "a bat"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "spider = 蜘蛛",
           "note": "節慶單字。"
         },
         {
           "q": "小朋友在萬聖節最喜歡拿到的甜食是：",
           "opts": [
-            "candy",
             "ruler",
             "pencil",
+            "candy",
             "eraser"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "candy = 糖果",
           "note": "Trick or treat, give me candy!"
         },
         {
           "q": "在萬聖節扮演女巫，英文自我介紹應說：",
           "opts": [
-            "I'm a witch.",
-            "I'm an witch.",
             "I'm a witches.",
+            "I'm an witch.",
+            "I'm a witch.",
             "My name is witch."
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "I'm a witch. (我是一個女巫。)",
           "note": "witch 子音開頭用 a。"
         },
@@ -5754,12 +5754,12 @@
           "q": "【聽力測驗】請點擊朗讀聽萬聖節口號，選出正確英文：",
           "audio": "Trick or treat!",
           "opts": [
-            "Trick or treat!",
-            "Happy Birthday!",
             "Good afternoon!",
-            "Line up, please."
+            "Happy Birthday!",
+            "Line up, please.",
+            "Trick or treat!"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "Trick or treat! (不給糖就搗蛋)",
           "note": "萬聖節口號聽力。"
         },
@@ -5767,12 +5767,12 @@
           "q": "【聽力測驗】請聽音檔，選出聽到的節慶角色：",
           "audio": "a witch",
           "opts": [
-            "女巫 (a witch)",
-            "幽靈 (a ghost)",
+            "吸血鬼 (a vampire)",
             "南瓜 (a pumpkin)",
-            "吸血鬼 (a vampire)"
+            "幽靈 (a ghost)",
+            "女巫 (a witch)"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "a witch (女巫)",
           "note": "節慶單字聽辨。"
         },
@@ -5780,12 +5780,12 @@
           "q": "【聽力測驗】請聽音檔，選出聽到的單字：",
           "audio": "pumpkin",
           "opts": [
+            "蜘蛛 (spider)",
             "南瓜 (pumpkin)",
             "糖果 (candy)",
-            "蝙蝠 (bat)",
-            "蜘蛛 (spider)"
+            "蝙蝠 (bat)"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "pumpkin (南瓜)",
           "note": "節慶單字聽辨。"
         }
@@ -5823,9 +5823,9 @@
           "audio": "It's an eraser.",
           "opts": [
             "橡皮擦 (eraser)",
-            "直尺 (ruler)",
+            "原子筆 (pen)",
             "鉛筆 (pencil)",
-            "原子筆 (pen)"
+            "直尺 (ruler)"
           ],
           "ans": 0,
           "trans": "It's an eraser. (它是一塊橡皮擦。)",
@@ -5833,27 +5833,27 @@
         },
         {
           "q": "【期末考聽力真題 Track 10】請聽音檔對話，選出對話中提到的顏色：",
-          "audio": "A: What color is it? B: It's blue.",
+          "audio": "What color is it? It is blue.",
           "opts": [
-            "藍色 (blue)",
-            "黑色 (black)",
+            "黃色 (yellow)",
             "綠色 (green)",
-            "黃色 (yellow)"
+            "藍色 (blue)",
+            "黑色 (black)"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "A: 它是什麼顏色？ B: 它是藍色的。",
           "note": "期末考 B 卷 Track 10 原題：辨析 It's blue。"
         },
         {
           "q": "【期末考聽力真題 Track 12】請聽問答，選出男子手中拿著的文具：",
-          "audio": "A: What's this? B: It's a ruler.",
+          "audio": "What is this? It is a ruler.",
           "opts": [
-            "直尺 (ruler)",
+            "彩色筆 (marker)",
             "橡皮擦 (eraser)",
             "書本 (book)",
-            "彩色筆 (marker)"
+            "直尺 (ruler)"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "A: 這是什麼？ B: 它是一把尺。",
           "note": "期末考 C 卷 Track 12 原題。"
         },
@@ -5861,12 +5861,12 @@
           "q": "【期末考聽力真題 Track 12】請聽對話，選出物品名稱與顏色：",
           "audio": "This is a pencil. It's yellow.",
           "opts": [
-            "黃色的鉛筆 (yellow pencil)",
-            "黑色的書包 (black bag)",
             "紅色的書本 (red book)",
-            "綠色的直尺 (green ruler)"
+            "黃色的鉛筆 (yellow pencil)",
+            "綠色的直尺 (green ruler)",
+            "黑色的書包 (black bag)"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "這是一枝鉛筆。它是黃色的。",
           "note": "期末考 C 卷 Track 12 Part B 原題。"
         },
@@ -5875,9 +5875,9 @@
           "audio": "vest",
           "opts": [
             "vest (背心)",
-            "zebra (斑馬)",
             "watch (手錶)",
-            "rabbit (兔子)"
+            "rabbit (兔子)",
+            "zebra (斑馬)"
           ],
           "ans": 0,
           "trans": "vest 開頭是 v [v]",
@@ -5887,12 +5887,12 @@
           "q": "【期末考聽力真題 Track 11】請聽自然發音代表字，選出開頭字母是 z 的單字：",
           "audio": "zebra",
           "opts": [
+            "pink (粉紅色)",
             "zebra (斑馬)",
             "yogurt (優格)",
-            "pink (粉紅色)",
             "watch (手錶)"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "zebra 開頭是 z [z]",
           "note": "期末考 C 卷 Track 11 原題。"
         },
@@ -5900,25 +5900,25 @@
           "q": "【期末考聽力真題 Track 08】請聽句子，選出正確的顏色：",
           "audio": "It's red.",
           "opts": [
+            "綠色 (green)",
             "紅色 (red)",
             "藍色 (blue)",
-            "綠色 (green)",
             "黑色 (black)"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "It's red. (它是紅色的。)",
           "note": "期末考 A 卷 Track 08 原題。"
         },
         {
           "q": "【期末考聽力真題 Track 10】請聽對話，選出回答的文具：",
-          "audio": "A: What's that? B: It's a book.",
+          "audio": "What is that? It is a book.",
           "opts": [
-            "書本 (book)",
-            "尺 (ruler)",
+            "鉛筆 (pencil)",
             "彩色筆 (marker)",
-            "鉛筆 (pencil)"
+            "尺 (ruler)",
+            "書本 (book)"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "A: 那是什麼？ B: 它是一本書。",
           "note": "期末考 B 卷 Track 10 原題。"
         },
@@ -5928,8 +5928,8 @@
           "opts": [
             "Thanks!",
             "I'm fine.",
-            "Good night.",
-            "Line up."
+            "Line up.",
+            "Good night."
           ],
           "ans": 0,
           "trans": "做得好！ ➔ 謝謝！",
@@ -5940,9 +5940,9 @@
           "audio": "I'm Mandy. I'm seven.",
           "opts": [
             "seven (7歲)",
+            "six (6歲)",
             "eight (8歲)",
-            "nine (9歲)",
-            "six (6歲)"
+            "nine (9歲)"
           ],
           "ans": 0,
           "trans": "女孩說：I'm Mandy. I'm seven. (我七歲)",
@@ -5953,9 +5953,9 @@
           "audio": "Good morning.",
           "opts": [
             "Good morning.",
-            "Good afternoon.",
             "Good job!",
-            "Goodbye."
+            "Goodbye.",
+            "Good afternoon."
           ],
           "ans": 0,
           "trans": "Good morning. (早安)",
@@ -5965,12 +5965,12 @@
           "q": "【期末考聽力真題 Track 23】請聽音檔，選出說話者手中的物品：",
           "audio": "It's a marker.",
           "opts": [
-            "彩色筆 (marker)",
-            "原子筆 (pen)",
             "直尺 (ruler)",
-            "橡皮擦 (eraser)"
+            "原子筆 (pen)",
+            "橡皮擦 (eraser)",
+            "彩色筆 (marker)"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "It's a marker. (它是一枝彩色筆)",
           "note": "U3 B 卷 Track 23 原題。"
         },
@@ -5979,8 +5979,8 @@
           "opts": [
             "an",
             "a",
-            "two",
-            "the a"
+            "the a",
+            "two"
           ],
           "ans": 0,
           "trans": "It is an eraser on the desk.",
@@ -5989,120 +5989,120 @@
         {
           "q": "Look at the chair! It is ________ ruler.",
           "opts": [
-            "a",
+            "the an",
             "an",
-            "two",
-            "the an"
+            "a",
+            "two"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "It is a ruler.",
           "note": "ruler 子音開頭，使用 a ruler。"
         },
         {
           "q": "單字 'box' (盒子) 變成兩個時，複數規則正確寫法是：",
           "opts": [
-            "boxes",
             "boxs",
-            "boxies",
-            "boxen"
+            "boxen",
+            "boxes",
+            "boxies"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "two boxes (以 x 結尾加 -es)",
           "note": "字尾 s, x, ch, sh 的名詞複數加 -es！"
         },
         {
           "q": "單字 'bus' (公車) 變成複數時，正確寫法是：",
           "opts": [
+            "bus's",
             "buses",
             "buss",
-            "bus's",
             "busies"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "buses (以 s 結尾加 -es)",
           "note": "字尾 s 複數加 -es。"
         },
         {
           "q": "手指著「遠處」的物品詢問「那是什麼？」應說：",
           "opts": [
-            "What's that?",
             "What's this?",
-            "What color is it?",
-            "How are you?"
+            "How are you?",
+            "What's that?",
+            "What color is it?"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "What's that? (那是什麼？)",
           "note": "遠處用 that，近處用 this。"
         },
         {
           "q": "手指著「近處身邊」的物品詢問「這是什麼？」應說：",
           "opts": [
-            "What's this?",
             "What's that?",
-            "What's your name?",
-            "How old are you?"
+            "What's this?",
+            "How old are you?",
+            "What's your name?"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "What's this? (這是什麼？)",
           "note": "近處用 this。"
         },
         {
           "q": "A: 'Is this your pencil?' B: 'Yes, ________.'",
           "opts": [
-            "it is",
             "this is",
+            "I am",
             "that is",
-            "I am"
+            "it is"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "Yes, it is. (是的，它是。)",
           "note": "以 Is this 提問，簡答代名詞回歸 it！"
         },
         {
           "q": "A: 'Is that an eraser?' B: 'No, ________.'",
           "opts": [
+            "it is",
             "it isn't",
             "that isn't",
-            "this is",
-            "it is"
+            "this is"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "No, it isn't. (不，它不是。)",
           "note": "否定簡答用 No, it isn't。"
         },
         {
           "q": "【書籍構造 Parts of a Book】：英文書本最外面的那一面「封面」叫做：",
           "opts": [
-            "Cover",
             "Page",
-            "Title",
-            "Author"
+            "Cover",
+            "Author",
+            "Title"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "Cover = 封面",
           "note": "課本素養專題：Cover 是封面，Title 是書名，Author 是作者。"
         },
         {
           "q": "【書籍構造 Parts of a Book】：寫出這本書的「作者」英文是：",
           "opts": [
-            "Author",
-            "Cover",
+            "Title",
             "Page",
-            "Title"
+            "Cover",
+            "Author"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "Author = 作者",
           "note": "Author 代表作者。"
         },
         {
           "q": "文具複數：我有三枝鉛筆，英文應該寫作：",
           "opts": [
-            "three pencils",
             "three pencil",
             "three a pencil",
+            "three pencils",
             "three an pencil"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "three pencils (大於 1 加 s)",
           "note": "名詞大於 1 加 s，不可再加 a。"
         },
@@ -6110,9 +6110,9 @@
           "q": "桌上有四本課本，英文應該說：",
           "opts": [
             "four books",
-            "four book",
+            "four bookes",
             "four a book",
-            "four bookes"
+            "four book"
           ],
           "ans": 0,
           "trans": "four books",
@@ -6121,12 +6121,12 @@
         {
           "q": "A: 'What's that?' B: '________ a marker.'",
           "opts": [
-            "It's",
+            "This",
             "It",
-            "Is",
-            "This"
+            "It's",
+            "Is"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "It's a marker.",
           "note": "答句完整結構 It's a..."
         },
@@ -6134,8 +6134,8 @@
           "q": "把書本合起來的英文課室指令是：",
           "opts": [
             "Close your book.",
-            "Open your book.",
             "Clean your desk.",
+            "Open your book.",
             "Sit down."
           ],
           "ans": 0,
@@ -6145,48 +6145,48 @@
         {
           "q": "把書本打開的英文課室指令是：",
           "opts": [
-            "Open your book.",
-            "Close your book.",
             "Stand up.",
-            "Line up."
+            "Line up.",
+            "Close your book.",
+            "Open your book."
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "Open your book. (打開書本)",
           "note": "open = 打開。"
         },
         {
           "q": "單字 'fox' (狐狸) 的複數形式是：",
           "opts": [
-            "foxes",
-            "foxs",
             "foxies",
-            "foxen"
+            "foxen",
+            "foxes",
+            "foxs"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "foxes (以 x 結尾加 -es)",
           "note": "字尾 x 加 -es。"
         },
         {
           "q": "下列哪一個單字前面「必須使用 an」？",
           "opts": [
-            "eraser",
+            "book",
             "ruler",
-            "pencil",
-            "book"
+            "eraser",
+            "pencil"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "an eraser (母音開頭)",
           "note": "eraser 母音開頭用 an。"
         },
         {
           "q": "下列哪一個單字前面「不可加 an」？",
           "opts": [
-            "pen",
-            "eraser",
             "apple",
-            "egg"
+            "egg",
+            "eraser",
+            "pen"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "a pen (子音開頭用 a)",
           "note": "pen 是子音開頭，使用 a pen。"
         },
@@ -6194,8 +6194,8 @@
           "q": "【段考高頻文法陷阱】A: 'What color is the bag?' B: 'It's ________.'",
           "opts": [
             "black",
-            "a black",
             "an black",
+            "a black",
             "two black"
           ],
           "ans": 0,
@@ -6217,36 +6217,36 @@
         {
           "q": "【調色魔法 I Spy Colors】：Yellow (黃) + Blue (藍) = ________",
           "opts": [
-            "Green (綠色)",
             "Red (紅色)",
+            "Orange (橘色)",
             "Purple (紫色)",
-            "Orange (橘色)"
+            "Green (綠色)"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "黃色 ＋ 藍色 ＝ 綠色 (Green)",
           "note": "色彩三原色調色常識！"
         },
         {
           "q": "【調色魔法 I Spy Colors】：Red (紅) + Yellow (黃) = ________",
           "opts": [
-            "Orange (橘色)",
-            "Green (綠色)",
             "Purple (紫色)",
+            "Green (綠色)",
+            "Orange (橘色)",
             "Blue (藍色)"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "紅色 ＋ 黃色 ＝ 橘色 (Orange)",
           "note": "紅配黃為橘色。"
         },
         {
           "q": "【調色魔法 I Spy Colors】：Red (紅) + Blue (藍) = ________",
           "opts": [
+            "Yellow (黃色)",
             "Purple (紫色)",
-            "Green (綠色)",
             "Orange (橘色)",
-            "Yellow (黃色)"
+            "Green (綠色)"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "紅色 ＋ 藍色 ＝ 紫色 (Purple)",
           "note": "紅配藍為紫色。"
         },
@@ -6265,48 +6265,48 @@
         {
           "q": "Teddy 找到書包開心地說：「It's black. That's my ________!」",
           "opts": [
-            "bag",
             "pencil",
             "eraser",
+            "bag",
             "dog"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "它是黑色的。那是我的書包！",
           "note": "課本 Story Time 經典對白。"
         },
         {
           "q": "下午 2:00 在圖書館遇見同學，打招呼應該說：",
           "opts": [
-            "Good afternoon.",
-            "Good morning.",
             "Good night.",
-            "Good job!"
+            "Good morning.",
+            "Good job!",
+            "Good afternoon."
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "Good afternoon. (午安)",
           "note": "下午時段使用 Good afternoon。"
         },
         {
           "q": "早晨 7:30 在校門口遇見老師，打招呼應該說：",
           "opts": [
-            "Good morning.",
             "Good afternoon.",
             "Good night.",
+            "Good morning.",
             "Goodbye."
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "Good morning. (早安)",
           "note": "早晨使用 Good morning。"
         },
         {
           "q": "單字 'umbrella' (雨傘) 前面加上單數冠詞，正確寫法是：",
           "opts": [
+            "the a umbrella",
             "an umbrella",
-            "a umbrella",
             "two umbrella",
-            "the a umbrella"
+            "a umbrella"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "an umbrella (母音 u 開頭用 an)",
           "note": "umbrella 是母音 u 開頭，接 an。"
         },
@@ -6314,8 +6314,8 @@
           "q": "晴朗無雲的白天，天空通常呈現：",
           "opts": [
             "blue (藍色)",
-            "red (紅色)",
             "black (黑色)",
+            "red (紅色)",
             "yellow (黃色)"
           ],
           "ans": 0,
@@ -6325,24 +6325,24 @@
         {
           "q": "看提示：【背心 🎽】的字首發音字母是：",
           "opts": [
-            "v",
             "w",
+            "v",
             "f",
             "b"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "vest 字首為 v [v]",
           "note": "自然發音 v 的發音辨識。"
         },
         {
           "q": "看提示：【窗戶 🪟】和【手錶 ⌚】的開頭字母是：",
           "opts": [
-            "w",
             "v",
+            "w",
             "u",
             "m"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "window 與 watch 字首皆為 w [w]",
           "note": "自然發音 w 的代表字。"
         },
@@ -6361,12 +6361,12 @@
         {
           "q": "萬聖節小朋友敲門要糖果時，大喊的經典口號是：",
           "opts": [
-            "Trick or treat!",
+            "Good job!",
             "Trick and treat!",
-            "Happy Birthday!",
-            "Good job!"
+            "Trick or treat!",
+            "Happy Birthday!"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "Trick or treat! (不給糖就搗蛋！)",
           "note": "注意中間是 or 不是 and！"
         },
@@ -6374,9 +6374,9 @@
           "q": "萬聖節主人給小朋友糖果時，會熱情祝賀：",
           "opts": [
             "Happy Halloween!",
-            "Merry Christmas!",
             "Happy Birthday!",
-            "Good morning!"
+            "Good morning!",
+            "Merry Christmas!"
           ],
           "ans": 0,
           "trans": "Happy Halloween! (萬聖節快樂！)",
@@ -6385,12 +6385,12 @@
         {
           "q": "單字 'witch' (女巫) 變成複數 (多位女巫) 時應寫作：",
           "opts": [
-            "witches",
-            "witchs",
             "witchies",
-            "witchen"
+            "witches",
+            "witchen",
+            "witchs"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "witches (以 ch 結尾加 -es)",
           "note": "字尾 ch 複數加 -es。"
         },
@@ -6399,8 +6399,8 @@
           "opts": [
             "pumpkin lantern",
             "candy box",
-            "black cat",
-            "apple pie"
+            "apple pie",
+            "black cat"
           ],
           "ans": 0,
           "trans": "pumpkin lantern (南瓜燈)",
@@ -6409,144 +6409,144 @@
         {
           "q": "穿著黑色斗篷、露出尖牙的吸血鬼英文是：",
           "opts": [
-            "a vampire",
-            "a witch",
+            "a spider",
             "a ghost",
-            "a spider"
+            "a witch",
+            "a vampire"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "vampire = 吸血鬼",
           "note": "節慶單字。"
         },
         {
           "q": "飄在空中、發出 Boo! 叫聲的幽靈英文是：",
           "opts": [
-            "a ghost",
-            "a pumpkin",
             "a witch",
-            "a dog"
+            "a dog",
+            "a ghost",
+            "a pumpkin"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "ghost = 幽靈",
           "note": "節慶單字。"
         },
         {
           "q": "Teddy 在萬聖節變裝成南瓜，他說：「Look, I'm ________ pumpkin!」",
           "opts": [
-            "a",
             "an",
+            "the a",
             "two",
-            "the a"
+            "a"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "Look, I'm a pumpkin!",
           "note": "pumpkin 子音開頭用 a。"
         },
         {
           "q": "八隻腳會織網的蜘蛛英文是：",
           "opts": [
-            "a spider",
-            "a bat",
             "a ghost",
-            "a cat"
+            "a bat",
+            "a cat",
+            "a spider"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "spider = 蜘蛛",
           "note": "節慶單字。"
         },
         {
           "q": "小朋友在萬聖節最喜歡拿到的甜食是：",
           "opts": [
-            "candy",
-            "ruler",
+            "eraser",
             "pencil",
-            "eraser"
+            "candy",
+            "ruler"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "candy = 糖果",
           "note": "Trick or treat, give me candy!"
         },
         {
           "q": "在萬聖節扮演女巫，英文自我介紹應說：",
           "opts": [
-            "I'm a witch.",
             "I'm an witch.",
+            "My name is witch.",
             "I'm a witches.",
-            "My name is witch."
+            "I'm a witch."
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "I'm a witch. (我是一個女巫。)",
           "note": "witch 子音開頭用 a。"
         },
         {
           "q": "【期中回顧真題】別人對你說 Thank you very much!，最禮貌的回應是：",
           "opts": [
-            "You're welcome.",
-            "Your welcome.",
             "I'm fine.",
-            "Good job."
+            "Good job.",
+            "You're welcome.",
+            "Your welcome."
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "You're welcome. (不客氣)",
           "note": "全冊最高頻陷阱：You're ⭕ vs. Your ❌！"
         },
         {
           "q": "【期中回顧真題】問對方你的名字，空格應填入：What's ________ name?",
           "opts": [
+            "my",
             "your",
-            "you're",
             "you",
-            "my"
+            "you're"
           ],
-          "ans": 0,
+          "ans": 1,
           "trans": "What's your name? (你的名字是什麼？)",
           "note": "所有格使用 your！"
         },
         {
           "q": "【期中回顧真題】A: 'How are you?' B: '________' (看清楚有沒有 old！)",
           "opts": [
-            "I'm fine, thank you.",
             "I'm eight years old.",
-            "My name is Leo.",
-            "Yes, it is."
+            "Yes, it is.",
+            "I'm fine, thank you.",
+            "My name is Leo."
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "I'm fine, thank you. (我很好，謝謝你。)",
           "note": "How are you 問近況，不是問年齡！"
         },
         {
           "q": "【期中回顧真題】A: 'How old are you?' B: '________'",
           "opts": [
-            "I am eight years old.",
             "I'm fine, thank you.",
-            "My name is Mia.",
-            "It's blue."
+            "It's blue.",
+            "I am eight years old.",
+            "My name is Mia."
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "I am eight years old. (我八歲。)",
           "note": "How old 問年齡！超過 1 歲加 s。"
         },
         {
           "q": "【期中回顧真題】小明借書證號碼是 123，英文報讀應為：",
           "opts": [
-            "One-two-three",
             "Ten-twenty-three",
             "First-second-third",
-            "Three-two-one"
+            "Three-two-one",
+            "One-two-three"
           ],
-          "ans": 0,
+          "ans": 3,
           "trans": "One-two-three (獨立報讀)",
           "note": "卡號每個數字分開唸。"
         },
         {
           "q": "【期中回顧真題】售票亭票價：大人 NT$30、小孩 NT$15。8歲小明和媽媽一起買票要付多少元？",
           "opts": [
-            "NT$45",
+            "NT$60",
             "NT$30",
-            "NT$35",
-            "NT$60"
+            "NT$45",
+            "NT$35"
           ],
-          "ans": 0,
+          "ans": 2,
           "trans": "小孩 15 + 大人 30 = 45 元",
           "note": "跨領域生活算術素養題。"
         }
@@ -7352,12 +7352,12 @@
       "unit": "u3",
       "q": "Look at the desk! It is ____ eraser.",
       "opts": [
-        "an",
-        "a",
         "two",
-        "the a"
+        "a",
+        "the a",
+        "an"
       ],
-      "ans": 0,
+      "ans": 3,
       "type": "冠詞 a/an",
       "trans": "It is an eraser. (它是一塊橡皮擦。)",
       "note": "eraser 為短母音 /e/ 開頭發音，不定冠詞必須使用 an！"
@@ -7366,12 +7366,12 @@
       "unit": "u3",
       "q": "I have ____ ruler in my pencil case.",
       "opts": [
-        "a",
-        "an",
+        "the an",
         "two",
-        "the an"
+        "a",
+        "an"
       ],
-      "ans": 0,
+      "ans": 2,
       "type": "冠詞 a/an",
       "trans": "I have a ruler. (我有一把尺。)",
       "note": "ruler 為子音 /r/ 開頭，前面使用不定冠詞 a。"
@@ -7380,12 +7380,12 @@
       "unit": "u3",
       "q": "Look! There is ____ yellow pencil on the chair.",
       "opts": [
-        "a",
         "an",
+        "the an",
         "two",
-        "the an"
+        "a"
       ],
-      "ans": 0,
+      "ans": 3,
       "type": "冠詞 a/an",
       "trans": "a yellow pencil (一枝黃色鉛筆)",
       "note": "yellow 為子音 /j/ 開頭發音，使用冠詞 a。"
@@ -7394,12 +7394,12 @@
       "unit": "starter",
       "q": "My mom eats ____ apple every morning.",
       "opts": [
-        "an",
         "a",
         "two",
+        "an",
         "an a"
       ],
-      "ans": 0,
+      "ans": 2,
       "type": "冠詞 a/an",
       "trans": "an apple (一顆蘋果)",
       "note": "apple 為母音 /æ/ 開頭，前面必須接 an！"
@@ -7408,12 +7408,12 @@
       "unit": "starter",
       "q": "There is ____ egg in the small nest.",
       "opts": [
-        "an",
         "a",
         "two",
-        "the an"
+        "the an",
+        "an"
       ],
-      "ans": 0,
+      "ans": 3,
       "type": "冠詞 a/an",
       "trans": "an egg (一顆雞蛋)",
       "note": "egg 為母音 /e/ 開頭，前面接 an。"
@@ -7422,12 +7422,12 @@
       "unit": "starter",
       "q": "Look at that big animal! It is ____ elephant.",
       "opts": [
-        "an",
         "a",
+        "the a",
         "two",
-        "the a"
+        "an"
       ],
-      "ans": 0,
+      "ans": 3,
       "type": "冠詞 a/an",
       "trans": "an elephant (一隻大象)",
       "note": "elephant 為母音 /e/ 開頭，前面接 an。"
@@ -7436,12 +7436,12 @@
       "unit": "u1",
       "q": "I see ____ tiny insect on the green leaf.",
       "opts": [
-        "an",
-        "a",
         "two",
+        "a",
+        "an",
         "the a"
       ],
-      "ans": 0,
+      "ans": 2,
       "type": "冠詞 a/an",
       "trans": "an insect (一隻昆蟲)",
       "note": "insect 為母音 /ɪ/ 開頭，前面接 an。"
@@ -7450,12 +7450,12 @@
       "unit": "u1",
       "q": "The teacher needs ____ ink bottle.",
       "opts": [
-        "an",
         "a",
-        "two",
-        "the an"
+        "the an",
+        "an",
+        "two"
       ],
-      "ans": 0,
+      "ans": 2,
       "type": "冠詞 a/an",
       "trans": "an ink bottle (一瓶墨水)",
       "note": "ink 為母音 /ɪ/ 開頭，前面接 an。"
@@ -7464,26 +7464,26 @@
       "unit": "u2",
       "q": "Look at the farm! There is ____ strong ox.",
       "opts": [
+        "two",
         "an",
         "a",
-        "two",
         "the a"
       ],
-      "ans": 0,
+      "ans": 2,
       "type": "冠詞 a/an",
-      "trans": "an ox (一隻公牛)",
-      "note": "ox 為母音 /ɑ/ 開頭，前面接 an。"
+      "trans": "a strong ox (一隻強壯的公牛)",
+      "note": "雖然 ox 是母音開頭，但空格緊接著的形容詞 strong 是子音 /str/ 開頭，因此必須搭配冠詞「a」！(a strong ox)"
     },
     {
       "unit": "u2",
       "q": "In the river, we can see ____ cute otter.",
       "opts": [
-        "an",
-        "a",
         "two",
-        "the a"
+        "the a",
+        "an",
+        "a"
       ],
-      "ans": 0,
+      "ans": 2,
       "type": "冠詞 a/an",
       "trans": "an otter (一隻水獺)",
       "note": "otter 為母音 /ɑ/ 開頭，前面接 an。"
@@ -7492,12 +7492,12 @@
       "unit": "u4",
       "q": "It's raining outside. Take ____ umbrella with you.",
       "opts": [
-        "an",
-        "a",
         "two",
-        "the a"
+        "a",
+        "the a",
+        "an"
       ],
-      "ans": 0,
+      "ans": 3,
       "type": "冠詞 a/an",
       "trans": "an umbrella (一把雨傘)",
       "note": "umbrella 為母音 /ʌ/ 開頭，前面接 an。"
@@ -7506,12 +7506,12 @@
       "unit": "halloween",
       "q": "In the castle, there lives ____ old witch.",
       "opts": [
-        "an",
-        "a",
+        "the a",
         "two",
-        "the a"
+        "a",
+        "an"
       ],
-      "ans": 0,
+      "ans": 3,
       "type": "冠詞 a/an",
       "trans": "an old witch (一位老女巫)",
       "note": "old 為母音 /oʊ/ 開頭，前面接 an！"
@@ -7520,12 +7520,12 @@
       "unit": "halloween",
       "q": "Look at the window! It is ____ ghost.",
       "opts": [
-        "a",
+        "the an",
         "an",
-        "two",
-        "the an"
+        "a",
+        "two"
       ],
-      "ans": 0,
+      "ans": 2,
       "type": "冠詞 a/an",
       "trans": "a ghost (一隻幽靈)",
       "note": "ghost 為子音 /ɡ/ 開頭，前面接 a。"
@@ -7534,12 +7534,12 @@
       "unit": "halloween",
       "q": "We carve ____ pumpkin for the Halloween party.",
       "opts": [
-        "a",
-        "an",
         "two",
-        "the an"
+        "the an",
+        "an",
+        "a"
       ],
-      "ans": 0,
+      "ans": 3,
       "type": "冠詞 a/an",
       "trans": "a pumpkin (一顆南瓜)",
       "note": "pumpkin 為子音 /p/ 開頭，接 a。"
@@ -7550,8 +7550,8 @@
       "opts": [
         "red",
         "a red",
-        "an red",
-        "reds"
+        "reds",
+        "an red"
       ],
       "ans": 0,
       "type": "顏色形容詞",
@@ -7562,12 +7562,12 @@
       "unit": "u4",
       "q": "A: What color is the sky? B: It is ____.",
       "opts": [
+        "the a blue",
         "blue",
-        "a blue",
         "an blue",
-        "the a blue"
+        "a blue"
       ],
-      "ans": 0,
+      "ans": 1,
       "type": "顏色形容詞",
       "trans": "It is blue. (它是藍色的。)",
       "note": "顏色形容詞不加 a/an。"
@@ -7576,12 +7576,12 @@
       "unit": "u4",
       "q": "A: What color is snow? B: It is ____.",
       "opts": [
-        "white",
         "a white",
+        "whites",
         "an white",
-        "whites"
+        "white"
       ],
-      "ans": 0,
+      "ans": 3,
       "type": "顏色形容詞",
       "trans": "It is white. (它是白色的。)",
       "note": "顏色形容詞單獨使用不可加 a 或 an。"
@@ -7590,12 +7590,12 @@
       "unit": "u4",
       "q": "A: What color is your marker? B: It is ____.",
       "opts": [
-        "black",
         "a black",
-        "an black",
-        "two black"
+        "two black",
+        "black",
+        "an black"
       ],
-      "ans": 0,
+      "ans": 2,
       "type": "顏色形容詞",
       "trans": "It is black. (它是黑色的。)",
       "note": "單獨回答顏色，嚴禁加 a！"
@@ -7604,12 +7604,12 @@
       "unit": "u4",
       "q": "Look at the apple on the desk! It is a ____ apple.",
       "opts": [
-        "red",
-        "a red",
+        "reds",
         "an red",
-        "reds"
+        "a red",
+        "red"
       ],
-      "ans": 0,
+      "ans": 3,
       "type": "顏色與名詞",
       "trans": "a red apple (一顆紅蘋果)",
       "note": "已有冠詞 a，中間填入顏色形容詞 red 即可。"
@@ -7633,9 +7633,9 @@
       "q": "A: What's ____ name? B: My name is Edison.",
       "opts": [
         "your",
-        "you're",
         "you",
-        "my"
+        "my",
+        "you're"
       ],
       "ans": 0,
       "type": "所有格辨析",
@@ -7647,9 +7647,9 @@
       "q": "A: Hello! I'm Leo. What's ____ name?",
       "opts": [
         "your",
-        "you're",
+        "she",
         "you",
-        "she"
+        "you're"
       ],
       "ans": 0,
       "type": "所有格辨析",
@@ -7660,12 +7660,12 @@
       "unit": "u1",
       "q": "A: Hello, Mia! ____ nice to meet you.",
       "opts": [
-        "It's",
         "Its",
+        "Is",
         "It",
-        "Is"
+        "It's"
       ],
-      "ans": 0,
+      "ans": 3,
       "type": "代名詞縮寫",
       "trans": "It's nice to meet you.",
       "note": "It's 是 It is 的縮寫。Its 是所有格(它的)。"
@@ -7674,12 +7674,12 @@
       "unit": "u2",
       "q": "A: Thank you very much! B: ____ welcome.",
       "opts": [
-        "You're",
-        "Your",
         "You",
-        "I'm"
+        "I'm",
+        "You're",
+        "Your"
       ],
-      "ans": 0,
+      "ans": 2,
       "type": "生活禮貌文法",
       "trans": "You're welcome. (不客氣。)",
       "note": "段考最高頻陷阱：You're (You are 縮寫) ⭕ vs. Your (所有格) ❌！"
@@ -7688,12 +7688,12 @@
       "unit": "u2",
       "q": "A: How old are you? B: ____ eight years old.",
       "opts": [
+        "I",
         "I'm",
         "My",
-        "I",
         "Mine"
       ],
-      "ans": 0,
+      "ans": 1,
       "type": "人稱代名詞",
       "trans": "I'm eight years old. (我八歲。)",
       "note": "主詞 + be動詞縮寫 I'm。"
@@ -7702,12 +7702,12 @@
       "unit": "u3",
       "q": "A: Is this ____ pencil? B: Yes, it is my pencil.",
       "opts": [
-        "your",
         "you're",
-        "you",
-        "she"
+        "she",
+        "your",
+        "you"
       ],
-      "ans": 0,
+      "ans": 2,
       "type": "所有格辨析",
       "trans": "Is this your pencil? (這是你的鉛筆嗎？)",
       "note": "名詞 pencil 前面使用所有格 your。"
@@ -7716,12 +7716,12 @@
       "unit": "u3",
       "q": "A: Is that an eraser? B: No, it is not ____ eraser.",
       "opts": [
-        "my",
-        "I'm",
+        "I",
         "me",
-        "I"
+        "I'm",
+        "my"
       ],
-      "ans": 0,
+      "ans": 3,
       "type": "所有格辨析",
       "trans": "not my eraser (不是我的橡皮擦)",
       "note": "表示「我的」使用所有格 my。"
@@ -7730,12 +7730,12 @@
       "unit": "u3",
       "q": "I have one box, but Tom has two ____.",
       "opts": [
-        "boxes",
         "boxs",
-        "boxies",
-        "boxen"
+        "boxen",
+        "boxes",
+        "boxies"
       ],
-      "ans": 0,
+      "ans": 2,
       "type": "名詞複數 -es",
       "trans": "two boxes (兩個盒子)",
       "note": "名詞字尾為 x，複數必須加 -es！"
@@ -7744,12 +7744,12 @@
       "unit": "u3",
       "q": "Look at the road! Three yellow ____ are coming.",
       "opts": [
-        "buses",
+        "busies",
         "buss",
-        "bus's",
-        "busies"
+        "buses",
+        "bus's"
       ],
-      "ans": 0,
+      "ans": 2,
       "type": "名詞複數 -es",
       "trans": "three buses (三台公車)",
       "note": "名詞字尾為 s，複數必須加 -es！"
@@ -7772,12 +7772,12 @@
       "unit": "u4",
       "q": "In the forest, we saw two red ____.",
       "opts": [
-        "foxes",
-        "foxs",
         "foxies",
-        "foxen"
+        "foxes",
+        "foxen",
+        "foxs"
       ],
-      "ans": 0,
+      "ans": 1,
       "type": "名詞複數 -es",
       "trans": "two foxes (兩隻狐狸)",
       "note": "名詞字尾為 x，複數加 -es！"
@@ -7787,9 +7787,9 @@
       "q": "Amber has five ____ on her desk.",
       "opts": [
         "pencils",
-        "pencil",
+        "penciles",
         "pencil's",
-        "penciles"
+        "pencil"
       ],
       "ans": 0,
       "type": "規則複數 -s",
@@ -7814,12 +7814,12 @@
       "unit": "u2",
       "q": "Leo is nine ____ old this year.",
       "opts": [
-        "years",
         "year",
-        "year's",
-        "yeares"
+        "yeares",
+        "years",
+        "year's"
       ],
-      "ans": 0,
+      "ans": 2,
       "type": "單複數數值",
       "trans": "nine years old (九歲)",
       "note": "大於 1 歲名詞 year 必須加 s！"
@@ -7828,12 +7828,12 @@
       "unit": "u3",
       "q": "A: Is this your ruler? B: Yes, ____.",
       "opts": [
-        "it is",
         "this is",
         "that is",
+        "it is",
         "I am"
       ],
-      "ans": 0,
+      "ans": 2,
       "type": "代名詞簡答",
       "trans": "Yes, it is. (是的，它是。)",
       "note": "以 Is this 或 Is that 提問，簡答代名詞一律回歸 it！"
@@ -7842,12 +7842,12 @@
       "unit": "u3",
       "q": "A: Is that an eraser? B: No, ____.",
       "opts": [
-        "it isn't",
         "that isn't",
         "this isn't",
-        "I'm not"
+        "I'm not",
+        "it isn't"
       ],
-      "ans": 0,
+      "ans": 3,
       "type": "代名詞簡答",
       "trans": "No, it isn't. (不，它不是。)",
       "note": "否定簡答代名詞回歸 it isn't。"
@@ -7856,15 +7856,147 @@
       "unit": "midterm",
       "q": "She ____ an eraser and two pencils.",
       "opts": [
-        "has",
         "have",
+        "has",
         "is",
         "are"
       ],
-      "ans": 0,
+      "ans": 1,
       "type": "主詞動詞一致性",
       "trans": "She has an eraser... (她有一塊橡皮擦...)",
       "note": "主詞為第三人稱單數 She，動詞「有」必須使用 has！"
+    }
+  ],
+  "phonics_exam_pool": [
+    {
+      "unit": "starter",
+      "q": "自然發音看圖填空：小貓圖片【 🐱 】，單字為「c __ t」，空格應填入哪一個字母？",
+      "opts": [
+        "e",
+        "o",
+        "a",
+        "i"
+      ],
+      "ans": 2,
+      "trans": "cat (貓咪)",
+      "note": "短母音 a：c-a-t。"
+    },
+    {
+      "unit": "starter",
+      "q": "自然發音填空：狗狗圖片【 🐕 】，單字為「d __ g」，空格應填入哪一個字母？",
+      "opts": [
+        "a",
+        "o",
+        "u",
+        "e"
+      ],
+      "ans": 1,
+      "trans": "dog (狗狗)",
+      "note": "短母音 o：d-o-g。"
+    },
+    {
+      "unit": "starter",
+      "q": "自然發音填空：床鋪圖片【 🛏️ 】，單字為「b __ d」，空格應填入哪一個字母？",
+      "opts": [
+        "a",
+        "u",
+        "i",
+        "e"
+      ],
+      "ans": 3,
+      "trans": "bed (床鋪)",
+      "note": "短母音 e：b-e-d。"
+    },
+    {
+      "unit": "starter",
+      "q": "自然發音填空：小豬圖片【 🐷 】，單字為「p __ g」，空格應填入哪一個字母？",
+      "opts": [
+        "o",
+        "a",
+        "i",
+        "e"
+      ],
+      "ans": 2,
+      "trans": "pig (小豬)",
+      "note": "短母音 i：p-i-g。"
+    },
+    {
+      "unit": "starter",
+      "q": "自然發音填空：太陽圖片【 ☀️ 】，單字為「s __ n」，空格應填入哪一個字母？",
+      "opts": [
+        "o",
+        "u",
+        "e",
+        "a"
+      ],
+      "ans": 1,
+      "trans": "sun (太陽)",
+      "note": "短母音 u：s-u-n。"
+    },
+    {
+      "unit": "u3",
+      "q": "自然發音填空：原子筆圖片【 🖊️ 】，單字為「p __ n」，空格應填入哪一個字母？",
+      "opts": [
+        "u",
+        "e",
+        "i",
+        "a"
+      ],
+      "ans": 1,
+      "trans": "pen (原子筆)",
+      "note": "短母音 e：p-e-n。"
+    },
+    {
+      "unit": "u3",
+      "q": "自然發音填空：書桌圖片【 🪑 】，單字為「d __ sk」，空格應填入哪一個母音字母？",
+      "opts": [
+        "o",
+        "i",
+        "a",
+        "e"
+      ],
+      "ans": 3,
+      "trans": "desk (書桌)",
+      "note": "短母音 e：d-e-s-k。"
+    },
+    {
+      "unit": "u3",
+      "q": "信義國小真題四線格拼寫：蘋果單字「__ pple」，開頭應填入哪一組大小寫字母？",
+      "opts": [
+        "Dd",
+        "Bb",
+        "Aa",
+        "Cc"
+      ],
+      "ans": 2,
+      "trans": "apple (蘋果)",
+      "note": "字母 Aa 代表字 apple。"
+    },
+    {
+      "unit": "u3",
+      "q": "字母順序接龍：請問缺少的字母順序為何？「 c - d - e - [ ? ] 」",
+      "opts": [
+        "f",
+        "g",
+        "h",
+        "b"
+      ],
+      "ans": 0,
+      "trans": "c -> d -> e -> f",
+      "note": "國小段考必考小寫字母接龍。"
+    },
+    {
+      "unit": "u3",
+      "q": "字母大寫接龍：請問缺少的字母順序為何？「 G - H - I - [ ? ] 」",
+      "opts": [
+        "J",
+        "M",
+        "L",
+        "K"
+      ],
+      "ans": 0,
+      "trans": "G -> H -> I -> J",
+      "note": "大寫字母順序。"
     }
   ]
 }
