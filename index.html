@@ -415,39 +415,10 @@
             z-index: 50; backdrop-filter: blur(4px);
         }
         .falling-word-balloon {
-            position: absolute;
-            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
-            color: #ffffff;
-            padding: 8px 18px;
-            border-radius: 24px;
-            text-align: center;
-            white-space: nowrap;
-            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.45);
-            border: 2px solid #fecaca;
+            position: absolute; background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+            color: #fff; padding: 8px 20px; border-radius: 20px; font-size: 18px; font-weight: 900;
+            white-space: nowrap; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
             transition: transform 0.25s, opacity 0.25s, background 0.2s;
-            user-select: none;
-            z-index: 20;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-width: 85px;
-        }
-        .falling-word-balloon .bw-en {
-            font-size: 19px;
-            font-weight: 900;
-            line-height: 1.2;
-            color: #ffffff;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-            letter-spacing: 0.5px;
-        }
-        .falling-word-balloon .bw-zh {
-            font-size: 13.5px;
-            font-weight: 700;
-            line-height: 1.1;
-            color: #fef08a;
-            margin-top: 3px;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
         }
         .falling-word-balloon.popping {
             background: #22c55e !important; transform: translateY(-40px) scale(1.25) !important; opacity: 0 !important;
@@ -1286,14 +1257,11 @@
         return "";
     }
 
-        /* ==================== Web Audio 音效與雙模背景音樂系統 (MP3 + 內建備援) ==================== */
+    /* ==================== Web Audio 音效與放鬆奇幻輕音樂 ==================== */
     const SoundEngine = {
         ctx: null,
         bgmActive: false,
         bgmTimer: null,
-        bgmAudio: null,
-        bgmSource: 'synth', // 'file' 或 'synth'
-
         init() {
             if (!this.ctx) {
                 const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -1338,80 +1306,31 @@
         },
         playPop() { this.playTone(880, 'triangle', 0.09, 0.12); setTimeout(()=>this.playTone(1320, 'sine', 0.15, 0.1), 60); },
 
-        /* 雙模背景音樂：優先播放 assets/bgm.mp3，若未放置或出錯則自動切換為內建輕音樂 */
+        /* 奇幻冒險輕音樂琶音生成 (零外部 MP3，安靜放鬆，無卡頓) */
         startBGM() {
-            this.init();
-            if (this.ctx && this.ctx.state === 'suspended') {
-                this.ctx.resume();
-            }
-
-            const btn = document.getElementById('btn-bgm-toggle');
-
-            // 1. 嘗試播放自訂 MP3 檔
-            if (!this.bgmAudio) {
-                this.bgmAudio = new Audio('assets/bgm.mp3');
-                this.bgmAudio.loop = true;
-                this.bgmAudio.volume = 0.35;
-            }
-
-            const playPromise = this.bgmAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    this.bgmActive = true;
-                    this.bgmSource = 'file';
-                    if (btn) btn.innerText = "🎵 音樂: 開 (MP3)";
-                }).catch(err => {
-                    console.log("未偵測到 assets/bgm.mp3 或載入受限，自動啟動內建輕音樂:", err);
-                    // 2. 自動切換至內建 Web Audio 輕音樂
-                    this.startSynthBGM();
-                });
-            } else {
-                this.startSynthBGM();
-            }
-        },
-
-        /* 內建輕音樂生成（琶音旋律，零外部依賴） */
-        startSynthBGM() {
             this.init();
             if (!this.ctx) return;
             if (this.ctx.state === 'suspended') this.ctx.resume();
             this.bgmActive = true;
-            this.bgmSource = 'synth';
-            const btn = document.getElementById('btn-bgm-toggle');
-            if (btn) btn.innerText = "🎵 音樂: 開 (內建)";
+            document.getElementById('btn-bgm-toggle').innerText = "🎵 音樂: 開";
 
-            if (this.bgmTimer) clearInterval(this.bgmTimer);
             const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
             let noteIdx = 0;
             this.bgmTimer = setInterval(() => {
-                if (!this.bgmActive || this.bgmSource !== 'synth') return;
+                if (!this.bgmActive) return;
                 const f = notes[noteIdx % notes.length];
                 this.playTone(f, 'sine', 0.45, 0.025);
                 noteIdx++;
             }, 600);
         },
-
-        /* 停止背景音樂 */
         stopBGM() {
             this.bgmActive = false;
-            if (this.bgmAudio) {
-                this.bgmAudio.pause();
-                this.bgmAudio.currentTime = 0;
-            }
-            if (this.bgmTimer) {
-                clearInterval(this.bgmTimer);
-                this.bgmTimer = null;
-            }
-            const btn = document.getElementById('btn-bgm-toggle');
-            if (btn) btn.innerText = "🎵 音樂: 關";
+            if (this.bgmTimer) { clearInterval(this.bgmTimer); this.bgmTimer = null; }
+            document.getElementById('btn-bgm-toggle').innerText = "🎵 音樂: 關";
         },
-
         toggleBGM() {
-            if (this.bgmActive) {
-                this.stopBGM();
-            } else {
-                this.startBGM();
-            }
+            if (this.bgmActive) this.stopBGM();
+            else this.startBGM();
         }
     };
     function toggleBGM() { SoundEngine.toggleBGM(); }
@@ -1925,7 +1844,7 @@
             document.getElementById('lis-lobby-cover').style.display = 'flex';
             document.getElementById('lis-exam-area').style.display = 'none';
             document.getElementById('listening-progress').innerText = `準備中`;
-            showSettlementCard(`恭喜完成 10 題聽力測驗！得分：${lisScore} 分`, lisCoinsEarned);
+            showSettlementCard(`恭喜完成 10 題聽力測驗！得分：${lisScore
             return;
         }
 
@@ -2858,42 +2777,26 @@
         showSettlementCard(`單字防禦戰結束！防禦得分：${defenseScore} 分`, defenseCoinsEarned);
     }
 
-    function getDefenseVocabPool() {
-        if (typeof ACTIVE_DATA !== 'undefined' && ACTIVE_DATA && Array.isArray(ACTIVE_DATA.vocab) && ACTIVE_DATA.vocab.length > 0) {
-            return ACTIVE_DATA.vocab;
-        }
-        return PURE_DEFENSE_VOCAB;
-    }
-
     function spawnBalloon() {
         if (!defenseActive) return;
-        const pool = getDefenseVocabPool();
-        const w = pool[Math.floor(Math.random() * pool.length)];
+        const w = PURE_DEFENSE_VOCAB[Math.floor(Math.random() * PURE_DEFENSE_VOCAB.length)];
         const container = document.getElementById('defense-words-container');
-        if (!container) return;
-
-        const enWord = (w.en || w.word || '').trim();
-        const zhWord = (w.zh || w.chinese || w.trans || '').trim();
-        if (!enWord) return;
-
+        
         const el = document.createElement('div');
         el.className = 'falling-word-balloon';
-        el.innerHTML = `
-            <div class="bw-en">${enWord}</div>
-            <div class="bw-zh">${zhWord}</div>
-        `;
-
-        const randX = 8 + Math.random() * 74;
+        el.innerText = w.zh;
+        
+        const randX = 10 + Math.random() * 68;
         el.style.left = randX + '%';
-        el.style.top = '25px';
+        el.style.top = '40px';
         container.appendChild(el);
 
         activeBalloons.push({
             el: el,
-            word: { en: enWord, zh: zhWord },
+            word: w,
             x: randX,
-            y: 25,
-            speed: 0.45 + Math.random() * 0.35,
+            y: 40,
+            speed: 0.5 + Math.random() * 0.25,
             popping: false
         });
     }
@@ -2991,7 +2894,7 @@
     function exitChallengePrematurely(type) {
         lastActivePracticePanel = type;
         resetPracticeLobby(type);
-        if (type === 'listening') showSettlementCard(`聽力挑戰結束！得分：${lisScore} 分`, lisCoinsEarned);
+        if (type === 'listening') showSettlementCard(`聽力挑戰結束！得分：${lisScore
         else if (type === 'grammar') showSettlementCard(`文法特訓結束！得分：${grammarScore} 分`, grammarCoinsEarned);
         else if (type === 'spelling') showSettlementCard(`發音積木挑戰結束！`, spellCoinsEarned);
         else if (type === 'scramble') showSettlementCard(`句型重組挑戰結束！`, scrambleCoinsEarned);

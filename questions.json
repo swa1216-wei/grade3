@@ -5,78 +5,67 @@
       "en": "apple",
       "zh": "蘋果",
       "phonics": "短母音 a",
-      "unit": "starter",
       "ex": "It is a red apple."
     },
     {
       "en": "ant",
       "zh": "螞蟻",
       "phonics": "短母音 a",
-      "unit": "starter",
       "ex": "An ant is small."
     },
     {
       "en": "book",
       "zh": "書本",
       "phonics": "短母音 oo",
-      "unit": "u3",
-      "ex": "Open your English book."
+      "ex": "Open your book, please."
     },
     {
       "en": "box",
-      "zh": "盒子/箱子",
-      "phonics": "字母 x",
-      "unit": "starter",
-      "ex": "Open the magic box."
+      "zh": "盒子",
+      "phonics": "短母音 o",
+      "ex": "The pencil is in the box."
     },
     {
       "en": "cat",
       "zh": "貓咪",
-      "phonics": "子音 c",
-      "unit": "starter",
-      "ex": "I see a cute cat."
+      "phonics": "短母音 a",
+      "ex": "The cat is cute and sleeping."
     },
     {
       "en": "cup",
       "zh": "杯子",
-      "phonics": "子音 c",
-      "unit": "starter",
-      "ex": "Here is a cup of water."
+      "phonics": "短母音 u",
+      "ex": "This is a yellow cup."
     },
     {
       "en": "dog",
-      "zh": "小狗",
-      "phonics": "子音 d",
-      "unit": "starter",
-      "ex": "The dog is barking."
+      "zh": "狗狗",
+      "phonics": "短母音 o",
+      "ex": "I have a friendly dog."
     },
     {
       "en": "desk",
       "zh": "書桌",
       "phonics": "短母音 e",
-      "unit": "u3",
-      "ex": "Sit at the desk."
+      "ex": "Put your book on the desk."
     },
     {
       "en": "egg",
       "zh": "雞蛋",
       "phonics": "短母音 e",
-      "unit": "starter",
-      "ex": "I eat an egg every day."
+      "ex": "An egg is in the basket."
     },
     {
       "en": "elephant",
       "zh": "大象",
-      "phonics": "短母音 e",
-      "unit": "starter",
-      "ex": "An elephant has a long trunk."
+      "phonics": "母音 e 開頭",
+      "ex": "Look at the big elephant."
     },
     {
       "en": "fish",
       "zh": "小魚",
-      "phonics": "子音 f",
-      "unit": "starter",
-      "ex": "Fish swim in the sea."
+      "phonics": "短母音 i",
+      "ex": "Fish can swim in the pond."
     },
     {
       "en": "frog",
@@ -88,15 +77,13 @@
       "en": "girl",
       "zh": "女孩",
       "phonics": "子音 g",
-      "unit": "starter",
       "ex": "She is a happy girl."
     },
     {
       "en": "hat",
       "zh": "帽子",
-      "phonics": "子音 h",
-      "unit": "starter",
-      "ex": "Put on your hat."
+      "phonics": "短母音 a",
+      "ex": "I have a blue hat."
     },
     {
       "en": "hand",
@@ -119,16 +106,14 @@
     {
       "en": "kite",
       "zh": "風箏",
-      "phonics": "子音 k",
-      "unit": "starter",
-      "ex": "Fly a kite in the park."
+      "phonics": "長母音 i",
+      "ex": "Let's fly a kite."
     },
     {
       "en": "lion",
       "zh": "獅子",
       "phonics": "子音 l",
-      "unit": "starter",
-      "ex": "The lion is the king of beasts."
+      "ex": "The lion is strong."
     },
     {
       "en": "milk",
@@ -139,9 +124,8 @@
     {
       "en": "monkey",
       "zh": "猴子",
-      "phonics": "子音 m",
-      "unit": "starter",
-      "ex": "The monkey loves bananas."
+      "phonics": "短母音 o",
+      "ex": "The monkey likes bananas."
     },
     {
       "en": "nose",
@@ -151,52 +135,45 @@
     },
     {
       "en": "orange",
-      "zh": "橘色/柳橙",
-      "phonics": "注意 an orange",
-      "unit": "u4",
-      "ex": "The carrot is orange."
+      "zh": "橘子/橘色",
+      "phonics": "母音 o 開頭",
+      "ex": "It is an orange."
     },
     {
       "en": "pencil",
       "zh": "鉛筆",
-      "phonics": "軟 c /s/",
-      "unit": "u3",
-      "ex": "Write with a pencil."
+      "phonics": "教室文具",
+      "ex": "This is my yellow pencil."
     },
     {
       "en": "pen",
-      "zh": "原子筆/鋼筆",
+      "zh": "原子筆",
       "phonics": "短母音 e",
-      "unit": "u3",
-      "ex": "This is a blue pen."
+      "ex": "Is this your blue pen?"
     },
     {
       "en": "ruler",
       "zh": "尺",
-      "phonics": "字母 r",
-      "unit": "u3",
-      "ex": "Measure with a ruler."
+      "phonics": "教室文具",
+      "ex": "I have a long ruler."
     },
     {
       "en": "eraser",
       "zh": "橡皮擦",
-      "phonics": "短母音 e (注意 an eraser)",
-      "unit": "u3",
-      "ex": "It is an eraser."
+      "phonics": "母音 e 開頭接 an",
+      "ex": "It is an eraser on the desk."
     },
     {
       "en": "chair",
       "zh": "椅子",
-      "phonics": "字母組合 ch",
-      "unit": "u3",
-      "ex": "Sit on the chair."
+      "phonics": "教室設施",
+      "ex": "Sit on the chair, please."
     },
     {
       "en": "bag",
-      "zh": "袋子/書包",
-      "phonics": "子音 b",
-      "unit": "starter",
-      "ex": "This is my school bag."
+      "zh": "書包",
+      "phonics": "短母音 a",
+      "ex": "My school bag is green."
     },
     {
       "en": "teacher",
@@ -219,37 +196,32 @@
     {
       "en": "red",
       "zh": "紅色",
-      "phonics": "短母音 e",
-      "unit": "u4",
-      "ex": "An apple is red."
+      "phonics": "顏色形容詞",
+      "ex": "The red apple is sweet."
     },
     {
       "en": "blue",
       "zh": "藍色",
-      "phonics": "字母組合 bl",
-      "unit": "u4",
-      "ex": "The sky is blue."
+      "phonics": "顏色形容詞",
+      "ex": "The clear sky is blue."
     },
     {
       "en": "yellow",
       "zh": "黃色",
-      "phonics": "字母 y",
-      "unit": "u4",
-      "ex": "A banana is yellow."
+      "phonics": "顏色形容詞",
+      "ex": "The sun is bright yellow."
     },
     {
       "en": "green",
       "zh": "綠色",
-      "phonics": "長母音 ee",
-      "unit": "u4",
-      "ex": "Leaves are green."
+      "phonics": "顏色形容詞",
+      "ex": "Leaves are green in spring."
     },
     {
       "en": "witch",
       "zh": "女巫",
-      "phonics": "短母音 i",
-      "unit": "festival",
-      "ex": "The witch rides a broom."
+      "phonics": "萬聖節主題",
+      "ex": "The witch rides on a broom."
     },
     {
       "en": "pumpkin",
@@ -273,36 +245,31 @@
       "en": "one",
       "zh": "一",
       "phonics": "數字 1",
-      "unit": "u1",
-      "ex": "One plus one is two."
+      "ex": "I see one dog."
     },
     {
       "en": "two",
       "zh": "二",
       "phonics": "數字 2",
-      "unit": "u1",
-      "ex": "I have two hands."
+      "ex": "Two cats are playing."
     },
     {
       "en": "three",
       "zh": "三",
       "phonics": "數字 3",
-      "unit": "u1",
-      "ex": "Three little pigs."
+      "ex": "Three red apples."
     },
     {
       "en": "four",
       "zh": "四",
       "phonics": "數字 4",
-      "unit": "u1",
-      "ex": "A table has four legs."
+      "ex": "Four yellow pencils."
     },
     {
       "en": "five",
       "zh": "五",
       "phonics": "數字 5",
-      "unit": "u1",
-      "ex": "Give me five!"
+      "ex": "High five!"
     },
     {
       "en": "boy",
@@ -313,15 +280,13 @@
     {
       "en": "duck",
       "zh": "鴨子",
-      "phonics": "子音 d",
-      "unit": "starter",
-      "ex": "A duck swims in the pond."
+      "phonics": "短母音 u",
+      "ex": "The duck swims."
     },
     {
       "en": "name",
       "zh": "名字",
       "phonics": "長母音 a_e",
-      "unit": "u1",
       "ex": "What's your name?"
     },
     {
@@ -352,8 +317,7 @@
       "en": "jet",
       "zh": "噴射機",
       "phonics": "子音 j",
-      "unit": "starter",
-      "ex": "Look at the jet in the sky."
+      "ex": "The jet is fast."
     },
     {
       "en": "jam",
@@ -365,36 +329,31 @@
       "en": "six",
       "zh": "六",
       "phonics": "數字 6",
-      "unit": "u2",
       "ex": "I am six years old."
     },
     {
       "en": "seven",
       "zh": "七",
       "phonics": "數字 7",
-      "unit": "u2",
-      "ex": "There are seven days in a week."
+      "ex": "She is seven."
     },
     {
       "en": "eight",
       "zh": "八",
-      "phonics": "數字 8",
-      "unit": "u2",
-      "ex": "She is eight years old."
+      "phonics": "數字 8 (gh不發音)",
+      "ex": "He is eight years old."
     },
     {
       "en": "nine",
       "zh": "九",
       "phonics": "數字 9",
-      "unit": "u2",
-      "ex": "Nine cats are resting."
+      "ex": "I am nine."
     },
     {
       "en": "ten",
       "zh": "十",
       "phonics": "數字 10",
-      "unit": "u2",
-      "ex": "I can count to ten."
+      "ex": "Count to ten."
     },
     {
       "en": "birthday",
@@ -429,9 +388,8 @@
     {
       "en": "ox",
       "zh": "公牛",
-      "phonics": "短母音 o",
-      "unit": "starter",
-      "ex": "The ox is strong."
+      "phonics": "母音 o 開頭接 an",
+      "ex": "An ox is strong."
     },
     {
       "en": "otter",
@@ -471,10 +429,9 @@
     },
     {
       "en": "marker",
-      "zh": "彩色筆/馬克筆",
-      "phonics": "ar 發音",
-      "unit": "u3",
-      "ex": "Draw with a red marker."
+      "zh": "彩色筆/麥克筆",
+      "phonics": "教室文具",
+      "ex": "It's a blue marker."
     },
     {
       "en": "bus",
@@ -485,16 +442,14 @@
     {
       "en": "pig",
       "zh": "小豬",
-      "phonics": "子音 p",
-      "unit": "starter",
-      "ex": "The pig is pink."
+      "phonics": "短母音 i",
+      "ex": "A pink pig."
     },
     {
       "en": "queen",
-      "zh": "皇后",
-      "phonics": "字母組合 qu",
-      "unit": "starter",
-      "ex": "She is a beautiful queen."
+      "zh": "女王",
+      "phonics": "子音組 qu [kw]",
+      "ex": "The queen wears a crown."
     },
     {
       "en": "quiz",
@@ -505,16 +460,14 @@
     {
       "en": "rabbit",
       "zh": "兔子",
-      "phonics": "子音 r",
-      "unit": "starter",
-      "ex": "The rabbit has long ears."
+      "phonics": "短母音 a",
+      "ex": "A white rabbit jumps."
     },
     {
       "en": "sun",
       "zh": "太陽",
-      "phonics": "子音 s",
-      "unit": "starter",
-      "ex": "The sun is bright."
+      "phonics": "短母音 u",
+      "ex": "The sun is hot."
     },
     {
       "en": "snake",
@@ -525,9 +478,8 @@
     {
       "en": "tiger",
       "zh": "老虎",
-      "phonics": "子音 t",
-      "unit": "starter",
-      "ex": "A tiger runs very fast."
+      "phonics": "長母音 i",
+      "ex": "The tiger is strong."
     },
     {
       "en": "turtle",
@@ -538,37 +490,32 @@
     {
       "en": "black",
       "zh": "黑色",
-      "phonics": "短母音 a",
-      "unit": "u4",
-      "ex": "The cat is black."
+      "phonics": "顏色形容詞",
+      "ex": "The bag is black."
     },
     {
       "en": "white",
       "zh": "白色",
-      "phonics": "字母組合 wh",
-      "unit": "u4",
-      "ex": "Snow is pure white."
+      "phonics": "顏色形容詞",
+      "ex": "Snow is white."
     },
     {
       "en": "purple",
       "zh": "紫色",
-      "phonics": "字母組合 ur",
-      "unit": "u4",
-      "ex": "Grapes are purple."
+      "phonics": "顏色形容詞",
+      "ex": "Purple grapes."
     },
     {
       "en": "umbrella",
       "zh": "雨傘",
-      "phonics": "短母音 u",
-      "unit": "starter",
-      "ex": "Take an umbrella on rainy days."
+      "phonics": "母音 u 開頭接 an",
+      "ex": "It's an umbrella."
     },
     {
       "en": "vest",
       "zh": "背心",
       "phonics": "子音 v",
-      "unit": "starter",
-      "ex": "He wears a warm vest."
+      "ex": "He wears a green vest."
     },
     {
       "en": "van",
@@ -580,8 +527,7 @@
       "en": "watch",
       "zh": "手錶",
       "phonics": "子音 w",
-      "unit": "starter",
-      "ex": "Check the watch for time."
+      "ex": "This is my watch."
     },
     {
       "en": "window",
@@ -592,16 +538,14 @@
     {
       "en": "fox",
       "zh": "狐狸",
-      "phonics": "字母 x",
-      "unit": "starter",
-      "ex": "The fox is clever."
+      "phonics": "短母音 o",
+      "ex": "A clever fox."
     },
     {
       "en": "yo-yo",
       "zh": "溜溜球",
-      "phonics": "字母 y",
-      "unit": "starter",
-      "ex": "I like playing with my yo-yo."
+      "phonics": "子音 y",
+      "ex": "Play with a yo-yo."
     },
     {
       "en": "yogurt",
@@ -612,9 +556,8 @@
     {
       "en": "zebra",
       "zh": "斑馬",
-      "phonics": "字母 z",
-      "unit": "starter",
-      "ex": "A zebra has black and white stripes."
+      "phonics": "子音 z",
+      "ex": "The zebra has stripes."
     },
     {
       "en": "pumpkin lantern",
@@ -626,84 +569,25 @@
       "en": "bat",
       "zh": "蝙蝠",
       "phonics": "短母音 a",
-      "unit": "festival",
-      "ex": "The bat flies at night."
+      "ex": "Bats fly at night."
     },
     {
       "en": "spider",
       "zh": "蜘蛛",
       "phonics": "長母音 i",
-      "unit": "festival",
-      "ex": "A spider has eight legs."
+      "ex": "The spider has eight legs."
     },
     {
       "en": "vampire",
       "zh": "吸血鬼",
-      "phonics": "長母音 i_e",
-      "unit": "festival",
-      "ex": "A spooky vampire."
+      "phonics": "節慶主題",
+      "ex": "The vampire wears a cape."
     },
     {
       "en": "all_vocab",
       "zh": "全冊核心單字大統整",
       "phonics": "後半學期(U3,U4,Halloween)為主",
       "ex": "Comprehensive review"
-    },
-    {
-      "en": "bear",
-      "zh": "熊",
-      "phonics": "子音 b",
-      "unit": "starter",
-      "ex": "The bear is big."
-    },
-    {
-      "en": "iguana",
-      "zh": "鬣蜥",
-      "phonics": "短母音 i",
-      "unit": "starter",
-      "ex": "The iguana is green."
-    },
-    {
-      "en": "nest",
-      "zh": "鳥巢",
-      "phonics": "子音 n",
-      "unit": "starter",
-      "ex": "There is a nest in the tree."
-    },
-    {
-      "en": "fine",
-      "zh": "很好/安好",
-      "phonics": "長母音 i_e",
-      "unit": "u1",
-      "ex": "I am fine, thank you."
-    },
-    {
-      "en": "years old",
-      "zh": "歲",
-      "phonics": "片語",
-      "unit": "u2",
-      "ex": "I am eight years old."
-    },
-    {
-      "en": "pink",
-      "zh": "粉紅色",
-      "phonics": "字母組合 nk",
-      "unit": "u4",
-      "ex": "A pink ribbon."
-    },
-    {
-      "en": "brown",
-      "zh": "棕色/褐色",
-      "phonics": "字母組合 ow",
-      "unit": "u4",
-      "ex": "The bear is brown."
-    },
-    {
-      "en": "pet",
-      "zh": "寵物",
-      "phonics": "短母音 e",
-      "unit": "u2",
-      "ex": "I love my little pet."
     }
   ],
   "spelling": [
