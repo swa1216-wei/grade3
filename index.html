@@ -9430,10 +9430,342 @@
     }
   ]
 };
-    document.getElementById('db-source-tag').innerText = `內嵌完整題庫 (${ACTIVE_DATA.vocab ? ACTIVE_DATA.vocab.length : 98}字/8關卡)`;
+    document.getElementById('db-source-tag').innerText = `🎲 動態題型即時衍生引擎 + 內嵌真題庫 (${ACTIVE_DATA.vocab ? ACTIVE_DATA.vocab.length : 98}字/8關卡)`;
     window.addEventListener('DOMContentLoaded', () => {
         initPanels();
     });
+
+    
+    /* ==================== 🎲 動態題型即時衍生生成引擎 (Procedural Generation Engine) ==================== */
+    const DynamicQuestionEngine = {
+        numWords: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"],
+        numZh: ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"],
+
+        vowelWords: [
+            { en: "apple", zh: "蘋果" }, { en: "ant", zh: "螞蟻" }, { en: "egg", zh: "雞蛋" },
+            { en: "elephant", zh: "大象" }, { en: "ink bottle", zh: "墨水瓶" }, { en: "insect", zh: "昆蟲" },
+            { en: "ox", zh: "公牛" }, { en: "otter", zh: "水獺" }, { en: "umbrella", zh: "雨傘" },
+            { en: "orange", zh: "橘子" }, { en: "old witch", zh: "老女巫" }
+        ],
+        consonantWords: [
+            { en: "cat", zh: "小貓" }, { en: "dog", zh: "小狗" }, { en: "cup", zh: "杯子" },
+            { en: "desk", zh: "書桌" }, { en: "book", zh: "書本" }, { en: "box", zh: "盒子" },
+            { en: "bus", zh: "公車" }, { en: "pig", zh: "小豬" }, { en: "ruler", zh: "直尺" },
+            { en: "pen", zh: "原子筆" }, { en: "pencil", zh: "鉛筆" }, { en: "marker", zh: "彩色筆" },
+            { en: "chair", zh: "椅子" }, { en: "bag", zh: "書包" }, { en: "frog", zh: "青蛙" },
+            { en: "rabbit", zh: "兔子" }, { en: "turtle", zh: "烏龜" }, { en: "tiger", zh: "老虎" },
+            { en: "lion", zh: "獅子" }, { en: "monkey", zh: "猴子" }, { en: "watch", zh: "手錶" },
+            { en: "window", zh: "窗戶" }, { en: "van", zh: "廂型車" }, { en: "vest", zh: "背心" },
+            { en: "pumpkin", zh: "南瓜" }, { en: "ghost", zh: "幽靈" }
+        ],
+
+        colorMixes: [
+            { c1: "Yellow (黃)", c2: "Blue (藍)", res: "Green (綠)", wrong: "Purple (紫)" },
+            { c1: "Red (紅)", c2: "Yellow (黃)", res: "Orange (橘)", wrong: "Green (綠)" },
+            { c1: "Red (紅)", c2: "Blue (藍)", res: "Purple (紫)", wrong: "Orange (橘)" },
+            { c1: "White (白)", c2: "Red (紅)", res: "Pink (粉紅)", wrong: "Black (黑)" },
+            { c1: "Black (黑)", c2: "White (白)", res: "Gray (灰)", wrong: "Brown (棕)" }
+        ],
+
+        // 1. 動態數字加減法算術題 (1~10 範圍運算)
+        generateMathQuestion(isTF = false) {
+            const isAddition = Math.random() > 0.45;
+            if (isAddition) {
+                const a = Math.floor(Math.random() * 5) + 1; // 1..5
+                const b = Math.floor(Math.random() * (10 - a)) + 1; // 1..(10-a)
+                const sum = a + b;
+                const aWord = this.numWords[a];
+                const bWord = this.numWords[b];
+                const sumWord = this.numWords[sum];
+                const aCap = aWord.charAt(0).toUpperCase() + aWord.slice(1);
+
+                if (isTF) {
+                    const isTrue = Math.random() > 0.5;
+                    const claim = isTrue ? sum : (sum + (Math.random() > 0.5 ? 1 : -1));
+                    const safeClaim = Math.max(1, Math.min(10, claim === sum ? (sum > 5 ? sum - 1 : sum + 1) : claim));
+                    const claimWord = this.numWords[safeClaim];
+                    const finalIsTrue = safeClaim === sum;
+                    return {
+                        unit: "starter",
+                        statement: `英文數字運算：'${aCap}' (${a}) 加上 '${bWord}' (${b}) 等於 '${claimWord}' (${safeClaim})。`,
+                        ans: finalIsTrue,
+                        trans: `${a} + ${b} = ${sum} (${sumWord})`,
+                        note: finalIsTrue ? `正確！${aCap} + ${bWord} = ${sumWord} (${sum})。` : `錯誤！${a} + ${b} 等於 ${sum} (${sumWord})，不是 ${safeClaim} (${claimWord})！`
+                    };
+                } else {
+                    const distractors = [];
+                    while (distractors.length < 3) {
+                        const r = Math.floor(Math.random() * 10) + 1;
+                        const rWord = this.numWords[r];
+                        if (r !== sum && !distractors.includes(rWord)) distractors.push(rWord);
+                    }
+                    const opts = shuffleArray([sumWord, ...distractors]);
+                    return {
+                        unit: "starter",
+                        q: `數字加法算術：${aCap} plus ${bWord} is ____. (${a} + ${b} = ?)`,
+                        opts: opts,
+                        ans: opts.indexOf(sumWord),
+                        type: "數字加法算術",
+                        trans: `${a} + ${b} = ${sum} (${sumWord})`,
+                        note: `生活加法算術：${aCap} + ${bWord} = ${sumWord} (${sum})。`
+                    };
+                }
+            } else {
+                const a = Math.floor(Math.random() * 7) + 4; // 4..10
+                const b = Math.floor(Math.random() * (a - 1)) + 1; // 1..(a-1)
+                const diff = a - b;
+                const aWord = this.numWords[a];
+                const bWord = this.numWords[b];
+                const diffWord = this.numWords[diff];
+                const aCap = aWord.charAt(0).toUpperCase() + aWord.slice(1);
+
+                if (isTF) {
+                    const isTrue = Math.random() > 0.5;
+                    const claim = isTrue ? diff : (diff + (Math.random() > 0.5 ? 1 : -1));
+                    const safeClaim = Math.max(1, Math.min(10, claim === diff ? (diff > 3 ? diff - 1 : diff + 1) : claim));
+                    const claimWord = this.numWords[safeClaim];
+                    const finalIsTrue = safeClaim === diff;
+                    return {
+                        unit: "starter",
+                        statement: `英文數字減法：'${aCap}' (${a}) 減去 '${bWord}' (${b}) 等於 '${claimWord}' (${safeClaim})。`,
+                        ans: finalIsTrue,
+                        trans: `${a} - ${b} = ${diff} (${diffWord})`,
+                        note: finalIsTrue ? `正確！${aCap} - ${bWord} = ${diffWord} (${diff})。` : `錯誤！${a} - ${b} 等於 ${diff} (${diffWord})，不是 ${safeClaim} (${claimWord})！`
+                    };
+                } else {
+                    const distractors = [];
+                    while (distractors.length < 3) {
+                        const r = Math.floor(Math.random() * 10) + 1;
+                        const rWord = this.numWords[r];
+                        if (r !== diff && !distractors.includes(rWord)) distractors.push(rWord);
+                    }
+                    const opts = shuffleArray([diffWord, ...distractors]);
+                    return {
+                        unit: "starter",
+                        q: `數字減法算術：${aCap} minus ${bWord} is ____. (${a} - ${b} = ?)`,
+                        opts: opts,
+                        ans: opts.indexOf(diffWord),
+                        type: "數字減法算術",
+                        trans: `${a} - ${b} = ${diff} (${diffWord})`,
+                        note: `生活減法算術：${aCap} - ${bWord} = ${diffWord} (${diff})。`
+                    };
+                }
+            }
+        },
+
+        // 2. 動態動物與文具冠詞 (a / an) 變化題
+        generateArticleQuestion(isTF = false) {
+            const useVowel = Math.random() > 0.48;
+            const item = useVowel 
+                ? this.vowelWords[Math.floor(Math.random() * this.vowelWords.length)]
+                : this.consonantWords[Math.floor(Math.random() * this.consonantWords.length)];
+            const correctArticle = useVowel ? "an" : "a";
+
+            if (isTF) {
+                const isClaimingAn = Math.random() > 0.5;
+                const claimArticle = isClaimingAn ? "an" : "a";
+                const isCorrect = (claimArticle === correctArticle);
+                return {
+                    unit: "u3",
+                    statement: `冠詞規則：單字 '${item.en}' (${item.zh}) 前面應該使用冠詞 '${claimArticle}'，說成 '${claimArticle} ${item.en}'。`,
+                    ans: isCorrect,
+                    trans: `${correctArticle} ${item.en} (一${item.zh.includes('貓') || item.zh.includes('狗') || item.zh.includes('牛') || item.zh.includes('獺') ? '隻' : '個'}${item.zh})`,
+                    note: isCorrect 
+                        ? `正確！${item.en} 為${useVowel ? '母音' : '子音'}開頭發音，必須搭配冠詞 '${correctArticle}'。`
+                        : `錯誤！${item.en} 為${useVowel ? '母音' : '子音'}開頭發音，正確冠詞應該是 '${correctArticle}'，不是 '${claimArticle}'！`
+                };
+            } else {
+                const templates = [
+                    `Look at the picture! It is ____ ${item.en}.`,
+                    `I see ____ ${item.en} in the room.`,
+                    `There is ____ ${item.en} on the desk.`,
+                    `Look over there! That is ____ ${item.en}.`
+                ];
+                const qTpl = templates[Math.floor(Math.random() * templates.length)];
+                const opts = shuffleArray(["a", "an", "two", "the a"]);
+                return {
+                    unit: useVowel ? "u3" : "starter",
+                    q: qTpl,
+                    opts: opts,
+                    ans: opts.indexOf(correctArticle),
+                    type: "冠詞 a/an",
+                    trans: `It is ${correctArticle} ${item.en}. (它是一${item.zh})`,
+                    note: `${item.en} 字首為${useVowel ? '母音' : '子音'}發音，前面不定冠詞必須使用 '${correctArticle}'！`
+                };
+            }
+        },
+
+        // 3. 動態顏色調色魔法題 (Unit 4)
+        generateColorQuestion(isTF = false) {
+            const mix = this.colorMixes[Math.floor(Math.random() * this.colorMixes.length)];
+            if (isTF) {
+                const isTrue = Math.random() > 0.5;
+                const shownRes = isTrue ? mix.res : mix.wrong;
+                return {
+                    unit: "u4",
+                    statement: `素養調色魔法：${mix.c1} + ${mix.c2} 調配出來的顏色是 ${shownRes}。`,
+                    ans: isTrue,
+                    trans: `${mix.c1} + ${mix.c2} = ${mix.res}`,
+                    note: isTrue 
+                        ? `正確！三原色調色常識：${mix.c1} 配 ${mix.c2} 確實是 ${mix.res}！`
+                        : `錯誤！${mix.c1} 加上 ${mix.c2} 是 ${mix.res}，不是 ${shownRes}！`
+                };
+            } else {
+                const allColors = ["Green (綠色)", "Orange (橘色)", "Purple (紫色)", "Pink (粉紅色)", "Black (黑色)", "Blue (藍色)"];
+                const distractors = allColors.filter(c => !c.includes(mix.res.split(' ')[0]));
+                const opts = shuffleArray([mix.res, distractors[0], distractors[1], distractors[2]]);
+                return {
+                    unit: "u4",
+                    q: `【跨領域調色魔法】：${mix.c1} + ${mix.c2} = ________`,
+                    opts: opts,
+                    ans: opts.indexOf(mix.res),
+                    type: "調色魔法",
+                    trans: `${mix.c1} + ${mix.c2} = ${mix.res}`,
+                    note: `三原色色彩素養：${mix.c1} 混合 ${mix.c2} 會變成 ${mix.res}。`
+                };
+            }
+        },
+
+        // 4. 動態句型與文法避坑題 (年齡 year vs years、名詞複數 -s vs -es、所有格 your vs you're)
+        generateGrammarQuestion(isTF = false) {
+            const r = Math.random();
+            if (r < 0.35) {
+                const age = Math.floor(Math.random() * 9) + 2; // 2..10
+                const ageWord = this.numWords[age];
+                if (isTF) {
+                    const isCorrect = Math.random() > 0.5;
+                    const claim = isCorrect ? `${ageWord} years old` : `${ageWord} year old`;
+                    return {
+                        unit: "u2",
+                        statement: `年齡文法：當小朋友今年滿 ${age} 歲時，英文應說成 'I am ${claim}.'`,
+                        ans: isCorrect,
+                        trans: `I am ${ageWord} years old. (${age}歲)`,
+                        note: isCorrect 
+                            ? `正確！大於 1 歲時，名詞 year 必須加 s 變複數 years (I am ${ageWord} years old)。`
+                            : `錯誤！大於 1 歲時 year 必須加 s 變成 years，只有 1 歲才用 one year old！`
+                    };
+                } else {
+                    const opts = shuffleArray([`${ageWord} years old`, `${ageWord} year old`, `${ageWord} yeares old`, `${ageWord} year's old`]);
+                    return {
+                        unit: "u2",
+                        q: `當同學今年剛好滿 ${age} 歲時，回答年齡應該說：I am ________.`,
+                        opts: opts,
+                        ans: opts.indexOf(`${ageWord} years old`),
+                        type: "年齡名詞單複數",
+                        trans: `I am ${ageWord} years old. (我今年${age}歲。)`,
+                        note: `大於 1 歲時名詞 year 必須加 s 變複數 years！`
+                    };
+                }
+            } else if (r < 0.70) {
+                if (isTF) {
+                    const isWrong = Math.random() > 0.5;
+                    return {
+                        unit: "u1",
+                        statement: isWrong 
+                            ? "高頻避坑：詢問同學名字時，英文句子可以寫成 'What's you're name?'。"
+                            : "高頻避坑：別人對你說 Thank you!，禮貌回應應該說 'You're welcome.'。",
+                        ans: !isWrong,
+                        trans: isWrong ? "應為：What's your name? (用所有格 your)" : "You're welcome. (不客氣)",
+                        note: isWrong 
+                            ? "錯誤！所有格是 your (你的)；you're 是 you are (你是) 的縮寫，絕不能用在 name 前面！"
+                            : "正確！You're welcome 中的 You're 是 You are 的縮寫！"
+                    };
+                } else {
+                    const isNameQ = Math.random() > 0.5;
+                    if (isNameQ) {
+                        const opts = shuffleArray(["your", "you're", "you", "my"]);
+                        return {
+                            unit: "u1",
+                            q: "A: What's ____ name? B: My name is Mia.",
+                            opts: opts,
+                            ans: opts.indexOf("your"),
+                            type: "所有格 your vs you're",
+                            trans: "What's your name? (你的名字是什麼？)",
+                            note: "表示「你的」名字必須使用所有格 your！you're 是 you are (你是)！"
+                        };
+                    } else {
+                        const opts = shuffleArray(["You're", "Your", "You", "I'm"]);
+                        return {
+                            unit: "u2",
+                            q: "A: Thank you very much! B: ____ welcome.",
+                            opts: opts,
+                            ans: opts.indexOf("You're"),
+                            type: "禮貌回應 You're welcome",
+                            trans: "You're welcome. (不客氣。)",
+                            note: "段考最高頻失分點：You're (你是) ⭕ vs. Your (你的) ❌！"
+                        };
+                    }
+                }
+            } else {
+                const esWords = [
+                    { s: "box", pl: "boxes", zh: "盒子" },
+                    { s: "bus", pl: "buses", zh: "公車" },
+                    { s: "fox", pl: "foxes", zh: "狐狸" },
+                    { s: "witch", pl: "witches", zh: "女巫" }
+                ];
+                const wItem = esWords[Math.floor(Math.random() * esWords.length)];
+                const num = Math.floor(Math.random() * 4) + 2; // 2..5
+                const numWord = this.numWords[num];
+                if (isTF) {
+                    const isTrue = Math.random() > 0.5;
+                    const claim = isTrue ? `${numWord} ${wItem.pl}` : `${numWord} ${wItem.s}s`;
+                    return {
+                        unit: "u3",
+                        statement: `名詞複數規則：單字 '${wItem.s}' (${wItem.zh}) 變成多個時，正確寫法為 '${claim}'。`,
+                        ans: isTrue,
+                        trans: `${numWord} ${wItem.pl}`,
+                        note: isTrue 
+                            ? `正確！字尾為 s, x, ch, sh 的名詞，複數必須加上 -es 變成 ${wItem.pl}！`
+                            : `錯誤！單字 ${wItem.s} 字尾為 s, x, ch，複數必須加 -es 變成 ${wItem.pl}，不能只加 s！`
+                    };
+                } else {
+                    const opts = shuffleArray([`${numWord} ${wItem.pl}`, `${numWord} ${wItem.s}s`, `${numWord} ${wItem.s}en`, `${numWord} a ${wItem.s}`]);
+                    return {
+                        unit: "u3",
+                        q: `桌上有 ${num} 個${wItem.zh}，英文複數應該寫作：____.`,
+                        opts: opts,
+                        ans: opts.indexOf(`${numWord} ${wItem.pl}`),
+                        type: "名詞複數加 -es",
+                        trans: `${numWord} ${wItem.pl} (${num}個${wItem.zh})`,
+                        note: `字尾為 s, x, ch, sh 的名詞，複數規則必須加上 -es 變成 ${wItem.pl}！`
+                    };
+                }
+            }
+        },
+
+        // 綜合動態出題池：為指定測驗模式注入新鮮演算法題目
+        generateDynamicTFPool(unit, count = 10) {
+            const list = [];
+            for (let i = 0; i < count; i++) {
+                if (unit === 'starter') {
+                    list.push(this.generateMathQuestion(true));
+                } else if (unit === 'u4') {
+                    list.push(Math.random() > 0.5 ? this.generateColorQuestion(true) : this.generateArticleQuestion(true));
+                } else if (unit === 'u3') {
+                    list.push(Math.random() > 0.5 ? this.generateArticleQuestion(true) : this.generateGrammarQuestion(true));
+                } else {
+                    const roll = Math.random();
+                    if (roll < 0.3) list.push(this.generateMathQuestion(true));
+                    else if (roll < 0.6) list.push(this.generateArticleQuestion(true));
+                    else if (roll < 0.8) list.push(this.generateColorQuestion(true));
+                    else list.push(this.generateGrammarQuestion(true));
+                }
+            }
+            return list;
+        },
+
+        generateDynamicGrammarPool(unit, count = 10) {
+            const list = [];
+            for (let i = 0; i < count; i++) {
+                const roll = Math.random();
+                if (roll < 0.5) list.push(this.generateArticleQuestion(false));
+                else if (roll < 0.8) list.push(this.generateGrammarQuestion(false));
+                else list.push(this.generateColorQuestion(false));
+            }
+            return list;
+        }
+    };
+
 
     /* 真正的 Fisher-Yates 嚴格隨機洗牌 */
     function shuffleArray(arr) {
@@ -9598,7 +9930,29 @@
 
         hHp = getHeroMaxHp();
         waveStartHpHero = hHp;
-        fightQueue = shuffleArray(curStage.questions);
+
+        // 依據進入的關卡，演算法動態即時生成 5~8 題全新的題目併入戰鬥題庫
+        const extraProcedural = [];
+        if (stageId === 0 || stageId === 2) {
+            extraProcedural.push(DynamicQuestionEngine.generateMathQuestion(false));
+            extraProcedural.push(DynamicQuestionEngine.generateMathQuestion(false));
+            extraProcedural.push(DynamicQuestionEngine.generateArticleQuestion(false));
+        } else if (stageId === 4) { // U3
+            extraProcedural.push(DynamicQuestionEngine.generateArticleQuestion(false));
+            extraProcedural.push(DynamicQuestionEngine.generateArticleQuestion(false));
+            extraProcedural.push(DynamicQuestionEngine.generateGrammarQuestion(false));
+        } else if (stageId === 5) { // U4
+            extraProcedural.push(DynamicQuestionEngine.generateColorQuestion(false));
+            extraProcedural.push(DynamicQuestionEngine.generateColorQuestion(false));
+            extraProcedural.push(DynamicQuestionEngine.generateArticleQuestion(false));
+        } else { // 期中/期末/綜合
+            extraProcedural.push(DynamicQuestionEngine.generateMathQuestion(false));
+            extraProcedural.push(DynamicQuestionEngine.generateArticleQuestion(false));
+            extraProcedural.push(DynamicQuestionEngine.generateColorQuestion(false));
+            extraProcedural.push(DynamicQuestionEngine.generateGrammarQuestion(false));
+        }
+
+        fightQueue = shuffleArray([...extraProcedural, ...curStage.questions]);
         setupWave(0);
         navTo('panel-battle');
     }
@@ -10361,12 +10715,17 @@
         tfRound = 0;
         tfCoinsEarned = 0;
 
+        // 即時透過演算法動態衍生題目 (Procedural Generation)
+        const dynamicQuestions = DynamicQuestionEngine.generateDynamicTFPool(currentTFUnit, 8);
+
         let pool = (ACTIVE_DATA && ACTIVE_DATA.tf) ? [...ACTIVE_DATA.tf] : [];
         if (currentTFUnit !== 'all') {
             pool = pool.filter(item => item.unit === currentTFUnit);
         }
         if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.tf) pool = [...ACTIVE_DATA.tf];
-        tfQueue = shuffleArray(pool);
+        
+        // 演算法動態即時題目 + 課綱精選真題混合洗牌，每次點擊都絕對有全新演算法題目！
+        tfQueue = shuffleArray([...dynamicQuestions, ...pool]);
 
         loadNextTF();
     }
@@ -11305,12 +11664,16 @@
         grammarScore = 0;
         grammarCoinsEarned = 0;
 
+        // 每次開始特訓，動態生成全新的冠詞與文法題目！
+        const dynamicGrammar = DynamicQuestionEngine.generateDynamicGrammarPool(currentGrammarUnit, 8);
+
         let pool = (ACTIVE_DATA && ACTIVE_DATA.grammar_articles) ? [...ACTIVE_DATA.grammar_articles] : [];
         if (currentGrammarUnit !== 'all') {
             pool = pool.filter(item => item.unit === currentGrammarUnit);
         }
         if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.grammar_articles) pool = [...ACTIVE_DATA.grammar_articles];
-        grammarQueue = shuffleArray(pool);
+
+        grammarQueue = shuffleArray([...dynamicGrammar, ...pool]);
 
         loadNextGrammarQ();
     }
@@ -11401,15 +11764,31 @@
         document.getElementById('btn-re-exam').style.display = 'none';
         document.getElementById('exam-done-counter').innerText = '0';
 
-        // 挑選 25 題組成一張高標準的期末考卷：
+        // 每次重新出卷，演算法即時生成動態題目注入考卷！
+        const dynamicMath1 = DynamicQuestionEngine.generateMathQuestion(false);
+        const dynamicMath2 = DynamicQuestionEngine.generateMathQuestion(false);
+        const dynamicArticle1 = DynamicQuestionEngine.generateArticleQuestion(false);
+        const dynamicArticle2 = DynamicQuestionEngine.generateArticleQuestion(false);
+        const dynamicColor = DynamicQuestionEngine.generateColorQuestion(false);
+        const dynamicGrammar = DynamicQuestionEngine.generateGrammarQuestion(false);
+
         // 1. 聽力測驗 5 題 (每題4分，共20分)
         const lisPool = shuffleArray(ACTIVE_DATA.listening || []).slice(0, 5);
         // 2. 字母與發音 5 題 (每題4分，共20分)
-        const phonicsPool = shuffleArray(ACTIVE_DATA.stages[0].questions.filter(q => q.opts && q.opts.length === 4)).slice(0, 5);
+        const phonicsPool = shuffleArray([
+            ...ACTIVE_DATA.stages[0].questions.filter(q => q.opts && q.opts.length === 4),
+            dynamicMath1, dynamicMath2
+        ]).slice(0, 5);
         // 3. 冠詞與文法 8 題 (每題4分，共32分)
-        const grammarPool = shuffleArray(ACTIVE_DATA.grammar_articles || []).slice(0, 8);
+        const grammarPool = shuffleArray([
+            dynamicArticle1, dynamicArticle2, dynamicGrammar,
+            ...(ACTIVE_DATA.grammar_articles || [])
+        ]).slice(0, 8);
         // 4. 情境對話與閱讀 7 題 (每題4分，共28分)
-        const finalQs = shuffleArray([...ACTIVE_DATA.stages[7].questions, ...ACTIVE_DATA.stages[3].questions]).filter(q => q.opts && q.opts.length === 4).slice(0, 7);
+        const finalQs = shuffleArray([
+            dynamicColor,
+            ...ACTIVE_DATA.stages[7].questions, ...ACTIVE_DATA.stages[3].questions
+        ]).filter(q => q.opts && q.opts.length === 4).slice(0, 7);
 
         currentExamQuestions = [
             ...lisPool.map(q => ({ ...q, section: "part1", secTitle: "一、 聽力理解測驗 (每題 4 分，共 20 分)" })),
