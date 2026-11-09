@@ -1380,25 +1380,43 @@
         },
         playPop() { this.playTone(880, 'triangle', 0.09, 0.12); setTimeout(()=>this.playTone(1320, 'sine', 0.15, 0.1), 60); },
 
-        /* 奇幻冒險輕音樂琶音生成 (零外部 MP3，安靜放鬆，無卡頓) */
+        /* 背景音樂播放器 (優先播放 assets/bgm.mp3，若未載入則無縫切換合成琶音備援) */
+        bgmAudio: null,
         startBGM() {
             this.init();
-            if (!this.ctx) return;
-            if (this.ctx.state === 'suspended') this.ctx.resume();
+            if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
             this.bgmActive = true;
             document.getElementById('btn-bgm-toggle').innerText = "🎵 音樂: 開";
 
-            const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
-            let noteIdx = 0;
-            this.bgmTimer = setInterval(() => {
-                if (!this.bgmActive) return;
-                const f = notes[noteIdx % notes.length];
-                this.playTone(f, 'sine', 0.45, 0.025);
-                noteIdx++;
-            }, 600);
+            if (!this.bgmAudio) {
+                this.bgmAudio = new Audio('assets/bgm.mp3');
+                this.bgmAudio.loop = true;
+                this.bgmAudio.volume = 0.35;
+            }
+
+            const playPromise = this.bgmAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(err => {
+                    // 若無 bgm.mp3 或瀏覽器限制音訊檔案，自動切換至 Web Audio 輕音樂備用機制
+                    if (!this.bgmTimer) {
+                        const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
+                        let noteIdx = 0;
+                        this.bgmTimer = setInterval(() => {
+                            if (!this.bgmActive) return;
+                            const f = notes[noteIdx % notes.length];
+                            this.playTone(f, 'sine', 0.45, 0.025);
+                            noteIdx++;
+                        }, 600);
+                    }
+                });
+            }
         },
         stopBGM() {
             this.bgmActive = false;
+            if (this.bgmAudio) {
+                this.bgmAudio.pause();
+                this.bgmAudio.currentTime = 0;
+            }
             if (this.bgmTimer) { clearInterval(this.bgmTimer); this.bgmTimer = null; }
             document.getElementById('btn-bgm-toggle').innerText = "🎵 音樂: 關";
         },
@@ -11031,6 +11049,7 @@
 
         activeBalloons.push({
             id: bId,
+            el: el,
             word: w,
             x: randX,
             y: 40,
