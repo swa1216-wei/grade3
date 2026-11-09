@@ -102,6 +102,9 @@
             width: 100%;
             max-width: 1120px;
             background: rgba(255, 255, 255, 0.98);
+            background-image: url('assets/practice_bg.jpg'), linear-gradient(180deg, rgba(255,255,255,0.95), rgba(240,249,255,0.95));
+            background-size: cover;
+            background-position: center;
             border: 2px solid #bae6fd;
             border-radius: 22px;
             min-height: 640px;
@@ -145,7 +148,10 @@
         /* 2. 史詩級戰鬥舞台：精緻奇幻夜空與魔法符文陣背景 */
         .battle-arena-pc {
             min-height: 330px;
-            background: radial-gradient(circle at 50% 35%, #1e3a8a 0%, #0f172a 60%, #020617 100%);
+            background-color: #0f172a;
+            background-image: url('assets/battle_bg.jpg'), url('assets/battle_bg.png'), radial-gradient(circle at 50% 35%, #1e3a8a 0%, #0f172a 60%, #020617 100%);
+            background-size: cover;
+            background-position: center;
             position: relative; display: flex; justify-content: space-around; align-items: center;
             padding: 24px 30px 18px; border-bottom: 3px solid #38bdf8;
             overflow: hidden;
@@ -495,25 +501,31 @@
     <!-- 2. 史詩級戰鬥舞台 (卡牌震動與位移動畫，拔除冗餘頂頭) -->
     <div id="panel-battle" class="workspace-panel">
         <div class="battle-arena-pc">
-            <div class="wave-badge-top" id="battle-wave-indicator">WAVE 1/3 (小怪進攻)</div>
+            <div class="wave-badge-top" id="battle-wave-indicator">WAVE 1/3</div>
 
             <div class="hero-combat-group">
-                <!-- 隨行寵物：卡面無冗餘頂欄 -->
+                <!-- 隨行寵物 -->
                 <div class="companion-pet-card" id="sidePetCard">
                     <div class="pet-art-fill"><img id="sidePetImg" src="assets/pet_dog.jfif" alt="Pet"></div>
-                    <div class="pet-card-footer" id="sidePetPerk">🐕 柴犬 Lv.1 (+20%⭐)</div>
+                    <div class="pet-card-footer" id="sidePetPerk">🐕 柴犬 Lv.1</div>
                 </div>
 
-                <!-- 英雄卡牌：大立繪，底部標註身分與等級 -->
+                <!-- 英雄卡牌 (HP 500) -->
                 <div class="fighter-col">
                     <div class="trading-card-frame" id="heroCardFrame">
                         <div class="card-artwork-fill"><img id="battle-hero-pic" src="assets/hero_warrior.jfif" alt="Hero"></div>
                         <div class="card-footer-bar" id="heroLevelTag">⚔️ 星際劍士 Lv.1</div>
                     </div>
                     <div class="hp-bar-outer"><div class="hp-bar-inner-hero" id="hero-hp-fill"></div></div>
-                    <div class="fighter-meta" id="hero-hp-label">勇者 HP: 100/100</div>
+                    <div class="fighter-meta" id="hero-hp-label">勇者 HP: 500/500</div>
                 </div>
             </div>
+
+            <div style="font-size: 32px; font-weight: 900; color: #38bdf8; text-shadow: 0 0 15px #38bdf8;">⚔️</div>
+
+            <!-- 怪獸軍團 (支援 2 隻以上怪獸同時在場，讓法師群攻真正生效！) -->
+            <div class="enemy-combat-group" id="enemy-combat-group" style="display: flex; gap: 14px; align-items: center;"></div>
+        </div>
 
             <div style="font-size: 32px; font-weight: 900; color: #38bdf8; text-shadow: 0 0 15px #38bdf8;">⚔️</div>
 
@@ -1107,15 +1119,19 @@
         renderShopPetCards();
     }
 
-    /* 1. RPG 戰鬥 */
+    /* 1. RPG 戰鬥 (支援 2 隻以上怪獸同時在場 + 勇者 HP 500 + 法師全體群攻) */
     let curStage = null;
     let curWaveIdx = 0;
-    let curWave = null;
+    let curEnemies = []; // 當前波次在場的怪獸列表
     let fightQueue = [];
     let curQ = null;
-    let hHp = 100, eHp = 60;
+    let hHp = 500;
     let otterShieldCount = 1;
     let combatCoinsEarnedThisSession = 0;
+
+    function getHeroMaxHp() {
+        return 500 + (state.heroGear.team_armor - 1) * 60;
+    }
 
     function startRPGCombat(stageId) {
         if (!ACTIVE_DATA) return;
@@ -1126,9 +1142,7 @@
         otterShieldCount = otterLvl;
         combatCoinsEarnedThisSession = 0;
 
-        const maxH = 100 + (state.heroGear.team_armor - 1) * 35;
-        hHp = maxH;
-
+        hHp = getHeroMaxHp();
         fightQueue = shuffleArray(curStage.questions);
         setupWave(0);
         navTo('panel-battle');
@@ -1136,31 +1150,82 @@
 
     function setupWave(wIdx) {
         curWaveIdx = wIdx;
-        curWave = curStage.waves[wIdx] || curStage.waves[0];
-        eHp = curWave.hp;
+        const stageWave = curStage.waves[wIdx] || curStage.waves[0];
 
-        document.getElementById('battle-wave-indicator').innerText = `WAVE ${wIdx + 1}/3 (${curWave.name})`;
+        // 依波次配置怪獸軍團：Wave 1 與 Wave 2 出現 2 隻怪獸！Wave 3 首領決戰！
+        if (wIdx === 0) {
+            curEnemies = [
+                { id: 0, name: stageWave.name + " A", img: stageWave.img, maxHp: 120, hp: 120, dmg: 12 },
+                { id: 1, name: stageWave.name + " B", img: stageWave.img, maxHp: 120, hp: 120, dmg: 12 }
+            ];
+            document.getElementById('battle-wave-indicator').innerText = `WAVE 1/3 (小怪軍團 x2)`;
+        } else if (wIdx === 1) {
+            curEnemies = [
+                { id: 0, name: stageWave.name, img: stageWave.img, maxHp: 200, hp: 200, dmg: 18 },
+                { id: 1, name: "巡邏護衛", img: curStage.waves[0].img, maxHp: 130, hp: 130, dmg: 12 }
+            ];
+            document.getElementById('battle-wave-indicator').innerText = `WAVE 2/3 (菁英怪與護衛 x2)`;
+        } else {
+            // Wave 3 關卡大首領 (HP 強化至 550~750)
+            const bossHp = 500 + (curStage.id * 35);
+            curEnemies = [
+                { id: 0, name: stageWave.name, img: stageWave.img, maxHp: bossHp, hp: bossHp, dmg: 32 }
+            ];
+            document.getElementById('battle-wave-indicator').innerText = `WAVE 3/3 (終極魔王決戰)`;
+        }
+
+        // 渲染我方英雄與寵物
         document.getElementById('battle-hero-pic').src = "assets/hero_" + state.activeHero + ".jfif";
         document.getElementById('heroLevelTag').innerText = `${HERO_CONFIG[state.activeHero].title} Lv.${state.heroGear[state.activeHero + '_weap'] || 1}`;
-
-        document.getElementById('battle-enemy-pic').src = curWave.img;
-        document.getElementById('enemy-atk-badge').innerText = `${curWave.name} (反擊: ${curWave.dmg})`;
 
         const petConfig = PET_CONFIG[state.activePet] || PET_CONFIG.dog;
         const petLvl = (state.petLevels && state.petLevels[state.activePet]) ? state.petLevels[state.activePet] : 1;
         document.getElementById('sidePetImg').src = petConfig.img;
         document.getElementById('sidePetPerk').innerText = `${petConfig.name} Lv.${petLvl}`;
 
+        renderEnemySquadUI();
         updateCombatUI();
         loadNextBattleQ();
     }
 
+    function renderEnemySquadUI() {
+        const group = document.getElementById('enemy-combat-group');
+        group.innerHTML = '';
+        curEnemies.forEach((e, idx) => {
+            const isDead = e.hp <= 0;
+            const col = document.createElement('div');
+            col.className = 'fighter-col';
+            col.id = `enemy-col-${idx}`;
+            col.style.opacity = isDead ? '0.25' : '1';
+            col.style.transition = 'all 0.3s';
+
+            col.innerHTML = `
+                <div class="trading-card-frame monster" id="enemyCardFrame-${idx}" style="width: ${curEnemies.length > 1 ? '130px' : '150px'}; height: 185px;">
+                    <div class="card-artwork-fill"><img src="${e.img}" alt="${e.name}"></div>
+                    <div class="card-footer-bar" id="enemy-atk-badge-${idx}">${e.name} (${e.hp > 0 ? '反擊:' + e.dmg : '擊倒'})</div>
+                </div>
+                <div class="hp-bar-outer"><div class="hp-bar-inner-enemy" id="enemy-hp-fill-${idx}" style="width: ${Math.max(0, (e.hp / e.maxHp)*100)}%;"></div></div>
+                <div class="fighter-meta" id="enemy-hp-label-${idx}" style="font-size:12px;">HP: ${e.hp}/${e.maxHp}</div>
+            `;
+            group.appendChild(col);
+        });
+    }
+
     function updateCombatUI() {
-        const maxH = 100 + (state.heroGear.team_armor - 1) * 35;
+        const maxH = getHeroMaxHp();
         document.getElementById('hero-hp-fill').style.width = Math.max(0, (hHp / maxH) * 100) + '%';
-        document.getElementById('enemy-hp-fill').style.width = Math.max(0, (eHp / curWave.hp) * 100) + '%';
         document.getElementById('hero-hp-label').innerText = `勇者 HP: ${hHp}/${maxH}`;
-        document.getElementById('enemy-hp-label').innerText = `${curWave.name} HP: ${eHp}/${curWave.hp}`;
+
+        curEnemies.forEach((e, idx) => {
+            const fill = document.getElementById(`enemy-hp-fill-${idx}`);
+            const lbl = document.getElementById(`enemy-hp-label-${idx}`);
+            const badge = document.getElementById(`enemy-atk-badge-${idx}`);
+            const col = document.getElementById(`enemy-col-${idx}`);
+            if (fill) fill.style.width = Math.max(0, (e.hp / e.maxHp) * 100) + '%';
+            if (lbl) lbl.innerText = `HP: ${e.hp}/${e.maxHp}`;
+            if (badge) badge.innerText = `${e.name} (${e.hp > 0 ? '反擊:' + e.dmg : '擊倒'})`;
+            if (col && e.hp <= 0) col.style.opacity = '0.25';
+        });
     }
 
     function loadNextBattleQ() {
@@ -1197,40 +1262,77 @@
         document.querySelectorAll('#battle-options-box .btn-ans-pc').forEach(b => b.disabled = true);
         const right = idx === curQ.ans;
         const heroCard = document.getElementById('heroCardFrame');
-        const enemyCard = document.getElementById('enemyCardFrame');
 
         if (right) {
             btn.classList.add('correct-reveal');
             heroCard.classList.add('attack');
-            enemyCard.classList.add('hit');
-            setTimeout(() => { heroCard.classList.remove('attack'); enemyCard.classList.remove('hit'); }, 400);
+            setTimeout(() => { heroCard.classList.remove('attack'); }, 400);
 
-            let playerDmg = 25;
-            if (state.activeHero === 'warrior') playerDmg = 25 + state.heroGear.warrior_weap * 7;
-            else if (state.activeHero === 'mage') playerDmg = 30 + state.heroGear.mage_weap * 8;
-            else if (state.activeHero === 'healer') playerDmg = 20 + state.heroGear.healer_weap * 5;
+            let attackMsg = "";
 
-            eHp = Math.max(0, eHp - playerDmg);
+            if (state.activeHero === 'warrior') {
+                // 劍士：單體物理重斬，鎖定第一隻存活的怪獸！
+                const target = curEnemies.find(e => e.hp > 0);
+                const dmg = 85 + state.heroGear.warrior_weap * 18;
+                if (target) {
+                    target.hp = Math.max(0, target.hp - dmg);
+                    const targetIdx = curEnemies.indexOf(target);
+                    const enemyCard = document.getElementById(`enemyCardFrame-${targetIdx}`);
+                    if (enemyCard) {
+                        enemyCard.classList.add('hit');
+                        setTimeout(() => enemyCard.classList.remove('hit'), 400);
+                    }
+                    attackMsg = `🗡️ 星際劍士發動物理重斬！對【${target.name}】造成 ${dmg} 點致命打擊！`;
+                }
+            } else if (state.activeHero === 'mage') {
+                // 魔法師：真正的全體群攻！召喚元素隕石轟炸在場所有怪獸！
+                const aoeDmg = 65 + state.heroGear.mage_weap * 14;
+                curEnemies.forEach((e, i) => {
+                    if (e.hp > 0) {
+                        e.hp = Math.max(0, e.hp - aoeDmg);
+                        const enemyCard = document.getElementById(`enemyCardFrame-${i}`);
+                        if (enemyCard) {
+                            enemyCard.classList.add('hit');
+                            setTimeout(() => enemyCard.classList.remove('hit'), 400);
+                        }
+                    }
+                });
+                attackMsg = `🔮 星空魔法師召喚元素隕石全體群攻！對所有怪獸造成 ${aoeDmg} 點群體爆擊！`;
+            } else if (state.activeHero === 'healer') {
+                // 治療師：單體攻擊 + 隊伍神聖回血！
+                const target = curEnemies.find(e => e.hp > 0);
+                const dmg = 50 + state.heroGear.healer_weap * 10;
+                const healAmt = 55 + state.heroGear.healer_weap * 16;
+                if (target) {
+                    target.hp = Math.max(0, target.hp - dmg);
+                    const targetIdx = curEnemies.indexOf(target);
+                    const enemyCard = document.getElementById(`enemyCardFrame-${targetIdx}`);
+                    if (enemyCard) {
+                        enemyCard.classList.add('hit');
+                        setTimeout(() => enemyCard.classList.remove('hit'), 400);
+                    }
+                }
+                const maxH = getHeroMaxHp();
+                hHp = Math.min(maxH, hHp + healAmt);
+                attackMsg = `🧚‍♀️ 時空治療師施放神聖光環！造成 ${dmg} 傷害並為隊伍恢復 ${healAmt} HP！`;
+            }
 
-            let counterDmg = curWave.dmg;
+            // 雙向反擊：在場所有存活的怪獸反擊！
+            let totalCounter = 0;
+            curEnemies.forEach(e => {
+                if (e.hp > 0) totalCounter += e.dmg;
+            });
+
             if (state.activePet === 'penguin') {
                 const pLvl = state.petLevels.penguin || 1;
-                counterDmg = Math.round(counterDmg * (1 - (0.15 + pLvl * 0.10)));
+                totalCounter = Math.round(totalCounter * (1 - (0.15 + pLvl * 0.10)));
             }
 
-            let healText = "";
-            if (state.activeHero === 'healer') {
-                const maxH = 100 + (state.heroGear.team_armor - 1) * 35;
-                const healAmt = 12 + state.heroGear.healer_weap * 4;
-                hHp = Math.min(maxH, hHp + healAmt);
-                healText = ` ｜ 🧚‍♀️ 治療師神聖光環恢復 ${healAmt} HP！`;
-            }
-
-            if (eHp > 0) {
-                hHp = Math.max(0, hHp - counterDmg);
-                document.getElementById('battle-exp-title').innerText = `✅ 答對進攻造成 ${playerDmg} 傷害！怪獸反擊造成 ${counterDmg} 傷害！${healText}`;
+            if (totalCounter > 0) {
+                hHp = Math.max(0, hHp - totalCounter);
+                document.getElementById('battle-exp-title').innerText = `✅ 答對進攻！${attackMsg} 怪獸反擊造成 ${totalCounter} 傷害！`;
             } else {
-                document.getElementById('battle-exp-title').innerText = `💥 致命爆擊！成功消滅 ${curWave.name}！${healText}`;
+                document.getElementById('battle-exp-title').innerText = `💥 致命打擊！本波怪獸全數消滅！`;
             }
 
             const dogLvl = (state.activePet === 'dog') ? (state.petLevels.dog || 1) : 0;
@@ -1239,15 +1341,19 @@
             combatCoinsEarnedThisSession += earned;
             state.streak++;
         } else {
+            // 答錯受到怪獸暴擊
             btn.classList.add('user-wrong');
             const correctBtn = document.getElementById(`battle-opt-btn-${curQ.ans}`);
             if (correctBtn) correctBtn.classList.add('correct-reveal');
 
-            enemyCard.classList.add('attack');
             heroCard.classList.add('hit');
-            setTimeout(() => { enemyCard.classList.remove('attack'); heroCard.classList.remove('hit'); }, 400);
+            setTimeout(() => heroCard.classList.remove('hit'), 400);
 
-            let monsterCrit = Math.round(curWave.dmg * 2.2);
+            let critTotal = 0;
+            curEnemies.forEach(e => {
+                if (e.hp > 0) critTotal += Math.round(e.dmg * 2.2);
+            });
+            if (critTotal === 0) critTotal = 25;
 
             if (state.activePet === 'otter' && otterShieldCount > 0) {
                 otterShieldCount--;
@@ -1255,10 +1361,10 @@
             } else {
                 if (state.activePet === 'penguin') {
                     const pLvl = state.petLevels.penguin || 1;
-                    monsterCrit = Math.round(monsterCrit * (1 - (0.15 + pLvl * 0.10)));
+                    critTotal = Math.round(critTotal * (1 - (0.15 + pLvl * 0.10)));
                 }
-                hHp = Math.max(0, hHp - monsterCrit);
-                document.getElementById('battle-exp-title').innerText = `❌ 答錯受到怪獸暴擊重擊，損失 ${monsterCrit} HP！`;
+                hHp = Math.max(0, hHp - critTotal);
+                document.getElementById('battle-exp-title').innerText = `❌ 答錯受到怪獸暴擊重擊，損失 ${critTotal} HP！`;
             }
             state.streak = 0;
         }
@@ -1277,9 +1383,10 @@
             return;
         }
 
-        if (eHp <= 0) {
+        const livingEnemies = curEnemies.filter(e => e.hp > 0);
+        if (livingEnemies.length === 0) {
             if (curWaveIdx < 2) {
-                alert(`✨ 成功擊倒 ${curWave.name}！前進第 ${curWaveIdx + 2} 波次！(剩餘 HP 繼承)`);
+                alert(`✨ 成功擊倒本波怪獸！前進第 ${curWaveIdx + 2} 波次！(當前剩餘 HP 繼承)`);
                 setupWave(curWaveIdx + 1);
                 return;
             } else {
@@ -1299,7 +1406,7 @@
         speakText(speech);
     }
 
-    /* 2. 聽力測驗 (有開始卡片，點擊後才開局) */
+    /* 2. 聽力測驗/* 2. 聽力測驗 (有開始卡片，點擊後才開局) */
     let lisQueue = [];
     let curLis = null;
     let lisRound = 0;
