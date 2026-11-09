@@ -431,15 +431,20 @@
         }
         .cabin-modal-box {
             background: #ffffff; border: 3.5px solid #d97706; border-radius: 24px;
-            padding: 26px 30px; max-width: 680px; width: 92%; max-height: 88vh; overflow-y: auto;
-            box-shadow: 0 12px 45px rgba(0,0,0,0.4);
+            padding: 26px 32px; max-width: 980px; width: 95%; max-height: 90vh; overflow-y: auto;
+            box-shadow: 0 14px 50px rgba(0,0,0,0.45);
         }
         .cabin-squad-row {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 14px 0 22px;
         }
         .cabin-card-slot {
             background: #f8fafc; border: 2px solid #bae6fd; border-radius: 18px;
-            padding: 16px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px;
+            padding: 16px 14px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.06);
+        }
+        .cabin-card-slot img {
+            width: 95px; height: 100px; object-fit: contain;
+            border-radius: 12px; background: #ffffff; border: 1.5px solid #e2e8f0;
         }
 
         /* 結算彈窗 */
@@ -523,21 +528,8 @@
 
             <div style="font-size: 32px; font-weight: 900; color: #38bdf8; text-shadow: 0 0 15px #38bdf8;">⚔️</div>
 
-            <!-- 怪獸軍團 (支援 2 隻以上怪獸同時在場，讓法師群攻真正生效！) -->
+            <!-- 怪獸軍團容器 (支援 2 隻以上怪獸同時在場，讓法師群攻真正生效！) -->
             <div class="enemy-combat-group" id="enemy-combat-group" style="display: flex; gap: 14px; align-items: center;"></div>
-        </div>
-
-            <div style="font-size: 32px; font-weight: 900; color: #38bdf8; text-shadow: 0 0 15px #38bdf8;">⚔️</div>
-
-            <!-- 怪獸卡牌：大立繪，底部標註怪獸名稱與反擊傷害 -->
-            <div class="fighter-col">
-                <div class="trading-card-frame monster" id="enemyCardFrame">
-                    <div class="card-artwork-fill"><img id="battle-enemy-pic" src="assets/boss_slime.jfif" alt="Monster"></div>
-                    <div class="card-footer-bar" id="enemy-atk-badge">史萊姆幼體 (反擊: 6)</div>
-                </div>
-                <div class="hp-bar-outer"><div class="hp-bar-inner-enemy" id="enemy-hp-fill"></div></div>
-                <div class="fighter-meta" id="enemy-hp-label">怪獸 HP: 60/60</div>
-            </div>
         </div>
 
         <div class="battle-body-pc">
@@ -559,7 +551,6 @@
         </div>
     </div>
 
-    <!-- 3. 段考聽力測驗 (附帶開始卡片) -->
     <div id="panel-listening" class="workspace-panel">
         <div class="practice-header-strip">
             <div>
@@ -1064,9 +1055,16 @@
 
         document.querySelectorAll('.mission-tab').forEach(t => t.classList.remove('active'));
         const tabMap = {
-            'panel-map': 'tab-btn-map', 'panel-listening': 'tab-btn-listening', 'panel-spelling': 'tab-btn-spelling',
-            'panel-scramble': 'tab-btn-scramble', 'panel-vocab-quiz': 'tab-btn-vocab', 'panel-tf': 'tab-btn-tf',
-            'panel-flashcard': 'tab-btn-fc', 'panel-shop': 'tab-btn-shop', 'panel-defense': 'tab-btn-defense'
+            'panel-map': 'tab-btn-map',
+            'panel-battle': 'tab-btn-map',
+            'panel-listening': 'tab-btn-listening',
+            'panel-spelling': 'tab-btn-spelling',
+            'panel-scramble': 'tab-btn-scramble',
+            'panel-vocab-quiz': 'tab-btn-vocab',
+            'panel-tf': 'tab-btn-tf',
+            'panel-flashcard': 'tab-btn-fc',
+            'panel-shop': 'tab-btn-shop',
+            'panel-defense': 'tab-btn-defense'
         };
         const activeTab = document.getElementById(tabMap[panelId]);
         if (activeTab) activeTab.classList.add('active');
