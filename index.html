@@ -1336,21 +1336,20 @@
         playPop() { this.playTone(880, 'triangle', 0.09, 0.12); setTimeout(()=>this.playTone(1320, 'sine', 0.15, 0.1), 60); },
 
         /* 奇幻冒險輕音樂琶音生成 (零外部 MP3，安靜放鬆，無卡頓) */
+        bgmAudio: null,
         startBGM() {
-            this.init();
-            if (!this.ctx) return;
-            if (this.ctx.state === 'suspended') this.ctx.resume();
-            this.bgmActive = true;
-            document.getElementById('btn-bgm-toggle').innerText = "🎵 音樂: 開";
-
-            const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
-            let noteIdx = 0;
-            this.bgmTimer = setInterval(() => {
-                if (!this.bgmActive) return;
-                const f = notes[noteIdx % notes.length];
-                this.playTone(f, 'sine', 0.45, 0.025);
-                noteIdx++;
-            }, 600);
+            if (!this.bgmAudio) {
+                this.bgmAudio = new Audio('assets/bgm.mp3');
+                this.bgmAudio.loop = true; // 循環播放
+                this.bgmAudio.volume = 0.3; // 音量大小 (0.0 ~ 1.0)
+            }
+            this.bgmAudio.play().then(() => {
+                this.bgmActive = true;
+                const btn = document.getElementById('btn-bgm-toggle');
+                if (btn) btn.innerText = "🎵 音樂: 開";
+            }).catch(err => {
+                console.log("背景音樂播放失敗（可能需使用者先點擊頁面）:", err);
+            });
         },
         stopBGM() {
             this.bgmActive = false;
