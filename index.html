@@ -194,10 +194,10 @@
 
         /* 隨行萌寵卡牌 (乾淨無冗餘文字) */
         .companion-pet-card {
-            width: 95px; height: 145px; background: #064e3b;
-            border: 2.5px solid #10b981; border-radius: 14px;
+            width: 95px; height: 145px; background: #090e1a;
+            border: 3px solid #f59e0b; border-radius: 14px;
             display: flex; flex-direction: column; overflow: hidden;
-            box-shadow: 0 0 18px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35); position: relative;
         }
         .pet-art-fill {
             flex: 1; width: 100%; background: #ffffff; overflow: hidden;
@@ -205,8 +205,8 @@
         }
         .pet-art-fill img { width: 90%; height: 90%; object-fit: contain; }
         .pet-card-footer {
-            background: #064e3b; font-size: 11px; font-weight: 900; color: #a7f3d0;
-            text-align: center; padding: 4px 2px;
+            background: #0f172a; font-size: 11px; font-weight: 900; color: #f8fafc;
+            text-align: center; padding: 5px 2px; border-top: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         /* 攻擊位移與被擊中強烈震動動畫！ */
@@ -633,6 +633,57 @@
             0% { transform: scale(0.85); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
+
+        /* 是非題答案揭示樣式：正確綠燈、錯誤紅燈 */
+        .btn-tf-pc {
+            flex: 1; padding: 22px; font-size: 24px; font-weight: 900; border-radius: 18px;
+            background: #f8fafc; border: 3px solid #cbd5e1; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-tf-pc.correct-reveal {
+            background: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #15803d !important;
+            font-weight: 900 !important;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.45) !important;
+        }
+        .btn-tf-pc.user-wrong {
+            background: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #b91c1c !important;
+            font-weight: 900 !important;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4) !important;
+        }
+
+        /* 戰鬥浮動跳字傷害/治癒特效 */
+        .combat-float-num {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            font-size: 32px;
+            font-weight: 900;
+            color: #ef4444;
+            text-shadow: 0 0 10px #000, 0 2px 4px rgba(0,0,0,0.8);
+            pointer-events: none;
+            z-index: 120;
+            animation: floatCombatNum 0.85s ease-out forwards;
+        }
+        .combat-float-num.heal { color: #22c55e; text-shadow: 0 0 12px rgba(34, 197, 94, 0.8), 0 2px 4px #000; }
+        .combat-float-num.counter { color: #f87171; font-size: 28px; }
+        @keyframes floatCombatNum {
+            0% { transform: translate(-50%, 15px) scale(0.7); opacity: 0; }
+            20% { transform: translate(-50%, -10px) scale(1.3); opacity: 1; }
+            75% { transform: translate(-50%, -40px) scale(1.1); opacity: 1; }
+            100% { transform: translate(-50%, -65px) scale(0.9); opacity: 0; }
+        }
+
+        .btn-buy-pc.locked {
+            background: #e2e8f0 !important;
+            color: #94a3b8 !important;
+            cursor: not-allowed !important;
+            border: 1.5px dashed #cbd5e1 !important;
+        }
+
 </style>
 </head>
 <body>
@@ -693,7 +744,7 @@
                 </div>
 
                 <!-- 英雄卡牌 (HP 500) -->
-                <div class="fighter-col">
+                <div class="fighter-col" id="heroFighterCol">
                     <div class="trading-card-frame" id="heroCardFrame">
                         <div class="card-artwork-fill"><img id="battle-hero-pic" src="assets/hero_warrior.jfif" alt="Hero"></div>
                         <div class="card-footer-bar" id="heroLevelTag">⚔️ 星際劍士 Lv.1</div>
@@ -1002,8 +1053,8 @@
             </div>
 
             <div class="tf-btn-pair">
-                <button class="btn-tf-pc" style="border-color: #22c55e; color: #16a34a;" onclick="submitTF(true)">⭕ 正確 (True)</button>
-                <button class="btn-tf-pc" style="border-color: #ef4444; color: #dc2626;" onclick="submitTF(false)">❌ 錯誤 (False)</button>
+                <button class="btn-tf-pc" id="btn-tf-true" style="border-color: #22c55e; color: #16a34a;" onclick="submitTF(true)">⭕ 正確 (True)</button>
+                <button class="btn-tf-pc" id="btn-tf-false" style="border-color: #ef4444; color: #dc2626;" onclick="submitTF(false)">❌ 錯誤 (False)</button>
             </div>
 
             <div class="explanation-pc-card" id="tf-exp-card">
@@ -1056,35 +1107,37 @@
             </div>
         </div>
 
-        <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">⚔️ 夥伴專屬裝備強化庫 (進階升級消耗)</h3>
+        <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">⚔️ 三大夥伴專屬武器強化庫</h3>
         <div class="shop-cards-grid">
             <div class="shop-item-card">
-                <div><b>劍士・光刃 Lv.<span id="ui-weap-warrior">1</span></b><br><span style="font-size: 12px; color: #64748b;">物攻: <span id="ui-dmg-warrior">25</span> HP</span></div>
-                <button class="btn-buy-pc" id="btn-up-warrior" onclick="upgradeHeroGear('warrior_weap')">升級 (<span id="cost-up-warrior">120</span> ⭐)</button>
+                <div><b>劍士・光刃 Lv.<span id="ui-weap-warrior">1</span></b><br><span style="font-size: 12px; color: #64748b;">物攻打擊: <span id="ui-dmg-warrior">85</span> HP</span></div>
+                <button class="btn-buy-pc" id="btn-up-weap-warrior" onclick="upgradeHeroGear('warrior_weap')">升級 (<span id="cost-up-weap-warrior">120</span> ⭐)</button>
             </div>
             <div class="shop-item-card">
-                <div><b>法師・星杖 Lv.<span id="ui-weap-mage">1</span></b><br><span style="font-size: 12px; color: #64748b;">法傷: <span id="ui-dmg-mage">30</span> HP</span></div>
-                <button class="btn-buy-pc" id="btn-up-mage" onclick="upgradeHeroGear('mage_weap')">升級 (<span id="cost-up-mage">120</span> ⭐)</button>
+                <div><b>法師・星杖 Lv.<span id="ui-weap-mage">1</span></b><br><span style="font-size: 12px; color: #64748b;">全體群傷: <span id="ui-dmg-mage">65</span> HP</span></div>
+                <button class="btn-buy-pc" id="btn-up-weap-mage" onclick="upgradeHeroGear('mage_weap')">升級 (<span id="cost-up-weap-mage">120</span> ⭐)</button>
             </div>
             <div class="shop-item-card">
-                <div><b>治療・神權杖 Lv.<span id="ui-weap-healer">1</span></b><br><span style="font-size: 12px; color: #64748b;">回血量: +<span id="ui-heal-val">12</span> HP</span></div>
-                <button class="btn-buy-pc" id="btn-up-healer" onclick="upgradeHeroGear('healer_weap')">升級 (<span id="cost-up-healer">120</span> ⭐)</button>
-            </div>
-            <!-- 三種獨立防護甲裝分類與定價 -->
-            <div class="shop-item-card" style="border: 2px solid #38bdf8;">
-                <div><b>🛡️ 輕型戰術皮甲 Lv.<span id="ui-armor-lvl-1">1</span></b><br><span style="font-size: 12px; color: #0284c7;">全隊生命上限 +60 HP</span></div>
-                <button class="btn-buy-pc" id="btn-up-armor-1" onclick="upgradeSpecificArmor('tier1')">升級 (<span id="cost-armor-1">100</span> ⭐)</button>
-            </div>
-            <div class="shop-item-card" style="border: 2px solid #f59e0b;">
-                <div><b>🛡️ 重型合金鋼甲 Lv.<span id="ui-armor-lvl-2">1</span></b><br><span style="font-size: 12px; color: #b45309;">全隊生命上限 +120 HP</span></div>
-                <button class="btn-buy-pc" id="btn-up-armor-2" onclick="upgradeSpecificArmor('tier2')">升級 (<span id="cost-armor-2">250</span> ⭐)</button>
-            </div>
-            <div class="shop-item-card" style="border: 2px solid #8b5cf6;">
-                <div><b>🛡️ 星際能量護盾 Lv.<span id="ui-armor-lvl-3">1</span></b><br><span style="font-size: 12px; color: #6d28d9;">全隊生命上限 +250 HP</span></div>
-                <button class="btn-buy-pc" id="btn-up-armor-3" onclick="upgradeSpecificArmor('tier3')">升級 (<span id="cost-armor-3">500</span> ⭐)</button>
+                <div><b>治療・神權杖 Lv.<span id="ui-weap-healer">1</span></b><br><span style="font-size: 12px; color: #64748b;">治癒回血: +<span id="ui-heal-val">55</span> HP</span></div>
+                <button class="btn-buy-pc" id="btn-up-weap-healer" onclick="upgradeHeroGear('healer_weap')">升級 (<span id="cost-up-weap-healer">120</span> ⭐)</button>
             </div>
         </div>
 
+        <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">🛡️ 三大夥伴專屬防具強化庫 (生命上限 100 ➔ 500 HP)</h3>
+        <div class="shop-cards-grid">
+            <div class="shop-item-card">
+                <div><b>劍士・重裝戰甲 Lv.<span id="ui-armor-warrior">1</span></b><br><span style="font-size: 12px; color: #64748b;">生命上限: <span id="ui-hp-warrior">100</span> HP</span></div>
+                <button class="btn-buy-pc" id="btn-up-armor-warrior" onclick="upgradeHeroGear('warrior_armor')">升級 (<span id="cost-up-armor-warrior">120</span> ⭐)</button>
+            </div>
+            <div class="shop-item-card">
+                <div><b>法師・星空法袍 Lv.<span id="ui-armor-mage">1</span></b><br><span style="font-size: 12px; color: #64748b;">生命上限: <span id="ui-hp-mage">100</span> HP</span></div>
+                <button class="btn-buy-pc" id="btn-up-armor-mage" onclick="upgradeHeroGear('mage_armor')">升級 (<span id="cost-up-armor-mage">120</span> ⭐)</button>
+            </div>
+            <div class="shop-item-card">
+                <div><b>治療・神聖法衣 Lv.<span id="ui-armor-healer">1</span></b><br><span style="font-size: 12px; color: #64748b;">生命上限: <span id="ui-hp-healer">100</span> HP</span></div>
+                <button class="btn-buy-pc" id="btn-up-armor-healer" onclick="upgradeHeroGear('healer_armor')">升級 (<span id="cost-up-armor-healer">120</span> ⭐)</button>
+            </div>
+        </div>
         <h3 style="font-size: 17px; color: #0284c7; margin-bottom: 12px;">🐾 6 大太空萌寵升級養成庫</h3>
         <div class="shop-cards-grid" id="pets-shop-cards-grid"></div>
     </div>
@@ -1233,6 +1286,24 @@
         },
         playClick() { this.playTone(650, 'sine', 0.04, 0.08); },
         playLaser() { this.playTone(550, 'sawtooth', 0.08, 0.1); setTimeout(()=>this.playTone(320, 'sine', 0.1, 0.08), 50); },
+        playSlash() {
+            try {
+                this.init(); if (!this.ctx) return;
+                const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(800, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(150, this.ctx.currentTime + 0.18);
+                gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.18);
+                osc.connect(gain); gain.connect(this.ctx.destination);
+                osc.start(); osc.stop(this.ctx.currentTime + 0.18);
+            } catch(e){}
+        },
+        playHeal() {
+            [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => {
+                setTimeout(() => this.playTone(f, 'sine', 0.22, 0.15), i * 65);
+            });
+        },
         playPop() { this.playTone(880, 'triangle', 0.09, 0.12); setTimeout(()=>this.playTone(1320, 'sine', 0.15, 0.1), 60); },
 
         /* 奇幻冒險輕音樂琶音生成 (零外部 MP3，安靜放鬆，無卡頓) */
@@ -1294,11 +1365,30 @@
 
     let state = {
         coins: 150, hearts: 3, streak: 0, activeHero: 'warrior',
-        heroGear: { warrior_weap: 1, mage_weap: 1, healer_weap: 1, team_armor: 1, tier1: 1, tier2: 1, tier3: 1 },
+        heroGear: { 
+            warrior_weap: 1, warrior_armor: 1,
+            mage_weap: 1, mage_armor: 1,
+            healer_weap: 1, healer_armor: 1
+        },
         activePet: 'dog',
         petLevels: { dog: 1, cat: 1, otter: 1, rabbit: 1, penguin: 1, bot: 1 },
         unlockedPets: ['dog'], unlockedHeroes: ['warrior']
     };
+
+    const HP_LEVEL_TABLE = { 1: 100, 2: 180, 3: 270, 4: 380, 5: 500 };
+    function getHeroMaxHp(h = state.activeHero) {
+        const armorLvl = (state.heroGear && state.heroGear[`${h}_armor`]) || 1;
+        return HP_LEVEL_TABLE[armorLvl] || 100;
+    }
+
+    function spawnCombatFloatNum(parentEl, text, type = 'dmg') {
+        if (!parentEl) return;
+        const num = document.createElement('div');
+        num.className = `combat-float-num ${type}`;
+        num.innerText = text;
+        parentEl.appendChild(num);
+        setTimeout(() => num.remove(), 900);
+    }
 
     const PET_CONFIG = {
         dog: { name: "🐕 太空柴犬", img: "assets/pet_dog.jfif", cost: 150, getPerk: (lvl) => `星幣掉落 +${10 + lvl * 10}%` },
@@ -1356,7 +1446,7 @@
             renderAllUnitsGuide();
         } else if (panelId === 'panel-shop') {
             renderShopPetCards();
-            updateArmorShopUI();
+            updateShopUI();
         } else if (panelId === 'panel-defense') {
             prepareDefenseStandby();
         }
@@ -1413,56 +1503,7 @@
     let otterShieldCount = 1;
     let combatCoinsEarnedThisSession = 0;
 
-    const ARMOR_TIER_CONFIG = {
-        tier1: { name: "輕型戰術皮甲", hpBonus: 60, costs: [100, 200, 350, 500, 750] },
-        tier2: { name: "重型合金鋼甲", hpBonus: 120, costs: [250, 400, 600, 850, 1200] },
-        tier3: { name: "星際能量護盾", hpBonus: 250, costs: [500, 800, 1200, 1600, 2200] }
-    };
-
-    function getHeroMaxHp() {
-        const t1 = state.heroGear.tier1 || 1;
-        const t2 = state.heroGear.tier2 || 1;
-        const t3 = state.heroGear.tier3 || 1;
-        return 500 + (t1 - 1) * 60 + (t2 - 1) * 120 + (t3 - 1) * 250;
-    }
-
-    function upgradeSpecificArmor(tierKey) {
-        if (!state.heroGear[tierKey]) state.heroGear[tierKey] = 1;
-        const curLvl = state.heroGear[tierKey];
-        const config = ARMOR_TIER_CONFIG[tierKey];
-        if (curLvl >= 5) {
-            showCenterDialog("系統提示", `✨ ${config.name} 已達到最高等級 Lv.5！`);
-            return;
-        }
-        const cost = config.costs[curLvl - 1] || 1000;
-        if (state.coins >= cost) {
-            state.coins -= cost;
-            state.heroGear[tierKey]++;
-            document.getElementById('val-coins').innerText = state.coins;
-            updateArmorShopUI();
-            showCenterDialog("系統提示", `🛡️ 成功強化【${config.name}】至 Lv.${state.heroGear[tierKey]}！全隊生命上限提升！`);
-        } else {
-            showCenterDialog("系統提示", `❌ 星幣不足！升級需要 ${cost} ⭐ 星幣。`);
-        }
-    }
-
-    function updateArmorShopUI() {
-        ['tier1', 'tier2', 'tier3'].forEach((k, idx) => {
-            const num = idx + 1;
-            const lvl = state.heroGear[k] || 1;
-            const config = ARMOR_TIER_CONFIG[k];
-            const lvlEl = document.getElementById(`ui-armor-lvl-${num}`);
-            const costEl = document.getElementById(`cost-armor-${num}`);
-            const btnEl = document.getElementById(`btn-up-armor-${num}`);
-            if (lvlEl) lvlEl.innerText = lvl;
-            if (lvl >= 5) {
-                if (btnEl) { btnEl.innerText = "已達最高等 MAX"; btnEl.classList.add('active-use'); btnEl.disabled = true; }
-            } else {
-                if (costEl) costEl.innerText = config.costs[lvl - 1] || 1000;
-                if (btnEl) { btnEl.innerText = `升級 (${config.costs[lvl - 1] || 1000} ⭐)`; btnEl.classList.remove('active-use'); btnEl.disabled = false; }
-            }
-        });
-    }
+    
 
     function startRPGCombat(stageId) {
         if (!ACTIVE_DATA) return;
@@ -1604,77 +1645,88 @@
             let attackMsg = "";
 
             if (state.activeHero === 'warrior') {
-                // 劍士：單體物理重斬，鎖定第一隻存活的怪獸！
+                SoundEngine.playSlash();
                 const target = curEnemies.find(e => e.hp > 0);
-                const dmg = 85 + state.heroGear.warrior_weap * 18;
+                const dmg = 85 + state.heroGear.warrior_weap * 20;
                 if (target) {
                     target.hp = Math.max(0, target.hp - dmg);
-                    const targetIdx = curEnemies.indexOf(target);
-                    const enemyCard = document.getElementById(`enemyCardFrame-${targetIdx}`);
+                    const tIdx = curEnemies.indexOf(target);
+                    const enemyCard = document.getElementById(`enemyCardFrame-${tIdx}`);
                     if (enemyCard) {
                         enemyCard.classList.add('hit');
                         setTimeout(() => enemyCard.classList.remove('hit'), 400);
                     }
-                    attackMsg = `🗡️ 星際劍士發動物理重斬！對【${target.name}】造成 ${dmg} 點致命打擊！`;
+                    const col = document.getElementById(`enemy-col-${tIdx}`);
+                    spawnCombatFloatNum(col, `💥 -${dmg}`);
+                    attackMsg = `🗡️ 星際劍士發動物理重斬！對【${target.name}】造成 ${dmg} 點打擊！`;
                 }
             } else if (state.activeHero === 'mage') {
-                // 魔法師：真正的全體群攻！召喚元素隕石轟炸在場所有怪獸！
-                const aoeDmg = 65 + state.heroGear.mage_weap * 14;
+                SoundEngine.playSlash();
+                const dmg = 65 + state.heroGear.mage_weap * 15;
                 curEnemies.forEach((e, i) => {
                     if (e.hp > 0) {
-                        e.hp = Math.max(0, e.hp - aoeDmg);
+                        e.hp = Math.max(0, e.hp - dmg);
                         const enemyCard = document.getElementById(`enemyCardFrame-${i}`);
                         if (enemyCard) {
                             enemyCard.classList.add('hit');
                             setTimeout(() => enemyCard.classList.remove('hit'), 400);
                         }
+                        spawnCombatFloatNum(document.getElementById(`enemy-col-${i}`), `🔥 -${dmg}`);
                     }
                 });
-                attackMsg = `🔮 星空魔法師召喚元素隕石全體群攻！對所有怪獸造成 ${aoeDmg} 點群體爆擊！`;
+                attackMsg = `🔮 星空魔法師召喚元素隕石全體群攻！對所有怪獸造成 ${dmg} 點群體爆擊！`;
             } else if (state.activeHero === 'healer') {
-                // 治療師：單體攻擊 + 隊伍神聖回血！
-                const target = curEnemies.find(e => e.hp > 0);
+                SoundEngine.playHeal();
                 const dmg = 50 + state.heroGear.healer_weap * 10;
-                const healAmt = 55 + state.heroGear.healer_weap * 16;
+                const heal = 55 + state.heroGear.healer_weap * 15;
+                const target = curEnemies.find(e => e.hp > 0);
                 if (target) {
                     target.hp = Math.max(0, target.hp - dmg);
-                    const targetIdx = curEnemies.indexOf(target);
-                    const enemyCard = document.getElementById(`enemyCardFrame-${targetIdx}`);
+                    const tIdx = curEnemies.indexOf(target);
+                    const enemyCard = document.getElementById(`enemyCardFrame-${tIdx}`);
                     if (enemyCard) {
                         enemyCard.classList.add('hit');
                         setTimeout(() => enemyCard.classList.remove('hit'), 400);
                     }
+                    spawnCombatFloatNum(document.getElementById(`enemy-col-${tIdx}`), `💥 -${dmg}`);
                 }
                 const maxH = getHeroMaxHp();
-                hHp = Math.min(maxH, hHp + healAmt);
-                attackMsg = `🧚‍♀️ 時空治療師施放神聖光環！造成 ${dmg} 傷害並為隊伍恢復 ${healAmt} HP！`;
+                hHp = Math.min(maxH, hHp + heal);
+                spawnCombatFloatNum(document.getElementById('heroFighterCol'), `💚 +${heal}`, 'heal');
+                attackMsg = `🧚‍♀️ 時空治療師施放神聖光環！造成 ${dmg} 傷害並為隊伍恢復 ${heal} HP！`;
             }
 
-            // 雙向反擊：在場所有存活的怪獸反擊！
-            let totalCounter = 0;
-            curEnemies.forEach(e => {
-                if (e.hp > 0) totalCounter += e.dmg;
-            });
-
-            if (state.activePet === 'penguin') {
-                const pLvl = state.petLevels.penguin || 1;
-                totalCounter = Math.round(totalCounter * (1 - (0.15 + pLvl * 0.10)));
-            }
-
-            if (totalCounter > 0) {
-                hHp = Math.max(0, hHp - totalCounter);
-                document.getElementById('battle-exp-title').innerText = `✅ 答對進攻！${attackMsg} 怪獸反擊造成 ${totalCounter} 傷害！`;
-            } else {
-                document.getElementById('battle-exp-title').innerText = `💥 致命打擊！本波怪獸全數消滅！`;
-            }
-
-            const dogLvl = (state.activePet === 'dog') ? (state.petLevels.dog || 1) : 0;
-            const earned = 3 + dogLvl;
-            state.coins += earned;
-            combatCoinsEarnedThisSession += earned;
+            state.coins += 3;
             state.streak++;
+            updateCombatUI();
+
+            setTimeout(() => {
+                let totalCounter = 0;
+                curEnemies.forEach((e, idx) => {
+                    if (e.hp > 0) {
+                        totalCounter += e.dmg;
+                        const enemyCard = document.getElementById(`enemyCardFrame-${idx}`);
+                        if (enemyCard) {
+                            enemyCard.classList.add('attack');
+                            setTimeout(() => enemyCard.classList.remove('attack'), 350);
+                        }
+                    }
+                });
+
+                if (state.activePet === 'penguin') {
+                    const pLvl = state.petLevels.penguin || 1;
+                    totalCounter = Math.round(totalCounter * (1 - (0.15 + pLvl * 0.10)));
+                }
+
+                if (totalCounter > 0) {
+                    hHp = Math.max(0, hHp - totalCounter);
+                    heroCard.classList.add('hit');
+                    setTimeout(() => heroCard.classList.remove('hit'), 400);
+                    spawnCombatFloatNum(document.getElementById('heroFighterCol'), `💔 -${totalCounter}`, 'counter');
+                    updateCombatUI();
+                }
+            }, 450);
         } else {
-            // 答錯受到怪獸暴擊
             btn.classList.add('user-wrong');
             const correctBtn = document.getElementById(`battle-opt-btn-${curQ.ans}`);
             if (correctBtn) correctBtn.classList.add('correct-reveal');
@@ -1683,9 +1735,7 @@
             setTimeout(() => heroCard.classList.remove('hit'), 400);
 
             let critTotal = 0;
-            curEnemies.forEach(e => {
-                if (e.hp > 0) critTotal += Math.round(e.dmg * 2.2);
-            });
+            curEnemies.forEach(e => { if (e.hp > 0) critTotal += Math.round(e.dmg * 2.2); });
             if (critTotal === 0) critTotal = 25;
 
             if (state.activePet === 'otter' && otterShieldCount > 0) {
@@ -1697,16 +1747,17 @@
                     critTotal = Math.round(critTotal * (1 - (0.15 + pLvl * 0.10)));
                 }
                 hHp = Math.max(0, hHp - critTotal);
+                spawnCombatFloatNum(document.getElementById('heroFighterCol'), `💔 -${critTotal}`, 'counter');
                 document.getElementById('battle-exp-title').innerText = `❌ 答錯受到怪獸暴擊重擊，損失 ${critTotal} HP！`;
             }
             state.streak = 0;
+            updateCombatUI();
         }
 
         document.getElementById('val-coins').innerText = state.coins;
         document.getElementById('val-streak').innerText = state.streak;
         document.getElementById('battle-exp-body').innerHTML = `<p><b>中文釋義：</b>${curQ.trans}</p><p><b>💡 考點解析：</b>${curQ.note}</p>`;
         document.getElementById('battle-exp-card').style.display = 'block';
-        updateCombatUI();
     }
 
     function nextBattleTurn() {
@@ -1735,8 +1786,24 @@
     }
     function speakBattleQ() {
         if (!curQ) return;
-        const speech = curQ.audio || extractEnglishOnly(curQ.q) || (curQ.opts ? curQ.opts[curQ.ans] : "");
-        speakText(speech);
+        let speech = "";
+        if (curQ.audio) {
+            speech = curQ.audio.split(/\bB\s*[:.]/i)[0];
+        } else {
+            const quoted = curQ.q.match(/["'“”]([a-zA-Z0-9\s,.?!'-]+)["'“”]/);
+            if (quoted && quoted[1]) {
+                speech = quoted[1];
+            } else {
+                const mDialog = curQ.q.match(/A:\s*["'“”]?([^"'“”\n]+)["'“”]?\s*B:/);
+                if (mDialog && mDialog[1]) speech = mDialog[1];
+            }
+        }
+        speech = cleanDialogueSpeech(speech);
+        if (speech && speech.length > 1) {
+            speakText(speech);
+        } else {
+            showCenterDialog("提示", "本題為中文情境理解題，請直接閱讀題目作答！");
+        }
     }
 
     /* 2. 聽力測驗/* 2. 聽力測驗 (有開始卡片，點擊後才開局) */
@@ -1777,8 +1844,6 @@
             document.getElementById('lis-lobby-cover').style.display = 'flex';
             document.getElementById('lis-exam-area').style.display = 'none';
             document.getElementById('listening-progress').innerText = `準備中`;
-            lastActivePracticePanel = 'listening';
-            resetPracticeLobby('listening');
             showSettlementCard(`恭喜完成 10 題聽力測驗！得分：${lisScore} 分`, lisCoinsEarned);
             return;
         }
@@ -1874,8 +1939,6 @@
             document.getElementById('scramble-lobby-cover').style.display = 'flex';
             document.getElementById('scramble-exam-area').style.display = 'none';
             document.getElementById('scramble-progress').innerText = `準備中`;
-            lastActivePracticePanel = 'scramble';
-            resetPracticeLobby('scramble');
             showSettlementCard(`恭喜完成 10 題句型重組！`, scrambleCoinsEarned);
             return;
         }
@@ -2015,8 +2078,6 @@
             document.getElementById('spell-lobby-cover').style.display = 'flex';
             document.getElementById('spell-exam-area').style.display = 'none';
             document.getElementById('spelling-progress').innerText = `準備中`;
-            lastActivePracticePanel = 'spelling';
-            resetPracticeLobby('spelling');
             showSettlementCard(`恭喜完成 10 題發音積木拼字！`, spellCoinsEarned);
             return;
         }
@@ -2144,8 +2205,6 @@
             document.getElementById('vocab-lobby-cover').style.display = 'flex';
             document.getElementById('vocab-exam-area').style.display = 'none';
             document.getElementById('vocab-progress').innerText = `準備中`;
-            lastActivePracticePanel = 'vocab';
-            resetPracticeLobby('vocab');
             showSettlementCard(`恭喜完成 10 題單字測驗！`, vqCoinsEarned);
             return;
         }
@@ -2240,8 +2299,6 @@
             document.getElementById('tf-lobby-cover').style.display = 'flex';
             document.getElementById('tf-exam-area').style.display = 'none';
             document.getElementById('tf-progress').innerText = `準備中`;
-            lastActivePracticePanel = 'tf';
-            resetPracticeLobby('tf');
             showSettlementCard(`恭喜完成 10 題觀念是非測驗！`, tfCoinsEarned);
             return;
         }
@@ -2257,7 +2314,6 @@
         tfRound++;
         document.getElementById('tf-progress').innerText = `第 ${tfRound} / 10 題`;
         document.getElementById('tf-statement-text').innerText = `${tfRound}. ${curTF.statement}`;
-
         const tfBtns = document.querySelectorAll('#tf-exam-area .btn-tf-pc');
         tfBtns.forEach(b => {
             b.disabled = false;
@@ -2381,16 +2437,7 @@
         showCenterDialog("系統提示", `⚔️ 已切換出戰英雄為：${HERO_CONFIG[h].name}！`);
         renderCabinSquad();
     }
-    function buyHero(h, cost) {
-        if (state.coins >= cost) {
-            state.coins -= cost;
-            state.unlockedHeroes.push(h);
-            state.activeHero = h;
-            document.getElementById('val-coins').innerText = state.coins;
-            showCenterDialog("系統提示", `🎉 成功解鎖英雄：${HERO_CONFIG[h].name}！`);
-            renderCabinSquad();
-        } else showCenterDialog("系統提示", `❌ 星幣不足！需要 ${cost} 星幣。`);
-    }
+    
 
     function renderShopPetCards() {
         const grid = document.getElementById('pets-shop-cards-grid');
@@ -2437,74 +2484,15 @@
         renderShopPetCards();
         renderCabinSquad();
     }
-    function buyPet(p, cost) {
-        if (state.coins >= cost) {
-            state.coins -= cost;
-            state.unlockedPets.push(p);
-            state.activePet = p;
-            document.getElementById('val-coins').innerText = state.coins;
-            showCenterDialog("系統提示", `🎉 成功收養萌寵：${PET_CONFIG[p].name}！已帶上出戰！`);
-            renderShopPetCards();
-            renderCabinSquad();
-        } else showCenterDialog("系統提示", `❌ 星幣不足！需要 ${cost} 星幣。`);
-    }
+    
 
-    function upgradePet(petKey) {
-        if (!state.petLevels) state.petLevels = { dog: 1, cat: 1, otter: 1, rabbit: 1, penguin: 1, bot: 1 };
-        const curLvl = state.petLevels[petKey] || 1;
-        if (curLvl >= 3) {
-            showCenterDialog("系統提示", "✨ 該萌寵已達到最高等級 Lv.3！");
-            return;
-        }
-        const upgradeCost = curLvl === 1 ? 250 : 500;
-        if (state.coins >= upgradeCost) {
-            state.coins -= upgradeCost;
-            state.petLevels[petKey]++;
-            document.getElementById('val-coins').innerText = state.coins;
-            showCenterDialog("系統提示", `🎉 恭喜萌寵升級至 Lv.${state.petLevels[petKey]}！技能大幅強化！`);
-            renderShopPetCards();
-            renderCabinSquad();
-        } else {
-            showCenterDialog("系統提示", `❌ 星幣不足！升級需要 ${upgradeCost} ⭐ 星幣。`);
-        }
-    }
+    
 
     function getGearUpgradeCost(lvl) {
         return [120, 250, 450, 750][lvl - 1] || 1000;
     }
 
-    function upgradeHeroGear(gearKey) {
-        const curLvl = state.heroGear[gearKey] || 1;
-        if (curLvl >= 5) {
-            showCenterDialog("系統提示", "✨ 裝備已強化至最高等級！");
-            return;
-        }
-        const cost = getGearUpgradeCost(curLvl);
-        if (state.coins >= cost) {
-            state.coins -= cost;
-            state.heroGear[gearKey]++;
-            document.getElementById('val-coins').innerText = state.coins;
-            
-            // 更新 UI
-            document.getElementById('ui-weap-warrior').innerText = state.heroGear.warrior_weap;
-            document.getElementById('ui-dmg-warrior').innerText = 25 + state.heroGear.warrior_weap * 7;
-            document.getElementById('cost-up-warrior').innerText = getGearUpgradeCost(state.heroGear.warrior_weap);
-
-            document.getElementById('ui-weap-mage').innerText = state.heroGear.mage_weap;
-            document.getElementById('ui-dmg-mage').innerText = 30 + state.heroGear.mage_weap * 8;
-            document.getElementById('cost-up-mage').innerText = getGearUpgradeCost(state.heroGear.mage_weap);
-
-            document.getElementById('ui-weap-healer').innerText = state.heroGear.healer_weap;
-            document.getElementById('ui-heal-val').innerText = 12 + state.heroGear.healer_weap * 4;
-            document.getElementById('cost-up-healer').innerText = getGearUpgradeCost(state.heroGear.healer_weap);
-
-            document.getElementById('ui-armor-lvl').innerText = state.heroGear.team_armor;
-            document.getElementById('ui-armor-hp').innerText = 100 + (state.heroGear.team_armor - 1) * 35;
-            document.getElementById('cost-up-armor').innerText = getGearUpgradeCost(state.heroGear.team_armor);
-
-            showCenterDialog("系統提示", "✨ 裝備強化升級成功！");
-        } else showCenterDialog("系統提示", `❌ 星幣不足！需要 ${cost} 星幣。`);
-    }
+    
 
     /* 9. 冒險小屋 (小隊配置整軍室) */
     function openCabinModal() {
@@ -2513,6 +2501,163 @@
     }
     function closeCabinModal() {
         document.getElementById('cabinModalOverlay').style.display = 'none';
+    }
+
+    
+    let confirmDialogCallback = null;
+    function showConfirmDialog(title, msg, onConfirm) {
+        document.getElementById('confirmDialogTitle').innerText = title;
+        document.getElementById('confirmDialogMsg').innerHTML = msg;
+        confirmDialogCallback = onConfirm;
+        document.getElementById('customConfirmDialogOverlay').style.display = 'flex';
+    }
+    function closeConfirmDialog(isConfirmed) {
+        document.getElementById('customConfirmDialogOverlay').style.display = 'none';
+        if (isConfirmed && typeof confirmDialogCallback === 'function') {
+            const cb = confirmDialogCallback;
+            confirmDialogCallback = null;
+            cb();
+        } else {
+            confirmDialogCallback = null;
+        }
+    }
+
+    function getGearDisplayName(gearKey) {
+        const map = {
+            'warrior_weap': '劍士・光刃', 'warrior_armor': '劍士・重裝戰甲',
+            'mage_weap': '法師・星杖', 'mage_armor': '法師・星空法袍',
+            'healer_weap': '治療・神權杖', 'healer_armor': '治療・神聖法衣'
+        };
+        return map[gearKey] || gearKey;
+    }
+
+    function updateShopUI() {
+        const isMage = state.unlockedHeroes.includes('mage');
+        const isHealer = state.unlockedHeroes.includes('healer');
+
+        // 劍士武器與防具數值
+        document.getElementById('ui-weap-warrior').innerText = state.heroGear.warrior_weap || 1;
+        document.getElementById('ui-dmg-warrior').innerText = 85 + (state.heroGear.warrior_weap || 1) * 20;
+        document.getElementById('cost-up-weap-warrior').innerText = getGearUpgradeCost(state.heroGear.warrior_weap || 1);
+
+        document.getElementById('ui-armor-warrior').innerText = state.heroGear.warrior_armor || 1;
+        document.getElementById('ui-hp-warrior').innerText = getHeroMaxHp('warrior');
+        document.getElementById('cost-up-armor-warrior').innerText = getGearUpgradeCost(state.heroGear.warrior_armor || 1);
+
+        // 法師武器與防具鎖定與數值
+        const btnMageW = document.getElementById('btn-up-weap-mage');
+        const btnMageA = document.getElementById('btn-up-armor-mage');
+        if (btnMageW && btnMageA) {
+            btnMageW.className = isMage ? 'btn-buy-pc' : 'btn-buy-pc locked';
+            btnMageW.disabled = !isMage;
+            btnMageW.innerText = isMage ? `升級 (${getGearUpgradeCost(state.heroGear.mage_weap || 1)} ⭐)` : "🔒 需先解鎖角色";
+            btnMageA.className = isMage ? 'btn-buy-pc' : 'btn-buy-pc locked';
+            btnMageA.disabled = !isMage;
+            btnMageA.innerText = isMage ? `升級 (${getGearUpgradeCost(state.heroGear.mage_armor || 1)} ⭐)` : "🔒 需先解鎖角色";
+            document.getElementById('ui-weap-mage').innerText = state.heroGear.mage_weap || 1;
+            document.getElementById('ui-dmg-mage').innerText = 65 + (state.heroGear.mage_weap || 1) * 15;
+            document.getElementById('ui-armor-mage').innerText = state.heroGear.mage_armor || 1;
+            document.getElementById('ui-hp-mage').innerText = getHeroMaxHp('mage');
+        }
+
+        // 治療師武器與防具鎖定與數值
+        const btnHealerW = document.getElementById('btn-up-weap-healer');
+        const btnHealerA = document.getElementById('btn-up-armor-healer');
+        if (btnHealerW && btnHealerA) {
+            btnHealerW.className = isHealer ? 'btn-buy-pc' : 'btn-buy-pc locked';
+            btnHealerW.disabled = !isHealer;
+            btnHealerW.innerText = isHealer ? `升級 (${getGearUpgradeCost(state.heroGear.healer_weap || 1)} ⭐)` : "🔒 需先解鎖角色";
+            btnHealerA.className = isHealer ? 'btn-buy-pc' : 'btn-buy-pc locked';
+            btnHealerA.disabled = !isHealer;
+            btnHealerA.innerText = isHealer ? `升級 (${getGearUpgradeCost(state.heroGear.healer_armor || 1)} ⭐)` : "🔒 需先解鎖角色";
+            document.getElementById('ui-weap-healer').innerText = state.heroGear.healer_weap || 1;
+            document.getElementById('ui-heal-val').innerText = 55 + (state.heroGear.healer_weap || 1) * 15;
+            document.getElementById('ui-armor-healer').innerText = state.heroGear.healer_armor || 1;
+            document.getElementById('ui-hp-healer').innerText = getHeroMaxHp('healer');
+        }
+    }
+
+    function upgradeHeroGear(gearKey) {
+        const heroName = gearKey.split('_')[0];
+        if (!state.unlockedHeroes.includes(heroName)) {
+            showCenterDialog("尚未解鎖夥伴", `🔒 請先解鎖【${HERO_CONFIG[heroName].name}】，才能為其強化裝備！`);
+            return;
+        }
+        const curLvl = state.heroGear[gearKey] || 1;
+        if (curLvl >= 5) {
+            showCenterDialog("裝備強化", "該裝備已達到最高等級 Lv.5 MAX！");
+            return;
+        }
+        const cost = getGearUpgradeCost(curLvl);
+        if (state.coins < cost) {
+            showCenterDialog("星幣不足", `升級需要 ${cost} ⭐ 星幣！`);
+            return;
+        }
+
+        const gearName = getGearDisplayName(gearKey);
+        showConfirmDialog("⚔️ 裝備升級確認", `確定要花費 <b style="color:#d97706;">${cost} ⭐ 星幣</b> 將【${gearName}】升級至 <b>Lv.${curLvl + 1}</b> 嗎？`, () => {
+            state.coins -= cost;
+            state.heroGear[gearKey]++;
+            document.getElementById('val-coins').innerText = state.coins;
+            showCenterDialog("強化成功", `✨ 【${gearName}】成功強化至 Lv.${state.heroGear[gearKey]}！`);
+            updateShopUI();
+            updateCombatUI();
+        });
+    }
+
+    function buyHero(h, cost) {
+        if (state.coins < cost) {
+            showCenterDialog("星幣不足", `需要 ${cost} 星幣才能解鎖！`);
+            return;
+        }
+        showConfirmDialog("💰 夥伴解鎖確認", `確定要花費 <b style="color:#d97706;">${cost} ⭐ 星幣</b> 解鎖【${HERO_CONFIG[h].name}】嗎？`, () => {
+            state.coins -= cost;
+            state.unlockedHeroes.push(h);
+            state.activeHero = h;
+            document.getElementById('val-coins').innerText = state.coins;
+            showCenterDialog("夥伴解鎖", `🎉 恭喜成功解鎖【${HERO_CONFIG[h].name}】！已設為出戰夥伴！`);
+            updateShopUI();
+            renderCabinSquad();
+        });
+    }
+
+    function buyPet(p, cost) {
+        if (state.coins < cost) {
+            showCenterDialog("星幣不足", `❌ 收養需要 <b style="color:#d97706;">${cost} ⭐ 星幣</b>！`);
+            return;
+        }
+        showConfirmDialog("🐾 萌寵收養確認", `確定要花費 <b style="color:#d97706;">${cost} ⭐ 星幣</b> 收養【${PET_CONFIG[p].name}】嗎？`, () => {
+            state.coins -= cost;
+            state.unlockedPets.push(p);
+            state.activePet = p;
+            document.getElementById('val-coins').innerText = state.coins;
+            showCenterDialog("收養成功", `🎉 恭喜成功收養萌寵【${PET_CONFIG[p].name}】！已隨隊出戰！`);
+            renderShopPetCards();
+            renderCabinSquad();
+        });
+    }
+
+    function upgradePet(petKey) {
+        if (!state.petLevels) state.petLevels = { dog: 1, cat: 1, otter: 1, rabbit: 1, penguin: 1, bot: 1 };
+        const curLvl = state.petLevels[petKey] || 1;
+        if (curLvl >= 3) {
+            showCenterDialog("系統提示", "✨ 該萌寵已達到最高等級 Lv.3 MAX！");
+            return;
+        }
+        const upgradeCost = curLvl === 1 ? 250 : 500;
+        if (state.coins < upgradeCost) {
+            showCenterDialog("星幣不足", `❌ 升級需要 <b style="color:#d97706;">${upgradeCost} ⭐ 星幣</b>！`);
+            return;
+        }
+
+        showConfirmDialog("🐾 萌寵升級確認", `確定要花費 <b style="color:#d97706;">${upgradeCost} ⭐ 星幣</b> 將【${PET_CONFIG[petKey].name}】升級至 <b>Lv.${curLvl + 1}</b> 嗎？`, () => {
+            state.coins -= upgradeCost;
+            state.petLevels[petKey]++;
+            document.getElementById('val-coins').innerText = state.coins;
+            showCenterDialog("升級成功", `🎉 萌寵【${PET_CONFIG[petKey].name}】成功升級至 Lv.${state.petLevels[petKey]}！特性大幅強化！`);
+            renderShopPetCards();
+            renderCabinSquad();
+        });
     }
 
     function renderCabinSquad() {
@@ -2715,6 +2860,17 @@
         document.getElementById('settle-current-total').innerText = state.coins;
         modal.style.display = 'flex';
     }
+    function closeSettlementBox() {
+        document.getElementById('settlementModalOverlay').style.display = 'none';
+        if (lastActivePracticePanel && lastActivePracticePanel !== 'map' && lastActivePracticePanel !== 'battle') {
+            const panelName = (lastActivePracticePanel === 'vocab') ? 'panel-vocab-quiz' : ('panel-' + lastActivePracticePanel);
+            resetPracticeLobby(lastActivePracticePanel);
+            navTo(panelName);
+        } else {
+            navTo('panel-map');
+        }
+    }
+
     let lastActivePracticePanel = 'map';
 
     function resetPracticeLobby(type) {
@@ -2735,22 +2891,16 @@
         }
     }
 
-    function closeSettlementBox() {
-        document.getElementById('settlementModalOverlay').style.display = 'none';
-        if (lastActivePracticePanel && lastActivePracticePanel !== 'map' && lastActivePracticePanel !== 'battle') {
-            const panelName = (lastActivePracticePanel === 'vocab') ? 'panel-vocab-quiz' : ('panel-' + lastActivePracticePanel);
-            resetPracticeLobby(lastActivePracticePanel);
-            navTo(panelName);
-        } else {
-            navTo('panel-map');
-        }
-    }
-
     function exitChallengePrematurely(type) {
         lastActivePracticePanel = type;
         resetPracticeLobby(type);
         if (type === 'listening') showSettlementCard(`聽力挑戰結束！得分：${lisScore} 分`, lisCoinsEarned);
         else if (type === 'grammar') showSettlementCard(`文法特訓結束！得分：${grammarScore} 分`, grammarCoinsEarned);
+        else if (type === 'spelling') showSettlementCard(`發音積木挑戰結束！`, spellCoinsEarned);
+        else if (type === 'scramble') showSettlementCard(`句型重組挑戰結束！`, scrambleCoinsEarned);
+        else if (type === 'vocab') showSettlementCard(`單字測驗挑戰結束！`, vqCoinsEarned);
+        else if (type === 'tf') showSettlementCard(`觀念是非挑戰結束！`, tfCoinsEarned);
+    } 分`, lisCoinsEarned);
         else if (type === 'spelling') showSettlementCard(`發音積木挑戰結束！`, spellCoinsEarned);
         else if (type === 'scramble') showSettlementCard(`句型重組挑戰結束！`, scrambleCoinsEarned);
         else if (type === 'vocab') showSettlementCard(`單字測驗挑戰結束！`, vqCoinsEarned);
@@ -2839,8 +2989,6 @@
             document.getElementById('grammar-lobby-cover').style.display = 'flex';
             document.getElementById('grammar-exam-area').style.display = 'none';
             document.getElementById('grammar-progress').innerText = `準備中`;
-            lastActivePracticePanel = 'grammar';
-            resetPracticeLobby('grammar');
             showSettlementCard(`恭喜完成 10 題冠詞與文法特訓！得分：${grammarScore} 分`, grammarCoinsEarned);
             return;
         }
@@ -3074,5 +3222,18 @@
             <button class="btn-next-pc" style="width: 100%; font-size: 16.5px;" id="centerDialogBtn" onclick="closeCenterDialog()">確定</button>
         </div>
     </div>
+
+    <!-- 二次確認彈窗 (購買/升級花費星幣確認) -->
+    <div class="custom-center-dialog-overlay" id="customConfirmDialogOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:1000; align-items:center; justify-content:center;">
+        <div class="custom-center-dialog-box" style="background:#fff; border:3.5px solid #f59e0b; border-radius:22px; padding:28px 32px; max-width:460px; width:90%; text-align:center;">
+            <h3 style="color:#d97706; font-size:23px; font-weight:900; margin-bottom:12px;" id="confirmDialogTitle">💰 購買確認</h3>
+            <div style="font-size:16px; color:#334155; line-height:1.6; margin-bottom:24px;" id="confirmDialogMsg"></div>
+            <div style="display:flex; gap:12px; justify-content:center;">
+                <button class="btn-return-action" style="margin-top:0; padding:10px 24px;" onclick="closeConfirmDialog(false)">✖ 取消</button>
+                <button class="btn-next-pc" style="background:linear-gradient(135deg, #16a34a 0%, #15803d 100%); padding:10px 28px;" id="confirmDialogBtnOk" onclick="closeConfirmDialog(true)">✔ 確定購買</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
