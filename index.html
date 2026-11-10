@@ -10164,16 +10164,7 @@
         };
     }
 
-    /* 1. RPG 戰鬥 (支援全覆蓋 98 字出題 + 4 大題型動態渲染) */
-    let curStage = null;
-    let curWaveIdx = 0;
-    let curEnemies = [];
-    let fightQueue = [];
-    let curQ = null;
-    let hHp = 100;
-    let waveStartHpHero = 100;
-    let otterShieldCount = 1;
-    let combatCoinsEarnedThisSession = 0;
+
 
     function startRPGCombat(stageId) {
         if (!ACTIVE_DATA) return;
