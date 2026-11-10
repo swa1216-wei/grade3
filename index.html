@@ -717,6 +717,11 @@
         </div>
         <div class="user-status-strip">
             <button class="btn-bgm-toggle" id="btn-bgm-toggle" onclick="toggleBGM()">🎵 音樂: 關</button>
+            <div style="display: flex; align-items: center; gap: 4px; background: #f0fdf4; border: 1.5px solid #86efac; padding: 3px 8px; border-radius: 20px;">
+                <span style="font-size: 11.5px; color: #15803d; font-weight: 800;">🔈</span>
+                <input type="range" id="bgm-volume-slider" min="0" max="100" value="25" style="width: 65px; height: 5px; accent-color: #16a34a; cursor: pointer;" oninput="adjustBGMVolume(this.value)">
+                <span id="bgm-volume-val" style="font-size: 11px; color: #15803d; font-weight: 800; min-width: 26px;">25%</span>
+            </div>
             <div class="status-pill">⭐ 星幣: <span id="val-coins">150</span></div>
             <div class="status-pill" style="color: #d97706;">🔥 連勝: <span id="val-streak">0</span> 題</div>
             <div class="status-pill" id="val-hearts" style="color: #ef4444;">❤️❤️❤️</div>
@@ -1380,8 +1385,10 @@
         },
         playPop() { this.playTone(880, 'triangle', 0.09, 0.12); setTimeout(()=>this.playTone(1320, 'sine', 0.15, 0.1), 60); },
 
-        /* 背景音樂播放器 (優先播放 assets/bgm.mp3，若未載入則無縫切換合成琶音備援) */
+        /* 背景音樂播放器 (支援暫停續播、音量微調與聽力避讓) */
         bgmAudio: null,
+        currentVolume: 0.25,
+        isDucked: false,
         startBGM() {
             this.init();
             if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
@@ -1391,20 +1398,21 @@
             if (!this.bgmAudio) {
                 this.bgmAudio = new Audio('assets/bgm.mp3');
                 this.bgmAudio.loop = true;
-                this.bgmAudio.volume = 0.35;
+                this.bgmAudio.volume = this.currentVolume;
+            } else {
+                this.bgmAudio.volume = this.currentVolume;
             }
 
             const playPromise = this.bgmAudio.play();
             if (playPromise !== undefined) {
                 playPromise.catch(err => {
-                    // 若無 bgm.mp3 或瀏覽器限制音訊檔案，自動切換至 Web Audio 輕音樂備用機制
                     if (!this.bgmTimer) {
                         const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
                         let noteIdx = 0;
                         this.bgmTimer = setInterval(() => {
                             if (!this.bgmActive) return;
                             const f = notes[noteIdx % notes.length];
-                            this.playTone(f, 'sine', 0.45, 0.025);
+                            this.playTone(f, 'sine', 0.45, 0.025 * (this.currentVolume / 0.25));
                             noteIdx++;
                         }, 600);
                     }
@@ -1414,18 +1422,38 @@
         stopBGM() {
             this.bgmActive = false;
             if (this.bgmAudio) {
-                this.bgmAudio.pause();
-                this.bgmAudio.currentTime = 0;
+                this.bgmAudio.pause(); // 保留 currentTime，再次播放時續播不歸零！
             }
             if (this.bgmTimer) { clearInterval(this.bgmTimer); this.bgmTimer = null; }
-            document.getElementById('btn-bgm-toggle').innerText = "🎵 音樂: 關";
+            document.getElementById('btn-bgm-toggle').innerText = "🎵 音樂: 暫停";
         },
         toggleBGM() {
             if (this.bgmActive) this.stopBGM();
             else this.startBGM();
+        },
+        setVolume(val) {
+            this.currentVolume = Math.max(0, Math.min(1, val));
+            if (this.bgmAudio && !this.isDucked) {
+                this.bgmAudio.volume = this.currentVolume;
+            }
+        },
+        duck() {
+            if (!this.bgmActive || !this.bgmAudio) return;
+            this.isDucked = true;
+            this.bgmAudio.volume = Math.min(0.04, this.currentVolume * 0.15);
+        },
+        unduck() {
+            if (!this.bgmActive || !this.bgmAudio) return;
+            this.isDucked = false;
+            this.bgmAudio.volume = this.currentVolume;
         }
     };
     function toggleBGM() { SoundEngine.toggleBGM(); }
+    function adjustBGMVolume(val) {
+        const pct = parseInt(val, 10);
+        document.getElementById('bgm-volume-val').innerText = pct + '%';
+        SoundEngine.setVolume(pct / 100);
+    }
 
     /* ==================== 題庫動態讀取與真實不重複洗牌系統 ==================== */
     let ACTIVE_DATA = {
@@ -9656,32 +9684,23 @@
                         note: `大於 1 歲時名詞 year 必須加 s 變複數 years！`
                     };
                 }
-            } else if (r < 0.70) {
-                if (isTF) {
-                    const isWrong = Math.random() > 0.5;
-                    return {
-                        unit: "u1",
-                        statement: isWrong 
-                            ? "高頻避坑：詢問同學名字時，英文句子可以寫成 'What's you're name?'。"
-                            : "高頻避坑：別人對你說 Thank you!，禮貌回應應該說 'You're welcome.'。",
-                        ans: !isWrong,
-                        trans: isWrong ? "應為：What's your name? (用所有格 your)" : "You're welcome. (不客氣)",
-                        note: isWrong 
-                            ? "錯誤！所有格是 your (你的)；you're 是 you are (你是) 的縮寫，絕不能用在 name 前面！"
-                            : "正確！You're welcome 中的 You're 是 You are 的縮寫！"
-                    };
-                } else {
+            } else if (r < 0.78) {
+                // 專項縮寫加權強化 (your vs you're, It's vs Its, What's 拆解, isn't 否定簡答)
+                const subType = Math.random();
+                if (subType < 0.3) {
                     const isNameQ = Math.random() > 0.5;
                     if (isNameQ) {
+                        const names = ["Mia", "Leo", "Rocky", "Amber", "Tina", "Ken"];
+                        const name = names[Math.floor(Math.random() * names.length)];
                         const opts = shuffleArray(["your", "you're", "you", "my"]);
                         return {
                             unit: "u1",
-                            q: "A: What's ____ name? B: My name is Mia.",
+                            q: `A: What's ____ name? B: My name is ${name}.`,
                             opts: opts,
                             ans: opts.indexOf("your"),
-                            type: "所有格 your vs you're",
+                            type: "所有格 your vs 縮寫 you're",
                             trans: "What's your name? (你的名字是什麼？)",
-                            note: "表示「你的」名字必須使用所有格 your！you're 是 you are (你是)！"
+                            note: "高頻易錯：表示「你的」名字必須用所有格 your！you're 是 you are (你是)！"
                         };
                     } else {
                         const opts = shuffleArray(["You're", "Your", "You", "I'm"]);
@@ -9692,9 +9711,49 @@
                             ans: opts.indexOf("You're"),
                             type: "禮貌回應 You're welcome",
                             trans: "You're welcome. (不客氣。)",
-                            note: "段考最高頻失分點：You're (你是) ⭕ vs. Your (你的) ❌！"
+                            note: "段考死穴：You're (你是) ⭕ vs. Your (你的) ❌！"
                         };
                     }
+                } else if (subType < 0.55) {
+                    const colorItems = [
+                        { n: "pen", c: "blue", zh: "原子筆" }, { n: "ruler", c: "yellow", zh: "尺" },
+                        { n: "bag", c: "black", zh: "書包" }, { n: "pencil", c: "green", zh: "鉛筆" }
+                    ];
+                    const ci = colorItems[Math.floor(Math.random() * colorItems.length)];
+                    const opts = shuffleArray(["It's", "Its", "Is", "It"]);
+                    return {
+                        unit: "u4",
+                        q: `Look at the ${ci.n}! ____ ${ci.c}.`,
+                        opts: opts,
+                        ans: opts.indexOf("It's"),
+                        type: "縮寫 It's (它是) vs 所有格 Its",
+                        trans: `It's ${ci.c}. (它是${ci.zh}色。)`,
+                        note: "句子需要主詞與 be 動詞，必須使用縮寫 It's (It is)，不能使用所有格 Its！"
+                    };
+                } else if (subType < 0.8) {
+                    const items = ["a pencil", "a ruler", "an eraser", "a book"];
+                    const item = items[Math.floor(Math.random() * items.length)];
+                    const opts = shuffleArray(["it isn't", "that isn't", "this isn't", "it is"]);
+                    return {
+                        unit: "u3",
+                        q: `A: Is that ${item}? B: No, ____.`,
+                        opts: opts,
+                        ans: opts.indexOf("it isn't"),
+                        type: "否定簡答縮寫 (it isn't)",
+                        trans: "No, it isn't. (不，它不是。)",
+                        note: "問句以 this/that 提問，簡答代名詞一律回歸 it，否定縮寫為 it isn't！"
+                    };
+                } else {
+                    const opts = shuffleArray(["What is", "What are", "Who is", "What am"]);
+                    return {
+                        unit: "u1",
+                        q: "英文縮寫單字 "What's" 是哪兩個單字的縮寫？",
+                        opts: opts,
+                        ans: opts.indexOf("What is"),
+                        type: "縮寫還原 (What's)",
+                        trans: "What's = What is",
+                        note: "What's 是 What is 的標準縮寫，撇號代表省略了字母 i。"
+                    };
                 }
             } else {
                 const esWords = [
@@ -11947,6 +12006,10 @@
             const u = new SpeechSynthesisUtterance(clean);
             u.lang = 'en-US';
             u.rate = 0.60;
+            // 朗讀時自動壓低背景音樂音量（Audio Ducking）
+            SoundEngine.duck();
+            u.onend = () => SoundEngine.unduck();
+            u.onerror = () => SoundEngine.unduck();
             window.speechSynthesis.speak(u);
         }
     }
