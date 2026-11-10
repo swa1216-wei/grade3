@@ -9860,6 +9860,7 @@
             renderAllUnitsGuide();
         } else if (panelId === 'panel-shop') {
             renderShopPetCards();
+        LearningEngine.init(ACTIVE_DATA.vocab);
             updateShopUI();
         } else if (panelId === 'panel-defense') {
             prepareDefenseStandby();
@@ -9919,11 +9920,267 @@
 
     
 
+        /* ==================== 📚 全覆蓋排程與 Leitner 間隔記憶引擎 ==================== */
+    const LearningEngine = {
+        STORAGE_KEY: 'ENGLISH_ADVENTURE_STATE_V3',
+        state: {
+            mastery: {}, // { [word]: { level: 0..3, correct: 0, wrong: 0, tested: true, lastTested: timestamp } }
+            unseenQueue: [],
+            mistakePool: []
+        },
+        init(vocabList) {
+            try {
+                const raw = localStorage.getItem(this.STORAGE_KEY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (parsed && typeof parsed === 'object') this.state = parsed;
+                }
+            } catch(e) {}
+            if (!this.state.mastery) this.state.mastery = {};
+            if (!Array.isArray(this.state.mistakePool)) this.state.mistakePool = [];
+
+            const allWords = (vocabList || []).map(v => v.en);
+            if (!Array.isArray(this.state.unseenQueue) || this.state.unseenQueue.length === 0) {
+                const unvisited = allWords.filter(w => !this.state.mastery[w] || !this.state.mastery[w].tested);
+                this.state.unseenQueue = unvisited.length > 0 ? shuffleArray(unvisited) : shuffleArray([...allWords]);
+            } else {
+                const existingSet = new Set(allWords);
+                this.state.unseenQueue = this.state.unseenQueue.filter(w => existingSet.has(w));
+                allWords.forEach(w => {
+                    if (!this.state.mastery[w] && !this.state.unseenQueue.includes(w)) {
+                        this.state.unseenQueue.push(w);
+                    }
+                });
+            }
+            this.save();
+            this.updateUI(vocabList);
+        },
+        save() {
+            try { localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.state)); } catch(e) {}
+        },
+        record(word, isCorrect) {
+            if (!word) return;
+            if (!this.state.mastery[word]) {
+                this.state.mastery[word] = { level: 0, correct: 0, wrong: 0, tested: true, lastTested: Date.now() };
+            }
+            const m = this.state.mastery[word];
+            m.tested = true;
+            m.lastTested = Date.now();
+            if (isCorrect) {
+                m.correct = (m.correct || 0) + 1;
+                m.level = Math.min(3, (m.level || 0) + 1);
+                this.state.mistakePool = this.state.mistakePool.filter(w => w !== word);
+            } else {
+                m.wrong = (m.wrong || 0) + 1;
+                m.level = 1;
+                if (!this.state.mistakePool.includes(word)) this.state.mistakePool.push(word);
+            }
+            this.state.unseenQueue = this.state.unseenQueue.filter(w => w !== word);
+            this.save();
+            this.updateUI(ACTIVE_DATA ? ACTIVE_DATA.vocab : []);
+        },
+        pickWords(count = 8) {
+            const pool = ACTIVE_DATA ? ACTIVE_DATA.vocab : [];
+            if (!pool || pool.length === 0) return [];
+            let allWords = pool.map(v => v.en);
+            const selected = [];
+
+            // 1. 優先回流錯題加強 (最多 2-3 題)
+            const mistakes = shuffleArray([...this.state.mistakePool]);
+            while (selected.length < 2 && mistakes.length > 0) {
+                const w = mistakes.pop();
+                if (!selected.includes(w)) selected.push(w);
+            }
+
+            // 2. 嚴格從未測佇列抽取 (保障全書 98 字全數遍歷，零死角！)
+            while (selected.length < count && this.state.unseenQueue.length > 0) {
+                const w = this.state.unseenQueue.shift();
+                if (!selected.includes(w)) selected.push(w);
+            }
+
+            // 3. 若未測佇列已跑完一輪，自動從未精通 (level < 3) 重新循環
+            if (selected.length < count) {
+                const unmastered = allWords.filter(w => (this.state.mastery[w]?.level || 0) < 3 && !selected.includes(w));
+                const refill = unmastered.length > 0 ? shuffleArray(unmastered) : shuffleArray(allWords.filter(w => !selected.includes(w)));
+                this.state.unseenQueue = [...refill];
+                while (selected.length < count && this.state.unseenQueue.length > 0) {
+                    const w = this.state.unseenQueue.shift();
+                    if (!selected.includes(w)) selected.push(w);
+                }
+            }
+
+            this.save();
+            this.updateUI(pool);
+            return shuffleArray(selected);
+        },
+        updateUI(vocabList) {
+            const tag = document.getElementById('db-source-tag');
+            if (!tag || !vocabList || vocabList.length === 0) return;
+            const total = vocabList.length;
+            const testedCount = Object.values(this.state.mastery).filter(m => m && m.tested).length;
+            const masteredCount = Object.values(this.state.mastery).filter(m => m && m.level === 3).length;
+            const pct = Math.min(100, Math.round((testedCount / total) * 100));
+            tag.innerText = `📚 全書覆蓋: ${pct}% (${testedCount}/${total}字) ｜ 🌟精通:${masteredCount} ｜ ⚠️待複習:${this.state.mistakePool.length}`;
+        }
+    };
+
+    /* ==================== 🎲 冒險多元題型動態衍生轉換引擎 ==================== */
+    function buildMultiTypeBattleQ(vocabItem) {
+        if (!vocabItem) return null;
+        const vEn = vocabItem.en.toLowerCase();
+        const vZh = vocabItem.zh;
+        const vPhonics = vocabItem.phonics || "基礎核心發音";
+        const vEx = vocabItem.ex || "";
+        const vowels = ['a', 'e', 'i', 'o', 'u'];
+        const isVowel = vowels.includes(vEn[0]);
+
+        // 隨機分派 4 大題型：拼字積木 (32%)、是非觀念 (30%)、冠詞所有格陷阱 (23%)、英選中選擇 (15%)
+        const roll = Math.random();
+
+        // 1. 【🔤 自然發音積木拼字】
+        if (roll < 0.32 && vEn.length <= 8 && !vEn.includes(' ') && !vEn.includes('-')) {
+            const correctLetters = vEn.split('');
+            const alphabet = "abcdefghijklmnopqrstuvwxyz";
+            const distractors = [];
+            while (distractors.length < Math.min(3, 8 - correctLetters.length)) {
+                const rChar = alphabet[Math.floor(Math.random() * alphabet.length)];
+                if (!correctLetters.includes(rChar) && !distractors.includes(rChar)) distractors.push(rChar);
+            }
+            return {
+                type: 'block',
+                word: vocabItem.en,
+                targetWord: vEn,
+                prompt: `【🔤 自然發音拼字挑戰】請依序點選積木拼出：「${vZh}」`,
+                tokens: shuffleArray([...correctLetters, ...distractors]),
+                trans: `${vocabItem.en} = ${vZh}`,
+                note: `自然發音規律：${vPhonics} ｜ 例句：${vEx}`
+            };
+        }
+
+        // 2. 【⭕❌ 字母鏡像與觀念是非題】
+        if (roll < 0.62) {
+            const firstChar = vEn[0];
+            if (['b', 'd', 'p', 'q'].includes(firstChar)) {
+                const isB = (firstChar === 'b' || firstChar === 'p');
+                const askRight = Math.random() > 0.5;
+                const expectedTrue = askRight ? isB : !isB;
+                return {
+                    type: 'tf',
+                    word: vocabItem.en,
+                    isTrue: expectedTrue,
+                    prompt: `【⭕❌ 鏡像字形是非題】單字 '${vocabItem.en}' (${vZh}) 的開頭第一個字母，肚子/圓圈是朝【${askRight ? '右邊' : '左邊'}】。`,
+                    trans: `開頭字母為 ${firstChar.toUpperCase()} (${firstChar})`,
+                    note: `字母字形鐵則：b 肚子在右邊 (向右看)，d 肚子在左邊 (向左看)；p 圓圈在右邊，q 圓圈在左邊！`
+                };
+            } else if (['one','two','three','four','five','six','seven','eight','nine','ten'].includes(vEn)) {
+                const mathQ = DynamicQuestionEngine.generateMathQuestion(true);
+                return {
+                    type: 'tf',
+                    word: vocabItem.en,
+                    isTrue: mathQ.ans,
+                    prompt: `【⭕❌ 生活數字算術是非題】${mathQ.statement}`,
+                    trans: mathQ.trans,
+                    note: mathQ.note
+                };
+            } else if (['red','blue','yellow','green','black','white','purple','orange'].includes(vEn)) {
+                const colorQ = DynamicQuestionEngine.generateColorQuestion(true);
+                return {
+                    type: 'tf',
+                    word: vocabItem.en,
+                    isTrue: colorQ.ans,
+                    prompt: `【⭕❌ 色彩調色是非題】${colorQ.statement}`,
+                    trans: colorQ.trans,
+                    note: colorQ.note
+                };
+            } else {
+                const isCorrect = Math.random() > 0.5;
+                const wrongItem = ACTIVE_DATA.vocab.find(v => v.en !== vocabItem.en) || { zh: "書桌" };
+                return {
+                    type: 'tf',
+                    word: vocabItem.en,
+                    isTrue: isCorrect,
+                    prompt: `【⭕❌ 字義觀念是非題】英文單字「${vocabItem.en}」的中文意思是「${isCorrect ? vZh : wrongItem.zh}」嗎？`,
+                    trans: `${vocabItem.en} = ${vZh}`,
+                    note: `正確字義：${vocabItem.en} 代表「${vZh}」。`
+                };
+            }
+        }
+
+        // 3. 【✏️ 冠詞 a/an、顏色形容詞、所有格動態陷阱】
+        if (roll < 0.85) {
+            if (['red','blue','yellow','green','black','white','purple'].includes(vEn)) {
+                const opts = shuffleArray([`${vEn}`, `a ${vEn}`, `an ${vEn}`, `two ${vEn}`]);
+                return {
+                    type: 'trap',
+                    word: vocabItem.en,
+                    prompt: `【✏️ 顏色文法陷阱】A: What color is the bag? B: It is ____.`,
+                    opts: opts,
+                    ans: opts.indexOf(vEn),
+                    trans: `It is ${vEn}. (它是${vZh}的。)`,
+                    note: `顏色是形容詞，單獨當表語回答時，前面絕對不可加冠詞 a 或 an！`
+                };
+            }
+            const useColorTrap = Math.random() > 0.5;
+            if (useColorTrap) {
+                const opts = shuffleArray(["a", "an", "the an", "two"]);
+                return {
+                    type: 'trap',
+                    word: vocabItem.en,
+                    prompt: `【✏️ 冠詞高頻陷阱】請填入最適當的冠詞：
+"Look! It is ____ green ${vocabItem.en}."`,
+                    opts: opts,
+                    ans: opts.indexOf("a"),
+                    trans: `It is a green ${vocabItem.en}.`,
+                    note: `高頻失分點：雖然 ${vocabItem.en} 是主角，但空格緊接的是顏色單字 green (子音開頭)，因此答案立刻變成 'a'！`
+                };
+            } else {
+                const correctArt = isVowel ? "an" : "a";
+                const opts = shuffleArray(["a", "an", "some", "two"]);
+                return {
+                    type: 'trap',
+                    word: vocabItem.en,
+                    prompt: `【✏️ 冠詞判斷特訓】請填入正確的不定冠詞：
+"There is ____ ${vocabItem.en} on the desk."`,
+                    opts: opts,
+                    ans: opts.indexOf(correctArt),
+                    trans: `There is ${correctArt} ${vocabItem.en}...`,
+                    note: `${vocabItem.en} 為${isVowel ? '母音' : '子音'}開頭發音，必須搭配不定冠詞 '${correctArt}'！`
+                };
+            }
+        }
+
+        // 4. 【📝 單字英選中選擇題】
+        const allVocab = ACTIVE_DATA ? ACTIVE_DATA.vocab : [];
+        const wrongList = shuffleArray(allVocab.filter(v => v.en !== vocabItem.en)).slice(0, 3).map(v => v.zh);
+        const choices = shuffleArray([vZh, ...wrongList]);
+        return {
+            type: 'mcq',
+            word: vocabItem.en,
+            prompt: `【📝 單字測驗】單字「${vocabItem.en}」的意思是什麼？`,
+            opts: choices,
+            ans: choices.indexOf(vZh),
+            trans: `${vocabItem.en} = ${vZh}`,
+            note: `例句：${vEx || vocabItem.en}`
+        };
+    }
+
+    /* 1. RPG 戰鬥 (支援全覆蓋 98 字出題 + 4 大題型動態渲染) */
+    let curStage = null;
+    let curWaveIdx = 0;
+    let curEnemies = [];
+    let fightQueue = [];
+    let curQ = null;
+    let hHp = 100;
+    let waveStartHpHero = 100;
+    let otterShieldCount = 1;
+    let combatCoinsEarnedThisSession = 0;
+
     function startRPGCombat(stageId) {
         if (!ACTIVE_DATA) return;
         curStage = ACTIVE_DATA.stages[stageId] || ACTIVE_DATA.stages[0];
         curWaveIdx = 0;
-        
+
+        LearningEngine.init(ACTIVE_DATA.vocab);
         const otterLvl = (state.petLevels && state.petLevels.otter) ? state.petLevels.otter : 1;
         otterShieldCount = otterLvl;
         combatCoinsEarnedThisSession = 0;
@@ -9931,28 +10188,17 @@
         hHp = getHeroMaxHp();
         waveStartHpHero = hHp;
 
-        // 依據進入的關卡，演算法動態即時生成 5~8 題全新的題目併入戰鬥題庫
-        const extraProcedural = [];
-        if (stageId === 0 || stageId === 2) {
-            extraProcedural.push(DynamicQuestionEngine.generateMathQuestion(false));
-            extraProcedural.push(DynamicQuestionEngine.generateMathQuestion(false));
-            extraProcedural.push(DynamicQuestionEngine.generateArticleQuestion(false));
-        } else if (stageId === 4) { // U3
-            extraProcedural.push(DynamicQuestionEngine.generateArticleQuestion(false));
-            extraProcedural.push(DynamicQuestionEngine.generateArticleQuestion(false));
-            extraProcedural.push(DynamicQuestionEngine.generateGrammarQuestion(false));
-        } else if (stageId === 5) { // U4
-            extraProcedural.push(DynamicQuestionEngine.generateColorQuestion(false));
-            extraProcedural.push(DynamicQuestionEngine.generateColorQuestion(false));
-            extraProcedural.push(DynamicQuestionEngine.generateArticleQuestion(false));
-        } else { // 期中/期末/綜合
-            extraProcedural.push(DynamicQuestionEngine.generateMathQuestion(false));
-            extraProcedural.push(DynamicQuestionEngine.generateArticleQuestion(false));
-            extraProcedural.push(DynamicQuestionEngine.generateColorQuestion(false));
-            extraProcedural.push(DynamicQuestionEngine.generateGrammarQuestion(false));
-        }
+        // 1. 從全覆蓋排程佇列抽出 8 個單字 (保證 98 字輪流考過，絕無遺漏！)
+        const pickedWords = LearningEngine.pickWords(8);
+        const vocabQuestions = pickedWords.map(w => {
+            const vObj = ACTIVE_DATA.vocab.find(v => v.en === w) || { en: w, zh: w };
+            return buildMultiTypeBattleQ(vObj);
+        }).filter(q => q !== null);
 
-        fightQueue = shuffleArray([...extraProcedural, ...curStage.questions]);
+        // 2. 混合關卡特有真題 (售票亭算術、打招呼會話、段考真題)
+        const stageQuestions = shuffleArray([...curStage.questions]).slice(0, 4);
+
+        fightQueue = shuffleArray([...vocabQuestions, ...stageQuestions]);
         setupWave(0);
         navTo('panel-battle');
     }
@@ -9961,7 +10207,6 @@
         curWaveIdx = wIdx;
         const stageWave = curStage.waves[wIdx] || curStage.waves[0];
 
-        // 依波次配置怪獸軍團：Wave 1 與 Wave 2 出現 2 隻怪獸！Wave 3 首領決戰！
         if (wIdx === 0) {
             curEnemies = [
                 { id: 0, name: stageWave.name + " A", img: stageWave.img, maxHp: 120, hp: 120, dmg: 12 },
@@ -9976,7 +10221,6 @@
             ];
             document.getElementById('battle-wave-indicator').innerText = `WAVE 2/3 (菁英怪與護衛 x2)`;
         } else {
-            // Wave 3 關卡大首領 (HP 強化至 550~750)
             const bossHp = 500 + (curStage.id * 35);
             curEnemies = [
                 { id: 0, name: stageWave.name, img: stageWave.img, maxHp: bossHp, hp: bossHp, dmg: 32 }
@@ -9984,7 +10228,6 @@
             document.getElementById('battle-wave-indicator').innerText = `WAVE 3/3 (終極魔王決戰)`;
         }
 
-        // 渲染我方英雄與寵物
         document.getElementById('battle-hero-pic').src = "assets/hero_" + state.activeHero + ".jfif";
         document.getElementById('heroLevelTag').innerText = `${HERO_CONFIG[state.activeHero].title} Lv.${state.heroGear[state.activeHero + '_weap'] || 1}`;
 
@@ -10040,41 +10283,147 @@
 
     function loadNextBattleQ() {
         document.getElementById('battle-exp-card').style.display = 'none';
+        
         if (fightQueue.length === 0) {
-            fightQueue = shuffleArray(curStage.questions);
+            const refill = LearningEngine.pickWords(6).map(w => {
+                const vObj = ACTIVE_DATA.vocab.find(v => v.en === w) || { en: w, zh: w };
+                return buildMultiTypeBattleQ(vObj);
+            }).filter(q => q !== null);
+            fightQueue = refill.length > 0 ? refill : shuffleArray(curStage.questions);
         }
         curQ = fightQueue.pop();
 
-        document.getElementById('battle-q-text').innerText = sanitizeQuestionText(curQ.q);
+        const promptText = curQ.prompt || sanitizeQuestionText(curQ.q);
+        document.getElementById('battle-q-text').innerText = promptText;
         const box = document.getElementById('battle-options-box');
         box.innerHTML = '';
 
-        let opts = [...curQ.opts];
-        let removeCount = 0;
-        const botLvl = (state.petLevels && state.petLevels.bot) ? state.petLevels.bot : 1;
-        const maxRemove = (state.activePet === 'bot' && botLvl >= 3) ? 2 : (state.activePet === 'bot' ? 1 : 0);
+        // 【題型 A: 自然發音積木拼字】
+        if (curQ.type === 'block') {
+            box.style.display = 'flex';
+            box.style.flexDirection = 'column';
+            box.style.alignItems = 'center';
 
-        opts.forEach((opt, idx) => {
-            if (idx !== curQ.ans && removeCount < maxRemove && opts.length > 2) {
-                removeCount++;
-                return;
-            }
-            const btn = document.createElement('button');
-            btn.className = 'btn-ans-pc';
-            btn.id = `battle-opt-btn-${idx}`;
-            btn.innerText = String.fromCharCode(65 + idx) + ". " + opt;
-            btn.onclick = () => submitBattleAns(idx, btn);
-            box.appendChild(btn);
-        });
+            let userChars = [];
+            const displaySlot = document.createElement('div');
+            displaySlot.style.cssText = 'font-size: 34px; font-weight: 900; letter-spacing: 8px; color: #0284c7; min-height: 52px; margin-bottom: 14px; border-bottom: 3px dashed #38bdf8; padding: 4px 24px; text-align: center;';
+            displaySlot.innerText = '_ '.repeat(curQ.targetWord.length);
+            box.appendChild(displaySlot);
+
+            const tokenRow = document.createElement('div');
+            tokenRow.style.cssText = 'display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; width: 100%;';
+
+            curQ.tokens.forEach(ch => {
+                const lBtn = document.createElement('button');
+                lBtn.className = 'btn-letter-block';
+                lBtn.style.cssText = 'width: 52px; height: 52px; font-size: 24px; font-weight: 900;';
+                lBtn.innerText = ch;
+                lBtn.onclick = () => {
+                    SoundEngine.playClick();
+                    userChars.push(ch);
+                    lBtn.disabled = true;
+                    displaySlot.innerText = userChars.join(' ') + ' _'.repeat(Math.max(0, curQ.targetWord.length - userChars.length));
+
+                    if (userChars.length === curQ.targetWord.length) {
+                        const isRight = (userChars.join('') === curQ.targetWord);
+                        setTimeout(() => submitBattleAns(isRight, lBtn), 300);
+                    }
+                };
+                tokenRow.appendChild(lBtn);
+            });
+            box.appendChild(tokenRow);
+
+            const actionRow = document.createElement('div');
+            actionRow.style.cssText = 'display: flex; gap: 10px; margin-top: 12px;';
+
+            const backBtn = document.createElement('button');
+            backBtn.innerText = '⌫ 倒退';
+            backBtn.className = 'btn-ans-pc';
+            backBtn.style.cssText = 'padding: 6px 16px; font-size: 13.5px;';
+            backBtn.onclick = () => {
+                if (userChars.length === 0) return;
+                const last = userChars.pop();
+                displaySlot.innerText = userChars.length > 0 
+                    ? userChars.join(' ') + ' _'.repeat(Math.max(0, curQ.targetWord.length - userChars.length))
+                    : '_ '.repeat(curQ.targetWord.length);
+                const disabledBtns = Array.from(tokenRow.querySelectorAll('button')).filter(b => b.disabled && b.innerText === last);
+                if (disabledBtns.length > 0) disabledBtns[disabledBtns.length - 1].disabled = false;
+            };
+            actionRow.appendChild(backBtn);
+
+            const resetBtn = document.createElement('button');
+            resetBtn.innerText = '↺ 重置積木';
+            resetBtn.className = 'btn-ans-pc';
+            resetBtn.style.cssText = 'padding: 6px 16px; font-size: 13.5px;';
+            resetBtn.onclick = () => {
+                userChars = [];
+                displaySlot.innerText = '_ '.repeat(curQ.targetWord.length);
+                tokenRow.querySelectorAll('button').forEach(b => b.disabled = false);
+            };
+            actionRow.appendChild(resetBtn);
+
+            box.appendChild(actionRow);
+        }
+        // 【題型 B: 鏡像字與觀念是非題】
+        else if (curQ.type === 'tf') {
+            box.style.display = 'grid';
+            box.style.gridTemplateColumns = '1fr 1fr';
+            box.style.gap = '14px';
+
+            const btnT = document.createElement('button');
+            btnT.className = 'btn-ans-pc';
+            btnT.style.cssText = 'background: #dcfce7; border-color: #22c55e; color: #15803d; font-size: 20px; font-weight: 900; text-align: center; padding: 20px;';
+            btnT.innerText = '⭕ 正確 (True)';
+            btnT.onclick = () => submitBattleAns(curQ.isTrue === true, btnT);
+
+            const btnF = document.createElement('button');
+            btnF.className = 'btn-ans-pc';
+            btnF.style.cssText = 'background: #fee2e2; border-color: #ef4444; color: #b91c1c; font-size: 20px; font-weight: 900; text-align: center; padding: 20px;';
+            btnF.innerText = '❌ 錯誤 (False)';
+            btnF.onclick = () => submitBattleAns(curQ.isTrue === false, btnF);
+
+            box.appendChild(btnT);
+            box.appendChild(btnF);
+        }
+        // 【題型 C & D: 冠詞陷阱題 & 常規選擇題】
+        else {
+            box.style.display = 'grid';
+            box.style.gridTemplateColumns = '1fr 1fr';
+            box.style.gap = '12px';
+
+            let opts = [...curQ.opts];
+            let removeCount = 0;
+            const botLvl = (state.petLevels && state.petLevels.bot) ? state.petLevels.bot : 1;
+            const maxRemove = (state.activePet === 'bot' && botLvl >= 3) ? 2 : (state.activePet === 'bot' ? 1 : 0);
+
+            opts.forEach((opt, idx) => {
+                if (idx !== curQ.ans && removeCount < maxRemove && opts.length > 2) {
+                    removeCount++;
+                    return;
+                }
+                const btn = document.createElement('button');
+                btn.className = 'btn-ans-pc';
+                btn.id = `battle-opt-btn-${idx}`;
+                btn.innerText = String.fromCharCode(65 + idx) + ". " + opt;
+                btn.onclick = () => submitBattleAns(idx, btn);
+                box.appendChild(btn);
+            });
+        }
     }
 
-    function submitBattleAns(idx, btn) {
-        document.querySelectorAll('#battle-options-box .btn-ans-pc').forEach(b => b.disabled = true);
-        const right = idx === curQ.ans;
+    function submitBattleAns(choice, btn) {
+        document.querySelectorAll('#battle-options-box button').forEach(b => b.disabled = true);
         const heroCard = document.getElementById('heroCardFrame');
+        
+        // 判定正誤：支援 boolean 或 index
+        const right = (typeof choice === 'boolean') ? choice : (choice === curQ.ans);
+
+        // 紀錄進度至全覆蓋排程與 Leitner 盒子
+        const wordKey = curQ.word || curQ.targetWord || curQ.en || (curQ.trans ? curQ.trans.split(' ')[0] : null);
+        if (wordKey) LearningEngine.record(wordKey, right);
 
         if (right) {
-            btn.classList.add('correct-reveal');
+            if (btn) btn.classList.add('correct-reveal');
             heroCard.classList.add('attack');
             setTimeout(() => { heroCard.classList.remove('attack'); }, 400);
 
@@ -10134,19 +10483,13 @@
 
             state.coins += 3;
             state.streak++;
+            document.getElementById('battle-exp-title').innerText = "✅ 攻擊命中！完全答對！";
             updateCombatUI();
 
             setTimeout(() => {
                 let totalCounter = 0;
                 curEnemies.forEach((e, idx) => {
-                    if (e.hp > 0) {
-                        totalCounter += e.dmg;
-                        const enemyCard = document.getElementById(`enemyCardFrame-${idx}`);
-                        if (enemyCard) {
-                            enemyCard.classList.add('attack');
-                            setTimeout(() => enemyCard.classList.remove('attack'), 350);
-                        }
-                    }
+                    if (e.hp > 0) totalCounter += e.dmg;
                 });
 
                 if (state.activePet === 'penguin') {
@@ -10163,9 +10506,11 @@
                 }
             }, 450);
         } else {
-            btn.classList.add('user-wrong');
-            const correctBtn = document.getElementById(`battle-opt-btn-${curQ.ans}`);
-            if (correctBtn) correctBtn.classList.add('correct-reveal');
+            if (btn) btn.classList.add('user-wrong');
+            if (typeof curQ.ans === 'number') {
+                const correctBtn = document.getElementById(`battle-opt-btn-${curQ.ans}`);
+                if (correctBtn) correctBtn.classList.add('correct-reveal');
+            }
 
             heroCard.classList.add('hit');
             setTimeout(() => heroCard.classList.remove('hit'), 400);
@@ -10192,7 +10537,7 @@
 
         document.getElementById('val-coins').innerText = state.coins;
         document.getElementById('val-streak').innerText = state.streak;
-        document.getElementById('battle-exp-body').innerHTML = `<p><b>中文釋義：</b>${curQ.trans}</p><p><b>💡 考點解析：</b>${curQ.note}</p>`;
+        document.getElementById('battle-exp-body').innerHTML = `<p><b>中文釋義：</b>${curQ.trans || '標準句型'}</p><p><b>💡 考點解析：</b>${curQ.note || '請牢記發音與文法規範！'}</p>`;
         document.getElementById('battle-exp-card').style.display = 'block';
     }
 
@@ -10220,17 +10565,23 @@
 
         loadNextBattleQ();
     }
+
     function speakBattleQ() {
         if (!curQ) return;
         let speech = "";
         if (curQ.audio) {
             speech = curQ.audio.split(/\bB\s*[:.]/i)[0];
+        } else if (curQ.targetWord) {
+            speech = curQ.targetWord;
+        } else if (curQ.word) {
+            speech = curQ.word;
         } else {
-            const quoted = curQ.q.match(/["'“”]([a-zA-Z0-9\s,.?!'-]+)["'“”]/);
+            const promptStr = curQ.prompt || curQ.q || "";
+            const quoted = promptStr.match(/["'“”]([a-zA-Z0-9\s,.?!'-]+)["'“”]/);
             if (quoted && quoted[1]) {
                 speech = quoted[1];
             } else {
-                const mDialog = curQ.q.match(/A:\s*["'“”]?([^"'“”\n]+)["'“”]?\s*B:/);
+                const mDialog = promptStr.match(/A:\s*["'“”]?([^"'“”\n]+)["'“”]?\s*B:/);
                 if (mDialog && mDialog[1]) speech = mDialog[1];
             }
         }
@@ -10241,8 +10592,7 @@
             showCenterDialog("提示", "本題為中文情境理解題，請直接閱讀題目作答！");
         }
     }
-
-    /* 2. 聽力測驗/* 2. 聽力測驗 (有開始卡片，點擊後才開局) */
+/* 2. 聽力測驗/* 2. 聽力測驗 (有開始卡片，點擊後才開局) */
     let lisQueue = [];
     let curLis = null;
     let lisRound = 0;
