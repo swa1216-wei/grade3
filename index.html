@@ -704,6 +704,60 @@
             border: 1.5px dashed #cbd5e1 !important;
         }
 
+
+        /* 🔗 單字連連看配對卡牌樣式 */
+        .match-card {
+            background: #ffffff;
+            border: 2.5px solid #cbd5e1;
+            border-radius: 14px;
+            padding: 14px 18px;
+            font-size: 17px;
+            font-weight: 800;
+            color: #0f172a;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            user-select: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 58px;
+        }
+        .match-card:hover {
+            border-color: #38bdf8;
+            background: #f0f9ff;
+            transform: translateY(-2px);
+        }
+        .match-card.selected {
+            background: #e0f2fe !important;
+            border-color: #0284c7 !important;
+            color: #0369a1 !important;
+            box-shadow: 0 0 16px rgba(2, 132, 199, 0.45) !important;
+            transform: scale(1.04);
+        }
+        .match-card.matched {
+            background: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #15803d !important;
+            opacity: 0.35;
+            pointer-events: none;
+            transform: scale(0.96);
+        }
+        .match-card.wrong-shake {
+            background: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #b91c1c !important;
+            animation: matchWrongShake 0.4s ease;
+        }
+        @keyframes matchWrongShake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-6px); }
+            80% { transform: translateX(6px); }
+        }
+
 </style>
 </head>
 <body>
@@ -717,6 +771,11 @@
         </div>
         <div class="user-status-strip">
             <button class="btn-bgm-toggle" id="btn-bgm-toggle" onclick="toggleBGM()">🎵 音樂: 關</button>
+            <div style="display: flex; align-items: center; gap: 4px; background: #f0fdf4; border: 1.5px solid #86efac; padding: 3px 8px; border-radius: 20px;">
+                <span style="font-size: 11.5px; color: #15803d; font-weight: 800;">🔈</span>
+                <input type="range" id="bgm-volume-slider" min="0" max="100" value="25" style="width: 65px; height: 5px; accent-color: #16a34a; cursor: pointer;" oninput="adjustBGMVolume(this.value)">
+                <span id="bgm-volume-val" style="font-size: 11px; color: #15803d; font-weight: 800; min-width: 26px;">25%</span>
+            </div>
             <div class="status-pill">⭐ 星幣: <span id="val-coins">150</span></div>
             <div class="status-pill" style="color: #d97706;">🔥 連勝: <span id="val-streak">0</span> 題</div>
             <div class="status-pill" id="val-hearts" style="color: #ef4444;">❤️❤️❤️</div>
@@ -732,6 +791,7 @@
         <button class="mission-tab" id="tab-btn-listening" onclick="navTo('panel-listening')">🎧 段考聽力挑戰</button>
         <button class="mission-tab" id="tab-btn-spelling" onclick="navTo('panel-spelling')">🔤 自然發音積木拼字</button>
         <button class="mission-tab" id="tab-btn-scramble" onclick="navTo('panel-scramble')">🧩 句型重組 (獨立標點)</button>
+        <button class="mission-tab" id="tab-btn-match" onclick="navTo('panel-match')">🔗 單字連連看 (對對碰)</button>
         <button class="mission-tab" id="tab-btn-vocab" onclick="navTo('panel-vocab-quiz')">📝 單字測驗 (英選中)</button>
         <button class="mission-tab" id="tab-btn-tf" onclick="navTo('panel-tf')">⭕❌ 是非觀念題</button>
         <button class="mission-tab" id="tab-btn-fc" onclick="navTo('panel-flashcard')">📖 各單元重點全覽</button>
@@ -1086,6 +1146,40 @@
     </div>
 
     <!-- 8. 各單元重點全覽 -->
+    
+    <!-- 🔗 單字連連看 (對對碰配對消除) -->
+    <div id="panel-match" class="workspace-panel">
+        <div class="practice-header-strip">
+            <div>
+                <h2 style="font-size: 22px; color: #0369a1;">🔗 英語單字圖文連連看 (對對碰)</h2>
+                <p style="color: #64748b; font-size: 13.5px; margin-top: 4px;">點選左側英文單字與右側中文釋義配對消除，挑戰最快連擊！</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <span class="practice-progress" id="match-progress">配對連擊: 0 組</span>
+                <button class="btn-exit-practice" onclick="exitChallengePrematurely('match')">✖ 結束結算</button>
+            </div>
+        </div>
+
+        <div class="practice-unit-filter-bar" id="match-unit-filter-bar"></div>
+
+        <div id="match-game-area" style="padding: 16px 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <span style="font-size: 16px; font-weight: 800; color: #0284c7;" id="match-round-title">關卡：第 1 輪 (5組配對)</span>
+                <button class="btn-top-feature" style="padding: 6px 16px;" onclick="refreshMatchCards()">🔄 換一組單字</button>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 760px; margin: 0 auto;" id="match-board-container">
+                <div id="match-col-en" style="display: flex; flex-direction: column; gap: 12px;"></div>
+                <div id="match-col-zh" style="display: flex; flex-direction: column; gap: 12px;"></div>
+            </div>
+
+            <div id="match-success-banner" style="display: none; text-align: center; margin-top: 20px; padding: 18px; background: #ecfdf5; border: 2px solid #10b981; border-radius: 16px;">
+                <div style="font-size: 22px; font-weight: 900; color: #059669;">🎉 太厲害了！5 組全部配對成功！獲得 +15 ⭐ 星幣！</div>
+                <button class="btn-start-challenge" style="margin-top: 12px; font-size: 16px; padding: 10px 32px;" onclick="nextMatchRound()">挑戰下一輪 ➔</button>
+            </div>
+        </div>
+    </div>
+
     <div id="panel-flashcard" class="workspace-panel">
         <div class="practice-header-strip" style="margin-bottom: 16px;">
             <div>
@@ -1380,8 +1474,10 @@
         },
         playPop() { this.playTone(880, 'triangle', 0.09, 0.12); setTimeout(()=>this.playTone(1320, 'sine', 0.15, 0.1), 60); },
 
-        /* 背景音樂播放器 (優先播放 assets/bgm.mp3，若未載入則無縫切換合成琶音備援) */
+        /* 背景音樂播放器 (支援暫停續播、音量微調與聽力避讓) */
         bgmAudio: null,
+        currentVolume: 0.25,
+        isDucked: false,
         startBGM() {
             this.init();
             if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
@@ -1391,20 +1487,21 @@
             if (!this.bgmAudio) {
                 this.bgmAudio = new Audio('assets/bgm.mp3');
                 this.bgmAudio.loop = true;
-                this.bgmAudio.volume = 0.35;
+                this.bgmAudio.volume = this.currentVolume;
+            } else {
+                this.bgmAudio.volume = this.currentVolume;
             }
 
             const playPromise = this.bgmAudio.play();
             if (playPromise !== undefined) {
                 playPromise.catch(err => {
-                    // 若無 bgm.mp3 或瀏覽器限制音訊檔案，自動切換至 Web Audio 輕音樂備用機制
                     if (!this.bgmTimer) {
                         const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
                         let noteIdx = 0;
                         this.bgmTimer = setInterval(() => {
                             if (!this.bgmActive) return;
                             const f = notes[noteIdx % notes.length];
-                            this.playTone(f, 'sine', 0.45, 0.025);
+                            this.playTone(f, 'sine', 0.45, 0.025 * (this.currentVolume / 0.25));
                             noteIdx++;
                         }, 600);
                     }
@@ -1414,18 +1511,38 @@
         stopBGM() {
             this.bgmActive = false;
             if (this.bgmAudio) {
-                this.bgmAudio.pause();
-                this.bgmAudio.currentTime = 0;
+                this.bgmAudio.pause(); // 保留 currentTime，再次播放時續播不歸零！
             }
             if (this.bgmTimer) { clearInterval(this.bgmTimer); this.bgmTimer = null; }
-            document.getElementById('btn-bgm-toggle').innerText = "🎵 音樂: 關";
+            document.getElementById('btn-bgm-toggle').innerText = "🎵 音樂: 暫停";
         },
         toggleBGM() {
             if (this.bgmActive) this.stopBGM();
             else this.startBGM();
+        },
+        setVolume(val) {
+            this.currentVolume = Math.max(0, Math.min(1, val));
+            if (this.bgmAudio && !this.isDucked) {
+                this.bgmAudio.volume = this.currentVolume;
+            }
+        },
+        duck() {
+            if (!this.bgmActive || !this.bgmAudio) return;
+            this.isDucked = true;
+            this.bgmAudio.volume = Math.min(0.04, this.currentVolume * 0.15);
+        },
+        unduck() {
+            if (!this.bgmActive || !this.bgmAudio) return;
+            this.isDucked = false;
+            this.bgmAudio.volume = this.currentVolume;
         }
     };
     function toggleBGM() { SoundEngine.toggleBGM(); }
+    function adjustBGMVolume(val) {
+        const pct = parseInt(val, 10);
+        document.getElementById('bgm-volume-val').innerText = pct + '%';
+        SoundEngine.setVolume(pct / 100);
+    }
 
     /* ==================== 題庫動態讀取與真實不重複洗牌系統 ==================== */
     let ACTIVE_DATA = {
@@ -2259,35 +2376,35 @@
   "tf": [
     {
       "unit": "starter",
-      "statement": "英文數字中，'One' (1) 加上 'Two' (2) 等於 'Three' (3)。",
+      "statement": "英文數字中，One 加上 two 等於 three。",
       "ans": true,
       "trans": "1 + 2 = 3",
       "note": "正確！One + Two = Three。"
     },
     {
       "unit": "starter",
-      "statement": "英文數字中，'Two' (2) 加上 'Two' (2) 等於 'Four' (4)。",
+      "statement": "英文數字中，Two 加上 two 等於 four。",
       "ans": true,
       "trans": "2 + 2 = 4",
       "note": "正確！Two + Two = Four。"
     },
     {
       "unit": "starter",
-      "statement": "英文數字中，'Three' (3) 加上 'Two' (2) 等於 'Five' (5)。",
+      "statement": "英文數字中，Three 加上 two 等於 five。",
       "ans": true,
       "trans": "3 + 2 = 5",
       "note": "正確！Three + Two = Five。"
     },
     {
       "unit": "starter",
-      "statement": "英文數字中，'Four' (4) 減去 'One' (1) 等於 'Two' (2)。",
+      "statement": "英文數字中，Four 減去 one 等於 two。",
       "ans": false,
       "trans": "4 - 1 = 3 (Three)",
       "note": "錯誤！4 - 1 等於 3 (Three)，不是 2。"
     },
     {
       "unit": "starter",
-      "statement": "英文數字中，'Five' (5) 減去 'Three' (3) 等於 'Two' (2)。",
+      "statement": "英文數字中，Five 減去 three 等於 two。",
       "ans": true,
       "trans": "5 - 3 = 2",
       "note": "正確！Five - Three = Two。"
@@ -2308,21 +2425,21 @@
     },
     {
       "unit": "starter",
-      "statement": "生活算術：一隻小貓咪有 'two' (2) 隻眼睛。",
+      "statement": "生活算術：一隻小貓咪有 two 隻眼睛。",
       "ans": true,
       "trans": "貓咪有兩隻眼睛 (two eyes)",
       "note": "正確！貓咪有 2 隻眼睛。"
     },
     {
       "unit": "starter",
-      "statement": "生活算術：一隻小狗有 'three' (3) 隻腳。",
+      "statement": "生活算術：一隻小狗有 three 隻腳。",
       "ans": false,
       "trans": "小狗有四隻腳 (four legs)",
       "note": "錯誤！小狗有 4 隻腳 (four)。"
     },
     {
       "unit": "starter",
-      "statement": "生活算術：我們一隻手有 'five' (5) 根手指頭。",
+      "statement": "生活算術：我們一隻手有 five 根手指頭。",
       "ans": true,
       "trans": "一隻手有 5 根手指 (five fingers)",
       "note": "正確！High five 就是擊掌！"
@@ -2343,21 +2460,21 @@
     },
     {
       "unit": "u2",
-      "statement": "數字英文順序：數字 'Seven' (7) 的下一個數字是 'Eight' (8)。",
+      "statement": "數字英文順序：數字 Seven 的下一個數字是 eight。",
       "ans": true,
       "trans": "7 下一個是 8",
       "note": "正確！Seven -> Eight。"
     },
     {
       "unit": "u2",
-      "statement": "數字英文拼法：單字 'eight' (8) 中間的字母組合 'gh' 不發音。",
+      "statement": "數字英文拼法：單字 eight 中間的字母組合 'gh' 不發音。",
       "ans": true,
       "trans": "eight 發音為 /eɪt/，gh 不發音",
       "note": "正確！eight 的 gh 不發音。"
     },
     {
       "unit": "u2",
-      "statement": "數字英文順序：數字 'Eight' (8) 的下一個數字是 'Nine' (9)。",
+      "statement": "數字英文順序：數字 Eight 的下一個數字是 nine。",
       "ans": true,
       "trans": "8 下一個是 9",
       "note": "正確！Eight -> Nine。"
@@ -2371,21 +2488,21 @@
     },
     {
       "unit": "u2",
-      "statement": "英文數字順序：'Ten' (10) 的前一個數字是 'Nine' (9)。",
+      "statement": "英文數字順序：Ten 的前一個數字是 nine。",
       "ans": true,
       "trans": "8 -> 9 (Nine) -> 10 (Ten)",
       "note": "正確！Nine 是 9，Ten 是 10。"
     },
     {
       "unit": "u2",
-      "statement": "英文數字中，'Ten' (10) 減去 'Five' (5) 等於 'Four' (4)。",
+      "statement": "英文數字中，Ten 減去 five 等於 four。",
       "ans": false,
       "trans": "10 - 5 = 5 (Five)",
       "note": "錯誤！10 - 5 等於 5 (Five)。"
     },
     {
       "unit": "u2",
-      "statement": "英文數字中，'Six' (6) 加上 'Four' (4) 等於 'Ten' (10)。",
+      "statement": "英文數字中，Six 加上 four 等於 ten。",
       "ans": true,
       "trans": "6 + 4 = 10",
       "note": "正確！Six + Four = Ten。"
@@ -8871,10 +8988,10 @@
         "an",
         "the a"
       ],
-      "ans": 2,
+      "ans": 1,
       "type": "冠詞 a/an",
-      "trans": "an insect (一隻昆蟲)",
-      "note": "insect 為母音 /ɪ/ 開頭，前面接 an。"
+      "trans": "a tiny insect (一隻小昆蟲)",
+      "note": "雖然 insect 是母音開頭，但空格緊接著的形容詞 tiny 是子音 /t/ 開頭，因此冠詞必須看緊鄰的單字發音，使用「a」！(a tiny insect)"
     },
     {
       "unit": "u1",
@@ -8913,10 +9030,10 @@
         "an",
         "a"
       ],
-      "ans": 2,
+      "ans": 3,
       "type": "冠詞 a/an",
-      "trans": "an otter (一隻水獺)",
-      "note": "otter 為母音 /ɑ/ 開頭，前面接 an。"
+      "trans": "a cute otter (一隻可愛的水獺)",
+      "note": "雖然 otter 是母音開頭，但空格緊接著的形容詞 cute 是子音 /k/ 開頭，因此冠詞必須看緊鄰的單字發音，使用「a」！(a cute otter)"
     },
     {
       "unit": "u4",
@@ -9487,7 +9604,7 @@
                     const finalIsTrue = safeClaim === sum;
                     return {
                         unit: "starter",
-                        statement: `英文數字運算：'${aCap}' (${a}) 加上 '${bWord}' (${b}) 等於 '${claimWord}' (${safeClaim})。`,
+                        statement: `英文數字運算：${aCap} 加上 ${bWord} 等於 ${claimWord}。`,
                         ans: finalIsTrue,
                         trans: `${a} + ${b} = ${sum} (${sumWord})`,
                         note: finalIsTrue ? `正確！${aCap} + ${bWord} = ${sumWord} (${sum})。` : `錯誤！${a} + ${b} 等於 ${sum} (${sumWord})，不是 ${safeClaim} (${claimWord})！`
@@ -9527,7 +9644,7 @@
                     const finalIsTrue = safeClaim === diff;
                     return {
                         unit: "starter",
-                        statement: `英文數字減法：'${aCap}' (${a}) 減去 '${bWord}' (${b}) 等於 '${claimWord}' (${safeClaim})。`,
+                        statement: `英文數字減法：${aCap} 減去 ${bWord} 等於 ${claimWord}。`,
                         ans: finalIsTrue,
                         trans: `${a} - ${b} = ${diff} (${diffWord})`,
                         note: finalIsTrue ? `正確！${aCap} - ${bWord} = ${diffWord} (${diff})。` : `錯誤！${a} - ${b} 等於 ${diff} (${diffWord})，不是 ${safeClaim} (${claimWord})！`
@@ -9656,32 +9773,23 @@
                         note: `大於 1 歲時名詞 year 必須加 s 變複數 years！`
                     };
                 }
-            } else if (r < 0.70) {
-                if (isTF) {
-                    const isWrong = Math.random() > 0.5;
-                    return {
-                        unit: "u1",
-                        statement: isWrong 
-                            ? "高頻避坑：詢問同學名字時，英文句子可以寫成 'What's you're name?'。"
-                            : "高頻避坑：別人對你說 Thank you!，禮貌回應應該說 'You're welcome.'。",
-                        ans: !isWrong,
-                        trans: isWrong ? "應為：What's your name? (用所有格 your)" : "You're welcome. (不客氣)",
-                        note: isWrong 
-                            ? "錯誤！所有格是 your (你的)；you're 是 you are (你是) 的縮寫，絕不能用在 name 前面！"
-                            : "正確！You're welcome 中的 You're 是 You are 的縮寫！"
-                    };
-                } else {
+            } else if (r < 0.78) {
+                // 專項縮寫加權強化 (your vs you're, It's vs Its, What's 拆解, isn't 否定簡答)
+                const subType = Math.random();
+                if (subType < 0.3) {
                     const isNameQ = Math.random() > 0.5;
                     if (isNameQ) {
+                        const names = ["Mia", "Leo", "Rocky", "Amber", "Tina", "Ken"];
+                        const name = names[Math.floor(Math.random() * names.length)];
                         const opts = shuffleArray(["your", "you're", "you", "my"]);
                         return {
                             unit: "u1",
-                            q: "A: What's ____ name? B: My name is Mia.",
+                            q: `A: What's ____ name? B: My name is ${name}.`,
                             opts: opts,
                             ans: opts.indexOf("your"),
-                            type: "所有格 your vs you're",
+                            type: "所有格 your vs 縮寫 you're",
                             trans: "What's your name? (你的名字是什麼？)",
-                            note: "表示「你的」名字必須使用所有格 your！you're 是 you are (你是)！"
+                            note: "高頻易錯：表示「你的」名字必須用所有格 your！you're 是 you are (你是)！"
                         };
                     } else {
                         const opts = shuffleArray(["You're", "Your", "You", "I'm"]);
@@ -9692,9 +9800,49 @@
                             ans: opts.indexOf("You're"),
                             type: "禮貌回應 You're welcome",
                             trans: "You're welcome. (不客氣。)",
-                            note: "段考最高頻失分點：You're (你是) ⭕ vs. Your (你的) ❌！"
+                            note: "段考死穴：You're (你是) ⭕ vs. Your (你的) ❌！"
                         };
                     }
+                } else if (subType < 0.55) {
+                    const colorItems = [
+                        { n: "pen", c: "blue", zh: "原子筆" }, { n: "ruler", c: "yellow", zh: "尺" },
+                        { n: "bag", c: "black", zh: "書包" }, { n: "pencil", c: "green", zh: "鉛筆" }
+                    ];
+                    const ci = colorItems[Math.floor(Math.random() * colorItems.length)];
+                    const opts = shuffleArray(["It's", "Its", "Is", "It"]);
+                    return {
+                        unit: "u4",
+                        q: `Look at the ${ci.n}! ____ ${ci.c}.`,
+                        opts: opts,
+                        ans: opts.indexOf("It's"),
+                        type: "縮寫 It's (它是) vs 所有格 Its",
+                        trans: `It's ${ci.c}. (它是${ci.zh}色。)`,
+                        note: "句子需要主詞與 be 動詞，必須使用縮寫 It's (It is)，不能使用所有格 Its！"
+                    };
+                } else if (subType < 0.8) {
+                    const items = ["a pencil", "a ruler", "an eraser", "a book"];
+                    const item = items[Math.floor(Math.random() * items.length)];
+                    const opts = shuffleArray(["it isn't", "that isn't", "this isn't", "it is"]);
+                    return {
+                        unit: "u3",
+                        q: `A: Is that ${item}? B: No, ____.`,
+                        opts: opts,
+                        ans: opts.indexOf("it isn't"),
+                        type: "否定簡答縮寫 (it isn't)",
+                        trans: "No, it isn't. (不，它不是。)",
+                        note: "問句以 this/that 提問，簡答代名詞一律回歸 it，否定縮寫為 it isn't！"
+                    };
+                } else {
+                    const opts = shuffleArray(["What is", "What are", "Who is", "What am"]);
+                    return {
+                        unit: "u1",
+                        q: "英文縮寫單字 "What's" 是哪兩個單字的縮寫？",
+                        opts: opts,
+                        ans: opts.indexOf("What is"),
+                        type: "縮寫還原 (What's)",
+                        trans: "What's = What is",
+                        note: "What's 是 What is 的標準縮寫，撇號代表省略了字母 i。"
+                    };
                 }
             } else {
                 const esWords = [
@@ -9777,7 +9925,7 @@
         return a;
     }
 
-    let state = {
+    const DEFAULT_USER_STATE = {
         coins: 150, hearts: 3, streak: 0, activeHero: 'warrior',
         heroGear: { 
             warrior_weap: 1, warrior_armor: 1,
@@ -9788,6 +9936,40 @@
         petLevels: { dog: 1, cat: 1, otter: 1, rabbit: 1, penguin: 1, bot: 1 },
         unlockedPets: ['dog'], unlockedHeroes: ['warrior']
     };
+
+    const USER_STATE_STORAGE_KEY = 'ENGLISH_ADVENTURE_USER_SAVE_V1';
+
+    function loadUserState() {
+        try {
+            const raw = localStorage.getItem(USER_STATE_STORAGE_KEY);
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (parsed && typeof parsed === 'object') {
+                    return {
+                        ...DEFAULT_USER_STATE,
+                        ...parsed,
+                        heroGear: { ...DEFAULT_USER_STATE.heroGear, ...(parsed.heroGear || {}) },
+                        petLevels: { ...DEFAULT_USER_STATE.petLevels, ...(parsed.petLevels || {}) },
+                        unlockedPets: Array.isArray(parsed.unlockedPets) && parsed.unlockedPets.length > 0 ? parsed.unlockedPets : ['dog'],
+                        unlockedHeroes: Array.isArray(parsed.unlockedHeroes) && parsed.unlockedHeroes.length > 0 ? parsed.unlockedHeroes : ['warrior']
+                    };
+                }
+            }
+        } catch(e) {}
+        return JSON.parse(JSON.stringify(DEFAULT_USER_STATE));
+    }
+
+    let state = loadUserState();
+
+    function saveUserState() {
+        try {
+            localStorage.setItem(USER_STATE_STORAGE_KEY, JSON.stringify(state));
+        } catch(e) {}
+        const elCoins = document.getElementById('val-coins');
+        if (elCoins) elCoins.innerText = state.coins;
+        const elStreak = document.getElementById('val-streak');
+        if (elStreak) elStreak.innerText = state.streak;
+    }
 
     const HP_LEVEL_TABLE = { 1: 100, 2: 180, 3: 270, 4: 380, 5: 500, 6: 630, 7: 770, 8: 920, 9: 1080, 10: 1250 };
     function getHeroMaxHp(h = state.activeHero) {
@@ -9832,6 +10014,8 @@
         if (target) { 
             target.classList.add('active'); 
             target.style.display = 'flex'; 
+            const unitBar = target.querySelector('.practice-unit-filter-bar');
+            if (unitBar) unitBar.style.display = 'flex';
         }
 
         document.querySelectorAll('.mission-tab').forEach(t => t.classList.remove('active'));
@@ -9843,6 +10027,7 @@
             'panel-listening': 'tab-btn-listening',
             'panel-spelling': 'tab-btn-spelling',
             'panel-scramble': 'tab-btn-scramble',
+            'panel-match': 'tab-btn-match',
             'panel-vocab-quiz': 'tab-btn-vocab',
             'panel-tf': 'tab-btn-tf',
             'panel-flashcard': 'tab-btn-fc',
@@ -9855,12 +10040,23 @@
         if (panelId === 'panel-exam-paper') {
             if (currentExamQuestions.length === 0) generateNewExamPaper();
         } else if (panelId === 'panel-grammar') {
-            if (!curGrammar || grammarRound === 0) initGrammarChallenge(currentGrammarUnit, false);
+            startGrammarExam();
+        } else if (panelId === 'panel-listening') {
+            startListeningExam();
+        } else if (panelId === 'panel-spelling') {
+            startSpellingExam();
+        } else if (panelId === 'panel-scramble') {
+            startScrambleExam();
+        } else if (panelId === 'panel-vocab-quiz') {
+            startVocabExam();
+        } else if (panelId === 'panel-tf') {
+            startTFExam();
+        } else if (panelId === 'panel-match') {
+            initMatchGame();
         } else if (panelId === 'panel-flashcard') {
             renderAllUnitsGuide();
         } else if (panelId === 'panel-shop') {
             renderShopPetCards();
-        LearningEngine.init(ACTIVE_DATA.vocab);
             updateShopUI();
         } else if (panelId === 'panel-defense') {
             prepareDefenseStandby();
@@ -9897,18 +10093,19 @@
 
     function initPanels() {
         if (!ACTIVE_DATA) return;
-        renderUnitFilterBar('lis-unit-filter-bar', 'all', (u) => { currentLisUnit = u; });
-        renderUnitFilterBar('grammar-unit-filter-bar', 'all', (u) => { currentGrammarUnit = u; });
-        renderUnitFilterBar('scramble-unit-filter-bar', 'all', (u) => { currentScrambleUnit = u; });
-        renderUnitFilterBar('spell-unit-filter-bar', 'all', (u) => { currentSpellUnit = u; });
-        renderUnitFilterBar('vocab-unit-filter-bar', 'all', (u) => { currentVocabUnit = u; });
-        renderUnitFilterBar('tf-unit-filter-bar', 'all', (u) => { currentTFUnit = u; });
+        saveUserState();
+        updateCombatUI();
+        renderUnitFilterBar('match-unit-filter-bar', 'all', (u) => { currentMatchUnit = u; initMatchGame(); });
+        renderUnitFilterBar('lis-unit-filter-bar', 'all', (u) => { currentLisUnit = u; startListeningExam(); });
+        renderUnitFilterBar('grammar-unit-filter-bar', 'all', (u) => { currentGrammarUnit = u; startGrammarExam(); });
+        renderUnitFilterBar('scramble-unit-filter-bar', 'all', (u) => { currentScrambleUnit = u; startScrambleExam(); });
+        renderUnitFilterBar('spell-unit-filter-bar', 'all', (u) => { currentSpellUnit = u; startSpellingExam(); });
+        renderUnitFilterBar('vocab-unit-filter-bar', 'all', (u) => { currentVocabUnit = u; startVocabExam(); });
+        renderUnitFilterBar('tf-unit-filter-bar', 'all', (u) => { currentTFUnit = u; startTFExam(); });
         renderAllUnitsGuide();
         renderShopPetCards();
     }
-
-
-    
+   
 
         /* ==================== 📚 全覆蓋排程與 Leitner 間隔記憶引擎 ==================== */
     const LearningEngine = {
@@ -10058,7 +10255,7 @@
                     type: 'tf',
                     word: vocabItem.en,
                     isTrue: expectedTrue,
-                    prompt: `【⭕❌ 鏡像字形是非題】單字 '${vocabItem.en}' (${vZh}) 的開頭第一個字母，肚子/圓圈是朝【${askRight ? '右邊' : '左邊'}】。`,
+                    prompt: `【⭕❌ 鏡像字形是非題】中文為「${vZh}」的英文單字，它的開頭第一個字母肚子/圓圈是朝【${askRight ? '右邊' : '左邊'}】。`,
                     trans: `開頭字母為 ${firstChar.toUpperCase()} (${firstChar})`,
                     note: `字母字形鐵則：b 肚子在右邊 (向右看)，d 肚子在左邊 (向左看)；p 圓圈在右邊，q 圓圈在左邊！`
                 };
@@ -10525,7 +10722,7 @@
             updateCombatUI();
         }
 
-        document.getElementById('val-coins').innerText = state.coins;
+        saveUserState();
         document.getElementById('val-streak').innerText = state.streak;
         document.getElementById('battle-exp-body').innerHTML = `<p><b>中文釋義：</b>${curQ.trans || '標準句型'}</p><p><b>💡 考點解析：</b>${curQ.note || '請牢記發音與文法規範！'}</p>`;
         document.getElementById('battle-exp-card').style.display = 'block';
@@ -10547,7 +10744,7 @@
             } else {
                 state.coins += 25;
                 combatCoinsEarnedThisSession += 25;
-                document.getElementById('val-coins').innerText = state.coins;
+                saveUserState();
                 showSettlementCard(`恭喜徹底擊退 ${curStage.title} 守護首領！`, combatCoinsEarnedThisSession);
                 return;
             }
@@ -10616,7 +10813,7 @@
             const finalBonus = 15;
             state.coins += finalBonus;
             lisCoinsEarned += finalBonus;
-            document.getElementById('val-coins').innerText = state.coins;
+            saveUserState();
             document.getElementById('lis-lobby-cover').style.display = 'flex';
             document.getElementById('lis-exam-area').style.display = 'none';
             document.getElementById('listening-progress').innerText = `準備中`;
@@ -10663,7 +10860,7 @@
             const reward = 2;
             state.coins += reward;
             lisCoinsEarned += reward;
-            document.getElementById('val-coins').innerText = state.coins;
+            saveUserState();
             document.getElementById('lis-exp-title').innerText = "✅ 聽力理解完全正確！";
         } else {
             btn.classList.add('user-wrong');
@@ -10692,12 +10889,13 @@
         scrambleRound = 0;
         scrambleCoinsEarned = 0;
 
+        // 即時參數隨機組合引擎生成動態句型重組題
+        const dynamicScramble = DynamicQuestionEngine.generateDynamicScramblePool(currentScrambleUnit, 10);
         let pool = (ACTIVE_DATA && ACTIVE_DATA.scramble) ? [...ACTIVE_DATA.scramble] : [];
         if (currentScrambleUnit !== 'all') {
             pool = pool.filter(item => item.unit === currentScrambleUnit);
         }
-        if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.scramble) pool = [...ACTIVE_DATA.scramble];
-        scrambleQueue = shuffleArray(pool);
+        scrambleQueue = shuffleArray([...dynamicScramble, ...pool]).slice(0, 10);
 
         loadNextScramble();
     }
@@ -10711,7 +10909,7 @@
             const finalBonus = 15;
             state.coins += finalBonus;
             scrambleCoinsEarned += finalBonus;
-            document.getElementById('val-coins').innerText = state.coins;
+            saveUserState();
             document.getElementById('scramble-lobby-cover').style.display = 'flex';
             document.getElementById('scramble-exam-area').style.display = 'none';
             document.getElementById('scramble-progress').innerText = `準備中`;
@@ -10812,7 +11010,7 @@
         }
         document.getElementById('scramble-exp-body').innerHTML = `<p><b>標準句子：</b>${curScramble.trans}</p><p><b>💡 文法考點：</b>${curScramble.note}</p>`;
         card.style.display = 'block';
-        document.getElementById('val-coins').innerText = state.coins;
+        saveUserState();
         document.getElementById('val-streak').innerText = state.streak;
     }
     function nextScrambleQ() { loadNextScramble(); }
@@ -10833,12 +11031,13 @@
         spellRound = 0;
         spellCoinsEarned = 0;
 
+        // 即時透過演算法從全冊動態生成全新拼字題庫，保證每次進入都是全新題目！
+        const dynamicSpelling = DynamicQuestionEngine.generateDynamicSpellingPool(currentSpellUnit, 10);
         let pool = (ACTIVE_DATA && ACTIVE_DATA.spelling) ? [...ACTIVE_DATA.spelling] : [];
         if (currentSpellUnit !== 'all') {
             pool = pool.filter(item => item.unit === currentSpellUnit);
         }
-        if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.spelling) pool = [...ACTIVE_DATA.spelling];
-        spellQueue = shuffleArray(pool);
+        spellQueue = shuffleArray([...dynamicSpelling, ...pool]).slice(0, 10);
 
         loadNextSpelling();
     }
@@ -10850,7 +11049,7 @@
             const finalBonus = 15;
             state.coins += finalBonus;
             spellCoinsEarned += finalBonus;
-            document.getElementById('val-coins').innerText = state.coins;
+            saveUserState();
             document.getElementById('spell-lobby-cover').style.display = 'flex';
             document.getElementById('spell-exam-area').style.display = 'none';
             document.getElementById('spelling-progress').innerText = `準備中`;
@@ -10916,7 +11115,7 @@
                         state.streak = 0;
                     }
                     card.style.display = 'block';
-                    document.getElementById('val-coins').innerText = state.coins;
+                    saveUserState();
                     document.getElementById('val-streak').innerText = state.streak;
                 }
             };
@@ -10961,12 +11160,9 @@
         vocabRound = 0;
         vqCoinsEarned = 0;
 
-        let pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? [...ACTIVE_DATA.vocab] : [];
-        if (currentVocabUnit !== 'all') {
-            pool = pool.filter(item => item.unit === currentVocabUnit);
-        }
-        if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.vocab) pool = [...ACTIVE_DATA.vocab];
-        vocabQueue = shuffleArray(pool);
+        // 即時演算法動態抽樣全冊 98+ 單字庫
+        const dynamicVocab = DynamicQuestionEngine.generateDynamicVocabPool(currentVocabUnit, 10);
+        vocabQueue = shuffleArray(dynamicVocab);
 
         loadNextVocabQ();
     }
@@ -10977,7 +11173,7 @@
             const finalBonus = 15;
             state.coins += finalBonus;
             vqCoinsEarned += finalBonus;
-            document.getElementById('val-coins').innerText = state.coins;
+            saveUserState();
             document.getElementById('vocab-lobby-cover').style.display = 'flex';
             document.getElementById('vocab-exam-area').style.display = 'none';
             document.getElementById('vocab-progress').innerText = `準備中`;
@@ -11031,7 +11227,7 @@
                 }
                 document.getElementById('vq-exp-body').innerText = `${curVQ.en} 代表「${curVQ.zh}」｜ 例句: ${curVQ.ex}`;
                 document.getElementById('vq-exp-card').style.display = 'block';
-                document.getElementById('val-coins').innerText = state.coins;
+                saveUserState();
                 document.getElementById('val-streak').innerText = state.streak;
             };
             list.appendChild(btn);
@@ -11076,7 +11272,7 @@
             const finalBonus = 15;
             state.coins += finalBonus;
             tfCoinsEarned += finalBonus;
-            document.getElementById('val-coins').innerText = state.coins;
+            saveUserState();
             document.getElementById('tf-lobby-cover').style.display = 'flex';
             document.getElementById('tf-exam-area').style.display = 'none';
             document.getElementById('tf-progress').innerText = `準備中`;
@@ -11126,7 +11322,7 @@
 
         document.getElementById('tf-exp-body').innerHTML = `<p><b>中文解析：</b>${curTF.trans}</p><p>${curTF.note}</p>`;
         document.getElementById('tf-exp-card').style.display = 'block';
-        document.getElementById('val-coins').innerText = state.coins;
+        saveUserState();
         document.getElementById('val-streak').innerText = state.streak;
     }
     function speakCurrentTF() {
@@ -11316,52 +11512,9 @@
         renderCabinSquad();
         document.getElementById('cabinModalOverlay').style.display = 'flex';
     }
-function closeCabinModal() {
+    function closeCabinModal() {
         document.getElementById('cabinModalOverlay').style.display = 'none';
     }
-
-    let confirmDialogCallback = null;
-    function showConfirmDialog(title, msg, onConfirm) {
-        document.getElementById('confirmDialogTitle').innerText = title;
-        document.getElementById('confirmDialogMsg').innerHTML = msg;
-        confirmDialogCallback = onConfirm;
-        document.getElementById('customConfirmDialogOverlay').style.display = 'flex';
-    }
-    function closeConfirmDialog(isConfirmed) {
-        document.getElementById('customConfirmDialogOverlay').style.display = 'none';
-        if (isConfirmed && typeof confirmDialogCallback === 'function') {
-            const cb = confirmDialogCallback;
-            confirmDialogCallback = null;
-            cb();
-        } else {
-            confirmDialogCallback = null;
-        }
-    }
-</script>
-
-    <!-- 通用置中彈窗 -->
-    <div class="custom-center-dialog-overlay" id="customCenterDialogOverlay">
-        <div class="custom-center-dialog-box">
-            <h3 style="color: #0369a1; font-size: 23px; font-weight: 900; margin-bottom: 12px;" id="centerDialogTitle">通知</h3>
-            <div style="font-size: 15.5px; color: #334155; line-height: 1.6; margin-bottom: 22px;" id="centerDialogMsg"></div>
-            <button class="btn-next-pc" style="width: 100%; font-size: 16.5px;" id="centerDialogBtn" onclick="closeCenterDialog()">確定</button>
-        </div>
-    </div>
-
-    <!-- 二次確認彈窗 -->
-    <div class="custom-center-dialog-overlay" id="customConfirmDialogOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:1000; align-items:center; justify-content:center;">
-        <div class="custom-center-dialog-box" style="background:#fff; border:3.5px solid #f59e0b; border-radius:22px; padding:28px 32px; max-width:460px; width:90%; text-align:center;">
-            <h3 style="color:#d97706; font-size:23px; font-weight:900; margin-bottom:12px;" id="confirmDialogTitle">💰 購買確認</h3>
-            <div style="font-size:16px; color:#334155; line-height:1.6; margin-bottom:24px;" id="confirmDialogMsg"></div>
-            <div style="display:flex; gap:12px; justify-content:center;">
-                <button class="btn-return-action" style="margin-top:0; padding:10px 24px;" onclick="closeConfirmDialog(false)">✖ 取消</button>
-                <button class="btn-next-pc" style="background:linear-gradient(135deg, #16a34a 0%, #15803d 100%); padding:10px 28px;" id="confirmDialogBtnOk" onclick="closeConfirmDialog(true)">✔ 確定購買</button>
-            </div>
-        </div>
-    </div>
-
-</body>
-</html>
 
     
     let confirmDialogCallback = null;
@@ -11494,7 +11647,7 @@ function closeCabinModal() {
         showConfirmDialog("⚔️ 裝備升級確認", `確定要花費 <b style="color:#d97706;">${cost} ⭐ 星幣</b> 將【${gearName}】升級至 <b>Lv.${curLvl + 1}</b> 嗎？`, () => {
             state.coins -= cost;
             state.heroGear[gearKey]++;
-            document.getElementById('val-coins').innerText = state.coins;
+            saveUserState();
             showCenterDialog("強化成功", `✨ 【${gearName}】成功強化至 Lv.${state.heroGear[gearKey]}！`);
             updateShopUI();
             updateCombatUI();
@@ -11510,7 +11663,7 @@ function closeCabinModal() {
             state.coins -= cost;
             state.unlockedHeroes.push(h);
             state.activeHero = h;
-            document.getElementById('val-coins').innerText = state.coins;
+            saveUserState();
             showCenterDialog("夥伴解鎖", `🎉 恭喜成功解鎖【${HERO_CONFIG[h].name}】！已設為出戰夥伴！`);
             updateShopUI();
             renderCabinSquad();
@@ -11526,7 +11679,7 @@ function closeCabinModal() {
             state.coins -= cost;
             state.unlockedPets.push(p);
             state.activePet = p;
-            document.getElementById('val-coins').innerText = state.coins;
+            saveUserState();
             showCenterDialog("收養成功", `🎉 恭喜成功收養萌寵【${PET_CONFIG[p].name}】！已隨隊出戰！`);
             renderShopPetCards();
             renderCabinSquad();
@@ -11549,7 +11702,7 @@ function closeCabinModal() {
         showConfirmDialog("🐾 萌寵升級確認", `確定要花費 <b style="color:#d97706;">${upgradeCost} ⭐ 星幣</b> 將【${PET_CONFIG[petKey].name}】升級至 <b>Lv.${curLvl + 1}</b> 嗎？`, () => {
             state.coins -= upgradeCost;
             state.petLevels[petKey]++;
-            document.getElementById('val-coins').innerText = state.coins;
+            saveUserState();
             showCenterDialog("升級成功", `🎉 萌寵【${PET_CONFIG[petKey].name}】成功升級至 Lv.${state.petLevels[petKey]}！特性大幅強化！`);
             renderShopPetCards();
             renderCabinSquad();
@@ -11829,7 +11982,7 @@ function closeCabinModal() {
             const reward = 2;
             state.coins += reward;
             defenseCoinsEarned += reward;
-            document.getElementById('val-coins').innerText = state.coins;
+            saveUserState();
             document.getElementById('defense-score').innerText = defenseScore;
 
             // 成功擊破，正式產出並加入右側方格
@@ -11867,7 +12020,7 @@ function closeCabinModal() {
             const reward = 1;
             state.coins += reward;
             defenseCoinsEarned += reward;
-            document.getElementById('val-coins').innerText = state.coins;
+            saveUserState();
             document.getElementById('defense-score').innerText = defenseScore;
 
             // 更新右側方格為「底部清除」
@@ -11993,6 +12146,10 @@ function closeCabinModal() {
             const u = new SpeechSynthesisUtterance(clean);
             u.lang = 'en-US';
             u.rate = 0.60;
+            // 朗讀時自動壓低背景音樂音量（Audio Ducking）
+            SoundEngine.duck();
+            u.onend = () => SoundEngine.unduck();
+            u.onerror = () => SoundEngine.unduck();
             window.speechSynthesis.speak(u);
         }
     }
@@ -12067,7 +12224,7 @@ function closeCabinModal() {
             const finalBonus = 15;
             state.coins += finalBonus;
             grammarCoinsEarned += finalBonus;
-            document.getElementById('val-coins').innerText = state.coins;
+            saveUserState();
             document.getElementById('grammar-lobby-cover').style.display = 'flex';
             document.getElementById('grammar-exam-area').style.display = 'none';
             document.getElementById('grammar-progress').innerText = `準備中`;
@@ -12112,7 +12269,7 @@ function closeCabinModal() {
             const reward = 2;
             state.coins += reward;
             grammarCoinsEarned += reward;
-            document.getElementById('val-coins').innerText = state.coins;
+            saveUserState();
             document.getElementById('grammar-exp-title').innerText = "✅ 文法判斷完全正確！";
         } else {
             btn.classList.add('user-wrong');
@@ -12300,7 +12457,7 @@ function closeCabinModal() {
         // 獎勵星幣
         const starReward = Math.round(totalScore / 3);
         state.coins += starReward;
-        document.getElementById('val-coins').innerText = state.coins;
+        saveUserState();
 
         // 平滑滾動至考卷上方看成績
         document.querySelector('.exam-paper-header').scrollIntoView({ behavior: 'smooth' });
