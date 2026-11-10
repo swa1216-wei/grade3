@@ -9906,19 +9906,7 @@
         renderAllUnitsGuide();
         renderShopPetCards();
     }
-
-    /* 1. RPG 戰鬥 (支援 2 隻以上怪獸同時在場 + 勇者 HP 500 + 法師全體群攻) */
-    let curStage = null;
-    let curWaveIdx = 0;
-    let curEnemies = []; // 當前波次在場的怪獸列表
-    let fightQueue = [];
-    let curQ = null;
-    let hHp = 100;
-    let waveStartHpHero = 100;
-    let otterShieldCount = 1;
-    let combatCoinsEarnedThisSession = 0;
-
-    
+   
 
         /* ==================== 📚 全覆蓋排程與 Leitner 間隔記憶引擎 ==================== */
     const LearningEngine = {
