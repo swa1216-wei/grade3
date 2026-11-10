@@ -8913,10 +8913,10 @@
         "an",
         "a"
       ],
-      "ans": 2,
+      "ans": 3,
       "type": "冠詞 a/an",
-      "trans": "an otter (一隻水獺)",
-      "note": "otter 為母音 /ɑ/ 開頭，前面接 an。"
+      "trans": "a cute otter (一隻可愛的水獺)",
+      "note": "雖然 otter 是母音開頭，但空格緊接著的形容詞 cute 是子音 /k/ 開頭，因此冠詞必須看緊鄰的單字發音，使用「a」！(a cute otter)"
     },
     {
       "unit": "u4",
@@ -10832,7 +10832,7 @@
         spellRound = 0;
         spellCoinsEarned = 0;
 
-        // 即時透過演算法從全冊動態生成全新拼字題庫
+        // 即時透過演算法從全冊動態生成全新拼字題庫，保證每次進入都是全新題目！
         const dynamicSpelling = DynamicQuestionEngine.generateDynamicSpellingPool(currentSpellUnit, 10);
         let pool = (ACTIVE_DATA && ACTIVE_DATA.spelling) ? [...ACTIVE_DATA.spelling] : [];
         if (currentSpellUnit !== 'all') {
