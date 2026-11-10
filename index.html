@@ -9737,27 +9737,55 @@
                     if (isNameQ) {
                         const names = ["Mia", "Leo", "Rocky", "Amber", "Tina", "Ken"];
                         const name = names[Math.floor(Math.random() * names.length)];
-                        const opts = shuffleArray(["your", "you're", "you", "my"]);
-                        return {
-                            unit: "u1",
-                            q: `A: What's ____ name? B: My name is ${name}.`,
-                            opts: opts,
-                            ans: opts.indexOf("your"),
-                            type: "所有格 your vs 縮寫 you're",
-                            trans: "What's your name? (你的名字是什麼？)",
-                            note: "高頻易錯：表示「你的」名字必須用所有格 your！you're 是 you are (你是)！"
-                        };
+                        if (isTF) {
+                            const isCorrect = Math.random() > 0.5;
+                            const wordUsed = isCorrect ? "your" : "you're";
+                            return {
+                                unit: "u1",
+                                statement: `英文文法判斷：句子「What's ${wordUsed} name?」完全符合文法標準。`,
+                                ans: isCorrect,
+                                trans: "What's your name? (你叫什麼名字？)",
+                                note: isCorrect
+                                    ? "正確！表示「你的」名字必須使用所有格 your！"
+                                    : "錯誤！you're 是 you are (你是) 的縮寫，詢問名字必須使用所有格 your！"
+                            };
+                        } else {
+                            const opts = shuffleArray(["your", "you're", "you", "my"]);
+                            return {
+                                unit: "u1",
+                                q: `A: What's ____ name? B: My name is ${name}.`,
+                                opts: opts,
+                                ans: opts.indexOf("your"),
+                                type: "所有格 your vs 縮寫 you're",
+                                trans: "What's your name? (你的名字是什麼？)",
+                                note: "高頻易錯：表示「你的」名字必須用所有格 your！you're 是 you are (你是)！"
+                            };
+                        }
                     } else {
-                        const opts = shuffleArray(["You're", "Your", "You", "I'm"]);
-                        return {
-                            unit: "u2",
-                            q: "A: Thank you very much! B: ____ welcome.",
-                            opts: opts,
-                            ans: opts.indexOf("You're"),
-                            type: "禮貌回應 You're welcome",
-                            trans: "You're welcome. (不客氣。)",
-                            note: "段考死穴：You're (你是) ⭕ vs. Your (你的) ❌！"
-                        };
+                        if (isTF) {
+                            const isCorrect = Math.random() > 0.5;
+                            const wordUsed = isCorrect ? "You're welcome." : "Your welcome.";
+                            return {
+                                unit: "u2",
+                                statement: `生活禮貌美語：別人向你致謝說 'Thank you!'，禮貌回應可以寫成「${wordUsed}」`,
+                                ans: isCorrect,
+                                trans: "You're welcome. (不客氣。)",
+                                note: isCorrect
+                                    ? "正確！不客氣是 You're welcome (You are 的縮寫)。"
+                                    : "錯誤！不可寫成所有格 Your，必須是 You're (You are 的縮寫)！"
+                            };
+                        } else {
+                            const opts = shuffleArray(["You're", "Your", "You", "I'm"]);
+                            return {
+                                unit: "u2",
+                                q: "A: Thank you very much! B: ____ welcome.",
+                                opts: opts,
+                                ans: opts.indexOf("You're"),
+                                type: "禮貌回應 You're welcome",
+                                trans: "You're welcome. (不客氣。)",
+                                note: "段考死穴：You're (你是) ⭕ vs. Your (你的) ❌！"
+                            };
+                        }
                     }
                 } else if (subType < 0.55) {
                     const colorItems = [
@@ -9765,40 +9793,82 @@
                         { n: "bag", c: "black", zh: "書包" }, { n: "pencil", c: "green", zh: "鉛筆" }
                     ];
                     const ci = colorItems[Math.floor(Math.random() * colorItems.length)];
-                    const opts = shuffleArray(["It's", "Its", "Is", "It"]);
-                    return {
-                        unit: "u4",
-                        q: `Look at the ${ci.n}! ____ ${ci.c}.`,
-                        opts: opts,
-                        ans: opts.indexOf("It's"),
-                        type: "縮寫 It's (它是) vs 所有格 Its",
-                        trans: `It's ${ci.c}. (它是${ci.zh}色。)`,
-                        note: "句子需要主詞與 be 動詞，必須使用縮寫 It's (It is)，不能使用所有格 Its！"
-                    };
+                    if (isTF) {
+                        const isCorrect = Math.random() > 0.5;
+                        const wordUsed = isCorrect ? `It's ${ci.c}.` : `Its ${ci.c}.`;
+                        return {
+                            unit: "u4",
+                            statement: `縮寫文法判斷：描述物品顏色時，句子寫成「${wordUsed}」完全符合文法規範。`,
+                            ans: isCorrect,
+                            trans: `It is ${ci.c}. (它是${ci.zh}色。)`,
+                            note: isCorrect
+                                ? "正確！需要主詞與 be 動詞，使用縮寫 It's (It is)。"
+                                : "錯誤！Its 是所有格 (它的)，表示「它是...」必須使用縮寫 It's (It is)！"
+                        };
+                    } else {
+                        const opts = shuffleArray(["It's", "Its", "Is", "It"]);
+                        return {
+                            unit: "u4",
+                            q: `Look at the ${ci.n}! ____ ${ci.c}.`,
+                            opts: opts,
+                            ans: opts.indexOf("It's"),
+                            type: "縮寫 It's (它是) vs 所有格 Its",
+                            trans: `It's ${ci.c}. (它是${ci.zh}色。)`,
+                            note: "句子需要主詞與 be 動詞，必須使用縮寫 It's (It is)，不能使用所有格 Its！"
+                        };
+                    }
                 } else if (subType < 0.8) {
                     const items = ["a pencil", "a ruler", "an eraser", "a book"];
                     const item = items[Math.floor(Math.random() * items.length)];
-                    const opts = shuffleArray(["it isn't", "that isn't", "this isn't", "it is"]);
-                    return {
-                        unit: "u3",
-                        q: `A: Is that ${item}? B: No, ____.`,
-                        opts: opts,
-                        ans: opts.indexOf("it isn't"),
-                        type: "否定簡答縮寫 (it isn't)",
-                        trans: "No, it isn't. (不，它不是。)",
-                        note: "問句以 this/that 提問，簡答代名詞一律回歸 it，否定縮寫為 it isn't！"
-                    };
+                    if (isTF) {
+                        const isCorrect = Math.random() > 0.5;
+                        const reply = isCorrect ? "No, it isn't." : "No, that isn't.";
+                        return {
+                            unit: "u3",
+                            statement: `問答文法常識：以問句「Is that ${item}?」詢問時，否定簡答應回答「${reply}」`,
+                            ans: isCorrect,
+                            trans: "No, it isn't. (不，它不是。)",
+                            note: isCorrect
+                                ? "正確！以 this/that 提問，簡答代名詞一律回歸 it (No, it isn't)。"
+                                : "錯誤！簡答代名詞一律回歸 it，不可回答 No, that isn't！"
+                        };
+                    } else {
+                        const opts = shuffleArray(["it isn't", "that isn't", "this isn't", "it is"]);
+                        return {
+                            unit: "u3",
+                            q: `A: Is that ${item}? B: No, ____.`,
+                            opts: opts,
+                            ans: opts.indexOf("it isn't"),
+                            type: "否定簡答縮寫 (it isn't)",
+                            trans: "No, it isn't. (不，它不是。)",
+                            note: "問句以 this/that 提問，簡答代名詞一律回歸 it，否定縮寫為 it isn't！"
+                        };
+                    }
                 } else {
-                    const opts = shuffleArray(["What is", "What are", "Who is", "What am"]);
-                    return {
-                        unit: "u1",
-                        q: '英文縮寫單字 "What\'s" 是哪兩個單字的縮寫？',
-                        opts: opts,
-                        ans: opts.indexOf("What is"),
-                        type: "縮寫還原 (What's)",
-                        trans: "What's = What is",
-                        note: "What's 是 What is 的標準縮寫，撇號代表省略了字母 i。"
-                    };
+                    if (isTF) {
+                        const isCorrect = Math.random() > 0.5;
+                        const wordClaim = isCorrect ? "What is" : "What are";
+                        return {
+                            unit: "u1",
+                            statement: `縮寫規則：英文單字 'What's' 是「${wordClaim}」的縮寫。`,
+                            ans: isCorrect,
+                            trans: "What's = What is",
+                            note: isCorrect
+                                ? "正確！What's 是 What is 的標準縮寫。"
+                                : "錯誤！What's 是 What is 的縮寫，不是 What are！"
+                        };
+                    } else {
+                        const opts = shuffleArray(["What is", "What are", "Who is", "What am"]);
+                        return {
+                            unit: "u1",
+                            q: '英文縮寫單字 "What's" 是哪兩個單字的縮寫？',
+                            opts: opts,
+                            ans: opts.indexOf("What is"),
+                            type: "縮寫還原 (What's)",
+                            trans: "What's = What is",
+                            note: "What's 是 What is 的標準縮寫，撇號代表省略了字母 i。"
+                        };
+                    }
                 }
             } else {
                 const esWords = [
@@ -11195,7 +11265,8 @@
         curTF = tfQueue.pop();
         tfRound++;
         document.getElementById('tf-progress').innerText = `第 ${tfRound} / 10 題`;
-        document.getElementById('tf-statement-text').innerText = `${tfRound}. ${curTF.statement}`;
+        const tfText = curTF.statement || curTF.prompt || curTF.q || '請判斷題目敘述是否正確。';
+        document.getElementById('tf-statement-text').innerText = `${tfRound}. ${tfText}`;
         const tfBtns = document.querySelectorAll('#tf-exam-area .btn-tf-pc');
         tfBtns.forEach(b => {
             b.disabled = false;
