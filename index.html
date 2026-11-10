@@ -9436,27 +9436,56 @@
     });
 
     
-    /* ==================== 🎲 動態題型即時衍生生成引擎 (Procedural Generation Engine) ==================== */
+    
+    /* ==================== 🎲 動態題型即時衍生生成引擎 (Procedural Generation Engine v2.0) ==================== */
     const DynamicQuestionEngine = {
         numWords: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"],
         numZh: ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"],
 
         vowelWords: [
-            { en: "apple", zh: "蘋果" }, { en: "ant", zh: "螞蟻" }, { en: "egg", zh: "雞蛋" },
-            { en: "elephant", zh: "大象" }, { en: "ink bottle", zh: "墨水瓶" }, { en: "insect", zh: "昆蟲" },
-            { en: "ox", zh: "公牛" }, { en: "otter", zh: "水獺" }, { en: "umbrella", zh: "雨傘" },
-            { en: "orange", zh: "橘子" }, { en: "old witch", zh: "老女巫" }
+            { en: "apple", zh: "蘋果", phonics: "短母音 a" },
+            { en: "ant", zh: "螞蟻", phonics: "短母音 a" },
+            { en: "egg", zh: "雞蛋", phonics: "短母音 e" },
+            { en: "elephant", zh: "大象", phonics: "母音 e 開頭" },
+            { en: "ink", zh: "墨水", phonics: "母音 i 開頭" },
+            { en: "insect", zh: "昆蟲", phonics: "母音 i 開頭" },
+            { en: "ox", zh: "公牛", phonics: "母音 o 開頭" },
+            { en: "otter", zh: "水獺", phonics: "母音 o 開頭" },
+            { en: "umbrella", zh: "雨傘", phonics: "母音 u 開頭" },
+            { en: "orange", zh: "橘子", phonics: "母音 o 開頭" },
+            { en: "eraser", zh: "橡皮擦", phonics: "母音 e 開頭" }
         ],
         consonantWords: [
-            { en: "cat", zh: "小貓" }, { en: "dog", zh: "小狗" }, { en: "cup", zh: "杯子" },
-            { en: "desk", zh: "書桌" }, { en: "book", zh: "書本" }, { en: "box", zh: "盒子" },
-            { en: "bus", zh: "公車" }, { en: "pig", zh: "小豬" }, { en: "ruler", zh: "直尺" },
-            { en: "pen", zh: "原子筆" }, { en: "pencil", zh: "鉛筆" }, { en: "marker", zh: "彩色筆" },
-            { en: "chair", zh: "椅子" }, { en: "bag", zh: "書包" }, { en: "frog", zh: "青蛙" },
-            { en: "rabbit", zh: "兔子" }, { en: "turtle", zh: "烏龜" }, { en: "tiger", zh: "老虎" },
-            { en: "lion", zh: "獅子" }, { en: "monkey", zh: "猴子" }, { en: "watch", zh: "手錶" },
-            { en: "window", zh: "窗戶" }, { en: "van", zh: "廂型車" }, { en: "vest", zh: "背心" },
-            { en: "pumpkin", zh: "南瓜" }, { en: "ghost", zh: "幽靈" }
+            { en: "cat", zh: "小貓", phonics: "短母音 a" },
+            { en: "dog", zh: "小狗", phonics: "短母音 o" },
+            { en: "cup", zh: "杯子", phonics: "短母音 u" },
+            { en: "desk", zh: "書桌", phonics: "短母音 e" },
+            { en: "book", zh: "書本", phonics: "短母音 oo" },
+            { en: "box", zh: "盒子", phonics: "短母音 o" },
+            { en: "bus", zh: "公車", phonics: "短母音 u" },
+            { en: "pig", zh: "小豬", phonics: "短母音 i" },
+            { en: "ruler", zh: "直尺", phonics: "長母音 u" },
+            { en: "pen", zh: "原子筆", phonics: "短母音 e" },
+            { en: "pencil", zh: "鉛筆", phonics: "教室文具" },
+            { en: "marker", zh: "彩色筆", phonics: "教室文具" },
+            { en: "chair", zh: "椅子", phonics: "教室設施" },
+            { en: "bag", zh: "書包", phonics: "短母音 a" },
+            { en: "frog", zh: "青蛙", phonics: "短母音 o" },
+            { en: "rabbit", zh: "兔子", phonics: "短母音 a" },
+            { en: "turtle", zh: "烏龜", phonics: "子音 t" },
+            { en: "tiger", zh: "老虎", phonics: "長母音 i" },
+            { en: "lion", zh: "獅子", phonics: "子音 l" },
+            { en: "monkey", zh: "猴子", phonics: "短母音 o" },
+            { en: "watch", zh: "手錶", phonics: "子音 w" },
+            { en: "window", zh: "窗戶", phonics: "子音 w" },
+            { en: "van", zh: "廂型車", phonics: "子音 v" },
+            { en: "vest", zh: "背心", phonics: "短母音 e" },
+            { en: "pumpkin", zh: "南瓜", phonics: "萬聖節主題" },
+            { en: "ghost", zh: "幽靈", phonics: "長母音 o" },
+            { en: "witch", zh: "女巫", phonics: "短母音 i" },
+            { en: "candy", zh: "糖果", phonics: "短母音 a" },
+            { en: "bat", zh: "蝙蝠", phonics: "短母音 a" },
+            { en: "spider", zh: "蜘蛛", phonics: "長母音 i" }
         ],
 
         colorMixes: [
@@ -9466,6 +9495,14 @@
             { c1: "White (白)", c2: "Red (紅)", res: "Pink (粉紅)", wrong: "Black (黑)" },
             { c1: "Black (黑)", c2: "White (白)", res: "Gray (灰)", wrong: "Brown (棕)" }
         ],
+
+        colors: [
+            { en: "red", zh: "紅色" }, { en: "blue", zh: "藍色" }, { en: "yellow", zh: "黃色" },
+            { en: "green", zh: "綠色" }, { en: "black", zh: "黑色" }, { en: "white", zh: "白色" },
+            { en: "purple", zh: "紫色" }, { en: "orange", zh: "橘色" }
+        ],
+
+        names: ["Mia", "Leo", "Amber", "Rocky", "Ken", "Tina", "Abu", "Edison", "Tom", "Amy"],
 
         // 1. 動態數字加減法算術題 (1~10 範圍運算)
         generateMathQuestion(isTF = false) {
@@ -9569,7 +9606,7 @@
                     unit: "u3",
                     statement: `冠詞規則：單字 '${item.en}' (${item.zh}) 前面應該使用冠詞 '${claimArticle}'，說成 '${claimArticle} ${item.en}'。`,
                     ans: isCorrect,
-                    trans: `${correctArticle} ${item.en} (一${item.zh.includes('貓') || item.zh.includes('狗') || item.zh.includes('牛') || item.zh.includes('獺') ? '隻' : '個'}${item.zh})`,
+                    trans: `${correctArticle} ${item.en} (一${item.zh.includes('貓') || item.zh.includes('狗') || item.zh.includes('牛') || item.zh.includes('獺') || item.zh.includes('魚') || item.zh.includes('豬') ? '隻' : '個'}${item.zh})`,
                     note: isCorrect 
                         ? `正確！${item.en} 為${useVowel ? '母音' : '子音'}開頭發音，必須搭配冠詞 '${correctArticle}'。`
                         : `錯誤！${item.en} 為${useVowel ? '母音' : '子音'}開頭發音，正確冠詞應該是 '${correctArticle}'，不是 '${claimArticle}'！`
@@ -9626,7 +9663,7 @@
             }
         },
 
-        // 4. 動態句型與文法避坑題 (年齡 year vs years、名詞複數 -s vs -es、所有格 your vs you're)
+        // 4. 動態句型與文法避坑題
         generateGrammarQuestion(isTF = false) {
             const r = Math.random();
             if (r < 0.35) {
@@ -9733,7 +9770,7 @@
             }
         },
 
-        // 綜合動態出題池：為指定測驗模式注入新鮮演算法題目
+        // 5. 動態是非題出題池
         generateDynamicTFPool(unit, count = 10) {
             const list = [];
             for (let i = 0; i < count; i++) {
@@ -9745,29 +9782,180 @@
                     list.push(Math.random() > 0.5 ? this.generateArticleQuestion(true) : this.generateGrammarQuestion(true));
                 } else {
                     const roll = Math.random();
-                    if (roll < 0.3) list.push(this.generateMathQuestion(true));
-                    else if (roll < 0.6) list.push(this.generateArticleQuestion(true));
-                    else if (roll < 0.8) list.push(this.generateColorQuestion(true));
+                    if (roll < 0.28) list.push(this.generateMathQuestion(true));
+                    else if (roll < 0.55) list.push(this.generateArticleQuestion(true));
+                    else if (roll < 0.75) list.push(this.generateColorQuestion(true));
                     else list.push(this.generateGrammarQuestion(true));
                 }
             }
             return list;
         },
 
+        // 6. 動態文法特訓出題池
         generateDynamicGrammarPool(unit, count = 10) {
             const list = [];
             for (let i = 0; i < count; i++) {
                 const roll = Math.random();
-                if (roll < 0.5) list.push(this.generateArticleQuestion(false));
-                else if (roll < 0.8) list.push(this.generateGrammarQuestion(false));
+                if (roll < 0.45) list.push(this.generateArticleQuestion(false));
+                else if (roll < 0.75) list.push(this.generateGrammarQuestion(false));
                 else list.push(this.generateColorQuestion(false));
             }
             return list;
+        },
+
+        // 7. 動態自然發音積木拼字出題池 (全冊單字庫動態選取 + 混淆字母注入)
+        generateDynamicSpellingPool(unit, count = 10) {
+            let pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? [...ACTIVE_DATA.vocab] : [...this.vowelWords, ...this.consonantWords];
+            pool = pool.filter(v => v.en && v.en.length <= 8 && !v.en.includes(' ') && !v.en.includes('_') && v.en !== 'all_vocab');
+            if (unit && unit !== 'all') {
+                const matched = pool.filter(v => (v.unit === unit || (unit === 'u3' && ['pen','book','desk','bag','ruler','eraser','bus','box'].includes(v.en))));
+                if (matched.length >= count) pool = matched;
+            }
+            const picked = shuffleArray(pool).slice(0, count);
+            return picked.map(v => ({
+                unit: v.unit || unit || "starter",
+                en: v.en.toLowerCase(),
+                zh: v.zh,
+                phonics: v.phonics || "自然發音核心"
+            }));
+        },
+
+        // 8. 動態句型重組出題池 (語法槽模板 + 即時變數帶入 + 獨立標點)
+        generateDynamicScramblePool(unit, count = 10) {
+            const templates = [
+                () => {
+                    const name = this.names[Math.floor(Math.random() * this.names.length)];
+                    return {
+                        unit: "u1",
+                        hint: `重組：我的名字叫 ${name}。`,
+                        tokens: ["My", "name", "is", name, "."],
+                        ans: `My name is ${name} .`,
+                        trans: `My name is ${name}. (我的名字是 ${name}。)`,
+                        note: `人名 ${name} 首字母大寫，句尾放句號。`
+                    };
+                },
+                () => {
+                    const age = Math.floor(Math.random() * 9) + 2;
+                    const ageWord = this.numWords[age];
+                    return {
+                        unit: "u2",
+                        hint: `重組：我今年 ${age} 歲。`,
+                        tokens: ["I", "am", ageWord, "years", "old", "."],
+                        ans: `I am ${ageWord} years old .`,
+                        trans: `I am ${ageWord} years old. (我 ${age} 歲。)`,
+                        note: `年齡大於 1 歲名詞加 s (years)。`
+                    };
+                },
+                () => {
+                    const item = this.vowelWords[Math.floor(Math.random() * this.vowelWords.length)];
+                    return {
+                        unit: "u3",
+                        hint: `描述物品：它是一${item.zh.includes('貓')||item.zh.includes('牛')?'隻':'塊/個'}${item.zh}。`,
+                        tokens: ["It", "is", "an", item.en, "."],
+                        ans: `It is an ${item.en} .`,
+                        trans: `It is an ${item.en}. (它是一${item.zh}。)`,
+                        note: `${item.en} 母音開頭發音前面必須接 an！`
+                    };
+                },
+                () => {
+                    const item = this.consonantWords[Math.floor(Math.random() * this.consonantWords.length)];
+                    return {
+                        unit: "u3",
+                        hint: `描述物品：它是一${item.zh.includes('貓')||item.zh.includes('狗')?'隻':'把/枝/本'}${item.zh}。`,
+                        tokens: ["It", "is", "a", item.en, "."],
+                        ans: `It is a ${item.en} .`,
+                        trans: `It is a ${item.en}. (它是一${item.zh}。)`,
+                        note: `${item.en} 子音開頭用冠詞 a。`
+                    };
+                },
+                () => {
+                    const color = this.colors[Math.floor(Math.random() * this.colors.length)];
+                    return {
+                        unit: "u4",
+                        hint: `回答顏色：它是${color.zh}的。`,
+                        tokens: ["It", "is", color.en, "."],
+                        ans: `It is ${color.en} .`,
+                        trans: `It is ${color.en}. (它是${color.zh}的。)`,
+                        note: `顏色形容詞單獨使用絕不加冠詞 a！`
+                    };
+                },
+                () => {
+                    const color = this.colors[Math.floor(Math.random() * this.colors.length)];
+                    const item = this.consonantWords[Math.floor(Math.random() * 8)]; // pen, pencil, bag, book, etc.
+                    return {
+                        unit: "u4",
+                        hint: `描述帶名詞：它是一${item.zh.includes('筆')?'枝':'個'}${color.zh}的${item.zh}。`,
+                        tokens: ["It", "is", "a", color.en, item.en, "."],
+                        ans: `It is a ${color.en} ${item.en} .`,
+                        trans: `It is a ${color.en} ${item.en}. (它是一${color.zh}${item.zh}。)`,
+                        note: `冠詞 a + 顏色 + 單數名詞結構。`
+                    };
+                },
+                () => {
+                    const actions = [
+                        { v: "Open", n: "book", zh: "請把書本打開。" },
+                        { v: "Close", n: "book", zh: "請把書本合上。" },
+                        { v: "Clean", n: "desk", zh: "請把書桌整理乾淨。" }
+                    ];
+                    const act = actions[Math.floor(Math.random() * actions.length)];
+                    return {
+                        unit: "u3",
+                        hint: `課堂指令：${act.zh}`,
+                        tokens: [act.v, "your", act.n, ",", "please", "."],
+                        ans: `${act.v} your ${act.n} , please .`,
+                        trans: `${act.v} your ${act.n}, please. (${act.zh})`,
+                        note: `祈使句加 please 前有逗號。`
+                    };
+                },
+                () => {
+                    return {
+                        unit: "u1",
+                        hint: "重組詢問名字句型",
+                        tokens: ["What's", "your", "name", "?"],
+                        ans: "What's your name ?",
+                        trans: "What's your name? (你叫什麼名字？)",
+                        note: "疑問句首字母大寫，所有格 your，句尾放問號。"
+                    };
+                },
+                () => {
+                    return {
+                        unit: "u2",
+                        hint: "重組詢問年齡句型",
+                        tokens: ["How", "old", "are", "you", "?"],
+                        ans: "How old are you ?",
+                        trans: "How old are you? (你幾歲？)",
+                        note: "How old 問年齡，句尾放問號。"
+                    };
+                },
+                () => {
+                    return {
+                        unit: "u2",
+                        hint: "重組禮貌回答：不客氣！",
+                        tokens: ["You're", "welcome", "."],
+                        ans: "You're welcome .",
+                        trans: "You're welcome. (不客氣！)",
+                        note: "注意是 You're (You are 的縮寫) 不是 Your！"
+                    };
+                }
+            ];
+
+            const list = [];
+            for (let i = 0; i < count; i++) {
+                const tpl = templates[Math.floor(Math.random() * templates.length)];
+                list.push(tpl());
+            }
+            return list;
+        },
+
+        // 9. 動態單字英選中出題池 (全冊即時抽題 + 語意同類別誘答)
+        generateDynamicVocabPool(unit, count = 10) {
+            let pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? [...ACTIVE_DATA.vocab] : [...this.vowelWords, ...this.consonantWords];
+            pool = pool.filter(v => v.en && v.en !== 'all_vocab');
+            const picked = shuffleArray(pool).slice(0, count);
+            return picked;
         }
     };
-
-
-    /* 真正的 Fisher-Yates 嚴格隨機洗牌 */
+/* 真正的 Fisher-Yates 嚴格隨機洗牌 */
     function shuffleArray(arr) {
         const a = [...arr];
         for (let i = a.length - 1; i > 0; i--) {
@@ -10690,12 +10878,13 @@
         scrambleRound = 0;
         scrambleCoinsEarned = 0;
 
+        // 即時參數隨機組合引擎生成動態句型重組題！
+        const dynamicScramble = DynamicQuestionEngine.generateDynamicScramblePool(currentScrambleUnit, 10);
         let pool = (ACTIVE_DATA && ACTIVE_DATA.scramble) ? [...ACTIVE_DATA.scramble] : [];
         if (currentScrambleUnit !== 'all') {
             pool = pool.filter(item => item.unit === currentScrambleUnit);
         }
-        if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.scramble) pool = [...ACTIVE_DATA.scramble];
-        scrambleQueue = shuffleArray(pool);
+        scrambleQueue = shuffleArray([...dynamicScramble, ...pool]).slice(0, 10);
 
         loadNextScramble();
     }
@@ -10831,12 +11020,13 @@
         spellRound = 0;
         spellCoinsEarned = 0;
 
+        // 即時透過演算法從全冊動態生成全新拼字題庫，保證每次進入都是全新題目！
+        const dynamicSpelling = DynamicQuestionEngine.generateDynamicSpellingPool(currentSpellUnit, 10);
         let pool = (ACTIVE_DATA && ACTIVE_DATA.spelling) ? [...ACTIVE_DATA.spelling] : [];
         if (currentSpellUnit !== 'all') {
             pool = pool.filter(item => item.unit === currentSpellUnit);
         }
-        if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.spelling) pool = [...ACTIVE_DATA.spelling];
-        spellQueue = shuffleArray(pool);
+        spellQueue = shuffleArray([...dynamicSpelling, ...pool]).slice(0, 10);
 
         loadNextSpelling();
     }
@@ -10959,12 +11149,9 @@
         vocabRound = 0;
         vqCoinsEarned = 0;
 
-        let pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? [...ACTIVE_DATA.vocab] : [];
-        if (currentVocabUnit !== 'all') {
-            pool = pool.filter(item => item.unit === currentVocabUnit);
-        }
-        if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.vocab) pool = [...ACTIVE_DATA.vocab];
-        vocabQueue = shuffleArray(pool);
+        // 即時演算法動態抽樣全冊 98+ 單字庫
+        const dynamicVocab = DynamicQuestionEngine.generateDynamicVocabPool(currentVocabUnit, 10);
+        vocabQueue = shuffleArray(dynamicVocab);
 
         loadNextVocabQ();
     }
