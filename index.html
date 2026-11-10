@@ -31,104 +31,59 @@
             overflow-x: hidden;
         }
 
-        /* 頂部全域桌面導航列：精緻緊湊、自適應對齊、絕對不超出 */
+        /* 頂部全域桌面導航列 */
         .desktop-nav-wrap {
             width: 100%;
-            max-width: 1080px;
+            max-width: 1120px;
             background: rgba(255, 255, 255, 0.98);
             border: 2px solid var(--card-border);
-            border-radius: 16px;
-            padding: 6px 14px;
+            border-radius: 18px;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 18px rgba(2, 132, 199, 0.12);
+            box-shadow: 0 4px 20px rgba(2, 132, 199, 0.15);
             margin-bottom: 8px;
             z-index: 100;
-            box-sizing: border-box;
-            white-space: nowrap;
         }
-        .app-brand { 
-            font-size: 15.5px; 
-            font-weight: 900; 
-            color: #0369a1; 
-            display: flex; 
-            align-items: center; 
-            gap: 6px; 
-            white-space: nowrap; 
-            flex-shrink: 0; 
-        }
-        .user-status-strip { 
-            display: flex; 
-            align-items: center; 
-            gap: 5px; 
-            white-space: nowrap; 
-            flex-shrink: 0; 
-        }
+        .app-brand { font-size: 20px; font-weight: 900; color: #0369a1; display: flex; align-items: center; gap: 8px; }
+        .user-status-strip { display: flex; align-items: center; gap: 8px; }
         .status-pill {
-            background: #f0f9ff; 
-            border: 1.5px solid #bae6fd; 
-            padding: 3px 8px;
-            border-radius: 16px; 
-            font-size: 12px; 
-            font-weight: 800; 
-            color: #0369a1;
-            display: flex; 
-            align-items: center; 
-            gap: 3px; 
-            white-space: nowrap;
-            flex-shrink: 0;
+            background: #f0f9ff; border: 1.5px solid #bae6fd; padding: 5px 12px;
+            border-radius: 20px; font-size: 13.5px; font-weight: 800; color: #0369a1;
+            display: flex; align-items: center; gap: 6px;
         }
         .btn-top-feature {
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: #ffffff; 
-            border: none; 
-            padding: 5px 11px; 
-            border-radius: 16px;
-            font-size: 12.5px; 
-            font-weight: 900; 
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(217, 119, 6, 0.25); 
-            transition: all 0.2s;
-            display: flex; 
-            align-items: center; 
-            gap: 3px;
-            white-space: nowrap;
-            flex-shrink: 0;
+            color: #ffffff; border: none; padding: 6px 14px; border-radius: 20px;
+            font-size: 13.5px; font-weight: 900; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3); transition: all 0.2s;
+            display: flex; align-items: center; gap: 5px;
         }
-        .btn-top-feature:hover { transform: scale(1.04); filter: brightness(1.1); }
+        .btn-top-feature:hover { transform: scale(1.05); filter: brightness(1.1); }
         .btn-bgm-toggle {
-            background: #f0fdf4; 
-            border: 1.5px solid #86efac; 
-            color: #15803d;
-            padding: 3px 8px; 
-            border-radius: 16px; 
-            font-size: 12px; 
-            font-weight: 800;
-            cursor: pointer; 
-            transition: all 0.2s;
-            white-space: nowrap;
-            flex-shrink: 0;
+            background: #f0fdf4; border: 1.5px solid #86efac; color: #15803d;
+            padding: 5px 12px; border-radius: 20px; font-size: 13px; font-weight: 800;
+            cursor: pointer; transition: all 0.2s;
         }
 
         /* 任務分頁切換列 */
         .mission-tab-bar {
             width: 100%;
-            max-width: 1080px;
+            max-width: 1120px;
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 7px;
             margin-bottom: 10px;
             z-index: 90;
-            box-sizing: border-box;
         }
         .mission-tab {
             background: rgba(255, 255, 255, 0.92);
             border: 1.5px solid #bae6fd;
             color: #475569;
-            padding: 6px 12px;
-            border-radius: 10px;
-            font-size: 12.5px;
+            padding: 8px 15px;
+            border-radius: 12px;
+            font-size: 14px;
             font-weight: 800;
             cursor: pointer;
             transition: all 0.2s;
@@ -145,7 +100,7 @@
         /* 主工作面板 */
         .workspace-panel {
             width: 100%;
-            max-width: 1080px;
+            max-width: 1120px;
             background: rgba(255, 255, 255, 0.98);
             background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.72) 40%, rgba(240, 249, 255, 0.86) 100%), url('assets/practice_bg.jpg');
             background-size: cover;
@@ -159,14 +114,13 @@
             flex-direction: column;
             overflow-y: auto;
             max-height: 88vh;
-            box-sizing: border-box;
         }
         .workspace-panel.active { display: flex !important; }
 
         /* 1. 地圖：精確自適應鎖定底圖長寬比 (1023:620)，零可見框框！純游標感應！ */
         #panel-map {
             width: 100%;
-            max-width: 1080px;
+            max-width: 1120px;
             aspect-ratio: 1023 / 620;
             min-height: auto;
             height: auto;
@@ -179,7 +133,6 @@
             border-radius: 22px;
             padding: 0;
             margin: 0 auto;
-            box-sizing: border-box;
         }
         /* 100% 透明無邊框熱區，滑鼠移過不變色不浮框，只變小手手 */
         .map-station-hotspot {
@@ -759,22 +712,19 @@
     <div class="desktop-nav-wrap">
         <div class="app-brand">
             <span>🏝️</span>
-            <span>三年級英語</span>
-            <span style="font-size: 11.5px; background: #0284c7; color: #fff; padding: 2px 8px; border-radius: 12px; cursor: default;" id="db-source-tag">題庫載入中</span>
+            <span>三年級英語・浮空群島冒險系統</span>
+            <span style="font-size: 12px; background: #0284c7; color: #fff; padding: 3px 10px; border-radius: 12px;" id="db-source-tag">題庫載入中</span>
         </div>
         <div class="user-status-strip">
             <button class="btn-bgm-toggle" id="btn-bgm-toggle" onclick="toggleBGM()">🎵 音樂: 關</button>
-            <div style="display: flex; align-items: center; gap: 3px; background: #f0fdf4; border: 1.5px solid #86efac; padding: 2px 7px; border-radius: 16px;">
-                <span style="font-size: 11px; color: #15803d;">🔈</span>
-                <input type="range" id="bgm-volume-slider" min="0" max="100" value="25" style="width: 48px; height: 4px; accent-color: #16a34a; cursor: pointer;" oninput="adjustBGMVolume(this.value)">
-                <span id="bgm-volume-val" style="font-size: 10.5px; color: #15803d; font-weight: 800; min-width: 22px;">25%</span>
-            </div>
-            <div class="status-pill">⭐ <span id="val-coins">150</span></div>
-            <div class="status-pill" style="color: #d97706;">🔥 <span id="val-streak">0</span> 連勝</div>
-            <div class="status-pill" id="val-hearts" style="color: #ef4444; font-size: 11px;">❤️❤️❤️</div>
+            <div class="status-pill">⭐ 星幣: <span id="val-coins">150</span></div>
+            <div class="status-pill" style="color: #d97706;">🔥 連勝: <span id="val-streak">0</span> 題</div>
+            <div class="status-pill" id="val-hearts" style="color: #ef4444;">❤️❤️❤️</div>
             <button class="btn-top-feature" onclick="openCabinModal()">🛖 冒險小屋</button>
         </div>
-    </div><!-- 任務分頁切換列 -->
+    </div>
+
+    <!-- 任務分頁切換列 -->
     <div class="mission-tab-bar">
         <button class="mission-tab active" id="tab-btn-map" onclick="navTo('panel-map')">🗺️ 冒險闖關地圖</button>
         <button class="mission-tab" id="tab-btn-exam-paper" onclick="navTo('panel-exam-paper')">📑 期末全真模擬試卷</button>
@@ -1430,10 +1380,8 @@
         },
         playPop() { this.playTone(880, 'triangle', 0.09, 0.12); setTimeout(()=>this.playTone(1320, 'sine', 0.15, 0.1), 60); },
 
-        /* 背景音樂播放器 (支援暫停續播、音量微調與聽力避讓) */
+        /* 背景音樂播放器 (優先播放 assets/bgm.mp3，若未載入則無縫切換合成琶音備援) */
         bgmAudio: null,
-        currentVolume: 0.25,
-        isDucked: false,
         startBGM() {
             this.init();
             if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
@@ -1443,21 +1391,20 @@
             if (!this.bgmAudio) {
                 this.bgmAudio = new Audio('assets/bgm.mp3');
                 this.bgmAudio.loop = true;
-                this.bgmAudio.volume = this.currentVolume;
-            } else {
-                this.bgmAudio.volume = this.currentVolume;
+                this.bgmAudio.volume = 0.35;
             }
 
             const playPromise = this.bgmAudio.play();
             if (playPromise !== undefined) {
                 playPromise.catch(err => {
+                    // 若無 bgm.mp3 或瀏覽器限制音訊檔案，自動切換至 Web Audio 輕音樂備用機制
                     if (!this.bgmTimer) {
                         const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
                         let noteIdx = 0;
                         this.bgmTimer = setInterval(() => {
                             if (!this.bgmActive) return;
                             const f = notes[noteIdx % notes.length];
-                            this.playTone(f, 'sine', 0.45, 0.025 * (this.currentVolume / 0.25));
+                            this.playTone(f, 'sine', 0.45, 0.025);
                             noteIdx++;
                         }, 600);
                     }
@@ -1467,38 +1414,18 @@
         stopBGM() {
             this.bgmActive = false;
             if (this.bgmAudio) {
-                this.bgmAudio.pause(); // 保留 currentTime，再次播放時續播不歸零！
+                this.bgmAudio.pause();
+                this.bgmAudio.currentTime = 0;
             }
             if (this.bgmTimer) { clearInterval(this.bgmTimer); this.bgmTimer = null; }
-            document.getElementById('btn-bgm-toggle').innerText = "🎵 音樂: 暫停";
+            document.getElementById('btn-bgm-toggle').innerText = "🎵 音樂: 關";
         },
         toggleBGM() {
             if (this.bgmActive) this.stopBGM();
             else this.startBGM();
-        },
-        setVolume(val) {
-            this.currentVolume = Math.max(0, Math.min(1, val));
-            if (this.bgmAudio && !this.isDucked) {
-                this.bgmAudio.volume = this.currentVolume;
-            }
-        },
-        duck() {
-            if (!this.bgmActive || !this.bgmAudio) return;
-            this.isDucked = true;
-            this.bgmAudio.volume = Math.min(0.04, this.currentVolume * 0.15);
-        },
-        unduck() {
-            if (!this.bgmActive || !this.bgmAudio) return;
-            this.isDucked = false;
-            this.bgmAudio.volume = this.currentVolume;
         }
     };
     function toggleBGM() { SoundEngine.toggleBGM(); }
-    function adjustBGMVolume(val) {
-        const pct = parseInt(val, 10);
-        document.getElementById('bgm-volume-val').innerText = pct + '%';
-        SoundEngine.setVolume(pct / 100);
-    }
 
     /* ==================== 題庫動態讀取與真實不重複洗牌系統 ==================== */
     let ACTIVE_DATA = {
@@ -2332,35 +2259,35 @@
   "tf": [
     {
       "unit": "starter",
-      "statement": "英文數字中，One 加上 two 等於 three。",
+      "statement": "英文數字中，'One' (1) 加上 'Two' (2) 等於 'Three' (3)。",
       "ans": true,
       "trans": "1 + 2 = 3",
       "note": "正確！One + Two = Three。"
     },
     {
       "unit": "starter",
-      "statement": "英文數字中，Two 加上 two 等於 four。",
+      "statement": "英文數字中，'Two' (2) 加上 'Two' (2) 等於 'Four' (4)。",
       "ans": true,
       "trans": "2 + 2 = 4",
       "note": "正確！Two + Two = Four。"
     },
     {
       "unit": "starter",
-      "statement": "英文數字中，Three 加上 two 等於 five。",
+      "statement": "英文數字中，'Three' (3) 加上 'Two' (2) 等於 'Five' (5)。",
       "ans": true,
       "trans": "3 + 2 = 5",
       "note": "正確！Three + Two = Five。"
     },
     {
       "unit": "starter",
-      "statement": "英文數字中，Four 減去 one 等於 two。",
+      "statement": "英文數字中，'Four' (4) 減去 'One' (1) 等於 'Two' (2)。",
       "ans": false,
       "trans": "4 - 1 = 3 (Three)",
       "note": "錯誤！4 - 1 等於 3 (Three)，不是 2。"
     },
     {
       "unit": "starter",
-      "statement": "英文數字中，Five 減去 three 等於 two。",
+      "statement": "英文數字中，'Five' (5) 減去 'Three' (3) 等於 'Two' (2)。",
       "ans": true,
       "trans": "5 - 3 = 2",
       "note": "正確！Five - Three = Two。"
@@ -2381,21 +2308,21 @@
     },
     {
       "unit": "starter",
-      "statement": "生活算術：一隻小貓咪有 two 隻眼睛。",
+      "statement": "生活算術：一隻小貓咪有 'two' (2) 隻眼睛。",
       "ans": true,
       "trans": "貓咪有兩隻眼睛 (two eyes)",
       "note": "正確！貓咪有 2 隻眼睛。"
     },
     {
       "unit": "starter",
-      "statement": "生活算術：一隻小狗有 three 隻腳。",
+      "statement": "生活算術：一隻小狗有 'three' (3) 隻腳。",
       "ans": false,
       "trans": "小狗有四隻腳 (four legs)",
       "note": "錯誤！小狗有 4 隻腳 (four)。"
     },
     {
       "unit": "starter",
-      "statement": "生活算術：我們一隻手有 five 根手指頭。",
+      "statement": "生活算術：我們一隻手有 'five' (5) 根手指頭。",
       "ans": true,
       "trans": "一隻手有 5 根手指 (five fingers)",
       "note": "正確！High five 就是擊掌！"
@@ -2416,21 +2343,21 @@
     },
     {
       "unit": "u2",
-      "statement": "數字英文順序：數字 Seven 的下一個數字是 eight。",
+      "statement": "數字英文順序：數字 'Seven' (7) 的下一個數字是 'Eight' (8)。",
       "ans": true,
       "trans": "7 下一個是 8",
       "note": "正確！Seven -> Eight。"
     },
     {
       "unit": "u2",
-      "statement": "數字英文拼法：單字 eight 中間的字母組合 'gh' 不發音。",
+      "statement": "數字英文拼法：單字 'eight' (8) 中間的字母組合 'gh' 不發音。",
       "ans": true,
       "trans": "eight 發音為 /eɪt/，gh 不發音",
       "note": "正確！eight 的 gh 不發音。"
     },
     {
       "unit": "u2",
-      "statement": "數字英文順序：數字 Eight 的下一個數字是 nine。",
+      "statement": "數字英文順序：數字 'Eight' (8) 的下一個數字是 'Nine' (9)。",
       "ans": true,
       "trans": "8 下一個是 9",
       "note": "正確！Eight -> Nine。"
@@ -2444,21 +2371,21 @@
     },
     {
       "unit": "u2",
-      "statement": "英文數字順序：Ten 的前一個數字是 nine。",
+      "statement": "英文數字順序：'Ten' (10) 的前一個數字是 'Nine' (9)。",
       "ans": true,
       "trans": "8 -> 9 (Nine) -> 10 (Ten)",
       "note": "正確！Nine 是 9，Ten 是 10。"
     },
     {
       "unit": "u2",
-      "statement": "英文數字中，Ten 減去 five 等於 four。",
+      "statement": "英文數字中，'Ten' (10) 減去 'Five' (5) 等於 'Four' (4)。",
       "ans": false,
       "trans": "10 - 5 = 5 (Five)",
       "note": "錯誤！10 - 5 等於 5 (Five)。"
     },
     {
       "unit": "u2",
-      "statement": "英文數字中，Six 加上 four 等於 ten。",
+      "statement": "英文數字中，'Six' (6) 加上 'Four' (4) 等於 'Ten' (10)。",
       "ans": true,
       "trans": "6 + 4 = 10",
       "note": "正確！Six + Four = Ten。"
@@ -8944,10 +8871,10 @@
         "an",
         "the a"
       ],
-      "ans": 1,
+      "ans": 2,
       "type": "冠詞 a/an",
-      "trans": "a tiny insect (一隻小昆蟲)",
-      "note": "雖然 insect 是母音開頭，但空格緊接著的形容詞 tiny 是子音 /t/ 開頭，因此冠詞必須看緊鄰的單字發音，使用「a」！(a tiny insect)"
+      "trans": "an insect (一隻昆蟲)",
+      "note": "insect 為母音 /ɪ/ 開頭，前面接 an。"
     },
     {
       "unit": "u1",
@@ -8986,10 +8913,10 @@
         "an",
         "a"
       ],
-      "ans": 3,
+      "ans": 2,
       "type": "冠詞 a/an",
-      "trans": "a cute otter (一隻可愛的水獺)",
-      "note": "雖然 otter 是母音開頭，但空格緊接著的形容詞 cute 是子音 /k/ 開頭，因此冠詞必須看緊鄰的單字發音，使用「a」！(a cute otter)"
+      "trans": "an otter (一隻水獺)",
+      "note": "otter 為母音 /ɑ/ 開頭，前面接 an。"
     },
     {
       "unit": "u4",
@@ -9503,7 +9430,7 @@
     }
   ]
 };
-    document.getElementById('db-source-tag').innerText = `🎲 動態題庫 (${ACTIVE_DATA.vocab ? ACTIVE_DATA.vocab.length : 98}字)`;
+    document.getElementById('db-source-tag').innerText = `🎲 動態題型 (${ACTIVE_DATA.vocab ? ACTIVE_DATA.vocab.length : 98}字/8關卡)`;
     window.addEventListener('DOMContentLoaded', () => {
         initPanels();
     });
@@ -9560,9 +9487,9 @@
                     const finalIsTrue = safeClaim === sum;
                     return {
                         unit: "starter",
-                        statement: `英文數字運算：${aCap} 加上 ${bWord} 等於 ${claimWord}。`,
+                        statement: `英文數字運算：'${aCap}' (${a}) 加上 '${bWord}' (${b}) 等於 '${claimWord}' (${safeClaim})。`,
                         ans: finalIsTrue,
-                        trans: `${aCap} plus ${bWord} is ${sumWord}.`,
+                        trans: `${a} + ${b} = ${sum} (${sumWord})`,
                         note: finalIsTrue ? `正確！${aCap} + ${bWord} = ${sumWord} (${sum})。` : `錯誤！${a} + ${b} 等於 ${sum} (${sumWord})，不是 ${safeClaim} (${claimWord})！`
                     };
                 } else {
@@ -9575,11 +9502,11 @@
                     const opts = shuffleArray([sumWord, ...distractors]);
                     return {
                         unit: "starter",
-                        q: `數字加法算術：${aCap} plus ${bWord} is ____.`,
+                        q: `數字加法算術：${aCap} plus ${bWord} is ____. (${a} + ${b} = ?)`,
                         opts: opts,
                         ans: opts.indexOf(sumWord),
                         type: "數字加法算術",
-                        trans: `${aCap} plus ${bWord} is ${sumWord}.`,
+                        trans: `${a} + ${b} = ${sum} (${sumWord})`,
                         note: `生活加法算術：${aCap} + ${bWord} = ${sumWord} (${sum})。`
                     };
                 }
@@ -9600,9 +9527,9 @@
                     const finalIsTrue = safeClaim === diff;
                     return {
                         unit: "starter",
-                        statement: `英文數字減法：${aCap} 減去 ${bWord} 等於 ${claimWord}。`,
+                        statement: `英文數字減法：'${aCap}' (${a}) 減去 '${bWord}' (${b}) 等於 '${claimWord}' (${safeClaim})。`,
                         ans: finalIsTrue,
-                        trans: `${aCap} minus ${bWord} is ${diffWord}.`,
+                        trans: `${a} - ${b} = ${diff} (${diffWord})`,
                         note: finalIsTrue ? `正確！${aCap} - ${bWord} = ${diffWord} (${diff})。` : `錯誤！${a} - ${b} 等於 ${diff} (${diffWord})，不是 ${safeClaim} (${claimWord})！`
                     };
                 } else {
@@ -9615,11 +9542,11 @@
                     const opts = shuffleArray([diffWord, ...distractors]);
                     return {
                         unit: "starter",
-                        q: `數字減法算術：${aCap} minus ${bWord} is ____.`,
+                        q: `數字減法算術：${aCap} minus ${bWord} is ____. (${a} - ${b} = ?)`,
                         opts: opts,
                         ans: opts.indexOf(diffWord),
                         type: "數字減法算術",
-                        trans: `${aCap} minus ${bWord} is ${diffWord}.`,
+                        trans: `${a} - ${b} = ${diff} (${diffWord})`,
                         note: `生活減法算術：${aCap} - ${bWord} = ${diffWord} (${diff})。`
                     };
                 }
@@ -9729,144 +9656,43 @@
                         note: `大於 1 歲時名詞 year 必須加 s 變複數 years！`
                     };
                 }
-            } else if (r < 0.78) {
-                // 專項縮寫加權強化 (your vs you're, It's vs Its, What's 拆解, isn't 否定簡答)
-                const subType = Math.random();
-                if (subType < 0.3) {
+            } else if (r < 0.70) {
+                if (isTF) {
+                    const isWrong = Math.random() > 0.5;
+                    return {
+                        unit: "u1",
+                        statement: isWrong 
+                            ? "高頻避坑：詢問同學名字時，英文句子可以寫成 'What's you're name?'。"
+                            : "高頻避坑：別人對你說 Thank you!，禮貌回應應該說 'You're welcome.'。",
+                        ans: !isWrong,
+                        trans: isWrong ? "應為：What's your name? (用所有格 your)" : "You're welcome. (不客氣)",
+                        note: isWrong 
+                            ? "錯誤！所有格是 your (你的)；you're 是 you are (你是) 的縮寫，絕不能用在 name 前面！"
+                            : "正確！You're welcome 中的 You're 是 You are 的縮寫！"
+                    };
+                } else {
                     const isNameQ = Math.random() > 0.5;
                     if (isNameQ) {
-                        const names = ["Mia", "Leo", "Rocky", "Amber", "Tina", "Ken"];
-                        const name = names[Math.floor(Math.random() * names.length)];
-                        if (isTF) {
-                            const isCorrect = Math.random() > 0.5;
-                            const wordUsed = isCorrect ? "your" : "you're";
-                            return {
-                                unit: "u1",
-                                statement: `英文文法判斷：句子「What's ${wordUsed} name?」完全符合文法標準。`,
-                                ans: isCorrect,
-                                trans: "What's your name? (你叫什麼名字？)",
-                                note: isCorrect
-                                    ? "正確！表示「你的」名字必須使用所有格 your！"
-                                    : "錯誤！you're 是 you are (你是) 的縮寫，詢問名字必須使用所有格 your！"
-                            };
-                        } else {
-                            const opts = shuffleArray(["your", "you're", "you", "my"]);
-                            return {
-                                unit: "u1",
-                                q: `A: What's ____ name? B: My name is ${name}.`,
-                                opts: opts,
-                                ans: opts.indexOf("your"),
-                                type: "所有格 your vs 縮寫 you're",
-                                trans: "What's your name? (你的名字是什麼？)",
-                                note: "高頻易錯：表示「你的」名字必須用所有格 your！you're 是 you are (你是)！"
-                            };
-                        }
-                    } else {
-                        if (isTF) {
-                            const isCorrect = Math.random() > 0.5;
-                            const wordUsed = isCorrect ? "You're welcome." : "Your welcome.";
-                            return {
-                                unit: "u2",
-                                statement: `生活禮貌美語：別人向你致謝說 'Thank you!'，禮貌回應可以寫成「${wordUsed}」`,
-                                ans: isCorrect,
-                                trans: "You're welcome. (不客氣。)",
-                                note: isCorrect
-                                    ? "正確！不客氣是 You're welcome (You are 的縮寫)。"
-                                    : "錯誤！不可寫成所有格 Your，必須是 You're (You are 的縮寫)！"
-                            };
-                        } else {
-                            const opts = shuffleArray(["You're", "Your", "You", "I'm"]);
-                            return {
-                                unit: "u2",
-                                q: "A: Thank you very much! B: ____ welcome.",
-                                opts: opts,
-                                ans: opts.indexOf("You're"),
-                                type: "禮貌回應 You're welcome",
-                                trans: "You're welcome. (不客氣。)",
-                                note: "段考死穴：You're (你是) ⭕ vs. Your (你的) ❌！"
-                            };
-                        }
-                    }
-                } else if (subType < 0.55) {
-                    const colorItems = [
-                        { n: "pen", c: "blue", zh: "原子筆" }, { n: "ruler", c: "yellow", zh: "尺" },
-                        { n: "bag", c: "black", zh: "書包" }, { n: "pencil", c: "green", zh: "鉛筆" }
-                    ];
-                    const ci = colorItems[Math.floor(Math.random() * colorItems.length)];
-                    if (isTF) {
-                        const isCorrect = Math.random() > 0.5;
-                        const wordUsed = isCorrect ? `It's ${ci.c}.` : `Its ${ci.c}.`;
-                        return {
-                            unit: "u4",
-                            statement: `縮寫文法判斷：描述物品顏色時，句子寫成「${wordUsed}」完全符合文法規範。`,
-                            ans: isCorrect,
-                            trans: `It is ${ci.c}. (它是${ci.zh}色。)`,
-                            note: isCorrect
-                                ? "正確！需要主詞與 be 動詞，使用縮寫 It's (It is)。"
-                                : "錯誤！Its 是所有格 (它的)，表示「它是...」必須使用縮寫 It's (It is)！"
-                        };
-                    } else {
-                        const opts = shuffleArray(["It's", "Its", "Is", "It"]);
-                        return {
-                            unit: "u4",
-                            q: `Look at the ${ci.n}! ____ ${ci.c}.`,
-                            opts: opts,
-                            ans: opts.indexOf("It's"),
-                            type: "縮寫 It's (它是) vs 所有格 Its",
-                            trans: `It's ${ci.c}. (它是${ci.zh}色。)`,
-                            note: "句子需要主詞與 be 動詞，必須使用縮寫 It's (It is)，不能使用所有格 Its！"
-                        };
-                    }
-                } else if (subType < 0.8) {
-                    const items = ["a pencil", "a ruler", "an eraser", "a book"];
-                    const item = items[Math.floor(Math.random() * items.length)];
-                    if (isTF) {
-                        const isCorrect = Math.random() > 0.5;
-                        const reply = isCorrect ? "No, it isn't." : "No, that isn't.";
-                        return {
-                            unit: "u3",
-                            statement: `問答文法常識：以問句「Is that ${item}?」詢問時，否定簡答應回答「${reply}」`,
-                            ans: isCorrect,
-                            trans: "No, it isn't. (不，它不是。)",
-                            note: isCorrect
-                                ? "正確！以 this/that 提問，簡答代名詞一律回歸 it (No, it isn't)。"
-                                : "錯誤！簡答代名詞一律回歸 it，不可回答 No, that isn't！"
-                        };
-                    } else {
-                        const opts = shuffleArray(["it isn't", "that isn't", "this isn't", "it is"]);
-                        return {
-                            unit: "u3",
-                            q: `A: Is that ${item}? B: No, ____.`,
-                            opts: opts,
-                            ans: opts.indexOf("it isn't"),
-                            type: "否定簡答縮寫 (it isn't)",
-                            trans: "No, it isn't. (不，它不是。)",
-                            note: "問句以 this/that 提問，簡答代名詞一律回歸 it，否定縮寫為 it isn't！"
-                        };
-                    }
-                } else {
-                    if (isTF) {
-                        const isCorrect = Math.random() > 0.5;
-                        const wordClaim = isCorrect ? "What is" : "What are";
+                        const opts = shuffleArray(["your", "you're", "you", "my"]);
                         return {
                             unit: "u1",
-                            statement: `縮寫規則：英文單字 'What's' 是「${wordClaim}」的縮寫。`,
-                            ans: isCorrect,
-                            trans: "What's = What is",
-                            note: isCorrect
-                                ? "正確！What's 是 What is 的標準縮寫。"
-                                : "錯誤！What's 是 What is 的縮寫，不是 What are！"
+                            q: "A: What's ____ name? B: My name is Mia.",
+                            opts: opts,
+                            ans: opts.indexOf("your"),
+                            type: "所有格 your vs you're",
+                            trans: "What's your name? (你的名字是什麼？)",
+                            note: "表示「你的」名字必須使用所有格 your！you're 是 you are (你是)！"
                         };
                     } else {
-                        const opts = shuffleArray(["What is", "What are", "Who is", "What am"]);
+                        const opts = shuffleArray(["You're", "Your", "You", "I'm"]);
                         return {
-                            unit: "u1",
-                            q: '英文縮寫單字 "What's" 是哪兩個單字的縮寫？',
+                            unit: "u2",
+                            q: "A: Thank you very much! B: ____ welcome.",
                             opts: opts,
-                            ans: opts.indexOf("What is"),
-                            type: "縮寫還原 (What's)",
-                            trans: "What's = What is",
-                            note: "What's 是 What is 的標準縮寫，撇號代表省略了字母 i。"
+                            ans: opts.indexOf("You're"),
+                            type: "禮貌回應 You're welcome",
+                            trans: "You're welcome. (不客氣。)",
+                            note: "段考最高頻失分點：You're (你是) ⭕ vs. Your (你的) ❌！"
                         };
                     }
                 }
@@ -9907,71 +9733,21 @@
             }
         },
 
-                // 綜合動態是非題出題池：為所有單元注入源源不絕的動態演算法題目
+        // 綜合動態出題池：為指定測驗模式注入新鮮演算法題目
         generateDynamicTFPool(unit, count = 10) {
             const list = [];
             for (let i = 0; i < count; i++) {
                 if (unit === 'starter') {
-                    if (Math.random() > 0.35) {
-                        list.push(this.generateMathQuestion(true));
-                    } else {
-                        const pairs = [
-                            { s: "大寫字母 'D' 的小寫圓圈在左邊 (d)。", a: true, t: "D 的小寫是 d", n: "正確！d 的肚子在左邊。" },
-                            { s: "大寫字母 'B' 的小寫肚子在右邊 (b)。", a: true, t: "B 的小寫是 b", n: "正確！b 的肚子在右邊。" },
-                            { s: "字母 'd' 和 'b' 的肚子在同一個方向。", a: false, t: "b 向右看，d 向左看", n: "錯誤！方向完全相反！" },
-                            { s: "單字 'cat' (貓咪) 含有短母音 a 的發音。", a: true, t: "c-a-t 讀短母音 a", n: "正確！短母音 a 代表字。" },
-                            { s: "英文的母音字母共有五個，分別是 A, E, I, O, U。", a: true, t: "母音：A, E, I, O, U", n: "正確！五個母音字母。" },
-                            { s: "字母 'P' 的圓圈在右邊，'Q' 的小寫圓圈在左邊。", a: true, t: "p 向右，q 向左", n: "正確！鏡像字母辨識。" }
-                        ];
-                        const p = pairs[Math.floor(Math.random() * pairs.length)];
-                        list.push({ unit: 'starter', statement: p.s, ans: p.a, trans: p.t, note: p.n });
-                    }
-                } else if (unit === 'u1') {
-                    const u1Pool = [
-                        { s: "在問句「What's your name?」中，使用所有格 your 是正確的。", a: true, t: "What's your name?", n: "正確！表示你的名字用 your。" },
-                        { s: "詢問同學名字時，英文可以寫成「What's you're name?」。", a: false, t: "不能用 you're！", n: "錯誤！you're 是 you are (你是)，不可修飾名詞 name！" },
-                        { s: "初次見面打招呼說「Nice to meet you.」，禮貌回答應說「Nice to meet you, too.」。", a: true, t: "Nice to meet you, too.", n: "正確！初次見面標準禮貌應答。" },
-                        { s: "稱呼女性陳老師時，「Miss Chen」兩個字的第一個字母都要大寫。", a: true, t: "Miss Chen", n: "正確！稱謂與姓氏均需大寫。" },
-                        { s: "同學自我介紹「My name is mia.」，名字小寫完全合乎英文書寫規範。", a: false, t: "人名第一個字母必須大寫", n: "錯誤！專有名詞第一個字母必須大寫 (Mia)！" },
-                        { s: "英文單字 'What's' 是 'What is' 的標準縮寫。", a: true, t: "What's = What is", n: "正確！What is 縮寫為 What's。" },
-                        { s: "句子「How are you?」是在詢問對方的年齡幾歲。", a: false, t: "How are you 是問候你好嗎", n: "錯誤！How are you 問近況，How old are you 才是問年齡！" }
-                    ];
-                    list.push(u1Pool[Math.floor(Math.random() * u1Pool.length)]);
-                } else if (unit === 'u2') {
-                    const roll = Math.random();
-                    if (roll < 0.4) {
-                        list.push(this.generateGrammarQuestion(true));
-                    } else if (roll < 0.7) {
-                        const age = Math.floor(Math.random() * 8) + 2;
-                        const isRight = Math.random() > 0.5;
-                        const wordClaim = isRight ? `${this.numWords[age]} years old` : `${this.numWords[age]} year old`;
-                        list.push({
-                            unit: 'u2',
-                            statement: `年齡文法：當同學剛好滿 ${age} 歲時，英文應說成「I am ${wordClaim}.」`,
-                            ans: isRight,
-                            trans: `I am ${this.numWords[age]} years old. (${age}歲)`,
-                            note: isRight ? `正確！大於 1 歲名詞 year 必須加 s 變複數 years！` : `錯誤！只有 1 歲才用單數 year，大於 1 歲必須加 s 變成 years！`
-                        });
-                    } else {
-                        const u2Misc = [
-                            { s: "別人向你道謝說 'Thank you!'，禮貌回答可以寫成「You're welcome.」。", a: true, t: "You're welcome.", n: "正確！You're (你是) 是正確縮寫。" },
-                            { s: "別人向你道謝說 'Thank you!'，禮貌回答可以寫成「Your welcome.」。", a: false, t: "不能用所有格 Your", n: "錯誤！是 You're (You are 的縮寫)，不是所有格 Your！" },
-                            { s: "排隊搭校車或買票時，老師說「Line up, please.」是請大家排隊的意思。", a: true, t: "Line up, please. (請排隊)", n: "正確！常用生活常規美語指令。" },
-                            { s: "時鐘上的羅馬數字「VII」代表阿拉伯數字 7。", a: true, t: "VII = 7 (5 + 2 = 7)", n: "正確！生活羅馬數字對照。" },
-                            { s: "時鐘上的羅馬數字「IX」代表阿拉伯數字 9。", a: true, t: "IX = 9 (10 - 1 = 9)", n: "正確！生活羅馬數字對照。" },
-                            { s: "英文單字 'eight' 中間的字母組合 'gh' 不發音。", a: true, t: "eight 發音為 /eɪt/", n: "正確！eight 的 gh 不發音。" }
-                        ];
-                        list.push(u2Misc[Math.floor(Math.random() * u2Misc.length)]);
-                    }
-                } else if (unit === 'u3') {
-                    list.push(Math.random() > 0.5 ? this.generateArticleQuestion(true) : this.generateGrammarQuestion(true));
+                    list.push(this.generateMathQuestion(true));
                 } else if (unit === 'u4') {
                     list.push(Math.random() > 0.5 ? this.generateColorQuestion(true) : this.generateArticleQuestion(true));
+                } else if (unit === 'u3') {
+                    list.push(Math.random() > 0.5 ? this.generateArticleQuestion(true) : this.generateGrammarQuestion(true));
                 } else {
                     const roll = Math.random();
-                    if (roll < 0.25) list.push(this.generateMathQuestion(true));
-                    else if (roll < 0.5) list.push(this.generateArticleQuestion(true));
-                    else if (roll < 0.75) list.push(this.generateColorQuestion(true));
+                    if (roll < 0.3) list.push(this.generateMathQuestion(true));
+                    else if (roll < 0.6) list.push(this.generateArticleQuestion(true));
+                    else if (roll < 0.8) list.push(this.generateColorQuestion(true));
                     else list.push(this.generateGrammarQuestion(true));
                 }
             }
@@ -10001,7 +9777,7 @@
         return a;
     }
 
-    const DEFAULT_USER_STATE = {
+    let state = {
         coins: 150, hearts: 3, streak: 0, activeHero: 'warrior',
         heroGear: { 
             warrior_weap: 1, warrior_armor: 1,
@@ -10012,40 +9788,6 @@
         petLevels: { dog: 1, cat: 1, otter: 1, rabbit: 1, penguin: 1, bot: 1 },
         unlockedPets: ['dog'], unlockedHeroes: ['warrior']
     };
-
-    const USER_STATE_STORAGE_KEY = 'ENGLISH_ADVENTURE_USER_SAVE_V1';
-
-    function loadUserState() {
-        try {
-            const raw = localStorage.getItem(USER_STATE_STORAGE_KEY);
-            if (raw) {
-                const parsed = JSON.parse(raw);
-                if (parsed && typeof parsed === 'object') {
-                    return {
-                        ...DEFAULT_USER_STATE,
-                        ...parsed,
-                        heroGear: { ...DEFAULT_USER_STATE.heroGear, ...(parsed.heroGear || {}) },
-                        petLevels: { ...DEFAULT_USER_STATE.petLevels, ...(parsed.petLevels || {}) },
-                        unlockedPets: Array.isArray(parsed.unlockedPets) && parsed.unlockedPets.length > 0 ? parsed.unlockedPets : ['dog'],
-                        unlockedHeroes: Array.isArray(parsed.unlockedHeroes) && parsed.unlockedHeroes.length > 0 ? parsed.unlockedHeroes : ['warrior']
-                    };
-                }
-            }
-        } catch(e) {}
-        return JSON.parse(JSON.stringify(DEFAULT_USER_STATE));
-    }
-
-    let state = loadUserState();
-
-    function saveUserState() {
-        try {
-            localStorage.setItem(USER_STATE_STORAGE_KEY, JSON.stringify(state));
-        } catch(e) {}
-        const elCoins = document.getElementById('val-coins');
-        if (elCoins) elCoins.innerText = state.coins;
-        const elStreak = document.getElementById('val-streak');
-        if (elStreak) elStreak.innerText = state.streak;
-    }
 
     const HP_LEVEL_TABLE = { 1: 100, 2: 180, 3: 270, 4: 380, 5: 500, 6: 630, 7: 770, 8: 920, 9: 1080, 10: 1250 };
     function getHeroMaxHp(h = state.activeHero) {
@@ -10090,9 +9832,6 @@
         if (target) { 
             target.classList.add('active'); 
             target.style.display = 'flex'; 
-            // 確保每次切換至測驗面板時，單元切換列皆正常顯示
-            const unitBar = target.querySelector('.practice-unit-filter-bar');
-            if (unitBar) unitBar.style.display = 'flex';
         }
 
         document.querySelectorAll('.mission-tab').forEach(t => t.classList.remove('active'));
@@ -10158,9 +9897,6 @@
 
     function initPanels() {
         if (!ACTIVE_DATA) return;
-        saveUserState();
-        updateCombatUI();
-        updateShopUI();
         renderUnitFilterBar('lis-unit-filter-bar', 'all', (u) => { currentLisUnit = u; });
         renderUnitFilterBar('grammar-unit-filter-bar', 'all', (u) => { currentGrammarUnit = u; });
         renderUnitFilterBar('scramble-unit-filter-bar', 'all', (u) => { currentScrambleUnit = u; });
@@ -10170,7 +9906,19 @@
         renderAllUnitsGuide();
         renderShopPetCards();
     }
-   
+
+    /* 1. RPG 戰鬥 (支援 2 隻以上怪獸同時在場 + 勇者 HP 500 + 法師全體群攻) */
+    let curStage = null;
+    let curWaveIdx = 0;
+    let curEnemies = []; // 當前波次在場的怪獸列表
+    let fightQueue = [];
+    let curQ = null;
+    let hHp = 100;
+    let waveStartHpHero = 100;
+    let otterShieldCount = 1;
+    let combatCoinsEarnedThisSession = 0;
+
+    
 
         /* ==================== 📚 全覆蓋排程與 Leitner 間隔記憶引擎 ==================== */
     const LearningEngine = {
@@ -10272,7 +10020,7 @@
             const testedCount = Object.values(this.state.mastery).filter(m => m && m.tested).length;
             const masteredCount = Object.values(this.state.mastery).filter(m => m && m.level === 3).length;
             const pct = Math.min(100, Math.round((testedCount / total) * 100));
-            tag.innerText = `📚 ${pct}% (${testedCount}/${total}) · 🌟${masteredCount} · ⚠️${this.state.mistakePool.length}`; tag.title = `全書進度: ${pct}% (${testedCount}/${total}字) ｜ 🌟精通: ${masteredCount} ｜ ⚠️待複習: ${this.state.mistakePool.length}`;
+            tag.innerText = `📚 全書覆蓋: ${pct}% (${testedCount}/${total}字) ｜ 🌟精通:${masteredCount} ｜ ⚠️待複習:${this.state.mistakePool.length}`;
         }
     };
 
@@ -10320,7 +10068,7 @@
                     type: 'tf',
                     word: vocabItem.en,
                     isTrue: expectedTrue,
-                    prompt: `【⭕❌ 鏡像字形是非題】中文為「${vZh}」的英文單字，它的開頭第一個字母肚子/圓圈是朝【${askRight ? '右邊' : '左邊'}】。`,
+                    prompt: `【⭕❌ 鏡像字形是非題】單字 '${vocabItem.en}' (${vZh}) 的開頭第一個字母，肚子/圓圈是朝【${askRight ? '右邊' : '左邊'}】。`,
                     trans: `開頭字母為 ${firstChar.toUpperCase()} (${firstChar})`,
                     note: `字母字形鐵則：b 肚子在右邊 (向右看)，d 肚子在左邊 (向左看)；p 圓圈在右邊，q 圓圈在左邊！`
                 };
@@ -10787,7 +10535,7 @@
             updateCombatUI();
         }
 
-        saveUserState();
+        document.getElementById('val-coins').innerText = state.coins;
         document.getElementById('val-streak').innerText = state.streak;
         document.getElementById('battle-exp-body').innerHTML = `<p><b>中文釋義：</b>${curQ.trans || '標準句型'}</p><p><b>💡 考點解析：</b>${curQ.note || '請牢記發音與文法規範！'}</p>`;
         document.getElementById('battle-exp-card').style.display = 'block';
@@ -10809,7 +10557,7 @@
             } else {
                 state.coins += 25;
                 combatCoinsEarnedThisSession += 25;
-                saveUserState();
+                document.getElementById('val-coins').innerText = state.coins;
                 showSettlementCard(`恭喜徹底擊退 ${curStage.title} 守護首領！`, combatCoinsEarnedThisSession);
                 return;
             }
@@ -10878,10 +10626,9 @@
             const finalBonus = 15;
             state.coins += finalBonus;
             lisCoinsEarned += finalBonus;
-            saveUserState();
+            document.getElementById('val-coins').innerText = state.coins;
             document.getElementById('lis-lobby-cover').style.display = 'flex';
             document.getElementById('lis-exam-area').style.display = 'none';
-            if (document.getElementById('lis-unit-filter-bar')) document.getElementById('lis-unit-filter-bar').style.display = 'flex';
             document.getElementById('listening-progress').innerText = `準備中`;
             showSettlementCard(`恭喜完成 10 題聽力測驗！得分：${lisScore} 分`, lisCoinsEarned);
             return;
@@ -10926,7 +10673,7 @@
             const reward = 2;
             state.coins += reward;
             lisCoinsEarned += reward;
-            saveUserState();
+            document.getElementById('val-coins').innerText = state.coins;
             document.getElementById('lis-exp-title').innerText = "✅ 聽力理解完全正確！";
         } else {
             btn.classList.add('user-wrong');
@@ -10955,13 +10702,12 @@
         scrambleRound = 0;
         scrambleCoinsEarned = 0;
 
-        // 即時參數隨機組合引擎生成動態句型重組題
-        const dynamicScramble = DynamicQuestionEngine.generateDynamicScramblePool(currentScrambleUnit, 10);
         let pool = (ACTIVE_DATA && ACTIVE_DATA.scramble) ? [...ACTIVE_DATA.scramble] : [];
         if (currentScrambleUnit !== 'all') {
             pool = pool.filter(item => item.unit === currentScrambleUnit);
         }
-        scrambleQueue = shuffleArray([...dynamicScramble, ...pool]).slice(0, 10);
+        if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.scramble) pool = [...ACTIVE_DATA.scramble];
+        scrambleQueue = shuffleArray(pool);
 
         loadNextScramble();
     }
@@ -10975,10 +10721,9 @@
             const finalBonus = 15;
             state.coins += finalBonus;
             scrambleCoinsEarned += finalBonus;
-            saveUserState();
+            document.getElementById('val-coins').innerText = state.coins;
             document.getElementById('scramble-lobby-cover').style.display = 'flex';
             document.getElementById('scramble-exam-area').style.display = 'none';
-            if (document.getElementById('scramble-unit-filter-bar')) document.getElementById('scramble-unit-filter-bar').style.display = 'flex';
             document.getElementById('scramble-progress').innerText = `準備中`;
             showSettlementCard(`恭喜完成 10 題句型重組！`, scrambleCoinsEarned);
             return;
@@ -11077,7 +10822,7 @@
         }
         document.getElementById('scramble-exp-body').innerHTML = `<p><b>標準句子：</b>${curScramble.trans}</p><p><b>💡 文法考點：</b>${curScramble.note}</p>`;
         card.style.display = 'block';
-        saveUserState();
+        document.getElementById('val-coins').innerText = state.coins;
         document.getElementById('val-streak').innerText = state.streak;
     }
     function nextScrambleQ() { loadNextScramble(); }
@@ -11098,13 +10843,12 @@
         spellRound = 0;
         spellCoinsEarned = 0;
 
-        // 即時透過演算法從全冊動態生成全新拼字題庫，保證每次進入都是全新題目！
-        const dynamicSpelling = DynamicQuestionEngine.generateDynamicSpellingPool(currentSpellUnit, 10);
         let pool = (ACTIVE_DATA && ACTIVE_DATA.spelling) ? [...ACTIVE_DATA.spelling] : [];
         if (currentSpellUnit !== 'all') {
             pool = pool.filter(item => item.unit === currentSpellUnit);
         }
-        spellQueue = shuffleArray([...dynamicSpelling, ...pool]).slice(0, 10);
+        if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.spelling) pool = [...ACTIVE_DATA.spelling];
+        spellQueue = shuffleArray(pool);
 
         loadNextSpelling();
     }
@@ -11116,10 +10860,9 @@
             const finalBonus = 15;
             state.coins += finalBonus;
             spellCoinsEarned += finalBonus;
-            saveUserState();
+            document.getElementById('val-coins').innerText = state.coins;
             document.getElementById('spell-lobby-cover').style.display = 'flex';
             document.getElementById('spell-exam-area').style.display = 'none';
-            if (document.getElementById('spell-unit-filter-bar')) document.getElementById('spell-unit-filter-bar').style.display = 'flex';
             document.getElementById('spelling-progress').innerText = `準備中`;
             showSettlementCard(`恭喜完成 10 題發音積木拼字！`, spellCoinsEarned);
             return;
@@ -11183,7 +10926,7 @@
                         state.streak = 0;
                     }
                     card.style.display = 'block';
-                    saveUserState();
+                    document.getElementById('val-coins').innerText = state.coins;
                     document.getElementById('val-streak').innerText = state.streak;
                 }
             };
@@ -11228,9 +10971,12 @@
         vocabRound = 0;
         vqCoinsEarned = 0;
 
-        // 即時演算法動態抽樣全冊 98+ 單字庫
-        const dynamicVocab = DynamicQuestionEngine.generateDynamicVocabPool(currentVocabUnit, 10);
-        vocabQueue = shuffleArray(dynamicVocab);
+        let pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? [...ACTIVE_DATA.vocab] : [];
+        if (currentVocabUnit !== 'all') {
+            pool = pool.filter(item => item.unit === currentVocabUnit);
+        }
+        if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.vocab) pool = [...ACTIVE_DATA.vocab];
+        vocabQueue = shuffleArray(pool);
 
         loadNextVocabQ();
     }
@@ -11241,10 +10987,9 @@
             const finalBonus = 15;
             state.coins += finalBonus;
             vqCoinsEarned += finalBonus;
-            saveUserState();
+            document.getElementById('val-coins').innerText = state.coins;
             document.getElementById('vocab-lobby-cover').style.display = 'flex';
             document.getElementById('vocab-exam-area').style.display = 'none';
-            if (document.getElementById('vocab-unit-filter-bar')) document.getElementById('vocab-unit-filter-bar').style.display = 'flex';
             document.getElementById('vocab-progress').innerText = `準備中`;
             showSettlementCard(`恭喜完成 10 題單字測驗！`, vqCoinsEarned);
             return;
@@ -11296,7 +11041,7 @@
                 }
                 document.getElementById('vq-exp-body').innerText = `${curVQ.en} 代表「${curVQ.zh}」｜ 例句: ${curVQ.ex}`;
                 document.getElementById('vq-exp-card').style.display = 'block';
-                saveUserState();
+                document.getElementById('val-coins').innerText = state.coins;
                 document.getElementById('val-streak').innerText = state.streak;
             };
             list.appendChild(btn);
@@ -11341,10 +11086,9 @@
             const finalBonus = 15;
             state.coins += finalBonus;
             tfCoinsEarned += finalBonus;
-            saveUserState();
+            document.getElementById('val-coins').innerText = state.coins;
             document.getElementById('tf-lobby-cover').style.display = 'flex';
             document.getElementById('tf-exam-area').style.display = 'none';
-            if (document.getElementById('tf-unit-filter-bar')) document.getElementById('tf-unit-filter-bar').style.display = 'flex';
             document.getElementById('tf-progress').innerText = `準備中`;
             showSettlementCard(`恭喜完成 10 題觀念是非測驗！`, tfCoinsEarned);
             return;
@@ -11360,8 +11104,7 @@
         curTF = tfQueue.pop();
         tfRound++;
         document.getElementById('tf-progress').innerText = `第 ${tfRound} / 10 題`;
-        const tfText = curTF.statement || curTF.prompt || curTF.q || '請判斷題目敘述是否正確。';
-        document.getElementById('tf-statement-text').innerText = `${tfRound}. ${tfText}`;
+        document.getElementById('tf-statement-text').innerText = `${tfRound}. ${curTF.statement}`;
         const tfBtns = document.querySelectorAll('#tf-exam-area .btn-tf-pc');
         tfBtns.forEach(b => {
             b.disabled = false;
@@ -11393,7 +11136,7 @@
 
         document.getElementById('tf-exp-body').innerHTML = `<p><b>中文解析：</b>${curTF.trans}</p><p>${curTF.note}</p>`;
         document.getElementById('tf-exp-card').style.display = 'block';
-        saveUserState();
+        document.getElementById('val-coins').innerText = state.coins;
         document.getElementById('val-streak').innerText = state.streak;
     }
     function speakCurrentTF() {
@@ -11482,7 +11225,6 @@
     /* 8. 商店與小隊配置 (合理的進階數值) */
     function equipHero(h) {
         state.activeHero = h;
-        saveUserState();
         showCenterDialog("系統提示", `⚔️ 已切換出戰英雄為：${HERO_CONFIG[h].name}！`);
         renderCabinSquad();
     }
@@ -11548,7 +11290,6 @@
 
     function equipPet(p) {
         state.activePet = p;
-        saveUserState();
         showCenterDialog("系統提示", `🐾 已更換出戰萌寵為：${PET_CONFIG[p].name}！`);
         renderShopPetCards();
         renderCabinSquad();
@@ -11720,7 +11461,7 @@
         showConfirmDialog("⚔️ 裝備升級確認", `確定要花費 <b style="color:#d97706;">${cost} ⭐ 星幣</b> 將【${gearName}】升級至 <b>Lv.${curLvl + 1}</b> 嗎？`, () => {
             state.coins -= cost;
             state.heroGear[gearKey]++;
-            saveUserState();
+            document.getElementById('val-coins').innerText = state.coins;
             showCenterDialog("強化成功", `✨ 【${gearName}】成功強化至 Lv.${state.heroGear[gearKey]}！`);
             updateShopUI();
             updateCombatUI();
@@ -11736,7 +11477,7 @@
             state.coins -= cost;
             state.unlockedHeroes.push(h);
             state.activeHero = h;
-            saveUserState();
+            document.getElementById('val-coins').innerText = state.coins;
             showCenterDialog("夥伴解鎖", `🎉 恭喜成功解鎖【${HERO_CONFIG[h].name}】！已設為出戰夥伴！`);
             updateShopUI();
             renderCabinSquad();
@@ -11752,7 +11493,7 @@
             state.coins -= cost;
             state.unlockedPets.push(p);
             state.activePet = p;
-            saveUserState();
+            document.getElementById('val-coins').innerText = state.coins;
             showCenterDialog("收養成功", `🎉 恭喜成功收養萌寵【${PET_CONFIG[p].name}】！已隨隊出戰！`);
             renderShopPetCards();
             renderCabinSquad();
@@ -11775,7 +11516,7 @@
         showConfirmDialog("🐾 萌寵升級確認", `確定要花費 <b style="color:#d97706;">${upgradeCost} ⭐ 星幣</b> 將【${PET_CONFIG[petKey].name}】升級至 <b>Lv.${curLvl + 1}</b> 嗎？`, () => {
             state.coins -= upgradeCost;
             state.petLevels[petKey]++;
-            saveUserState();
+            document.getElementById('val-coins').innerText = state.coins;
             showCenterDialog("升級成功", `🎉 萌寵【${PET_CONFIG[petKey].name}】成功升級至 Lv.${state.petLevels[petKey]}！特性大幅強化！`);
             renderShopPetCards();
             renderCabinSquad();
@@ -12055,7 +11796,7 @@
             const reward = 2;
             state.coins += reward;
             defenseCoinsEarned += reward;
-            saveUserState();
+            document.getElementById('val-coins').innerText = state.coins;
             document.getElementById('defense-score').innerText = defenseScore;
 
             // 成功擊破，正式產出並加入右側方格
@@ -12093,7 +11834,7 @@
             const reward = 1;
             state.coins += reward;
             defenseCoinsEarned += reward;
-            saveUserState();
+            document.getElementById('val-coins').innerText = state.coins;
             document.getElementById('defense-score').innerText = defenseScore;
 
             // 更新右側方格為「底部清除」
@@ -12219,10 +11960,6 @@
             const u = new SpeechSynthesisUtterance(clean);
             u.lang = 'en-US';
             u.rate = 0.60;
-            // 朗讀時自動壓低背景音樂音量（Audio Ducking）
-            SoundEngine.duck();
-            u.onend = () => SoundEngine.unduck();
-            u.onerror = () => SoundEngine.unduck();
             window.speechSynthesis.speak(u);
         }
     }
@@ -12297,10 +12034,9 @@
             const finalBonus = 15;
             state.coins += finalBonus;
             grammarCoinsEarned += finalBonus;
-            saveUserState();
+            document.getElementById('val-coins').innerText = state.coins;
             document.getElementById('grammar-lobby-cover').style.display = 'flex';
             document.getElementById('grammar-exam-area').style.display = 'none';
-            if (document.getElementById('grammar-unit-filter-bar')) document.getElementById('grammar-unit-filter-bar').style.display = 'flex';
             document.getElementById('grammar-progress').innerText = `準備中`;
             showSettlementCard(`恭喜完成 10 題冠詞與文法特訓！得分：${grammarScore} 分`, grammarCoinsEarned);
             return;
@@ -12343,7 +12079,7 @@
             const reward = 2;
             state.coins += reward;
             grammarCoinsEarned += reward;
-            saveUserState();
+            document.getElementById('val-coins').innerText = state.coins;
             document.getElementById('grammar-exp-title').innerText = "✅ 文法判斷完全正確！";
         } else {
             btn.classList.add('user-wrong');
@@ -12531,7 +12267,7 @@
         // 獎勵星幣
         const starReward = Math.round(totalScore / 3);
         state.coins += starReward;
-        saveUserState();
+        document.getElementById('val-coins').innerText = state.coins;
 
         // 平滑滾動至考卷上方看成績
         document.querySelector('.exam-paper-header').scrollIntoView({ behavior: 'smooth' });
