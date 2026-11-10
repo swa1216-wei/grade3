@@ -31,50 +31,51 @@
             overflow-x: hidden;
         }
 
-        /* 頂部全域桌面導航列 */
+        /* 頂部全域桌面導航列：精緻緊湊、自適應對齊、絕對不超出 */
         .desktop-nav-wrap {
-            width: 96vw;
-            max-width: 1280px;
+            width: 100%;
+            max-width: 1080px;
             background: rgba(255, 255, 255, 0.98);
             border: 2px solid var(--card-border);
-            border-radius: 18px;
-            padding: 8px 18px;
+            border-radius: 16px;
+            padding: 6px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 20px rgba(2, 132, 199, 0.15);
+            box-shadow: 0 4px 18px rgba(2, 132, 199, 0.12);
             margin-bottom: 8px;
             z-index: 100;
+            box-sizing: border-box;
             white-space: nowrap;
         }
         .app-brand { 
-            font-size: 18px; 
+            font-size: 15.5px; 
             font-weight: 900; 
             color: #0369a1; 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            white-space: nowrap; 
-            flex-shrink: 0; 
-        }
-        .user-status-strip { 
             display: flex; 
             align-items: center; 
             gap: 6px; 
             white-space: nowrap; 
             flex-shrink: 0; 
         }
+        .user-status-strip { 
+            display: flex; 
+            align-items: center; 
+            gap: 5px; 
+            white-space: nowrap; 
+            flex-shrink: 0; 
+        }
         .status-pill {
             background: #f0f9ff; 
             border: 1.5px solid #bae6fd; 
-            padding: 4px 10px;
-            border-radius: 20px; 
-            font-size: 13px; 
+            padding: 3px 8px;
+            border-radius: 16px; 
+            font-size: 12px; 
             font-weight: 800; 
             color: #0369a1;
             display: flex; 
             align-items: center; 
-            gap: 4px; 
+            gap: 3px; 
             white-space: nowrap;
             flex-shrink: 0;
         }
@@ -82,71 +83,52 @@
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             color: #ffffff; 
             border: none; 
-            padding: 6px 12px; 
-            border-radius: 20px;
-            font-size: 13px; 
+            padding: 5px 11px; 
+            border-radius: 16px;
+            font-size: 12.5px; 
             font-weight: 900; 
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3); 
+            box-shadow: 0 2px 6px rgba(217, 119, 6, 0.25); 
             transition: all 0.2s;
             display: flex; 
             align-items: center; 
-            gap: 4px;
+            gap: 3px;
             white-space: nowrap;
             flex-shrink: 0;
         }
-        .btn-top-feature:hover { transform: scale(1.05); filter: brightness(1.1); }
+        .btn-top-feature:hover { transform: scale(1.04); filter: brightness(1.1); }
         .btn-bgm-toggle {
             background: #f0fdf4; 
             border: 1.5px solid #86efac; 
             color: #15803d;
-            padding: 4px 10px; 
-            border-radius: 20px; 
-            font-size: 12.5px; 
+            padding: 3px 8px; 
+            border-radius: 16px; 
+            font-size: 12px; 
             font-weight: 800;
             cursor: pointer; 
             transition: all 0.2s;
             white-space: nowrap;
             flex-shrink: 0;
         }
-        .app-brand { font-size: 20px; font-weight: 900; color: #0369a1; display: flex; align-items: center; gap: 8px; }
-        .user-status-strip { display: flex; align-items: center; gap: 8px; }
-        .status-pill {
-            background: #f0f9ff; border: 1.5px solid #bae6fd; padding: 5px 12px;
-            border-radius: 20px; font-size: 13.5px; font-weight: 800; color: #0369a1;
-            display: flex; align-items: center; gap: 6px;
-        }
-        .btn-top-feature {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: #ffffff; border: none; padding: 6px 14px; border-radius: 20px;
-            font-size: 13.5px; font-weight: 900; cursor: pointer;
-            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3); transition: all 0.2s;
-            display: flex; align-items: center; gap: 5px;
-        }
-        .btn-top-feature:hover { transform: scale(1.05); filter: brightness(1.1); }
-        .btn-bgm-toggle {
-            background: #f0fdf4; border: 1.5px solid #86efac; color: #15803d;
-            padding: 5px 12px; border-radius: 20px; font-size: 13px; font-weight: 800;
-            cursor: pointer; transition: all 0.2s;
-        }
 
         /* 任務分頁切換列 */
         .mission-tab-bar {
-            width: 96vw;
-            max-width: 1280px;
+            width: 100%;
+            max-width: 1080px;
             display: flex;
             flex-wrap: wrap;
-            gap: 7px;
+            gap: 6px;
             margin-bottom: 10px;
             z-index: 90;
+            box-sizing: border-box;
         }
         .mission-tab {
             background: rgba(255, 255, 255, 0.92);
             border: 1.5px solid #bae6fd;
             color: #475569;
-            padding: 8px 15px;
-            border-radius: 12px;
-            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 12.5px;
             font-weight: 800;
             cursor: pointer;
             transition: all 0.2s;
@@ -162,8 +144,8 @@
 
         /* 主工作面板 */
         .workspace-panel {
-            width: 96vw;
-            max-width: 1280px;
+            width: 100%;
+            max-width: 1080px;
             background: rgba(255, 255, 255, 0.98);
             background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.72) 40%, rgba(240, 249, 255, 0.86) 100%), url('assets/practice_bg.jpg');
             background-size: cover;
@@ -177,13 +159,14 @@
             flex-direction: column;
             overflow-y: auto;
             max-height: 88vh;
+            box-sizing: border-box;
         }
         .workspace-panel.active { display: flex !important; }
 
         /* 1. 地圖：精確自適應鎖定底圖長寬比 (1023:620)，零可見框框！純游標感應！ */
         #panel-map {
-            width: 96vw;
-            max-width: 1280px;
+            width: 100%;
+            max-width: 1080px;
             aspect-ratio: 1023 / 620;
             min-height: auto;
             height: auto;
@@ -196,6 +179,7 @@
             border-radius: 22px;
             padding: 0;
             margin: 0 auto;
+            box-sizing: border-box;
         }
         /* 100% 透明無邊框熱區，滑鼠移過不變色不浮框，只變小手手 */
         .map-station-hotspot {
@@ -775,24 +759,22 @@
     <div class="desktop-nav-wrap">
         <div class="app-brand">
             <span>🏝️</span>
-            <span>三年級英語・浮空群島冒險系統</span>
-            <span style="font-size: 12px; background: #0284c7; color: #fff; padding: 3px 10px; border-radius: 12px;" id="db-source-tag">題庫載入中</span>
+            <span>三年級英語</span>
+            <span style="font-size: 11.5px; background: #0284c7; color: #fff; padding: 2px 8px; border-radius: 12px; cursor: default;" id="db-source-tag">題庫載入中</span>
         </div>
         <div class="user-status-strip">
             <button class="btn-bgm-toggle" id="btn-bgm-toggle" onclick="toggleBGM()">🎵 音樂: 關</button>
-            <div style="display: flex; align-items: center; gap: 4px; background: #f0fdf4; border: 1.5px solid #86efac; padding: 3px 8px; border-radius: 20px;">
-                <span style="font-size: 11.5px; color: #15803d; font-weight: 800;">🔈</span>
-                <input type="range" id="bgm-volume-slider" min="0" max="100" value="25" style="width: 65px; height: 5px; accent-color: #16a34a; cursor: pointer;" oninput="adjustBGMVolume(this.value)">
-                <span id="bgm-volume-val" style="font-size: 11px; color: #15803d; font-weight: 800; min-width: 26px;">25%</span>
+            <div style="display: flex; align-items: center; gap: 3px; background: #f0fdf4; border: 1.5px solid #86efac; padding: 2px 7px; border-radius: 16px;">
+                <span style="font-size: 11px; color: #15803d;">🔈</span>
+                <input type="range" id="bgm-volume-slider" min="0" max="100" value="25" style="width: 48px; height: 4px; accent-color: #16a34a; cursor: pointer;" oninput="adjustBGMVolume(this.value)">
+                <span id="bgm-volume-val" style="font-size: 10.5px; color: #15803d; font-weight: 800; min-width: 22px;">25%</span>
             </div>
-            <div class="status-pill">⭐ 星幣: <span id="val-coins">150</span></div>
-            <div class="status-pill" style="color: #d97706;">🔥 連勝: <span id="val-streak">0</span> 題</div>
-            <div class="status-pill" id="val-hearts" style="color: #ef4444;">❤️❤️❤️</div>
+            <div class="status-pill">⭐ <span id="val-coins">150</span></div>
+            <div class="status-pill" style="color: #d97706;">🔥 <span id="val-streak">0</span> 連勝</div>
+            <div class="status-pill" id="val-hearts" style="color: #ef4444; font-size: 11px;">❤️❤️❤️</div>
             <button class="btn-top-feature" onclick="openCabinModal()">🛖 冒險小屋</button>
         </div>
-    </div>
-
-    <!-- 任務分頁切換列 -->
+    </div><!-- 任務分頁切換列 -->
     <div class="mission-tab-bar">
         <button class="mission-tab active" id="tab-btn-map" onclick="navTo('panel-map')">🗺️ 冒險闖關地圖</button>
         <button class="mission-tab" id="tab-btn-exam-paper" onclick="navTo('panel-exam-paper')">📑 期末全真模擬試卷</button>
@@ -9521,7 +9503,7 @@
     }
   ]
 };
-    document.getElementById('db-source-tag').innerText = `🎲 動態題型 (${ACTIVE_DATA.vocab ? ACTIVE_DATA.vocab.length : 98}字/8關卡)`;
+    document.getElementById('db-source-tag').innerText = `🎲 動態題庫 (${ACTIVE_DATA.vocab ? ACTIVE_DATA.vocab.length : 98}字)`;
     window.addEventListener('DOMContentLoaded', () => {
         initPanels();
     });
@@ -10130,7 +10112,7 @@
             const testedCount = Object.values(this.state.mastery).filter(m => m && m.tested).length;
             const masteredCount = Object.values(this.state.mastery).filter(m => m && m.level === 3).length;
             const pct = Math.min(100, Math.round((testedCount / total) * 100));
-            tag.innerText = `📚 全書覆蓋: ${pct}% (${testedCount}/${total}字) ｜ 🌟精通:${masteredCount} ｜ ⚠️待複習:${this.state.mistakePool.length}`;
+            tag.innerText = `📚 ${pct}% (${testedCount}/${total}) · 🌟${masteredCount} · ⚠️${this.state.mistakePool.length}`; tag.title = `全書進度: ${pct}% (${testedCount}/${total}字) ｜ 🌟精通: ${masteredCount} ｜ ⚠️待複習: ${this.state.mistakePool.length}`;
         }
     };
 
