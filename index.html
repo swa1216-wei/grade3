@@ -34,75 +34,62 @@
         /* 頂部全域桌面導航列 */
         .desktop-nav-wrap {
             width: 100%;
-            max-width: 1260px;
+            max-width: 1160px;
             background: rgba(255, 255, 255, 0.98);
             border: 2px solid var(--card-border);
             border-radius: 18px;
-            padding: 10px 20px;
+            padding: 10px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 4px 20px rgba(2, 132, 199, 0.15);
             margin-bottom: 8px;
             z-index: 100;
+            flex-wrap: nowrap !important;
         }
-        .app-brand { font-size: 20px; font-weight: 900; color: #0369a1; display: flex; align-items: center; gap: 8px; }
-        .user-status-strip { display: flex; align-items: center; gap: 8px; }
+        .app-brand { font-size: 19px; font-weight: 900; color: #0369a1; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .user-status-strip { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
         .status-pill {
-            background: #f0f9ff; border: 1.5px solid #bae6fd; padding: 5px 12px;
-            border-radius: 20px; font-size: 13.5px; font-weight: 800; color: #0369a1;
-            display: flex; align-items: center; gap: 6px;
+            background: #f0f9ff; border: 1.5px solid #bae6fd; padding: 5px 10px;
+            border-radius: 20px; font-size: 13px; font-weight: 800; color: #0369a1;
+            display: flex; align-items: center; gap: 5px; white-space: nowrap; flex-shrink: 0;
         }
         .btn-top-feature {
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             color: #ffffff; border: none; padding: 6px 14px; border-radius: 20px;
             font-size: 13.5px; font-weight: 900; cursor: pointer;
             box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3); transition: all 0.2s;
-            display: flex; align-items: center; gap: 5px;
+            display: flex; align-items: center; gap: 5px; flex-shrink: 0; white-space: nowrap;
         }
         .btn-top-feature:hover { transform: scale(1.05); filter: brightness(1.1); }
         .btn-bgm-toggle {
             background: #f0fdf4; border: 1.5px solid #86efac; color: #15803d;
-            padding: 5px 12px; border-radius: 20px; font-size: 13px; font-weight: 800;
-            cursor: pointer; transition: all 0.2s;
+            padding: 5px 10px; border-radius: 20px; font-size: 13px; font-weight: 800;
+            cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
         }
 
         /* 任務分頁切換列 */
         .mission-tab-bar {
             width: 100%;
-            max-width: 1260px;
+            max-width: 1160px;
             display: flex;
-            flex-wrap: nowrap !important;
-            overflow-x: auto;
-            overflow-y: hidden;
-            gap: 5px;
-            margin-bottom: 10px;
+            flex-wrap: wrap !important;
+            gap: 7px;
+            margin-bottom: 12px;
             z-index: 90;
-            padding: 2px 2px 6px 2px;
-            scrollbar-width: thin;
-        }
-        .mission-tab-bar::-webkit-scrollbar {
-            height: 4px;
-        }
-        .mission-tab-bar::-webkit-scrollbar-thumb {
-            background: #bae6fd;
-            border-radius: 4px;
+            justify-content: flex-start;
         }
         .mission-tab {
-            flex-shrink: 0;
             background: rgba(255, 255, 255, 0.92);
             border: 1.5px solid #bae6fd;
             color: #475569;
-            padding: 7px 11px;
+            padding: 7px 13px;
             border-radius: 12px;
-            font-size: 13px;
+            font-size: 13.5px;
             font-weight: 800;
             cursor: pointer;
             transition: all 0.2s;
             white-space: nowrap;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
         }
         .mission-tab:hover { background: #e0f2fe; color: #0284c7; border-color: #38bdf8; }
         .mission-tab.active {
@@ -115,7 +102,7 @@
         /* 主工作面板 */
         .workspace-panel {
             width: 100%;
-            max-width: 1260px;
+            max-width: 1160px;
             background: rgba(255, 255, 255, 0.98);
             background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.72) 40%, rgba(240, 249, 255, 0.86) 100%), url('assets/practice_bg.jpg');
             background-size: cover;
@@ -135,7 +122,7 @@
         /* 1. 地圖：精確自適應鎖定底圖長寬比 (1023:620)，零可見框框！純游標感應！ */
         #panel-map {
             width: 100%;
-            max-width: 1260px;
+            max-width: 1160px;
             aspect-ratio: 1023 / 620;
             min-height: auto;
             height: auto;
@@ -9634,7 +9621,7 @@
                     const opts = shuffleArray([sumWord, ...distractors]);
                     return {
                         unit: "starter",
-                        q: `數字加法算術：${aCap} plus ${bWord} is ____. (${a} + ${b} = ?)`,
+                        q: `數字加法算術：${aCap} plus ${bWord} is ____.`,
                         opts: opts,
                         ans: opts.indexOf(sumWord),
                         type: "數字加法算術",
@@ -9674,7 +9661,7 @@
                     const opts = shuffleArray([diffWord, ...distractors]);
                     return {
                         unit: "starter",
-                        q: `數字減法算術：${aCap} minus ${bWord} is ____. (${a} - ${b} = ?)`,
+                        q: `數字減法算術：${aCap} minus ${bWord} is ____.`,
                         opts: opts,
                         ans: opts.indexOf(diffWord),
                         type: "數字減法算術",
@@ -9926,6 +9913,33 @@
                 else list.push(this.generateColorQuestion(false));
             }
             return list;
+        },
+
+        generateDynamicSpellingPool(unit, count = 10) {
+            let pool = (ACTIVE_DATA && ACTIVE_DATA.spelling) ? [...ACTIVE_DATA.spelling] : [];
+            if (unit && unit !== 'all') {
+                pool = pool.filter(item => item.unit === unit);
+            }
+            if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.spelling) pool = [...ACTIVE_DATA.spelling];
+            return shuffleArray(pool).slice(0, count);
+        },
+
+        generateDynamicScramblePool(unit, count = 10) {
+            let pool = (ACTIVE_DATA && ACTIVE_DATA.scramble) ? [...ACTIVE_DATA.scramble] : [];
+            if (unit && unit !== 'all') {
+                pool = pool.filter(item => item.unit === unit);
+            }
+            if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.scramble) pool = [...ACTIVE_DATA.scramble];
+            return shuffleArray(pool).slice(0, count);
+        },
+
+        generateDynamicVocabPool(unit, count = 10) {
+            let pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? [...ACTIVE_DATA.vocab] : [];
+            if (unit && unit !== 'all') {
+                pool = pool.filter(item => item.unit === unit);
+            }
+            if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.vocab) pool = [...ACTIVE_DATA.vocab];
+            return shuffleArray(pool).slice(0, count);
         }
     };
 
@@ -10055,17 +10069,17 @@
         if (panelId === 'panel-exam-paper') {
             if (currentExamQuestions.length === 0) generateNewExamPaper();
         } else if (panelId === 'panel-grammar') {
-            startGrammarExam();
+            resetPracticeLobby('grammar');
         } else if (panelId === 'panel-listening') {
-            startListeningExam();
+            resetPracticeLobby('listening');
         } else if (panelId === 'panel-spelling') {
-            startSpellingExam();
+            resetPracticeLobby('spelling');
         } else if (panelId === 'panel-scramble') {
-            startScrambleExam();
+            resetPracticeLobby('scramble');
         } else if (panelId === 'panel-vocab-quiz') {
-            startVocabExam();
+            resetPracticeLobby('vocab');
         } else if (panelId === 'panel-tf') {
-            startTFExam();
+            resetPracticeLobby('tf');
         } else if (panelId === 'panel-match') {
             initMatchGame();
         } else if (panelId === 'panel-flashcard') {
@@ -10805,7 +10819,7 @@
     function startListeningExam() {
         document.getElementById('lis-lobby-cover').style.display = 'none';
         document.getElementById('lis-exam-area').style.display = 'block';
-        if (document.getElementById('lis-unit-filter-bar')) document.getElementById('lis-unit-filter-bar').style.display = 'none';
+        if (document.getElementById('lis-unit-filter-bar')) document.getElementById('lis-unit-filter-bar').style.display = 'flex';
 
         lisRound = 0;
         lisScore = 0;
@@ -10899,7 +10913,7 @@
     function startScrambleExam() {
         document.getElementById('scramble-lobby-cover').style.display = 'none';
         document.getElementById('scramble-exam-area').style.display = 'block';
-        if (document.getElementById('scramble-unit-filter-bar')) document.getElementById('scramble-unit-filter-bar').style.display = 'none';
+        if (document.getElementById('scramble-unit-filter-bar')) document.getElementById('scramble-unit-filter-bar').style.display = 'flex';
 
         scrambleRound = 0;
         scrambleCoinsEarned = 0;
@@ -11041,7 +11055,7 @@
     function startSpellingExam() {
         document.getElementById('spell-lobby-cover').style.display = 'none';
         document.getElementById('spell-exam-area').style.display = 'block';
-        if (document.getElementById('spell-unit-filter-bar')) document.getElementById('spell-unit-filter-bar').style.display = 'none';
+        if (document.getElementById('spell-unit-filter-bar')) document.getElementById('spell-unit-filter-bar').style.display = 'flex';
 
         spellRound = 0;
         spellCoinsEarned = 0;
@@ -11170,7 +11184,7 @@
     function startVocabExam() {
         document.getElementById('vocab-lobby-cover').style.display = 'none';
         document.getElementById('vocab-exam-area').style.display = 'block';
-        if (document.getElementById('vocab-unit-filter-bar')) document.getElementById('vocab-unit-filter-bar').style.display = 'none';
+        if (document.getElementById('vocab-unit-filter-bar')) document.getElementById('vocab-unit-filter-bar').style.display = 'flex';
 
         vocabRound = 0;
         vqCoinsEarned = 0;
@@ -11261,7 +11275,7 @@
     function startTFExam() {
         document.getElementById('tf-lobby-cover').style.display = 'none';
         document.getElementById('tf-exam-area').style.display = 'block';
-        if (document.getElementById('tf-unit-filter-bar')) document.getElementById('tf-unit-filter-bar').style.display = 'none';
+        if (document.getElementById('tf-unit-filter-bar')) document.getElementById('tf-unit-filter-bar').style.display = 'flex';
 
         tfRound = 0;
         tfCoinsEarned = 0;
@@ -11346,6 +11360,148 @@
         if (speech) speakText(speech);
     }
     function nextTFQ() { loadNextTF(); }
+
+    
+    /* ==================== 🔗 單字連連看 (對對碰) 完整邏輯 ==================== */
+    let currentMatchUnit = "all";
+    let matchPairs = [];
+    let selectedEnCard = null;
+    let selectedZhCard = null;
+    let matchedCount = 0;
+    let matchCombo = 0;
+    let matchRound = 1;
+
+    function initMatchGame() {
+        matchRound = 1;
+        matchCombo = 0;
+        loadMatchRound();
+    }
+
+    function refreshMatchCards() {
+        loadMatchRound();
+    }
+
+    function nextMatchRound() {
+        matchRound++;
+        loadMatchRound();
+    }
+
+    function loadMatchRound() {
+        selectedEnCard = null;
+        selectedZhCard = null;
+        matchedCount = 0;
+        const banner = document.getElementById('match-success-banner');
+        if (banner) banner.style.display = 'none';
+        const roundTitle = document.getElementById('match-round-title');
+        if (roundTitle) roundTitle.innerText = `關卡：第 ${matchRound} 輪 (5組配對)`;
+        const progressEl = document.getElementById('match-progress');
+        if (progressEl) progressEl.innerText = `配對連擊: ${matchCombo} 組`;
+
+        let pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? [...ACTIVE_DATA.vocab] : PURE_DEFENSE_VOCAB;
+        if (currentMatchUnit !== 'all') {
+            pool = pool.filter(v => v.unit === currentMatchUnit);
+        }
+        if (pool.length < 5) {
+            pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? [...ACTIVE_DATA.vocab] : PURE_DEFENSE_VOCAB;
+        }
+
+        matchPairs = shuffleArray(pool).slice(0, 5);
+
+        const colEn = document.getElementById('match-col-en');
+        const colZh = document.getElementById('match-col-zh');
+        if (!colEn || !colZh) return;
+        colEn.innerHTML = '';
+        colZh.innerHTML = '';
+
+        const shuffledEn = shuffleArray([...matchPairs]);
+        const shuffledZh = shuffleArray([...matchPairs]);
+
+        shuffledEn.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'match-card';
+            card.innerText = item.en;
+            card.dataset.word = item.en;
+            card.onclick = () => handleEnCardClick(card, item);
+            colEn.appendChild(card);
+        });
+
+        shuffledZh.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'match-card';
+            card.innerText = item.zh;
+            card.dataset.word = item.en;
+            card.onclick = () => handleZhCardClick(card, item);
+            colZh.appendChild(card);
+        });
+    }
+
+    function handleEnCardClick(card, item) {
+        if (card.classList.contains('matched')) return;
+        SoundEngine.playClick();
+        speakText(item.en);
+
+        if (selectedEnCard) selectedEnCard.classList.remove('selected');
+        selectedEnCard = card;
+        selectedEnCard.classList.add('selected');
+
+        if (selectedZhCard) checkMatchPair();
+    }
+
+    function handleZhCardClick(card, item) {
+        if (card.classList.contains('matched')) return;
+        SoundEngine.playClick();
+
+        if (selectedZhCard) selectedZhCard.classList.remove('selected');
+        selectedZhCard = card;
+        selectedZhCard.classList.add('selected');
+
+        if (selectedEnCard) checkMatchPair();
+    }
+
+    function checkMatchPair() {
+        const enWord = selectedEnCard.dataset.word;
+        const zhWord = selectedZhCard.dataset.word;
+
+        if (enWord === zhWord) {
+            SoundEngine.playPop();
+            selectedEnCard.classList.remove('selected');
+            selectedZhCard.classList.remove('selected');
+            selectedEnCard.classList.add('matched');
+            selectedZhCard.classList.add('matched');
+
+            selectedEnCard = null;
+            selectedZhCard = null;
+            matchedCount++;
+            matchCombo++;
+            const progressEl = document.getElementById('match-progress');
+            if (progressEl) progressEl.innerText = `配對連擊: ${matchCombo} 組`;
+
+            if (matchedCount === 5) {
+                state.coins += 15;
+                saveUserState();
+                SoundEngine.playHeal();
+                const banner = document.getElementById('match-success-banner');
+                if (banner) banner.style.display = 'block';
+            }
+        } else {
+            SoundEngine.playTone(220, 'sawtooth', 0.2, 0.15);
+            const card1 = selectedEnCard;
+            const card2 = selectedZhCard;
+            card1.classList.add('wrong-shake');
+            card2.classList.add('wrong-shake');
+
+            setTimeout(() => {
+                card1.classList.remove('selected', 'wrong-shake');
+                card2.classList.remove('selected', 'wrong-shake');
+            }, 400);
+
+            selectedEnCard = null;
+            selectedZhCard = null;
+            matchCombo = 0;
+            const progressEl = document.getElementById('match-progress');
+            if (progressEl) progressEl.innerText = `配對連擊: 0 組`;
+        }
+    }
 
     /* 7. 各單元重點全覽 */
     function renderAllUnitsGuide() {
@@ -12213,7 +12369,7 @@
     function startGrammarExam() {
         document.getElementById('grammar-lobby-cover').style.display = 'none';
         document.getElementById('grammar-exam-area').style.display = 'block';
-        if (document.getElementById('grammar-unit-filter-bar')) document.getElementById('grammar-unit-filter-bar').style.display = 'none';
+        if (document.getElementById('grammar-unit-filter-bar')) document.getElementById('grammar-unit-filter-bar').style.display = 'flex';
 
         grammarRound = 0;
         grammarScore = 0;
