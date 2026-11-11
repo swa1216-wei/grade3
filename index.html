@@ -782,6 +782,7 @@
             <div class="status-pill" style="color: #d97706;">🔥 連勝: <span id="val-streak">0</span> 題</div>
             <div class="status-pill" id="val-hearts" style="color: #ef4444;">❤️❤️❤️</div>
             <button class="btn-top-feature" onclick="openCabinModal()">🛖 冒險小屋</button>
+            <button class="btn-top-feature" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);" onclick="resetHeroSaveData()" title="清除存檔重置勇者所有進度與星幣">🔄 重置進度</button>
         </div>
     </div>
 
@@ -10120,17 +10121,64 @@
         });
     }
 
+        function getUnitName(u) {
+        const map = {
+            'all': '全部綜合 (All)',
+            'starter': 'Starter 字母數字',
+            'u1': 'Unit 1 招呼',
+            'u2': 'Unit 2 年齡',
+            'midterm': '期中考真題',
+            'u3': 'Unit 3 文具',
+            'u4': 'Unit 4 顏色',
+            'halloween': '萬聖節專題',
+            'final': '期末考真題'
+        };
+        return map[u] || u;
+    }
+
+    function updateLobbyUnitTitle(lobbyId, unitId) {
+        const el = document.getElementById(lobbyId);
+        if (!el) return;
+        let badge = el.querySelector('.lobby-unit-badge');
+        if (!badge) {
+            badge = document.createElement('div');
+            badge.className = 'lobby-unit-badge';
+            badge.style.cssText = 'background:#e0f2fe; color:#0369a1; padding:4px 14px; border-radius:20px; font-size:14px; font-weight:800; margin-bottom:12px; display:inline-block; border:1px solid #bae6fd;';
+            el.insertBefore(badge, el.firstChild);
+        }
+        badge.innerText = `🎯 當前選擇單元：${getUnitName(unitId)}`;
+    }
+
+    /* 勇者資料重置功能 (清除存檔並重載) */
+    function resetHeroSaveData() {
+        showConfirmDialog(
+            "⚠️ 重置勇者進度確認",
+            "確定要<b>完全清除勇者所有進度與測試資料</b>嗎？<br><span style='color:#ef4444; font-size:13.5px;'>包括星幣、連勝、解鎖英雄、強化裝備與萌寵等級都將恢復預設狀態！</span>",
+            () => {
+                try {
+                    localStorage.removeItem(USER_STATE_STORAGE_KEY);
+                    localStorage.removeItem('ENGLISH_ADVENTURE_STATE_V3');
+                } catch(e) {}
+                state = JSON.parse(JSON.stringify(DEFAULT_USER_STATE));
+                saveUserState();
+                showCenterDialog("重置完成", "✨ 勇者資料已徹底重置為初始狀態！網頁將立即重新載入。", "好的", () => {
+                    location.reload();
+                });
+            }
+        );
+    }
+
     function initPanels() {
         if (!ACTIVE_DATA) return;
         saveUserState();
         updateCombatUI();
         renderUnitFilterBar('match-unit-filter-bar', 'all', (u) => { currentMatchUnit = u; initMatchGame(); });
-        renderUnitFilterBar('lis-unit-filter-bar', 'all', (u) => { currentLisUnit = u; startListeningExam(); });
-        renderUnitFilterBar('grammar-unit-filter-bar', 'all', (u) => { currentGrammarUnit = u; startGrammarExam(); });
-        renderUnitFilterBar('scramble-unit-filter-bar', 'all', (u) => { currentScrambleUnit = u; startScrambleExam(); });
-        renderUnitFilterBar('spell-unit-filter-bar', 'all', (u) => { currentSpellUnit = u; startSpellingExam(); });
-        renderUnitFilterBar('vocab-unit-filter-bar', 'all', (u) => { currentVocabUnit = u; startVocabExam(); });
-        renderUnitFilterBar('tf-unit-filter-bar', 'all', (u) => { currentTFUnit = u; startTFExam(); });
+        renderUnitFilterBar('lis-unit-filter-bar', 'all', (u) => { currentLisUnit = u; resetPracticeLobby('listening'); updateLobbyUnitTitle('lis-lobby-cover', u); });
+        renderUnitFilterBar('grammar-unit-filter-bar', 'all', (u) => { currentGrammarUnit = u; resetPracticeLobby('grammar'); updateLobbyUnitTitle('grammar-lobby-cover', u); });
+        renderUnitFilterBar('scramble-unit-filter-bar', 'all', (u) => { currentScrambleUnit = u; resetPracticeLobby('scramble'); updateLobbyUnitTitle('scramble-lobby-cover', u); });
+        renderUnitFilterBar('spell-unit-filter-bar', 'all', (u) => { currentSpellUnit = u; resetPracticeLobby('spelling'); updateLobbyUnitTitle('spell-lobby-cover', u); });
+        renderUnitFilterBar('vocab-unit-filter-bar', 'all', (u) => { currentVocabUnit = u; resetPracticeLobby('vocab'); updateLobbyUnitTitle('vocab-lobby-cover', u); });
+        renderUnitFilterBar('tf-unit-filter-bar', 'all', (u) => { currentTFUnit = u; resetPracticeLobby('tf'); updateLobbyUnitTitle('tf-lobby-cover', u); });
         renderAllUnitsGuide();
         renderShopPetCards();
     }
