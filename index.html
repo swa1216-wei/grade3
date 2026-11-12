@@ -1,4 +1,3 @@
-<!-- VERSION: 20261111-V4-CUMULATIVE-UNIT-MATCH-FIXED -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -35,7 +34,7 @@
         /* 頂部全域桌面導航列 */
         .desktop-nav-wrap {
             width: 100%;
-            max-width: 1260px;
+            max-width: 1160px;
             background: rgba(255, 255, 255, 0.98);
             border: 2px solid var(--card-border);
             border-radius: 18px;
@@ -48,53 +47,31 @@
             z-index: 100;
             flex-wrap: nowrap !important;
         }
-        .btn-reset-hero {
-            background: #fef2f2;
-            border: 1.5px solid #fca5a5;
-            color: #dc2626;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-shrink: 0;
-        }
-        .btn-reset-hero:hover {
-            background: #fee2e2;
-            border-color: #ef4444;
-            transform: scale(1.05);
-            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
-        }
-        .app-brand { font-size: 20px; font-weight: 900; color: #0369a1; display: flex; align-items: center; gap: 8px; }
-        .user-status-strip { display: flex; align-items: center; gap: 8px; }
+        .app-brand { font-size: 19px; font-weight: 900; color: #0369a1; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .user-status-strip { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
         .status-pill {
-            background: #f0f9ff; border: 1.5px solid #bae6fd; padding: 5px 12px;
-            border-radius: 20px; font-size: 13.5px; font-weight: 800; color: #0369a1;
-            display: flex; align-items: center; gap: 6px;
+            background: #f0f9ff; border: 1.5px solid #bae6fd; padding: 5px 10px;
+            border-radius: 20px; font-size: 13px; font-weight: 800; color: #0369a1;
+            display: flex; align-items: center; gap: 5px; white-space: nowrap; flex-shrink: 0;
         }
         .btn-top-feature {
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             color: #ffffff; border: none; padding: 6px 14px; border-radius: 20px;
             font-size: 13.5px; font-weight: 900; cursor: pointer;
             box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3); transition: all 0.2s;
-            display: flex; align-items: center; gap: 5px;
+            display: flex; align-items: center; gap: 5px; flex-shrink: 0; white-space: nowrap;
         }
         .btn-top-feature:hover { transform: scale(1.05); filter: brightness(1.1); }
         .btn-bgm-toggle {
             background: #f0fdf4; border: 1.5px solid #86efac; color: #15803d;
-            padding: 5px 12px; border-radius: 20px; font-size: 13px; font-weight: 800;
-            cursor: pointer; transition: all 0.2s;
+            padding: 5px 10px; border-radius: 20px; font-size: 13px; font-weight: 800;
+            cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
         }
 
         /* 任務分頁切換列 */
         .mission-tab-bar {
             width: 100%;
-            max-width: 1260px;
+            max-width: 1160px;
             display: flex;
             flex-wrap: wrap !important;
             gap: 7px;
@@ -106,9 +83,9 @@
             background: rgba(255, 255, 255, 0.92);
             border: 1.5px solid #bae6fd;
             color: #475569;
-            padding: 8px 15px;
+            padding: 7px 13px;
             border-radius: 12px;
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 800;
             cursor: pointer;
             transition: all 0.2s;
@@ -125,7 +102,7 @@
         /* 主工作面板 */
         .workspace-panel {
             width: 100%;
-            max-width: 1260px;
+            max-width: 1160px;
             background: rgba(255, 255, 255, 0.98);
             background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.72) 40%, rgba(240, 249, 255, 0.86) 100%), url('assets/practice_bg.jpg');
             background-size: cover;
@@ -145,7 +122,7 @@
         /* 1. 地圖：精確自適應鎖定底圖長寬比 (1023:620)，零可見框框！純游標感應！ */
         #panel-map {
             width: 100%;
-            max-width: 1260px;
+            max-width: 1160px;
             aspect-ratio: 1023 / 620;
             min-height: auto;
             height: auto;
@@ -783,6 +760,189 @@
             80% { transform: translateX(6px); }
         }
 
+
+        /* ==================== 📱 手機與平板直向 RWD 響應式優化 ==================== */
+        @media (max-width: 768px) {
+            body {
+                padding: 6px 6px 40px;
+            }
+
+            /* 頂部導航列：改為彈性排列，防止擠壓折字 */
+            .desktop-nav-wrap {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 10px 12px;
+                gap: 8px;
+                border-radius: 14px;
+            }
+            .app-brand {
+                font-size: 16px;
+                justify-content: space-between;
+                width: 100%;
+            }
+            .user-status-strip {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                justify-content: space-between;
+                width: 100%;
+            }
+            .status-pill, .btn-bgm-toggle, .btn-top-feature, .btn-reset-hero {
+                font-size: 12px;
+                padding: 4px 8px;
+                white-space: nowrap !important;
+            }
+
+            /* 12 個功能任務分頁：轉為手機單排橫向滑動軸，不佔用垂直畫面 */
+            .mission-tab-bar {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 6px;
+                gap: 6px;
+                margin-bottom: 8px;
+            }
+            .mission-tab-bar::-webkit-scrollbar {
+                height: 4px;
+            }
+            .mission-tab-bar::-webkit-scrollbar-thumb {
+                background: #bae6fd;
+                border-radius: 4px;
+            }
+            .mission-tab {
+                font-size: 13px;
+                padding: 7px 12px;
+                flex-shrink: 0;
+            }
+
+            /* 單元篩選按鈕列：平滑橫向滑動 */
+            .practice-unit-filter-bar {
+                padding: 8px 10px;
+                gap: 6px;
+            }
+            .btn-filter-chip {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+
+            /* 題型選項網格：由雙欄改為單欄垂直排列，觸控更大更好按 */
+            .answers-grid-pc, .exam-opts-grid {
+                grid-template-columns: 1fr !important;
+                gap: 8px !important;
+            }
+            .btn-ans-pc {
+                padding: 12px 16px;
+                font-size: 15px;
+            }
+            .q-prompt-box-pc {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                padding: 14px 16px;
+                font-size: 17px;
+            }
+            .btn-audio-pc {
+                align-self: flex-end;
+            }
+
+            /* 是非題：等寬滿版按鈕 */
+            .tf-btn-pair {
+                gap: 10px;
+                margin: 16px 0;
+            }
+            .btn-tf-pc {
+                padding: 16px 10px;
+                font-size: 18px;
+            }
+
+            /* 單字連連看：縮短間距，卡片比例適配手機 */
+            #match-board-container {
+                gap: 12px !important;
+            }
+            .match-card {
+                padding: 10px 8px;
+                font-size: 15px;
+                min-height: 48px;
+            }
+
+            /* 單字拼字積木：顯示格與積木尺寸優化 */
+            .spell-display-box {
+                font-size: 28px;
+                letter-spacing: 6px;
+                padding: 12px;
+                min-height: 60px;
+            }
+            .btn-letter-block {
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+                border-radius: 10px;
+            }
+
+            /* 句型重組氣泡 */
+            .word-bubble-pc {
+                padding: 8px 14px;
+                font-size: 15px;
+            }
+            .word-btn-pc {
+                padding: 8px 14px;
+                font-size: 15px;
+            }
+
+            /* 商店卡片：改為單欄展示 */
+            .shop-cards-grid {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+            }
+
+            /* 單字雷射防禦戰：由雙欄改為上下結構 */
+            .defense-layout {
+                grid-template-columns: 1fr !important;
+                gap: 14px !important;
+            }
+            .defense-canvas-wrap {
+                height: 380px !important;
+            }
+            .defense-status-card {
+                height: 300px !important;
+            }
+
+            /* 模擬試卷抬頭與計分印章 */
+            .exam-paper-container {
+                padding: 18px 16px;
+            }
+            .exam-title-main {
+                font-size: 20px;
+            }
+            .exam-score-stamp {
+                position: static;
+                margin: 10px auto;
+            }
+            .btn-start-challenge {
+                padding: 14px 28px;
+                font-size: 17px;
+                width: 100%;
+            }
+
+            /* 戰鬥舞台：卡片等比微調 */
+            .battle-arena-pc {
+                min-height: 270px;
+                padding: 16px 10px 14px;
+            }
+            .trading-card-frame {
+                width: 120px !important;
+                height: 165px !important;
+            }
+            .companion-pet-card {
+                width: 75px !important;
+                height: 120px !important;
+            }
+            .fighter-col {
+                width: 120px !important;
+            }
+        }
+
 </style>
 </head>
 <body>
@@ -802,10 +962,10 @@
                 <span id="bgm-volume-val" style="font-size: 11px; color: #15803d; font-weight: 800; min-width: 26px;">25%</span>
             </div>
             <div class="status-pill">⭐ 星幣: <span id="val-coins">150</span></div>
-            <div class="status-pill" style="color: #d97706;">🔥 連勝: <span id="val-streak">0</span> 題</div>
+            
             <div class="status-pill" id="val-hearts" style="color: #ef4444;">❤️❤️❤️</div>
             <button class="btn-top-feature" onclick="openCabinModal()">🛖 冒險小屋</button>
-            <button class="btn-reset-hero" onclick="resetHeroSaveData()" title="清除存檔重置勇者所有進度與星幣">🔄 重置進度</button>
+            <button class="btn-top-feature" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);" onclick="resetHeroSaveData()" title="清除存檔重置勇者所有進度與星幣">🔄 重置進度</button>
         </div>
     </div>
 
@@ -1188,14 +1348,7 @@
 
         <div class="practice-unit-filter-bar" id="match-unit-filter-bar"></div>
 
-        <!-- 連連看開始測驗大卡片 (大廳準備室) -->
-        <div class="practice-lobby-cover" id="match-lobby-cover">
-            <h3 style="font-size: 24px; color: #0369a1; margin-bottom: 8px;">🔗 英語單字圖文連連看挑戰</h3>
-            <p style="color: #64748b; font-size: 15px; max-width: 500px;">快速找出左側英文單字與右側中文釋義配對消除，挑戰最快連擊並獲得星幣獎勵！</p>
-            <button class="btn-start-challenge" onclick="startMatchGame()">🚀 開始測驗 (5組配對)</button>
-        </div>
-
-        <div id="match-game-area" style="display: none; padding: 16px 24px;">
+        <div id="match-game-area" style="padding: 16px 24px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                 <span style="font-size: 16px; font-weight: 800; color: #0284c7;" id="match-round-title">關卡：第 1 輪 (5組配對)</span>
                 <button class="btn-top-feature" style="padding: 6px 16px;" onclick="refreshMatchCards()">🔄 換一組單字</button>
@@ -1581,693 +1734,595 @@
     let ACTIVE_DATA = {
   "version": "6.0",
   "vocab": [
-        {
-            "en": "apple",
-            "zh": "蘋果",
-            "phonics": "短母音 a",
-            "ex": "It is a red apple.",
-            "unit": "starter"
-        },
-        {
-            "en": "ant",
-            "zh": "螞蟻",
-            "phonics": "短母音 a",
-            "ex": "An ant is small.",
-            "unit": "starter"
-        },
-        {
-            "en": "book",
-            "zh": "書本",
-            "phonics": "短母音 oo",
-            "ex": "Open your book, please.",
-            "unit": "u3"
-        },
-        {
-            "en": "box",
-            "zh": "盒子",
-            "phonics": "短母音 o",
-            "ex": "The pencil is in the box.",
-            "unit": "u3"
-        },
-        {
-            "en": "cat",
-            "zh": "貓咪",
-            "phonics": "短母音 a",
-            "ex": "The cat is cute and sleeping.",
-            "unit": "starter"
-        },
-        {
-            "en": "cup",
-            "zh": "杯子",
-            "phonics": "短母音 u",
-            "ex": "This is a yellow cup.",
-            "unit": "starter"
-        },
-        {
-            "en": "dog",
-            "zh": "狗狗",
-            "phonics": "短母音 o",
-            "ex": "I have a friendly dog.",
-            "unit": "starter"
-        },
-        {
-            "en": "desk",
-            "zh": "書桌",
-            "phonics": "短母音 e",
-            "ex": "Put your book on the desk.",
-            "unit": "u3"
-        },
-        {
-            "en": "egg",
-            "zh": "雞蛋",
-            "phonics": "短母音 e",
-            "ex": "An egg is in the basket.",
-            "unit": "starter"
-        },
-        {
-            "en": "elephant",
-            "zh": "大象",
-            "phonics": "母音 e 開頭",
-            "ex": "Look at the big elephant.",
-            "unit": "starter"
-        },
-        {
-            "en": "fish",
-            "zh": "小魚",
-            "phonics": "短母音 i",
-            "ex": "Fish can swim in the pond.",
-            "unit": "u1"
-        },
-        {
-            "en": "frog",
-            "zh": "青蛙",
-            "phonics": "短母音 o",
-            "ex": "The green frog jumps.",
-            "unit": "starter"
-        },
-        {
-            "en": "girl",
-            "zh": "女孩",
-            "phonics": "子音 g",
-            "ex": "She is a happy girl.",
-            "unit": "u1"
-        },
-        {
-            "en": "hat",
-            "zh": "帽子",
-            "phonics": "短母音 a",
-            "ex": "I have a blue hat.",
-            "unit": "u1"
-        },
-        {
-            "en": "hand",
-            "zh": "手",
-            "phonics": "短母音 a",
-            "ex": "Clap your hands.",
-            "unit": "u1"
-        },
-        {
-            "en": "ice",
-            "zh": "冰",
-            "phonics": "母音 i 開頭",
-            "ex": "Ice is cold.",
-            "unit": "starter"
-        },
-        {
-            "en": "juice",
-            "zh": "果汁",
-            "phonics": "子音 j",
-            "ex": "I like apple juice.",
-            "unit": "starter"
-        },
-        {
-            "en": "kite",
-            "zh": "風箏",
-            "phonics": "長母音 i",
-            "ex": "Let's fly a kite.",
-            "unit": "u2"
-        },
-        {
-            "en": "lion",
-            "zh": "獅子",
-            "phonics": "子音 l",
-            "ex": "The lion is strong.",
-            "unit": "u2"
-        },
-        {
-            "en": "milk",
-            "zh": "牛奶",
-            "phonics": "短母音 i",
-            "ex": "Drink some milk.",
-            "unit": "u2"
-        },
-        {
-            "en": "monkey",
-            "zh": "猴子",
-            "phonics": "短母音 o",
-            "ex": "The monkey likes bananas.",
-            "unit": "u2"
-        },
-        {
-            "en": "nose",
-            "zh": "鼻子",
-            "phonics": "長母音 o",
-            "ex": "Touch your nose.",
-            "unit": "u2"
-        },
-        {
-            "en": "orange",
-            "zh": "橘子/橘色",
-            "phonics": "母音 o 開頭",
-            "ex": "It is an orange.",
-            "unit": "u4"
-        },
-        {
-            "en": "pencil",
-            "zh": "鉛筆",
-            "phonics": "教室文具",
-            "ex": "This is my yellow pencil.",
-            "unit": "u3"
-        },
-        {
-            "en": "pen",
-            "zh": "原子筆",
-            "phonics": "短母音 e",
-            "ex": "Is this your blue pen?",
-            "unit": "u3"
-        },
-        {
-            "en": "ruler",
-            "zh": "尺",
-            "phonics": "教室文具",
-            "ex": "I have a long ruler.",
-            "unit": "u3"
-        },
-        {
-            "en": "eraser",
-            "zh": "橡皮擦",
-            "phonics": "母音 e 開頭接 an",
-            "ex": "It is an eraser on the desk.",
-            "unit": "u3"
-        },
-        {
-            "en": "chair",
-            "zh": "椅子",
-            "phonics": "教室設施",
-            "ex": "Sit on the chair, please.",
-            "unit": "u3"
-        },
-        {
-            "en": "bag",
-            "zh": "書包",
-            "phonics": "短母音 a",
-            "ex": "My school bag is green.",
-            "unit": "u3"
-        },
-        {
-            "en": "teacher",
-            "zh": "老師",
-            "phonics": "校園人物",
-            "ex": "Good morning, teacher.",
-            "unit": "u1"
-        },
-        {
-            "en": "friend",
-            "zh": "朋友",
-            "phonics": "校園人物",
-            "ex": "You are my good friend.",
-            "unit": "u1"
-        },
-        {
-            "en": "student",
-            "zh": "學生",
-            "phonics": "校園人物",
-            "ex": "I am a grade 3 student.",
-            "unit": "midterm"
-        },
-        {
-            "en": "red",
-            "zh": "紅色",
-            "phonics": "顏色形容詞",
-            "ex": "The red apple is sweet.",
-            "unit": "u4"
-        },
-        {
-            "en": "blue",
-            "zh": "藍色",
-            "phonics": "顏色形容詞",
-            "ex": "The clear sky is blue.",
-            "unit": "u4"
-        },
-        {
-            "en": "yellow",
-            "zh": "黃色",
-            "phonics": "顏色形容詞",
-            "ex": "The sun is bright yellow.",
-            "unit": "u4"
-        },
-        {
-            "en": "green",
-            "zh": "綠色",
-            "phonics": "顏色形容詞",
-            "ex": "Leaves are green in spring.",
-            "unit": "u4"
-        },
-        {
-            "en": "witch",
-            "zh": "女巫",
-            "phonics": "萬聖節主題",
-            "ex": "The witch rides on a broom.",
-            "unit": "halloween"
-        },
-        {
-            "en": "pumpkin",
-            "zh": "南瓜",
-            "phonics": "萬聖節主題",
-            "ex": "We carve a pumpkin lantern.",
-            "unit": "halloween"
-        },
-        {
-            "en": "ghost",
-            "zh": "幽靈",
-            "phonics": "萬聖節主題",
-            "ex": "The little ghost says boo!",
-            "unit": "halloween"
-        },
-        {
-            "en": "candy",
-            "zh": "糖果",
-            "phonics": "萬聖節主題",
-            "ex": "Trick or treat, give me candy!",
-            "unit": "halloween"
-        },
-        {
-            "en": "one",
-            "zh": "一",
-            "phonics": "數字 1",
-            "ex": "I see one dog.",
-            "unit": "starter"
-        },
-        {
-            "en": "two",
-            "zh": "二",
-            "phonics": "數字 2",
-            "ex": "Two cats are playing.",
-            "unit": "starter"
-        },
-        {
-            "en": "three",
-            "zh": "三",
-            "phonics": "數字 3",
-            "ex": "Three red apples.",
-            "unit": "starter"
-        },
-        {
-            "en": "four",
-            "zh": "四",
-            "phonics": "數字 4",
-            "ex": "Four yellow pencils.",
-            "unit": "starter"
-        },
-        {
-            "en": "five",
-            "zh": "五",
-            "phonics": "數字 5",
-            "ex": "High five!",
-            "unit": "starter"
-        },
-        {
-            "en": "boy",
-            "zh": "男孩",
-            "phonics": "子音 b",
-            "ex": "He is a good boy.",
-            "unit": "starter"
-        },
-        {
-            "en": "duck",
-            "zh": "鴨子",
-            "phonics": "短母音 u",
-            "ex": "The duck swims.",
-            "unit": "starter"
-        },
-        {
-            "en": "name",
-            "zh": "名字",
-            "phonics": "長母音 a_e",
-            "ex": "What's your name?",
-            "unit": "u1"
-        },
-        {
-            "en": "fan",
-            "zh": "風扇/扇子",
-            "phonics": "短母音 a",
-            "ex": "Turn on the fan.",
-            "unit": "u1"
-        },
-        {
-            "en": "goat",
-            "zh": "山羊",
-            "phonics": "雙母音 oa",
-            "ex": "The goat eats grass.",
-            "unit": "u1"
-        },
-        {
-            "en": "ink",
-            "zh": "墨水",
-            "phonics": "母音 i 開頭接 an",
-            "ex": "It is an ink bottle.",
-            "unit": "u1"
-        },
-        {
-            "en": "insect",
-            "zh": "昆蟲",
-            "phonics": "母音 i 開頭接 an",
-            "ex": "Look at the insect.",
-            "unit": "u1"
-        },
-        {
-            "en": "jet",
-            "zh": "噴射機",
-            "phonics": "子音 j",
-            "ex": "The jet is fast.",
-            "unit": "u1"
-        },
-        {
-            "en": "jam",
-            "zh": "果醬",
-            "phonics": "短母音 a",
-            "ex": "I like strawberry jam.",
-            "unit": "u1"
-        },
-        {
-            "en": "six",
-            "zh": "六",
-            "phonics": "數字 6",
-            "ex": "I am six years old.",
-            "unit": "u2"
-        },
-        {
-            "en": "seven",
-            "zh": "七",
-            "phonics": "數字 7",
-            "ex": "She is seven.",
-            "unit": "u2"
-        },
-        {
-            "en": "eight",
-            "zh": "八",
-            "phonics": "數字 8 (gh不發音)",
-            "ex": "He is eight years old.",
-            "unit": "u2"
-        },
-        {
-            "en": "nine",
-            "zh": "九",
-            "phonics": "數字 9",
-            "ex": "I am nine.",
-            "unit": "u2"
-        },
-        {
-            "en": "ten",
-            "zh": "十",
-            "phonics": "數字 10",
-            "ex": "Count to ten.",
-            "unit": "u2"
-        },
-        {
-            "en": "birthday",
-            "zh": "生日",
-            "phonics": "生活名詞",
-            "ex": "Happy Birthday to you!",
-            "unit": "u2"
-        },
-        {
-            "en": "year",
-            "zh": "歲/年",
-            "phonics": "單數名詞",
-            "ex": "one year old",
-            "unit": "u2"
-        },
-        {
-            "en": "years",
-            "zh": "歲",
-            "phonics": "複數名詞",
-            "ex": "eight years old",
-            "unit": "u2"
-        },
-        {
-            "en": "key",
-            "zh": "鑰匙",
-            "phonics": "子音 k",
-            "ex": "Here is the key.",
-            "unit": "u2"
-        },
-        {
-            "en": "leg",
-            "zh": "腿",
-            "phonics": "短母音 e",
-            "ex": "Stand on one leg.",
-            "unit": "u2"
-        },
-        {
-            "en": "ox",
-            "zh": "公牛",
-            "phonics": "母音 o 開頭接 an",
-            "ex": "An ox is strong.",
-            "unit": "u2"
-        },
-        {
-            "en": "otter",
-            "zh": "水獺",
-            "phonics": "母音 o 開頭接 an",
-            "ex": "An otter is swimming.",
-            "unit": "u2"
-        },
-        {
-            "en": "ticket",
-            "zh": "門票",
-            "phonics": "生活名詞",
-            "ex": "How much is the ticket?",
-            "unit": "midterm"
-        },
-        {
-            "en": "adult",
-            "zh": "大人",
-            "phonics": "票價類別",
-            "ex": "One adult ticket, please.",
-            "unit": "midterm"
-        },
-        {
-            "en": "kids",
-            "zh": "小孩",
-            "phonics": "票價類別",
-            "ex": "Kids aged 7-12 are NT$15.",
-            "unit": "midterm"
-        },
-        {
-            "en": "free",
-            "zh": "免費",
-            "phonics": "票價類別",
-            "ex": "Kids under 6 are free.",
-            "unit": "midterm"
-        },
-        {
-            "en": "number",
-            "zh": "號碼",
-            "phonics": "生活名詞",
-            "ex": "My number is 123.",
-            "unit": "midterm"
-        },
-        {
-            "en": "marker",
-            "zh": "彩色筆/麥克筆",
-            "phonics": "教室文具",
-            "ex": "It's a blue marker.",
-            "unit": "u3"
-        },
-        {
-            "en": "bus",
-            "zh": "公車",
-            "phonics": "短母音 u",
-            "ex": "Two buses are coming.",
-            "unit": "u3"
-        },
-        {
-            "en": "pig",
-            "zh": "小豬",
-            "phonics": "短母音 i",
-            "ex": "A pink pig.",
-            "unit": "u3"
-        },
-        {
-            "en": "queen",
-            "zh": "女王",
-            "phonics": "子音組 qu [kw]",
-            "ex": "The queen wears a crown.",
-            "unit": "u3"
-        },
-        {
-            "en": "quiz",
-            "zh": "隨堂測驗",
-            "phonics": "子音組 qu [kw]",
-            "ex": "We have an English quiz.",
-            "unit": "u3"
-        },
-        {
-            "en": "rabbit",
-            "zh": "兔子",
-            "phonics": "短母音 a",
-            "ex": "A white rabbit jumps.",
-            "unit": "u3"
-        },
-        {
-            "en": "sun",
-            "zh": "太陽",
-            "phonics": "短母音 u",
-            "ex": "The sun is hot.",
-            "unit": "u3"
-        },
-        {
-            "en": "snake",
-            "zh": "蛇",
-            "phonics": "長母音 a_e",
-            "ex": "The snake is long.",
-            "unit": "u3"
-        },
-        {
-            "en": "tiger",
-            "zh": "老虎",
-            "phonics": "長母音 i",
-            "ex": "The tiger is strong.",
-            "unit": "u3"
-        },
-        {
-            "en": "turtle",
-            "zh": "烏龜",
-            "phonics": "子音 t",
-            "ex": "A small turtle.",
-            "unit": "u3"
-        },
-        {
-            "en": "black",
-            "zh": "黑色",
-            "phonics": "顏色形容詞",
-            "ex": "The bag is black.",
-            "unit": "u4"
-        },
-        {
-            "en": "white",
-            "zh": "白色",
-            "phonics": "顏色形容詞",
-            "ex": "Snow is white.",
-            "unit": "u4"
-        },
-        {
-            "en": "purple",
-            "zh": "紫色",
-            "phonics": "顏色形容詞",
-            "ex": "Purple grapes.",
-            "unit": "u4"
-        },
-        {
-            "en": "umbrella",
-            "zh": "雨傘",
-            "phonics": "母音 u 開頭接 an",
-            "ex": "It's an umbrella.",
-            "unit": "u4"
-        },
-        {
-            "en": "vest",
-            "zh": "背心",
-            "phonics": "子音 v",
-            "ex": "He wears a green vest.",
-            "unit": "u4"
-        },
-        {
-            "en": "van",
-            "zh": "廂型車",
-            "phonics": "子音 v",
-            "ex": "A blue van.",
-            "unit": "u4"
-        },
-        {
-            "en": "watch",
-            "zh": "手錶",
-            "phonics": "子音 w",
-            "ex": "This is my watch.",
-            "unit": "u4"
-        },
-        {
-            "en": "window",
-            "zh": "窗戶",
-            "phonics": "子音 w",
-            "ex": "Open the window, please.",
-            "unit": "u4"
-        },
-        {
-            "en": "fox",
-            "zh": "狐狸",
-            "phonics": "短母音 o",
-            "ex": "A clever fox.",
-            "unit": "u4"
-        },
-        {
-            "en": "yo-yo",
-            "zh": "溜溜球",
-            "phonics": "子音 y",
-            "ex": "Play with a yo-yo.",
-            "unit": "u4"
-        },
-        {
-            "en": "yogurt",
-            "zh": "優格",
-            "phonics": "子音 y",
-            "ex": "I like strawberry yogurt.",
-            "unit": "u4"
-        },
-        {
-            "en": "zebra",
-            "zh": "斑馬",
-            "phonics": "子音 z",
-            "ex": "The zebra has stripes.",
-            "unit": "u4"
-        },
-        {
-            "en": "pumpkin lantern",
-            "zh": "南瓜燈",
-            "phonics": "節慶主題",
-            "ex": "Light up the pumpkin lantern.",
-            "unit": "halloween"
-        },
-        {
-            "en": "bat",
-            "zh": "蝙蝠",
-            "phonics": "短母音 a",
-            "ex": "Bats fly at night.",
-            "unit": "halloween"
-        },
-        {
-            "en": "spider",
-            "zh": "蜘蛛",
-            "phonics": "長母音 i",
-            "ex": "The spider has eight legs.",
-            "unit": "halloween"
-        },
-        {
-            "en": "vampire",
-            "zh": "吸血鬼",
-            "phonics": "節慶主題",
-            "ex": "The vampire wears a cape.",
-            "unit": "halloween"
-        },
-        {
-            "en": "all_vocab",
-            "zh": "全冊核心單字大統整",
-            "phonics": "後半學期(U3,U4,Halloween)為主",
-            "ex": "Comprehensive review",
-            "unit": "starter"
-        }
-    ],
+    {
+      "en": "apple",
+      "zh": "蘋果",
+      "phonics": "短母音 a",
+      "ex": "It is a red apple."
+    },
+    {
+      "en": "ant",
+      "zh": "螞蟻",
+      "phonics": "短母音 a",
+      "ex": "An ant is small."
+    },
+    {
+      "en": "book",
+      "zh": "書本",
+      "phonics": "短母音 oo",
+      "ex": "Open your book, please."
+    },
+    {
+      "en": "box",
+      "zh": "盒子",
+      "phonics": "短母音 o",
+      "ex": "The pencil is in the box."
+    },
+    {
+      "en": "cat",
+      "zh": "貓咪",
+      "phonics": "短母音 a",
+      "ex": "The cat is cute and sleeping."
+    },
+    {
+      "en": "cup",
+      "zh": "杯子",
+      "phonics": "短母音 u",
+      "ex": "This is a yellow cup."
+    },
+    {
+      "en": "dog",
+      "zh": "狗狗",
+      "phonics": "短母音 o",
+      "ex": "I have a friendly dog."
+    },
+    {
+      "en": "desk",
+      "zh": "書桌",
+      "phonics": "短母音 e",
+      "ex": "Put your book on the desk."
+    },
+    {
+      "en": "egg",
+      "zh": "雞蛋",
+      "phonics": "短母音 e",
+      "ex": "An egg is in the basket."
+    },
+    {
+      "en": "elephant",
+      "zh": "大象",
+      "phonics": "母音 e 開頭",
+      "ex": "Look at the big elephant."
+    },
+    {
+      "en": "fish",
+      "zh": "小魚",
+      "phonics": "短母音 i",
+      "ex": "Fish can swim in the pond."
+    },
+    {
+      "en": "frog",
+      "zh": "青蛙",
+      "phonics": "短母音 o",
+      "ex": "The green frog jumps."
+    },
+    {
+      "en": "girl",
+      "zh": "女孩",
+      "phonics": "子音 g",
+      "ex": "She is a happy girl."
+    },
+    {
+      "en": "hat",
+      "zh": "帽子",
+      "phonics": "短母音 a",
+      "ex": "I have a blue hat."
+    },
+    {
+      "en": "hand",
+      "zh": "手",
+      "phonics": "短母音 a",
+      "ex": "Clap your hands."
+    },
+    {
+      "en": "ice",
+      "zh": "冰",
+      "phonics": "母音 i 開頭",
+      "ex": "Ice is cold."
+    },
+    {
+      "en": "juice",
+      "zh": "果汁",
+      "phonics": "子音 j",
+      "ex": "I like apple juice."
+    },
+    {
+      "en": "kite",
+      "zh": "風箏",
+      "phonics": "長母音 i",
+      "ex": "Let's fly a kite."
+    },
+    {
+      "en": "lion",
+      "zh": "獅子",
+      "phonics": "子音 l",
+      "ex": "The lion is strong."
+    },
+    {
+      "en": "milk",
+      "zh": "牛奶",
+      "phonics": "短母音 i",
+      "ex": "Drink some milk."
+    },
+    {
+      "en": "monkey",
+      "zh": "猴子",
+      "phonics": "短母音 o",
+      "ex": "The monkey likes bananas."
+    },
+    {
+      "en": "nose",
+      "zh": "鼻子",
+      "phonics": "長母音 o",
+      "ex": "Touch your nose."
+    },
+    {
+      "en": "orange",
+      "zh": "橘子/橘色",
+      "phonics": "母音 o 開頭",
+      "ex": "It is an orange."
+    },
+    {
+      "en": "pencil",
+      "zh": "鉛筆",
+      "phonics": "教室文具",
+      "ex": "This is my yellow pencil."
+    },
+    {
+      "en": "pen",
+      "zh": "原子筆",
+      "phonics": "短母音 e",
+      "ex": "Is this your blue pen?"
+    },
+    {
+      "en": "ruler",
+      "zh": "尺",
+      "phonics": "教室文具",
+      "ex": "I have a long ruler."
+    },
+    {
+      "en": "eraser",
+      "zh": "橡皮擦",
+      "phonics": "母音 e 開頭接 an",
+      "ex": "It is an eraser on the desk."
+    },
+    {
+      "en": "chair",
+      "zh": "椅子",
+      "phonics": "教室設施",
+      "ex": "Sit on the chair, please."
+    },
+    {
+      "en": "bag",
+      "zh": "書包",
+      "phonics": "短母音 a",
+      "ex": "My school bag is green."
+    },
+    {
+      "en": "teacher",
+      "zh": "老師",
+      "phonics": "校園人物",
+      "ex": "Good morning, teacher."
+    },
+    {
+      "en": "friend",
+      "zh": "朋友",
+      "phonics": "校園人物",
+      "ex": "You are my good friend."
+    },
+    {
+      "en": "student",
+      "zh": "學生",
+      "phonics": "校園人物",
+      "ex": "I am a grade 3 student."
+    },
+    {
+      "en": "red",
+      "zh": "紅色",
+      "phonics": "顏色形容詞",
+      "ex": "The red apple is sweet."
+    },
+    {
+      "en": "blue",
+      "zh": "藍色",
+      "phonics": "顏色形容詞",
+      "ex": "The clear sky is blue."
+    },
+    {
+      "en": "yellow",
+      "zh": "黃色",
+      "phonics": "顏色形容詞",
+      "ex": "The sun is bright yellow."
+    },
+    {
+      "en": "green",
+      "zh": "綠色",
+      "phonics": "顏色形容詞",
+      "ex": "Leaves are green in spring."
+    },
+    {
+      "en": "witch",
+      "zh": "女巫",
+      "phonics": "萬聖節主題",
+      "ex": "The witch rides on a broom."
+    },
+    {
+      "en": "pumpkin",
+      "zh": "南瓜",
+      "phonics": "萬聖節主題",
+      "ex": "We carve a pumpkin lantern."
+    },
+    {
+      "en": "ghost",
+      "zh": "幽靈",
+      "phonics": "萬聖節主題",
+      "ex": "The little ghost says boo!"
+    },
+    {
+      "en": "candy",
+      "zh": "糖果",
+      "phonics": "萬聖節主題",
+      "ex": "Trick or treat, give me candy!"
+    },
+    {
+      "en": "one",
+      "zh": "一",
+      "phonics": "數字 1",
+      "ex": "I see one dog."
+    },
+    {
+      "en": "two",
+      "zh": "二",
+      "phonics": "數字 2",
+      "ex": "Two cats are playing."
+    },
+    {
+      "en": "three",
+      "zh": "三",
+      "phonics": "數字 3",
+      "ex": "Three red apples."
+    },
+    {
+      "en": "four",
+      "zh": "四",
+      "phonics": "數字 4",
+      "ex": "Four yellow pencils."
+    },
+    {
+      "en": "five",
+      "zh": "五",
+      "phonics": "數字 5",
+      "ex": "High five!"
+    },
+    {
+      "en": "boy",
+      "zh": "男孩",
+      "phonics": "子音 b",
+      "ex": "He is a good boy."
+    },
+    {
+      "en": "duck",
+      "zh": "鴨子",
+      "phonics": "短母音 u",
+      "ex": "The duck swims."
+    },
+    {
+      "en": "name",
+      "zh": "名字",
+      "phonics": "長母音 a_e",
+      "ex": "What's your name?"
+    },
+    {
+      "en": "fan",
+      "zh": "風扇/扇子",
+      "phonics": "短母音 a",
+      "ex": "Turn on the fan."
+    },
+    {
+      "en": "goat",
+      "zh": "山羊",
+      "phonics": "雙母音 oa",
+      "ex": "The goat eats grass."
+    },
+    {
+      "en": "ink",
+      "zh": "墨水",
+      "phonics": "母音 i 開頭接 an",
+      "ex": "It is an ink bottle."
+    },
+    {
+      "en": "insect",
+      "zh": "昆蟲",
+      "phonics": "母音 i 開頭接 an",
+      "ex": "Look at the insect."
+    },
+    {
+      "en": "jet",
+      "zh": "噴射機",
+      "phonics": "子音 j",
+      "ex": "The jet is fast."
+    },
+    {
+      "en": "jam",
+      "zh": "果醬",
+      "phonics": "短母音 a",
+      "ex": "I like strawberry jam."
+    },
+    {
+      "en": "six",
+      "zh": "六",
+      "phonics": "數字 6",
+      "ex": "I am six years old."
+    },
+    {
+      "en": "seven",
+      "zh": "七",
+      "phonics": "數字 7",
+      "ex": "She is seven."
+    },
+    {
+      "en": "eight",
+      "zh": "八",
+      "phonics": "數字 8 (gh不發音)",
+      "ex": "He is eight years old."
+    },
+    {
+      "en": "nine",
+      "zh": "九",
+      "phonics": "數字 9",
+      "ex": "I am nine."
+    },
+    {
+      "en": "ten",
+      "zh": "十",
+      "phonics": "數字 10",
+      "ex": "Count to ten."
+    },
+    {
+      "en": "birthday",
+      "zh": "生日",
+      "phonics": "生活名詞",
+      "ex": "Happy Birthday to you!"
+    },
+    {
+      "en": "year",
+      "zh": "歲/年",
+      "phonics": "單數名詞",
+      "ex": "one year old"
+    },
+    {
+      "en": "years",
+      "zh": "歲",
+      "phonics": "複數名詞",
+      "ex": "eight years old"
+    },
+    {
+      "en": "key",
+      "zh": "鑰匙",
+      "phonics": "子音 k",
+      "ex": "Here is the key."
+    },
+    {
+      "en": "leg",
+      "zh": "腿",
+      "phonics": "短母音 e",
+      "ex": "Stand on one leg."
+    },
+    {
+      "en": "ox",
+      "zh": "公牛",
+      "phonics": "母音 o 開頭接 an",
+      "ex": "An ox is strong."
+    },
+    {
+      "en": "otter",
+      "zh": "水獺",
+      "phonics": "母音 o 開頭接 an",
+      "ex": "An otter is swimming."
+    },
+    {
+      "en": "ticket",
+      "zh": "門票",
+      "phonics": "生活名詞",
+      "ex": "How much is the ticket?"
+    },
+    {
+      "en": "adult",
+      "zh": "大人",
+      "phonics": "票價類別",
+      "ex": "One adult ticket, please."
+    },
+    {
+      "en": "kids",
+      "zh": "小孩",
+      "phonics": "票價類別",
+      "ex": "Kids aged 7-12 are NT$15."
+    },
+    {
+      "en": "free",
+      "zh": "免費",
+      "phonics": "票價類別",
+      "ex": "Kids under 6 are free."
+    },
+    {
+      "en": "number",
+      "zh": "號碼",
+      "phonics": "生活名詞",
+      "ex": "My number is 123."
+    },
+    {
+      "en": "marker",
+      "zh": "彩色筆/麥克筆",
+      "phonics": "教室文具",
+      "ex": "It's a blue marker."
+    },
+    {
+      "en": "bus",
+      "zh": "公車",
+      "phonics": "短母音 u",
+      "ex": "Two buses are coming."
+    },
+    {
+      "en": "pig",
+      "zh": "小豬",
+      "phonics": "短母音 i",
+      "ex": "A pink pig."
+    },
+    {
+      "en": "queen",
+      "zh": "女王",
+      "phonics": "子音組 qu [kw]",
+      "ex": "The queen wears a crown."
+    },
+    {
+      "en": "quiz",
+      "zh": "隨堂測驗",
+      "phonics": "子音組 qu [kw]",
+      "ex": "We have an English quiz."
+    },
+    {
+      "en": "rabbit",
+      "zh": "兔子",
+      "phonics": "短母音 a",
+      "ex": "A white rabbit jumps."
+    },
+    {
+      "en": "sun",
+      "zh": "太陽",
+      "phonics": "短母音 u",
+      "ex": "The sun is hot."
+    },
+    {
+      "en": "snake",
+      "zh": "蛇",
+      "phonics": "長母音 a_e",
+      "ex": "The snake is long."
+    },
+    {
+      "en": "tiger",
+      "zh": "老虎",
+      "phonics": "長母音 i",
+      "ex": "The tiger is strong."
+    },
+    {
+      "en": "turtle",
+      "zh": "烏龜",
+      "phonics": "子音 t",
+      "ex": "A small turtle."
+    },
+    {
+      "en": "black",
+      "zh": "黑色",
+      "phonics": "顏色形容詞",
+      "ex": "The bag is black."
+    },
+    {
+      "en": "white",
+      "zh": "白色",
+      "phonics": "顏色形容詞",
+      "ex": "Snow is white."
+    },
+    {
+      "en": "purple",
+      "zh": "紫色",
+      "phonics": "顏色形容詞",
+      "ex": "Purple grapes."
+    },
+    {
+      "en": "umbrella",
+      "zh": "雨傘",
+      "phonics": "母音 u 開頭接 an",
+      "ex": "It's an umbrella."
+    },
+    {
+      "en": "vest",
+      "zh": "背心",
+      "phonics": "子音 v",
+      "ex": "He wears a green vest."
+    },
+    {
+      "en": "van",
+      "zh": "廂型車",
+      "phonics": "子音 v",
+      "ex": "A blue van."
+    },
+    {
+      "en": "watch",
+      "zh": "手錶",
+      "phonics": "子音 w",
+      "ex": "This is my watch."
+    },
+    {
+      "en": "window",
+      "zh": "窗戶",
+      "phonics": "子音 w",
+      "ex": "Open the window, please."
+    },
+    {
+      "en": "fox",
+      "zh": "狐狸",
+      "phonics": "短母音 o",
+      "ex": "A clever fox."
+    },
+    {
+      "en": "yo-yo",
+      "zh": "溜溜球",
+      "phonics": "子音 y",
+      "ex": "Play with a yo-yo."
+    },
+    {
+      "en": "yogurt",
+      "zh": "優格",
+      "phonics": "子音 y",
+      "ex": "I like strawberry yogurt."
+    },
+    {
+      "en": "zebra",
+      "zh": "斑馬",
+      "phonics": "子音 z",
+      "ex": "The zebra has stripes."
+    },
+    {
+      "en": "pumpkin lantern",
+      "zh": "南瓜燈",
+      "phonics": "節慶主題",
+      "ex": "Light up the pumpkin lantern."
+    },
+    {
+      "en": "bat",
+      "zh": "蝙蝠",
+      "phonics": "短母音 a",
+      "ex": "Bats fly at night."
+    },
+    {
+      "en": "spider",
+      "zh": "蜘蛛",
+      "phonics": "長母音 i",
+      "ex": "The spider has eight legs."
+    },
+    {
+      "en": "vampire",
+      "zh": "吸血鬼",
+      "phonics": "節慶主題",
+      "ex": "The vampire wears a cape."
+    },
+    {
+      "en": "all_vocab",
+      "zh": "全冊核心單字大統整",
+      "phonics": "後半學期(U3,U4,Halloween)為主",
+      "ex": "Comprehensive review"
+    }
+  ],
   "spelling": [
     {
       "unit": "starter",
@@ -10044,28 +10099,10 @@
             return list;
         },
 
-        getCumulativeVocabPool(unit) {
-            const unitOrder = ['starter', 'u1', 'u2', 'midterm', 'u3', 'u4', 'halloween', 'final'];
-            let allowedUnits = [];
-            if (!unit || unit === 'all' || unit === 'final') {
-                allowedUnits = unitOrder;
-            } else if (unitOrder.includes(unit)) {
-                const idx = unitOrder.indexOf(unit);
-                allowedUnits = unitOrder.slice(0, idx + 1);
-            } else {
-                allowedUnits = [unit];
-            }
-            let pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? ACTIVE_DATA.vocab.filter(v => v.en !== 'all_vocab') : [];
-            pool = pool.filter(v => allowedUnits.includes(v.unit));
-            if (pool.length < 5) pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? ACTIVE_DATA.vocab.filter(v => v.en !== 'all_vocab') : [];
-            return pool;
-        },
-
         generateDynamicSpellingPool(unit, count = 10) {
             let pool = (ACTIVE_DATA && ACTIVE_DATA.spelling) ? [...ACTIVE_DATA.spelling] : [];
             if (unit && unit !== 'all') {
-                const allowed = this.getCumulativeUnits(unit);
-                pool = pool.filter(item => allowed.includes(item.unit));
+                pool = pool.filter(item => item.unit === unit);
             }
             if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.spelling) pool = [...ACTIVE_DATA.spelling];
             return shuffleArray(pool).slice(0, count);
@@ -10074,23 +10111,19 @@
         generateDynamicScramblePool(unit, count = 10) {
             let pool = (ACTIVE_DATA && ACTIVE_DATA.scramble) ? [...ACTIVE_DATA.scramble] : [];
             if (unit && unit !== 'all') {
-                const allowed = this.getCumulativeUnits(unit);
-                pool = pool.filter(item => allowed.includes(item.unit));
+                pool = pool.filter(item => item.unit === unit);
             }
             if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.scramble) pool = [...ACTIVE_DATA.scramble];
             return shuffleArray(pool).slice(0, count);
         },
 
         generateDynamicVocabPool(unit, count = 10) {
-            const pool = this.getCumulativeVocabPool(unit);
+            let pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? [...ACTIVE_DATA.vocab] : [];
+            if (unit && unit !== 'all') {
+                pool = pool.filter(item => item.unit === unit);
+            }
+            if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.vocab) pool = [...ACTIVE_DATA.vocab];
             return shuffleArray(pool).slice(0, count);
-        },
-
-        getCumulativeUnits(unit) {
-            const unitOrder = ['starter', 'u1', 'u2', 'midterm', 'u3', 'u4', 'halloween', 'final'];
-            if (!unit || unit === 'all' || unit === 'final') return unitOrder;
-            const idx = unitOrder.indexOf(unit);
-            return idx !== -1 ? unitOrder.slice(0, idx + 1) : [unit];
         }
     };
 
@@ -10232,8 +10265,7 @@
         } else if (panelId === 'panel-tf') {
             resetPracticeLobby('tf');
         } else if (panelId === 'panel-match') {
-            resetPracticeLobby('match');
-            updateLobbyUnitTitle('match-lobby-cover', currentMatchUnit);
+            initMatchGame();
         } else if (panelId === 'panel-flashcard') {
             renderAllUnitsGuide();
         } else if (panelId === 'panel-shop') {
@@ -10323,7 +10355,7 @@
         if (!ACTIVE_DATA) return;
         saveUserState();
         updateCombatUI();
-        renderUnitFilterBar('match-unit-filter-bar', 'all', (u) => { currentMatchUnit = u; resetPracticeLobby('match'); updateLobbyUnitTitle('match-lobby-cover', u); });
+        renderUnitFilterBar('match-unit-filter-bar', 'all', (u) => { currentMatchUnit = u; initMatchGame(); });
         renderUnitFilterBar('lis-unit-filter-bar', 'all', (u) => { currentLisUnit = u; resetPracticeLobby('listening'); updateLobbyUnitTitle('lis-lobby-cover', u); });
         renderUnitFilterBar('grammar-unit-filter-bar', 'all', (u) => { currentGrammarUnit = u; resetPracticeLobby('grammar'); updateLobbyUnitTitle('grammar-lobby-cover', u); });
         renderUnitFilterBar('scramble-unit-filter-bar', 'all', (u) => { currentScrambleUnit = u; resetPracticeLobby('scramble'); updateLobbyUnitTitle('scramble-lobby-cover', u); });
@@ -11561,7 +11593,7 @@
     function nextTFQ() { loadNextTF(); }
 
     
-    /* ==================== 🔗 單字連連看 (對對碰) 累積式單元題庫 ==================== */
+    /* ==================== 🔗 單字連連看 (對對碰) 完整邏輯 ==================== */
     let currentMatchUnit = "all";
     let matchPairs = [];
     let selectedEnCard = null;
@@ -11569,16 +11601,6 @@
     let matchedCount = 0;
     let matchCombo = 0;
     let matchRound = 1;
-
-    function startMatchGame() {
-        const lobby = document.getElementById('match-lobby-cover');
-        const area = document.getElementById('match-game-area');
-        const bar = document.getElementById('match-unit-filter-bar');
-        if (lobby) lobby.style.display = 'none';
-        if (area) area.style.display = 'block';
-        if (bar) bar.style.display = 'flex';
-        initMatchGame();
-    }
 
     function initMatchGame() {
         matchRound = 1;
@@ -11606,8 +11628,14 @@
         const progressEl = document.getElementById('match-progress');
         if (progressEl) progressEl.innerText = `配對連擊: ${matchCombo} 組`;
 
-        // 核心累積式複習：以當前課次為上限，含前面所有已學過單元單字，絕不超前出未學到的後續單元！
-        let pool = DynamicQuestionEngine.getCumulativeVocabPool(currentMatchUnit);
+        let pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? [...ACTIVE_DATA.vocab] : PURE_DEFENSE_VOCAB;
+        if (currentMatchUnit !== 'all') {
+            pool = pool.filter(v => v.unit === currentMatchUnit);
+        }
+        if (pool.length < 5) {
+            pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? [...ACTIVE_DATA.vocab] : PURE_DEFENSE_VOCAB;
+        }
+
         matchPairs = shuffleArray(pool).slice(0, 5);
 
         const colEn = document.getElementById('match-col-en');
@@ -12490,8 +12518,7 @@
             'scramble':  { lobby: 'scramble-lobby-cover', area: 'scramble-exam-area', bar: 'scramble-unit-filter-bar', prog: 'scramble-progress' },
             'spelling':  { lobby: 'spell-lobby-cover', area: 'spell-exam-area', bar: 'spell-unit-filter-bar', prog: 'spelling-progress' },
             'vocab':     { lobby: 'vocab-lobby-cover', area: 'vocab-exam-area', bar: 'vocab-unit-filter-bar', prog: 'vocab-progress' },
-            'tf':        { lobby: 'tf-lobby-cover', area: 'tf-exam-area', bar: 'tf-unit-filter-bar', prog: 'tf-progress' },
-            'match':     { lobby: 'match-lobby-cover', area: 'match-game-area', bar: 'match-unit-filter-bar', prog: 'match-progress' }
+            'tf':        { lobby: 'tf-lobby-cover', area: 'tf-exam-area', bar: 'tf-unit-filter-bar', prog: 'tf-progress' }
         };
         const cfg = map[type];
         if (cfg) {
