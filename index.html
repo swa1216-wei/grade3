@@ -1530,7 +1530,7 @@
                         <div id="defense-landed-container" style="position: absolute; bottom: 30px; left: 12px; right: 12px; display: flex; flex-wrap: wrap; gap: 8px; z-index: 25; pointer-events: none; align-items: flex-end; min-height: 40px;"></div>
 
                         <div class="laser-arrow" id="defense-laser"></div>
-                        <div class="defense-redline">⚠️ 底線警戒防禦區 (掉落單字將堆積於此，輸入英文亦可消滅) ⚠️</div>
+                        <div class="defense-redline" id="defense-redline">⚠️ 底線警戒防禦區 (掉落單字將堆積於此，輸入英文亦可消滅) ⚠️</div>
                     </div>
 
                     <!-- 輸入發射列 -->
@@ -1590,7 +1590,10 @@
                 <div style="font-size: 13px; color: #64748b; margin-top: 4px;">當前累積星幣：<b id="settle-current-total" style="color: #d97706;">200</b> ⭐</div>
             </div>
 
-            <button class="btn-next-pc" style="width: 100%; font-size: 17px;" onclick="closeSettlementBox()">領取星幣並返回 ➔</button>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button class="btn-start-challenge" id="btn-settle-next-stage" style="display: none; width: 100%; margin-top: 0; font-size: 17px; padding: 14px 24px;" onclick="proceedToNextStage()">🚀 挑戰下一關 ➔</button>
+                <button class="btn-next-pc" style="width: 100%; font-size: 17px;" onclick="closeSettlementBox()">領取星幣並返回 ➔</button>
+            </div>
         </div>
     </div>
 
@@ -10542,7 +10545,7 @@
             if (!this.state.mastery) this.state.mastery = {};
             if (!Array.isArray(this.state.mistakePool)) this.state.mistakePool = [];
 
-            const allWords = (vocabList || []).map(v => v.en);
+            const allWords = (vocabList || []).filter(v => v && v.en && v.en !== 'all_vocab').map(v => v.en);
             if (!Array.isArray(this.state.unseenQueue) || this.state.unseenQueue.length === 0) {
                 const unvisited = allWords.filter(w => !this.state.mastery[w] || !this.state.mastery[w].tested);
                 this.state.unseenQueue = unvisited.length > 0 ? shuffleArray(unvisited) : shuffleArray([...allWords]);
@@ -10585,7 +10588,7 @@
         pickWords(count = 8) {
             const pool = ACTIVE_DATA ? ACTIVE_DATA.vocab : [];
             if (!pool || pool.length === 0) return [];
-            let allWords = pool.map(v => v.en);
+            let allWords = pool.filter(v => v && v.en && v.en !== 'all_vocab').map(v => v.en);
             const selected = [];
 
             // 1. 優先回流錯題加強 (最多 2-3 題)
@@ -10780,6 +10783,7 @@
 
     function startRPGCombat(stageId) {
         if (!ACTIVE_DATA) return;
+        lastActivePracticePanel = 'battle';
         curStage = ACTIVE_DATA.stages[stageId] || ACTIVE_DATA.stages[0];
         curWaveIdx = 0;
 
@@ -11139,9 +11143,22 @@
         }
 
         saveUserState();
-        document.getElementById('val-streak').innerText = state.streak;
+        { const _elS = document.getElementById('val-streak'); if (_elS) _elS.innerText = state.streak; }
         document.getElementById('battle-exp-body').innerHTML = `<p><b>中文釋義：</b>${curQ.trans || '標準句型'}</p><p><b>💡 考點解析：</b>${curQ.note || '請牢記發音與文法規範！'}</p>`;
-        document.getElementById('battle-exp-card').style.display = 'block';
+        const nextBattleBtn = document.querySelector('#battle-exp-card .btn-next-pc');
+        if (nextBattleBtn) {
+            const allDead = curEnemies.every(e => e.hp <= 0);
+            if (hHp <= 0) {
+                nextBattleBtn.innerText = "💔 查看戰況並返回地圖 ➔";
+            } else if (allDead && curWaveIdx < 2) {
+                nextBattleBtn.innerText = `✨ 前進第 ${curWaveIdx + 2} / 3 波次 ➔`;
+            } else if (allDead && curWaveIdx >= 2) {
+                nextBattleBtn.innerText = "🏆 勝利結算・領取關卡獎勵 ➔";
+            } else {
+                nextBattleBtn.innerText = "繼續推進下一回合 ➔";
+            }
+        }
+        revealAndScrollToCard('battle-exp-card');
     }
 
     function nextBattleTurn() {
@@ -11284,8 +11301,8 @@
             if (correctBtn) correctBtn.classList.add('correct-reveal');
             document.getElementById('lis-exp-title').innerText = "❌ 聽力選錯囉！請看文本解析：";
         }
-        document.getElementById('lis-exp-body').innerHTML = `<p><b>聽力原句：</b>${curLis.audio}</p><p><b>中文釋義：</b>${curLis.trans}</p><p><b>💡 考點解析：</b>${curLis.note}</p>`;
-        document.getElementById('lis-exp-card').style.display = 'block';
+        document.getElementById('lis-exp-body').innerHTML = `<p><b>聽力原句：</b>${curLis.audio || ''}</p><p><b>中文釋義：</b>${curLis.trans || ''}</p><p><b>💡 考點解析：</b>${curLis.note || ''}</p>`;
+        revealAndScrollToCard('lis-exp-card');
     }
     function nextListeningQ() { loadNextListeningQ(); }
 
@@ -11425,9 +11442,9 @@
             state.streak = 0;
         }
         document.getElementById('scramble-exp-body').innerHTML = `<p><b>標準句子：</b>${curScramble.trans}</p><p><b>💡 文法考點：</b>${curScramble.note}</p>`;
-        card.style.display = 'block';
+        revealAndScrollToCard('scramble-exp-card');
         saveUserState();
-        document.getElementById('val-streak').innerText = state.streak;
+        { const _elS = document.getElementById('val-streak'); if (_elS) _elS.innerText = state.streak; }
     }
     function nextScrambleQ() { loadNextScramble(); }
 
@@ -11530,9 +11547,9 @@
                         document.getElementById('sp-exp-body').innerText = `正確拼法為：${curSp.en}`;
                         state.streak = 0;
                     }
-                    card.style.display = 'block';
+                    revealAndScrollToCard('sp-exp-card');
                     saveUserState();
-                    document.getElementById('val-streak').innerText = state.streak;
+                    { const _elS = document.getElementById('val-streak'); if (_elS) _elS.innerText = state.streak; }
                 }
             };
             bank.appendChild(btn);
@@ -11641,10 +11658,10 @@
                     document.getElementById('vq-exp-title').innerText = "❌ 答錯囉！";
                     state.streak = 0;
                 }
-                document.getElementById('vq-exp-body').innerText = `${curVQ.en} 代表「${curVQ.zh}」｜ 例句: ${curVQ.ex}`;
-                document.getElementById('vq-exp-card').style.display = 'block';
+                document.getElementById('vq-exp-body').innerText = `${curVQ.en || ''} 代表「${curVQ.zh || ''}」｜ 例句: ${curVQ.ex || ''}`;
+                revealAndScrollToCard('vq-exp-card');
                 saveUserState();
-                document.getElementById('val-streak').innerText = state.streak;
+                { const _elS = document.getElementById('val-streak'); if (_elS) _elS.innerText = state.streak; }
             };
             list.appendChild(btn);
         });
@@ -11736,10 +11753,10 @@
             state.streak = 0;
         }
 
-        document.getElementById('tf-exp-body').innerHTML = `<p><b>中文解析：</b>${curTF.trans}</p><p>${curTF.note}</p>`;
-        document.getElementById('tf-exp-card').style.display = 'block';
+        document.getElementById('tf-exp-body').innerHTML = `<p><b>中文解析：</b>${curTF.trans || ''}</p><p>${curTF.note || ''}</p>`;
+        revealAndScrollToCard('tf-exp-card');
         saveUserState();
-        document.getElementById('val-streak').innerText = state.streak;
+        { const _elS = document.getElementById('val-streak'); if (_elS) _elS.innerText = state.streak; }
     }
     function speakCurrentTF() {
         if (!curTF) return;
@@ -11875,7 +11892,7 @@
                 saveUserState();
                 SoundEngine.playHeal();
                 const banner = document.getElementById('match-success-banner');
-                if (banner) banner.style.display = 'block';
+                if (banner) { banner.style.display = 'block'; setTimeout(() => banner.scrollIntoView({ behavior: 'smooth', block: 'center' }), 80); }
             }
         } else {
             SoundEngine.playTone(220, 'sawtooth', 0.2, 0.15);
@@ -12652,6 +12669,16 @@
         }
     }
 
+    
+    function revealAndScrollToCard(cardId) {
+        const card = document.getElementById(cardId);
+        if (!card) return;
+        card.style.display = 'block';
+        setTimeout(() => {
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 80);
+    }
+
     function showSettlementCard(summaryText, coinsEarned) {
         const modal = document.getElementById('settlementModalOverlay');
         document.getElementById('settle-summary-txt').innerText = summaryText;
@@ -12659,7 +12686,25 @@
         const bonusMsg = (state.activePet === 'dog') ? "🐕 太空柴犬技能加成！" : "";
         document.getElementById('settle-pet-bonus').innerText = bonusMsg;
         document.getElementById('settle-current-total').innerText = state.coins;
+        const nextStageBtn = document.getElementById('btn-settle-next-stage');
+        if (nextStageBtn) {
+            if (lastActivePracticePanel === 'battle' && curStage && ACTIVE_DATA && ACTIVE_DATA.stages && curStage.id < ACTIVE_DATA.stages.length - 1) {
+                const nextSt = ACTIVE_DATA.stages[curStage.id + 1];
+                nextStageBtn.innerText = `🚀 挑戰下一關：${nextSt.title} ➔`;
+                nextStageBtn.style.display = 'block';
+            } else {
+                nextStageBtn.style.display = 'none';
+            }
+        }
         modal.style.display = 'flex';
+    }
+    function proceedToNextStage() {
+        document.getElementById('settlementModalOverlay').style.display = 'none';
+        if (curStage && ACTIVE_DATA && ACTIVE_DATA.stages && curStage.id < ACTIVE_DATA.stages.length - 1) {
+            startRPGCombat(curStage.id + 1);
+        } else {
+            navTo('panel-map');
+        }
     }
     function closeSettlementBox() {
         document.getElementById('settlementModalOverlay').style.display = 'none';
@@ -12812,7 +12857,7 @@
         document.getElementById('grammar-q-type').innerText = `【${curGrammar.type || "冠詞與文法"}】`;
 
         // 將底線以彩色高亮標記
-        const formattedQ = curGrammar.q.replace(/____/g, '<span class="blank-target-pill">____</span>');
+        const formattedQ = String(curGrammar.q || '').replace(/____/g, '<span class="blank-target-pill">____</span>');
         document.getElementById('grammar-q-text').innerHTML = formattedQ;
 
         const box = document.getElementById('grammar-options-box');
@@ -12844,8 +12889,8 @@
             if (correctBtn) correctBtn.classList.add('correct-reveal');
             document.getElementById('grammar-exp-title').innerText = "❌ 文法選錯囉！請看考點解析：";
         }
-        document.getElementById('grammar-exp-body').innerHTML = `<p><b>標準語義：</b>${curGrammar.trans}</p><p><b>💡 考點解析：</b>${curGrammar.note}</p>`;
-        document.getElementById('grammar-exp-card').style.display = 'block';
+        document.getElementById('grammar-exp-body').innerHTML = `<p><b>標準語義：</b>${curGrammar.trans || ''}</p><p><b>💡 考點解析：</b>${curGrammar.note || ''}</p>`;
+        revealAndScrollToCard('grammar-exp-card');
     }
 
     function speakCurrentGrammar() {
@@ -12925,15 +12970,17 @@
             row.className = 'exam-q-row';
             row.id = `exam-q-row-${idx}`;
 
-            const qText = q.q || q.prompt || "";
+            const qText = (q && (q.q || q.prompt)) ? String(q.q || q.prompt) : "";
             const cleanQ = sanitizeQuestionText(qText).replace(/____/g, '<span class="blank-target-pill">____</span>');
-            const hasAudio = !!q.audio;
+            const hasAudio = !!(q && q.audio);
+            const safeAudio = hasAudio ? String(q.audio).replace(/'/g, "\\'") : "";
 
             let optsHtml = '';
-            (q.opts || []).forEach((opt, optIdx) => {
+            ((q && q.opts) || []).forEach((opt, optIdx) => {
+                const safeOpt = (opt !== undefined && opt !== null) ? String(opt) : "";
                 optsHtml += `
                     <button type="button" class="exam-opt-btn" id="exam-opt-btn-${idx}-${optIdx}" onclick="selectExamOption(${idx}, ${optIdx})">
-                        ${String.fromCharCode(65 + optIdx)}. ${opt}
+                        ${String.fromCharCode(65 + optIdx)}. ${safeOpt}
                     </button>
                 `;
             });
@@ -12943,7 +12990,7 @@
                     <div style="font-size: 16px; font-weight: 800; color: #0f172a;">
                         <span style="color:#0284c7; margin-right:4px;">${idx + 1}.</span> ${cleanQ}
                     </div>
-                    ${hasAudio ? `<button type="button" class="btn-audio-pc" style="padding:4px 10px; font-size:12.5px;" onclick="speakText('${q.audio}')">🔊 播放聽力</button>` : ''}
+                    ${hasAudio ? `<button type="button" class="btn-audio-pc" style="padding:4px 10px; font-size:12.5px;" onclick="speakText('${safeAudio}')">🔊 播放聽力</button>` : ''}
                 </div>
                 <div class="exam-opts-grid">${optsHtml}</div>
                 <div id="exam-q-exp-${idx}" style="display:none; font-size:13.5px; color:#475569; margin-top:8px; padding-top:6px; border-top:1px dashed #cbd5e1;"></div>
