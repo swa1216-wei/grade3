@@ -815,37 +815,40 @@
                 white-space: nowrap !important;
             }
 
-            /* 12 個功能任務分頁：手機單排橫向滑動軸，不佔滿垂直畫面 */
+            /* 12 個功能任務分頁：手機版自動換行網格，免向右滑動一眼看全 */
             .mission-tab-bar {
-                display: flex !important;
-                flex-wrap: nowrap !important;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 6px;
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                overflow-x: visible !important;
                 gap: 6px;
                 margin-bottom: 8px;
             }
-            .mission-tab-bar::-webkit-scrollbar {
-                height: 4px;
-            }
-            .mission-tab-bar::-webkit-scrollbar-thumb {
-                background: #bae6fd;
-                border-radius: 4px;
-            }
             .mission-tab {
-                font-size: 13px;
-                padding: 7px 12px;
-                flex-shrink: 0;
+                font-size: 12px;
+                padding: 7px 4px;
+                text-align: center;
+                white-space: normal !important;
+                line-height: 1.25;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
-            /* 單元篩選按鈕列：平滑橫向滑動 */
+            /* 單元篩選按鈕列：手機版自動換行 3 欄網格，免向右拉動 */
             .practice-unit-filter-bar {
-                padding: 8px 10px;
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                flex-wrap: wrap !important;
+                overflow-x: visible !important;
+                padding: 8px;
                 gap: 6px;
             }
             .btn-filter-chip {
                 font-size: 12px;
-                padding: 5px 10px;
+                padding: 7px 4px;
+                text-align: center;
+                white-space: normal !important;
+                line-height: 1.2;
             }
 
             /* 題型標題列與選項網格：雙欄轉單欄大按鈕防誤觸 */
@@ -860,8 +863,16 @@
                 gap: 8px !important;
             }
             .btn-ans-pc {
-                padding: 12px 16px;
+                padding: 12px 14px;
                 font-size: 15px;
+                white-space: normal !important;
+                word-break: break-word;
+                line-height: 1.4;
+            }
+            .exam-opt-btn {
+                white-space: normal !important;
+                word-break: break-word;
+                line-height: 1.4;
             }
             .q-prompt-box-pc {
                 flex-direction: column;
