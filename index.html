@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小學三年級英語・浮空群島冒險任務系統</title>
+    <title>小學三年級英語・浮空群島冒險任務系統 (v7)</title>
     <style>
         :root {
             --sky-bg: #e0f2fe;
@@ -982,6 +982,58 @@
             }
         }
 
+
+        /* ==================== v7 🔠 題目字體放大（可用上方「字體」按鈕切換） ==================== */
+        :root { --ts: 1; }
+        html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+        #battle-q-text, #tf-statement-text, #scramble-hint-text { font-size: calc(20px * var(--ts)) !important; line-height: 1.55; }
+        #grammar-q-text { font-size: calc(22px * var(--ts)) !important; line-height: 1.6; }
+        #lis-prompt { font-size: calc(18px * var(--ts)) !important; }
+        .btn-ans-pc { font-size: calc(17px * var(--ts)); }
+        .explanation-pc-card > div { font-size: calc(16px * var(--ts)) !important; line-height: 1.6; }
+        .exam-q-row > div:first-child > div:first-child { font-size: calc(17px * var(--ts)) !important; line-height: 1.55; }
+        .exam-opt-btn { font-size: calc(16px * var(--ts)); }
+        .match-card { font-size: calc(18px * var(--ts)); }
+        .word-btn-pc, .word-bubble-pc { font-size: calc(18px * var(--ts)); }
+        #sp-chinese { font-size: calc(32px * var(--ts)) !important; }
+        #sp-phonics { font-size: calc(18px * var(--ts)) !important; }
+        #vq-word { font-size: calc(40px * var(--ts)) !important; line-height: 1.3; word-break: break-word; }
+        #vq-word.vq-sentence { font-size: calc(26px * var(--ts)) !important; }
+        #vq-sub { font-size: calc(16px * var(--ts)); color: #0369a1; font-weight: 800; margin-bottom: 10px; }
+        .btn-tf-pc { font-size: calc(22px * var(--ts)); }
+        .blank-target-pill { min-width: 3em; text-align: center; }
+
+        @media (max-width: 768px) {
+            #battle-q-text, #tf-statement-text, #scramble-hint-text { font-size: calc(21px * var(--ts)) !important; }
+            #grammar-q-text { font-size: calc(22px * var(--ts)) !important; }
+            .q-prompt-box-pc { font-size: calc(20px * var(--ts)); }
+            #lis-prompt { font-size: calc(19px * var(--ts)) !important; }
+            .btn-ans-pc { font-size: calc(19px * var(--ts)) !important; padding: 14px 16px; min-height: 56px; }
+            .explanation-pc-card > div { font-size: calc(17px * var(--ts)) !important; }
+            .exam-q-row > div:first-child { flex-wrap: wrap; gap: 8px; }
+            .exam-q-row > div:first-child > div:first-child { font-size: calc(18px * var(--ts)) !important; }
+            .exam-opt-btn { font-size: calc(17px * var(--ts)) !important; padding: 12px 14px; min-height: 50px; }
+            .match-card { font-size: calc(18px * var(--ts)) !important; min-height: 56px; }
+            .word-btn-pc, .word-bubble-pc { font-size: calc(19px * var(--ts)) !important; padding: 10px 16px; }
+            .btn-letter-block { width: 52px; height: 52px; font-size: 26px; }
+            .btn-tf-pc { font-size: calc(20px * var(--ts)) !important; }
+            .btn-audio-pc { font-size: 16px; padding: 10px 16px; }
+            #vq-word { font-size: calc(36px * var(--ts)) !important; }
+            #vq-word.vq-sentence { font-size: calc(22px * var(--ts)) !important; }
+            /* 戰鬥舞台縮小，把空間留給題目 */
+            .battle-arena-pc { min-height: 200px; padding: 40px 6px 12px; }
+            .trading-card-frame { width: 92px !important; height: 128px !important; }
+            .companion-pet-card { width: 62px !important; height: 100px !important; }
+            .fighter-col { width: 96px !important; }
+            .card-footer-bar { font-size: 11px; }
+            .battle-body-pc { padding: 14px; }
+            #panel-scramble, #panel-spelling, #panel-vocab-quiz, #panel-tf, #panel-listening, #panel-grammar { padding: 14px !important; }
+        }
+        @media (max-width: 768px) {
+            .app-brand { flex-wrap: wrap; row-gap: 6px; }
+            #db-source-tag { white-space: normal; }
+        }
+
 </style>
 </head>
 <body>
@@ -994,6 +1046,7 @@
             <span style="font-size: 12px; background: #0284c7; color: #fff; padding: 3px 10px; border-radius: 12px;" id="db-source-tag">題庫載入中</span>
         </div>
         <div class="user-status-strip">
+            <button class="btn-bgm-toggle" id="btn-text-size" onclick="cycleTextSize()" title="切換題目字體大小">🔠 字體: 標準</button>
             <button class="btn-bgm-toggle" id="btn-bgm-toggle" onclick="toggleBGM()">🎵 音樂: 關</button>
             <div style="display: flex; align-items: center; gap: 4px; background: #f0fdf4; border: 1.5px solid #86efac; padding: 3px 8px; border-radius: 20px;">
                 <span style="font-size: 11.5px; color: #15803d; font-weight: 800;">🔈</span>
@@ -1017,7 +1070,7 @@
         <button class="mission-tab" id="tab-btn-spelling" onclick="navTo('panel-spelling')">🔤 自然發音積木拼字</button>
         <button class="mission-tab" id="tab-btn-scramble" onclick="navTo('panel-scramble')">🧩 句型重組 (獨立標點)</button>
         <button class="mission-tab" id="tab-btn-match" onclick="navTo('panel-match')">🔗 單字連連看 (對對碰)</button>
-        <button class="mission-tab" id="tab-btn-vocab" onclick="navTo('panel-vocab-quiz')">📝 單字測驗 (英選中)</button>
+        <button class="mission-tab" id="tab-btn-vocab" onclick="navTo('panel-vocab-quiz')">📝 單字測驗 (四種題型)</button>
         <button class="mission-tab" id="tab-btn-tf" onclick="navTo('panel-tf')">⭕❌ 是非觀念題</button>
         <button class="mission-tab" id="tab-btn-fc" onclick="navTo('panel-flashcard')">📖 各單元重點全覽</button>
         <button class="mission-tab" id="tab-btn-shop" onclick="navTo('panel-shop')">🎒 冒險補給商店</button>
@@ -1268,7 +1321,7 @@
 
         <div class="practice-lobby-cover" id="spell-lobby-cover">
             <h3 style="font-size: 24px; color: #0369a1; margin-bottom: 8px;">🔤 自然發音拼字挑戰</h3>
-            <p style="color: #64748b; font-size: 15px; max-width: 500px;">依據中文與發音提示，依序挑選積木拼出單字。拼對才朗讀完整發音！</p>
+            <p style="color: #64748b; font-size: 15px; max-width: 500px;">看中文與發音規則，先試著自己拼！真的想不出來再按「聽發音提示」。積木裡藏了 b/d、p/q 這類易混淆字母喔！</p>
             <button class="btn-start-challenge" onclick="startSpellingExam()">🚀 開始測驗 (10題)</button>
         </div>
 
@@ -1277,7 +1330,7 @@
                 <div style="font-size: 30px; font-weight: 900; color: #d97706;" id="sp-chinese">貓咪</div>
                 <div style="font-size: 17px; color: #0284c7; font-weight: 800; margin-top: 4px;" id="sp-phonics">發音提示: 短母音 a</div>
                 <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
-                    <button class="btn-audio-pc" onclick="speakSpellingWord()">🔊 聽單字發音</button>
+                    <button class="btn-audio-pc" onclick="speakSpellingWord()">🔊 聽發音提示 (星幣減半)</button>
                     <button class="btn-audio-pc" onclick="popLastSpellingLetter()">⌫ 倒退刪除</button>
                 </div>
             </div>
@@ -1297,8 +1350,8 @@
     <div id="panel-vocab-quiz" class="workspace-panel">
         <div class="practice-header-strip">
             <div>
-                <h2 style="font-size: 22px; color: #0369a1;">📝 單字測驗・英選中 (10題挑戰)</h2>
-                <p style="color: #64748b; font-size: 13.5px; margin-top: 4px;">看到大單字，選出正確中文意思！</p>
+                <h2 style="font-size: 22px; color: #0369a1;">📝 單字測驗・四種題型 (10題挑戰)</h2>
+                <p style="color: #64748b; font-size: 13.5px; margin-top: 4px;">英選中、中選英、聽音選義、例句填空輪流出現！</p>
             </div>
             <div style="display: flex; align-items: center; gap: 14px;">
                 <span class="practice-progress" id="vocab-progress">準備中</span>
@@ -1310,7 +1363,7 @@
 
         <div class="practice-lobby-cover" id="vocab-lobby-cover">
             <h3 style="font-size: 24px; color: #0369a1; margin-bottom: 8px;">📝 單字英選中測驗</h3>
-            <p style="color: #64748b; font-size: 15px; max-width: 500px;">全冊 98 個核心單字隨機測驗，強化英文字彙連結力！</p>
+            <p style="color: #64748b; font-size: 15px; max-width: 500px;">全冊核心單字輪流出題，整本輪完一遍才會重複；答錯的字會在下一輪優先複習！</p>
             <button class="btn-start-challenge" onclick="startVocabExam()">🚀 開始測驗 (10題)</button>
         </div>
 
@@ -10511,6 +10564,7 @@
                 try {
                     localStorage.removeItem(USER_STATE_STORAGE_KEY);
                     localStorage.removeItem('ENGLISH_ADVENTURE_STATE_V3');
+                    localStorage.removeItem('ENGLISH_ADVENTURE_DECK_V7');
                 } catch(e) {}
                 state = JSON.parse(JSON.stringify(DEFAULT_USER_STATE));
                 saveUserState();
@@ -10642,144 +10696,7 @@
     };
 
     /* ==================== 🎲 冒險多元題型動態衍生轉換引擎 ==================== */
-    function buildMultiTypeBattleQ(vocabItem) {
-        if (!vocabItem) return null;
-        const vEn = vocabItem.en.toLowerCase();
-        const vZh = vocabItem.zh;
-        const vPhonics = vocabItem.phonics || "基礎核心發音";
-        const vEx = vocabItem.ex || "";
-        const vowels = ['a', 'e', 'i', 'o', 'u'];
-        const isVowel = vowels.includes(vEn[0]);
-
-        // 隨機分派 4 大題型：拼字積木 (32%)、是非觀念 (30%)、冠詞所有格陷阱 (23%)、英選中選擇 (15%)
-        const roll = Math.random();
-
-        // 1. 【🔤 自然發音積木拼字】
-        if (roll < 0.32 && vEn.length <= 8 && !vEn.includes(' ') && !vEn.includes('-')) {
-            const correctLetters = vEn.split('');
-            const alphabet = "abcdefghijklmnopqrstuvwxyz";
-            const distractors = [];
-            while (distractors.length < Math.min(3, 8 - correctLetters.length)) {
-                const rChar = alphabet[Math.floor(Math.random() * alphabet.length)];
-                if (!correctLetters.includes(rChar) && !distractors.includes(rChar)) distractors.push(rChar);
-            }
-            return {
-                type: 'block',
-                word: vocabItem.en,
-                targetWord: vEn,
-                prompt: `【🔤 自然發音拼字挑戰】請依序點選積木拼出：「${vZh}」`,
-                tokens: shuffleArray([...correctLetters, ...distractors]),
-                trans: `${vocabItem.en} = ${vZh}`,
-                note: `自然發音規律：${vPhonics} ｜ 例句：${vEx}`
-            };
-        }
-
-        // 2. 【⭕❌ 字母鏡像與觀念是非題】
-        if (roll < 0.62) {
-            const firstChar = vEn[0];
-            if (['b', 'd', 'p', 'q'].includes(firstChar)) {
-                const isB = (firstChar === 'b' || firstChar === 'p');
-                const askRight = Math.random() > 0.5;
-                const expectedTrue = askRight ? isB : !isB;
-                return {
-                    type: 'tf',
-                    word: vocabItem.en,
-                    isTrue: expectedTrue,
-                    prompt: `【⭕❌ 鏡像字形是非題】中文為「${vZh}」的英文單字，它的開頭第一個字母肚子/圓圈是朝【${askRight ? '右邊' : '左邊'}】。`,
-                    trans: `開頭字母為 ${firstChar.toUpperCase()} (${firstChar})`,
-                    note: `字母字形鐵則：b 肚子在右邊 (向右看)，d 肚子在左邊 (向左看)；p 圓圈在右邊，q 圓圈在左邊！`
-                };
-            } else if (['one','two','three','four','five','six','seven','eight','nine','ten'].includes(vEn)) {
-                const mathQ = DynamicQuestionEngine.generateMathQuestion(true);
-                return {
-                    type: 'tf',
-                    word: vocabItem.en,
-                    isTrue: mathQ.ans,
-                    prompt: `【⭕❌ 生活數字算術是非題】${mathQ.statement}`,
-                    trans: mathQ.trans,
-                    note: mathQ.note
-                };
-            } else if (['red','blue','yellow','green','black','white','purple','orange'].includes(vEn)) {
-                const colorQ = DynamicQuestionEngine.generateColorQuestion(true);
-                return {
-                    type: 'tf',
-                    word: vocabItem.en,
-                    isTrue: colorQ.ans,
-                    prompt: `【⭕❌ 色彩調色是非題】${colorQ.statement}`,
-                    trans: colorQ.trans,
-                    note: colorQ.note
-                };
-            } else {
-                const isCorrect = Math.random() > 0.5;
-                const wrongItem = ACTIVE_DATA.vocab.find(v => v.en !== vocabItem.en) || { zh: "書桌" };
-                return {
-                    type: 'tf',
-                    word: vocabItem.en,
-                    isTrue: isCorrect,
-                    prompt: `【⭕❌ 字義觀念是非題】英文單字「${vocabItem.en}」的中文意思是「${isCorrect ? vZh : wrongItem.zh}」嗎？`,
-                    trans: `${vocabItem.en} = ${vZh}`,
-                    note: `正確字義：${vocabItem.en} 代表「${vZh}」。`
-                };
-            }
-        }
-
-        // 3. 【✏️ 冠詞 a/an、顏色形容詞、所有格動態陷阱】
-        if (roll < 0.85) {
-            if (['red','blue','yellow','green','black','white','purple'].includes(vEn)) {
-                const opts = shuffleArray([`${vEn}`, `a ${vEn}`, `an ${vEn}`, `two ${vEn}`]);
-                return {
-                    type: 'trap',
-                    word: vocabItem.en,
-                    prompt: `【✏️ 顏色文法陷阱】A: What color is the bag? B: It is ____.`,
-                    opts: opts,
-                    ans: opts.indexOf(vEn),
-                    trans: `It is ${vEn}. (它是${vZh}的。)`,
-                    note: `顏色是形容詞，單獨當表語回答時，前面絕對不可加冠詞 a 或 an！`
-                };
-            }
-            const useColorTrap = Math.random() > 0.5;
-            if (useColorTrap) {
-                const opts = shuffleArray(["a", "an", "the an", "two"]);
-                return {
-                    type: 'trap',
-                    word: vocabItem.en,
-                    prompt: `【✏️ 冠詞高頻陷阱】請填入最適當的冠詞：
-"Look! It is ____ green ${vocabItem.en}."`,
-                    opts: opts,
-                    ans: opts.indexOf("a"),
-                    trans: `It is a green ${vocabItem.en}.`,
-                    note: `高頻失分點：雖然 ${vocabItem.en} 是主角，但空格緊接的是顏色單字 green (子音開頭)，因此答案立刻變成 'a'！`
-                };
-            } else {
-                const correctArt = isVowel ? "an" : "a";
-                const opts = shuffleArray(["a", "an", "some", "two"]);
-                return {
-                    type: 'trap',
-                    word: vocabItem.en,
-                    prompt: `【✏️ 冠詞判斷特訓】請填入正確的不定冠詞：
-"There is ____ ${vocabItem.en} on the desk."`,
-                    opts: opts,
-                    ans: opts.indexOf(correctArt),
-                    trans: `There is ${correctArt} ${vocabItem.en}...`,
-                    note: `${vocabItem.en} 為${isVowel ? '母音' : '子音'}開頭發音，必須搭配不定冠詞 '${correctArt}'！`
-                };
-            }
-        }
-
-        // 4. 【📝 單字英選中選擇題】
-        const allVocab = ACTIVE_DATA ? ACTIVE_DATA.vocab : [];
-        const wrongList = shuffleArray(allVocab.filter(v => v.en !== vocabItem.en)).slice(0, 3).map(v => v.zh);
-        const choices = shuffleArray([vZh, ...wrongList]);
-        return {
-            type: 'mcq',
-            word: vocabItem.en,
-            prompt: `【📝 單字測驗】單字「${vocabItem.en}」的意思是什麼？`,
-            opts: choices,
-            ans: choices.indexOf(vZh),
-            trans: `${vocabItem.en} = ${vZh}`,
-            note: `例句：${vEx || vocabItem.en}`
-        };
-    }
+    /* buildMultiTypeBattleQ() 已改寫，請見下方 v7 練習引擎 */
 
     /* 1. RPG 戰鬥 (支援全覆蓋 98 字出題 + 4 大題型動態渲染) */
     let curStage = null;
@@ -10792,34 +10709,7 @@
     let otterShieldCount = 1;
     let combatCoinsEarnedThisSession = 0;
 
-    function startRPGCombat(stageId) {
-        if (!ACTIVE_DATA) return;
-        lastActivePracticePanel = 'battle';
-        curStage = ACTIVE_DATA.stages[stageId] || ACTIVE_DATA.stages[0];
-        curWaveIdx = 0;
-
-        LearningEngine.init(ACTIVE_DATA.vocab);
-        const otterLvl = (state.petLevels && state.petLevels.otter) ? state.petLevels.otter : 1;
-        otterShieldCount = otterLvl;
-        combatCoinsEarnedThisSession = 0;
-
-        hHp = getHeroMaxHp();
-        waveStartHpHero = hHp;
-
-        // 1. 從全覆蓋排程佇列抽出 8 個單字 (保證 98 字輪流考過，絕無遺漏！)
-        const pickedWords = LearningEngine.pickWords(8);
-        const vocabQuestions = pickedWords.map(w => {
-            const vObj = ACTIVE_DATA.vocab.find(v => v.en === w) || { en: w, zh: w };
-            return buildMultiTypeBattleQ(vObj);
-        }).filter(q => q !== null);
-
-        // 2. 混合關卡特有真題 (售票亭算術、打招呼會話、段考真題)
-        const stageQuestions = shuffleArray([...curStage.questions]).slice(0, 4);
-
-        fightQueue = shuffleArray([...vocabQuestions, ...stageQuestions]);
-        setupWave(0);
-        navTo('panel-battle');
-    }
+    /* startRPGCombat() 已改寫，請見下方 v7 練習引擎 */
 
     function setupWave(wIdx) {
         curWaveIdx = wIdx;
@@ -10903,11 +10793,8 @@
         document.getElementById('battle-exp-card').style.display = 'none';
         
         if (fightQueue.length === 0) {
-            const refill = LearningEngine.pickWords(6).map(w => {
-                const vObj = ACTIVE_DATA.vocab.find(v => v.en === w) || { en: w, zh: w };
-                return buildMultiTypeBattleQ(vObj);
-            }).filter(q => q !== null);
-            fightQueue = refill.length > 0 ? refill : shuffleArray(curStage.questions);
+            fightQueue = refillBattleQueue();
+            if (fightQueue.length === 0) fightQueue = shuffleArray(curStage.questions);
         }
         curQ = fightQueue.pop();
 
@@ -11037,8 +10924,10 @@
         const right = (typeof choice === 'boolean') ? choice : (choice === curQ.ans);
 
         // 紀錄進度至全覆蓋排程與 Leitner 盒子
-        const wordKey = curQ.word || curQ.targetWord || curQ.en || (curQ.trans ? curQ.trans.split(' ')[0] : null);
+        const wordKey = curQ.word || curQ.targetWord || curQ.en || null;
         if (wordKey) LearningEngine.record(wordKey, right);
+        QuestionDeck.result(curQ, right);
+        speakAfterAnswer(curQ);
 
         if (right) {
             if (btn) btn.classList.add('correct-reveal');
@@ -11197,32 +11086,7 @@
         loadNextBattleQ();
     }
 
-    function speakBattleQ() {
-        if (!curQ) return;
-        let speech = "";
-        if (curQ.audio) {
-            speech = curQ.audio.split(/\bB\s*[:.]/i)[0];
-        } else if (curQ.targetWord) {
-            speech = curQ.targetWord;
-        } else if (curQ.word) {
-            speech = curQ.word;
-        } else {
-            const promptStr = curQ.prompt || curQ.q || "";
-            const quoted = promptStr.match(/["'“”]([a-zA-Z0-9\s,.?!'-]+)["'“”]/);
-            if (quoted && quoted[1]) {
-                speech = quoted[1];
-            } else {
-                const mDialog = promptStr.match(/A:\s*["'“”]?([^"'“”\n]+)["'“”]?\s*B:/);
-                if (mDialog && mDialog[1]) speech = mDialog[1];
-            }
-        }
-        speech = cleanDialogueSpeech(speech);
-        if (speech && speech.length > 1) {
-            speakText(speech);
-        } else {
-            showCenterDialog("提示", "本題為中文情境理解題，請直接閱讀題目作答！");
-        }
-    }
+    /* speakBattleQ() 已改寫，請見下方 v7 練習引擎 */
 /* 2. 聽力測驗/* 2. 聽力測驗 (有開始卡片，點擊後才開局) */
     let lisQueue = [];
     let curLis = null;
@@ -11231,24 +11095,7 @@
     let lisCoinsEarned = 0;
     let currentLisUnit = "all";
 
-    function startListeningExam() {
-        document.getElementById('lis-lobby-cover').style.display = 'none';
-        document.getElementById('lis-exam-area').style.display = 'block';
-        if (document.getElementById('lis-unit-filter-bar')) document.getElementById('lis-unit-filter-bar').style.display = 'flex';
-
-        lisRound = 0;
-        lisScore = 0;
-        lisCoinsEarned = 0;
-
-        let pool = (ACTIVE_DATA && ACTIVE_DATA.listening) ? [...ACTIVE_DATA.listening] : [];
-        if (currentLisUnit !== 'all') {
-            pool = pool.filter(item => item.unit === currentLisUnit);
-        }
-        if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.listening) pool = [...ACTIVE_DATA.listening];
-        lisQueue = shuffleArray(pool);
-
-        loadNextListeningQ();
-    }
+    /* startListeningExam() 已改寫，請見下方 v7 練習引擎 */
 
     function loadNextListeningQ() {
         document.getElementById('lis-exp-card').style.display = 'none';
@@ -11266,10 +11113,7 @@
         }
 
         if (lisQueue.length === 0) {
-            let pool = (ACTIVE_DATA && ACTIVE_DATA.listening) ? [...ACTIVE_DATA.listening] : [];
-            if (currentLisUnit !== 'all') pool = pool.filter(item => item.unit === currentLisUnit);
-            if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.listening) pool = [...ACTIVE_DATA.listening];
-            lisQueue = shuffleArray(pool);
+            lisQueue = buildSession('listening', currentLisUnit, 5).map(q => Object.assign({}, q, { opts: q.opts.map(hideEnglishInOption) }));
         }
 
         curLis = lisQueue.pop();
@@ -11298,6 +11142,7 @@
     function submitListeningAns(idx, btn) {
         document.querySelectorAll('#lis-options-box .btn-ans-pc').forEach(b => b.disabled = true);
         const right = idx === curLis.ans;
+        QuestionDeck.result(curLis, right);
         if (right) {
             btn.classList.add('correct-reveal');
             lisScore += 10;
@@ -11325,24 +11170,7 @@
     let scrambleCoinsEarned = 0;
     let currentScrambleUnit = "all";
 
-    function startScrambleExam() {
-        document.getElementById('scramble-lobby-cover').style.display = 'none';
-        document.getElementById('scramble-exam-area').style.display = 'block';
-        if (document.getElementById('scramble-unit-filter-bar')) document.getElementById('scramble-unit-filter-bar').style.display = 'flex';
-
-        scrambleRound = 0;
-        scrambleCoinsEarned = 0;
-
-        // 即時參數隨機組合引擎生成動態句型重組題
-        const dynamicScramble = DynamicQuestionEngine.generateDynamicScramblePool(currentScrambleUnit, 10);
-        let pool = (ACTIVE_DATA && ACTIVE_DATA.scramble) ? [...ACTIVE_DATA.scramble] : [];
-        if (currentScrambleUnit !== 'all') {
-            pool = pool.filter(item => item.unit === currentScrambleUnit);
-        }
-        scrambleQueue = shuffleArray([...dynamicScramble, ...pool]).slice(0, 10);
-
-        loadNextScramble();
-    }
+    /* startScrambleExam() 已改寫，請見下方 v7 練習引擎 */
 
     function isPunctuation(t) { return [",", ".", "?", "!"].includes(t); }
 
@@ -11362,10 +11190,7 @@
         }
 
         if (scrambleQueue.length === 0) {
-            let pool = (ACTIVE_DATA && ACTIVE_DATA.scramble) ? [...ACTIVE_DATA.scramble] : [];
-            if (currentScrambleUnit !== 'all') pool = pool.filter(item => item.unit === currentScrambleUnit);
-            if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.scramble) pool = [...ACTIVE_DATA.scramble];
-            scrambleQueue = shuffleArray(pool);
+            scrambleQueue = buildSession('scramble', currentScrambleUnit, 5);
         }
 
         curScramble = scrambleQueue.pop();
@@ -11441,6 +11266,8 @@
         }
         const formed = userTokens.map(t => t.token).join(' ');
         const isRight = formed === curScramble.ans;
+        QuestionDeck.result(curScramble, isRight);
+        if (isRight) setTimeout(() => speakText(curScramble.ans.replace(/ ([,.!?])/g, '$1')), 300);
         const card = document.getElementById('scramble-exp-card');
         if (isRight) {
             document.getElementById('scramble-exp-title').innerText = "🎉 標點與語序完全正確！太棒了！";
@@ -11467,24 +11294,7 @@
     let spellCoinsEarned = 0;
     let currentSpellUnit = "all";
 
-    function startSpellingExam() {
-        document.getElementById('spell-lobby-cover').style.display = 'none';
-        document.getElementById('spell-exam-area').style.display = 'block';
-        if (document.getElementById('spell-unit-filter-bar')) document.getElementById('spell-unit-filter-bar').style.display = 'flex';
-
-        spellRound = 0;
-        spellCoinsEarned = 0;
-
-        // 即時透過演算法從全冊動態生成全新拼字題庫，保證每次進入都是全新題目！
-        const dynamicSpelling = DynamicQuestionEngine.generateDynamicSpellingPool(currentSpellUnit, 10);
-        let pool = (ACTIVE_DATA && ACTIVE_DATA.spelling) ? [...ACTIVE_DATA.spelling] : [];
-        if (currentSpellUnit !== 'all') {
-            pool = pool.filter(item => item.unit === currentSpellUnit);
-        }
-        spellQueue = shuffleArray([...dynamicSpelling, ...pool]).slice(0, 10);
-
-        loadNextSpelling();
-    }
+    /* startSpellingExam() 已改寫，請見下方 v7 練習引擎 */
 
     function loadNextSpelling() {
         if (!ACTIVE_DATA) return;
@@ -11502,11 +11312,9 @@
         }
 
         if (spellQueue.length === 0) {
-            let pool = (ACTIVE_DATA && ACTIVE_DATA.spelling) ? [...ACTIVE_DATA.spelling] : [];
-            if (currentSpellUnit !== 'all') pool = pool.filter(item => item.unit === currentSpellUnit);
-            if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.spelling) pool = [...ACTIVE_DATA.spelling];
-            spellQueue = shuffleArray(pool);
+            spellQueue = buildSession('spelling', currentSpellUnit, 5);
         }
+        spellHintUsed = false;
 
         curSp = spellQueue.pop();
         spellRound++;
@@ -11519,15 +11327,8 @@
         const bank = document.getElementById('sp-letters-bank');
         bank.innerHTML = '';
         
-        const alphabet = "abcdefghijklmnopqrstuvwxyz";
         const correctLetters = curSp.en.split('');
-        const distractors = [];
-        while (distractors.length < 3) {
-            const randChar = alphabet[Math.floor(Math.random() * alphabet.length)];
-            if (!distractors.includes(randChar) && !correctLetters.includes(randChar)) {
-                distractors.push(randChar);
-            }
-        }
+        const distractors = spellingDistractors(curSp.en, 3);   // 含 b/d、p/q、m/n 等易混淆字母
         const pool = shuffleArray([...correctLetters, ...distractors]);
 
         pool.forEach((letter, i) => {
@@ -11544,11 +11345,12 @@
                 if (userSpelled.length === curSp.en.length) {
                     const finalWord = userSpelled.map(x => x.letter).join('');
                     const isRight = finalWord === curSp.en;
+                    QuestionDeck.result(curSp, isRight);
                     const card = document.getElementById('sp-exp-card');
                     if (isRight) {
-                        document.getElementById('sp-exp-title').innerText = "🎉 拼字完全正確！發音超標準！";
+                        document.getElementById('sp-exp-title').innerText = spellHintUsed ? "🎉 拼對了！（有聽提示，星幣 +1）" : "🎉 沒聽提示就拼對，太強了！（星幣 +2）";
                         document.getElementById('sp-exp-body').innerText = `正確單字：${curSp.en} (${curSp.zh})`;
-                        const reward = 2;
+                        const reward = spellHintUsed ? 1 : 2;
                         state.coins += reward;
                         spellCoinsEarned += reward;
                         state.streak++;
@@ -11557,6 +11359,7 @@
                         document.getElementById('sp-exp-title').innerText = "❌ 字母選錯或順序有誤，請看正確拼法：";
                         document.getElementById('sp-exp-body').innerText = `正確拼法為：${curSp.en}`;
                         state.streak = 0;
+                        speakText(curSp.en);
                     }
                     revealAndScrollToCard('sp-exp-card');
                     saveUserState();
@@ -11586,7 +11389,7 @@
         if (originBtn) originBtn.classList.remove('used');
         renderSpellingSlots();
     }
-    function speakSpellingWord() { if (curSp) speakText(curSp.en); }
+    /* speakSpellingWord() 已改寫，請見下方 v7 練習引擎 */
     function nextSpellingQ() { loadNextSpelling(); }
 
     /* 5. 單字測驗 (有開始卡片，點擊後才開局) */
@@ -11596,88 +11399,10 @@
     let vqCoinsEarned = 0;
     let currentVocabUnit = "all";
 
-    function startVocabExam() {
-        document.getElementById('vocab-lobby-cover').style.display = 'none';
-        document.getElementById('vocab-exam-area').style.display = 'block';
-        if (document.getElementById('vocab-unit-filter-bar')) document.getElementById('vocab-unit-filter-bar').style.display = 'flex';
+    /* startVocabExam() 已改寫，請見下方 v7 練習引擎 */
 
-        vocabRound = 0;
-        vqCoinsEarned = 0;
-
-        // 即時演算法動態抽樣全冊 98+ 單字庫
-        const dynamicVocab = DynamicQuestionEngine.generateDynamicVocabPool(currentVocabUnit, 10);
-        vocabQueue = shuffleArray(dynamicVocab);
-
-        loadNextVocabQ();
-    }
-
-    function loadNextVocabQ() {
-        document.getElementById('vq-exp-card').style.display = 'none';
-        if (vocabRound >= 10) {
-            const finalBonus = 15;
-            state.coins += finalBonus;
-            vqCoinsEarned += finalBonus;
-            saveUserState();
-            document.getElementById('vocab-lobby-cover').style.display = 'flex';
-            document.getElementById('vocab-exam-area').style.display = 'none';
-            document.getElementById('vocab-progress').innerText = `準備中`;
-            showSettlementCard(`恭喜完成 10 題單字測驗！`, vqCoinsEarned);
-            return;
-        }
-
-        if (vocabQueue.length === 0) {
-            let pool = (ACTIVE_DATA && ACTIVE_DATA.vocab) ? [...ACTIVE_DATA.vocab] : [];
-            if (currentVocabUnit !== 'all') pool = pool.filter(item => item.unit === currentVocabUnit);
-            if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.vocab) pool = [...ACTIVE_DATA.vocab];
-            vocabQueue = shuffleArray(pool);
-        }
-
-        curVQ = vocabQueue.pop();
-        vocabRound++;
-        document.getElementById('vocab-progress').innerText = `第 ${vocabRound} / 10 題`;
-        document.getElementById('vq-word').innerText = curVQ.en;
-
-        const allV = ACTIVE_DATA ? ACTIVE_DATA.vocab : PURE_DEFENSE_VOCAB;
-        let wrongPool = shuffleArray(allV.filter(v => v.zh !== curVQ.zh).map(v => v.zh));
-        let choices = shuffleArray([curVQ.zh, wrongPool[0], wrongPool[1], wrongPool[2]]);
-
-        const list = document.getElementById('vq-options-list');
-        list.innerHTML = '';
-        choices.forEach((c, idx) => {
-            const btn = document.createElement('button');
-            btn.className = 'btn-ans-pc';
-            btn.id = `vq-opt-btn-${idx}`;
-            btn.innerText = c;
-            btn.onclick = () => {
-                document.querySelectorAll('#vq-options-list .btn-ans-pc').forEach(b => b.disabled = true);
-                const right = c === curVQ.zh;
-                if (right) {
-                    btn.classList.add('correct-reveal');
-                    document.getElementById('vq-exp-title').innerText = "✅ 答對了！字彙力提升！";
-                    const reward = 2;
-                    state.coins += reward;
-                    vqCoinsEarned += reward;
-                    state.streak++;
-                } else {
-                    btn.classList.add('user-wrong');
-                    choices.forEach((ch, i) => {
-                        if (ch === curVQ.zh) {
-                            const cb = document.getElementById(`vq-opt-btn-${i}`);
-                            if (cb) cb.classList.add('correct-reveal');
-                        }
-                    });
-                    document.getElementById('vq-exp-title').innerText = "❌ 答錯囉！";
-                    state.streak = 0;
-                }
-                document.getElementById('vq-exp-body').innerText = `${curVQ.en || ''} 代表「${curVQ.zh || ''}」｜ 例句: ${curVQ.ex || ''}`;
-                revealAndScrollToCard('vq-exp-card');
-                saveUserState();
-                { const _elS = document.getElementById('val-streak'); if (_elS) _elS.innerText = state.streak; }
-            };
-            list.appendChild(btn);
-        });
-    }
-    function speakCurrentVocab() { if (curVQ) speakText(curVQ.en); }
+    /* loadNextVocabQ() 已改寫，請見下方 v7 練習引擎 */
+    /* speakCurrentVocab() 已改寫，請見下方 v7 練習引擎 */
     function nextVocabQ() { loadNextVocabQ(); }
 
     /* 6. 是非題 (有開始卡片，102 題全真大題庫隨機抽取) */
@@ -11687,28 +11412,7 @@
     let tfCoinsEarned = 0;
     let currentTFUnit = "all";
 
-    function startTFExam() {
-        document.getElementById('tf-lobby-cover').style.display = 'none';
-        document.getElementById('tf-exam-area').style.display = 'block';
-        if (document.getElementById('tf-unit-filter-bar')) document.getElementById('tf-unit-filter-bar').style.display = 'flex';
-
-        tfRound = 0;
-        tfCoinsEarned = 0;
-
-        // 即時透過演算法動態衍生題目 (Procedural Generation)
-        const dynamicQuestions = DynamicQuestionEngine.generateDynamicTFPool(currentTFUnit, 8);
-
-        let pool = (ACTIVE_DATA && ACTIVE_DATA.tf) ? [...ACTIVE_DATA.tf] : [];
-        if (currentTFUnit !== 'all') {
-            pool = pool.filter(item => item.unit === currentTFUnit);
-        }
-        if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.tf) pool = [...ACTIVE_DATA.tf];
-        
-        // 演算法動態即時題目 + 課綱精選真題混合洗牌，每次點擊都絕對有全新演算法題目！
-        tfQueue = shuffleArray([...dynamicQuestions, ...pool]);
-
-        loadNextTF();
-    }
+    /* startTFExam() 已改寫，請見下方 v7 練習引擎 */
 
     function loadNextTF() {
         document.getElementById('tf-exp-card').style.display = 'none';
@@ -11725,10 +11429,7 @@
         }
 
         if (tfQueue.length === 0) {
-            let pool = (ACTIVE_DATA && ACTIVE_DATA.tf) ? [...ACTIVE_DATA.tf] : [];
-            if (currentTFUnit !== 'all') pool = pool.filter(item => item.unit === currentTFUnit);
-            if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.tf) pool = [...ACTIVE_DATA.tf];
-            tfQueue = shuffleArray(pool);
+            tfQueue = buildSession('tf', currentTFUnit, 5);
         }
 
         curTF = tfQueue.pop();
@@ -11747,6 +11448,7 @@
         tfBtns.forEach(b => b.disabled = true);
 
         const right = (val === curTF.ans);
+        QuestionDeck.result(curTF, right);
         const clickedBtn = val ? tfBtns[0] : tfBtns[1];
         const correctBtn = curTF.ans ? tfBtns[0] : tfBtns[1];
 
@@ -11769,11 +11471,7 @@
         saveUserState();
         { const _elS = document.getElementById('val-streak'); if (_elS) _elS.innerText = state.streak; }
     }
-    function speakCurrentTF() {
-        if (!curTF) return;
-        const speech = extractEnglishOnly(curTF.statement);
-        if (speech) speakText(speech);
-    }
+    /* speakCurrentTF() 已改寫，請見下方 v7 練習引擎 */
     function nextTFQ() { loadNextTF(); }
 
     
@@ -11825,8 +11523,7 @@
         if (progressEl) progressEl.innerText = `配對連擊: ${matchCombo} 組`;
 
         // 核心累積式複習：以當前課次為上限，含前面所有已學過單元單字，絕不超前出未學到的後續單元！
-        let pool = DynamicQuestionEngine.getCumulativeVocabPool(currentMatchUnit);
-        matchPairs = shuffleArray(pool).slice(0, 5);
+        matchPairs = pickMatchPairs();   // 牌組輪替：全部單字輪完一遍才會再出現
 
         const colEn = document.getElementById('match-col-en');
         const colZh = document.getElementById('match-col-zh');
@@ -12763,6 +12460,7 @@
 
     function speakText(t) {
         if ('speechSynthesis' in window) {
+            if (typeof _speechToken !== 'undefined') _speechToken++;
             window.speechSynthesis.cancel();
             const clean = t.replace(/[一-龥]/g, '').replace(/[_（）()【】：:?]/g, ' ').trim();
             if (!clean) return;
@@ -12818,28 +12516,7 @@
     let grammarCoinsEarned = 0;
     let currentGrammarUnit = "all";
 
-    function startGrammarExam() {
-        document.getElementById('grammar-lobby-cover').style.display = 'none';
-        document.getElementById('grammar-exam-area').style.display = 'block';
-        if (document.getElementById('grammar-unit-filter-bar')) document.getElementById('grammar-unit-filter-bar').style.display = 'flex';
-
-        grammarRound = 0;
-        grammarScore = 0;
-        grammarCoinsEarned = 0;
-
-        // 每次開始特訓，動態生成全新的冠詞與文法題目！
-        const dynamicGrammar = DynamicQuestionEngine.generateDynamicGrammarPool(currentGrammarUnit, 8);
-
-        let pool = (ACTIVE_DATA && ACTIVE_DATA.grammar_articles) ? [...ACTIVE_DATA.grammar_articles] : [];
-        if (currentGrammarUnit !== 'all') {
-            pool = pool.filter(item => item.unit === currentGrammarUnit);
-        }
-        if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.grammar_articles) pool = [...ACTIVE_DATA.grammar_articles];
-
-        grammarQueue = shuffleArray([...dynamicGrammar, ...pool]);
-
-        loadNextGrammarQ();
-    }
+    /* startGrammarExam() 已改寫，請見下方 v7 練習引擎 */
 
     function loadNextGrammarQ() {
         document.getElementById('grammar-exp-card').style.display = 'none';
@@ -12856,10 +12533,7 @@
         }
 
         if (grammarQueue.length === 0) {
-            let pool = (ACTIVE_DATA && ACTIVE_DATA.grammar_articles) ? [...ACTIVE_DATA.grammar_articles] : [];
-            if (currentGrammarUnit !== 'all') pool = pool.filter(item => item.unit === currentGrammarUnit);
-            if (pool.length === 0 && ACTIVE_DATA && ACTIVE_DATA.grammar_articles) pool = [...ACTIVE_DATA.grammar_articles];
-            grammarQueue = shuffleArray(pool);
+            grammarQueue = buildSession('grammar', currentGrammarUnit, 5);
         }
 
         curGrammar = grammarQueue.pop();
@@ -12886,6 +12560,9 @@
     function submitGrammarAns(idx, btn) {
         document.querySelectorAll('#grammar-options-box .btn-ans-pc').forEach(b => b.disabled = true);
         const right = idx === curGrammar.ans;
+        QuestionDeck.result(curGrammar, right);
+        // 答完才唸出完整句子（含正確答案）
+        if (/_{2,}/.test(curGrammar.q || '')) setTimeout(() => speakWithBlank(String(curGrammar.q).replace(/_{2,}/g, curGrammar.opts[curGrammar.ans])), 350);
         if (right) {
             btn.classList.add('correct-reveal');
             grammarScore += 10;
@@ -12904,11 +12581,7 @@
         revealAndScrollToCard('grammar-exp-card');
     }
 
-    function speakCurrentGrammar() {
-        if (!curGrammar) return;
-        const speech = cleanDialogueSpeech(curGrammar.q.replace(/____/g, curGrammar.opts[curGrammar.ans]));
-        speakText(speech);
-    }
+    /* speakCurrentGrammar() 已改寫，請見下方 v7 練習引擎 */
     function nextGrammarQ() { loadNextGrammarQ(); }
 
     /* ==================== 📑 期末全真模擬試卷 (整卷作答・非闖關) ==================== */
@@ -12916,52 +12589,7 @@
     let examUserAnswers = {};
     let isExamGraded = false;
 
-    function generateNewExamPaper() {
-        if (!ACTIVE_DATA) return;
-        isExamGraded = false;
-        examUserAnswers = {};
-        document.getElementById('examScoreStamp').style.display = 'none';
-        document.getElementById('headerScoreDisplay').innerText = '待交卷評分';
-        document.getElementById('headerScoreDisplay').style.color = '#dc2626';
-        document.getElementById('btn-submit-exam').style.display = 'inline-block';
-        document.getElementById('btn-re-exam').style.display = 'none';
-        document.getElementById('exam-done-counter').innerText = '0';
-
-        // 每次重新出卷，演算法即時生成動態題目注入考卷！
-        const dynamicMath1 = DynamicQuestionEngine.generateMathQuestion(false);
-        const dynamicMath2 = DynamicQuestionEngine.generateMathQuestion(false);
-        const dynamicArticle1 = DynamicQuestionEngine.generateArticleQuestion(false);
-        const dynamicArticle2 = DynamicQuestionEngine.generateArticleQuestion(false);
-        const dynamicColor = DynamicQuestionEngine.generateColorQuestion(false);
-        const dynamicGrammar = DynamicQuestionEngine.generateGrammarQuestion(false);
-
-        // 1. 聽力測驗 5 題 (每題4分，共20分)
-        const lisPool = shuffleArray(ACTIVE_DATA.listening || []).slice(0, 5);
-        // 2. 字母與發音 5 題 (每題4分，共20分)
-        const phonicsPool = shuffleArray([
-            ...ACTIVE_DATA.stages[0].questions.filter(q => q.opts && q.opts.length === 4),
-            dynamicMath1, dynamicMath2
-        ]).slice(0, 5);
-        // 3. 冠詞與文法 8 題 (每題4分，共32分)
-        const grammarPool = shuffleArray([
-            dynamicArticle1, dynamicArticle2, dynamicGrammar,
-            ...(ACTIVE_DATA.grammar_articles || [])
-        ]).slice(0, 8);
-        // 4. 情境對話與閱讀 7 題 (每題4分，共28分)
-        const finalQs = shuffleArray([
-            dynamicColor,
-            ...ACTIVE_DATA.stages[7].questions, ...ACTIVE_DATA.stages[3].questions
-        ]).filter(q => q.opts && q.opts.length === 4).slice(0, 7);
-
-        currentExamQuestions = [
-            ...lisPool.map(q => ({ ...q, section: "part1", secTitle: "一、 聽力理解測驗 (每題 4 分，共 20 分)" })),
-            ...phonicsPool.map(q => ({ ...q, section: "part2", secTitle: "二、 字母與自然發音辨識 (每題 4 分，共 20 分)" })),
-            ...grammarPool.map(q => ({ ...q, section: "part3", secTitle: "三、 冠詞與文法選擇題 (每題 4 分，共 32 分)" })),
-            ...finalQs.map(q => ({ ...q, section: "part4", secTitle: "四、 情境會話與日常素養 (每題 4 分，共 28 分)" }))
-        ];
-
-        renderExamPaperList();
-    }
+    /* generateNewExamPaper() 已改寫，請見下方 v7 練習引擎 */
 
     function renderExamPaperList() {
         const container = document.getElementById('exam-paper-questions-list');
@@ -13001,7 +12629,7 @@
                     <div style="font-size: 16px; font-weight: 800; color: #0f172a;">
                         <span style="color:#0284c7; margin-right:4px;">${idx + 1}.</span> ${cleanQ}
                     </div>
-                    ${hasAudio ? `<button type="button" class="btn-audio-pc" style="padding:4px 10px; font-size:12.5px;" onclick="speakText('${safeAudio}')">🔊 播放聽力</button>` : ''}
+                    ${hasAudio ? `<button type="button" class="btn-audio-pc" style="padding:4px 10px; font-size:12.5px;" onclick="speakExamQ(${idx})">🔊 播放聽力</button>` : ''}
                 </div>
                 <div class="exam-opts-grid">${optsHtml}</div>
                 <div id="exam-q-exp-${idx}" style="display:none; font-size:13.5px; color:#475569; margin-top:8px; padding-top:6px; border-top:1px dashed #cbd5e1;"></div>
@@ -13092,6 +12720,847 @@
             `總分：<b style="font-size:26px; color:#dc2626;">${totalScore}</b> / 100 分！<br>答對 <b>${correctCount}</b> / 25 題！獎勵 <b>+${starReward} ⭐</b> 星幣！<br>考卷下方已附上每道題目的完整名師解析，請仔細訂正喔！`
         );
     }
+
+    /* ======================================================================
+       ✨ v7 練習引擎：①跨次不重複抽題 ②大量自動出題 ③朗讀不洩答案
+       ====================================================================== */
+
+    const UNIT_ORDER = ['starter', 'u1', 'u2', 'midterm', 'u3', 'u4', 'halloween', 'final'];
+    function unitsUpTo(unit) {
+        if (!unit || unit === 'all' || unit === 'final') return UNIT_ORDER;
+        const i = UNIT_ORDER.indexOf(unit);
+        return i < 0 ? [unit] : UNIT_ORDER.slice(0, i + 1);
+    }
+    function pickOne(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+    function capFirst(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+    function escRe(s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+    function hashStr(s) {
+        let h = 5381; s = String(s);
+        for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+        return (h >>> 0).toString(36);
+    }
+
+    /* ---------- 📦 題目牌組：記住做過的題目，整副做完才重新洗牌 ---------- */
+    const QuestionDeck = {
+        KEY: 'ENGLISH_ADVENTURE_DECK_V7',
+        data: null,
+        load() {
+            if (this.data) return;
+            try { this.data = JSON.parse(localStorage.getItem(this.KEY)) || {}; } catch (e) { this.data = {}; }
+            if (!this.data.seen) this.data.seen = {};
+            if (!this.data.wrong) this.data.wrong = {};
+        },
+        save() { try { localStorage.setItem(this.KEY, JSON.stringify(this.data)); } catch (e) {} },
+        sig(q) {
+            if (!q) return '';
+            return hashStr([q.q, q.prompt, q.statement, q.hint, q.audio, q.en, q.display, q.mode,
+                Array.isArray(q.opts) ? q.opts.join('/') : '', String(q.ans)].join('|'));
+        },
+        /* 從 pool 抽 count 題：先放「之前答錯」的題(最多 maxReview 題)，再抽「還沒做過」的；整副做完才重洗 */
+        draw(deckKey, pool, count, maxReview = 2) {
+            this.load();
+            const uniq = [], seenSig = new Set();
+            (pool || []).forEach(q => {
+                if (!q) return;
+                const k = this.sig(q);
+                if (!seenSig.has(k)) { seenSig.add(k); uniq.push(q); }
+            });
+            const out = [], outSig = new Set();
+            const take = q => { const k = this.sig(q); if (outSig.has(k)) return; outSig.add(k); out.push(Object.assign({}, q, { __deck: deckKey })); };
+
+            // 1) 錯題回流
+            const wrongs = shuffleArray(this.data.wrong[deckKey] || []);
+            for (const q of wrongs) { if (out.length >= Math.min(maxReview, count)) break; take(q); }
+
+            // 2) 尚未做過的題目
+            let seen = new Set(this.data.seen[deckKey] || []);
+            let fresh = shuffleArray(uniq.filter(q => !seen.has(this.sig(q)) && !outSig.has(this.sig(q))));
+            fresh.slice(0, count - out.length).forEach(take);
+
+            // 3) 整副都做過了 → 開新一輪
+            if (out.length < count) {
+                seen = new Set();
+                shuffleArray(uniq.filter(q => !outSig.has(this.sig(q)))).slice(0, count - out.length).forEach(take);
+            }
+            out.forEach(q => seen.add(this.sig(q)));
+            // 若整副都已做過則清空，下一次從新的一輪開始
+            if (uniq.length > 0 && uniq.every(q => seen.has(this.sig(q)))) seen = new Set(out.map(q => this.sig(q)));
+            this.data.seen[deckKey] = Array.from(seen).slice(-600);
+            this.save();
+            return out;
+        },
+        result(q, isRight) {
+            if (!q || !q.__deck) return;
+            this.load();
+            const key = q.__deck, k = this.sig(q);
+            let list = (this.data.wrong[key] || []).filter(x => this.sig(x) !== k);
+            if (!isRight) {
+                const copy = Object.assign({}, q); delete copy.__deck;
+                list.push(copy);
+            }
+            this.data.wrong[key] = list.slice(-20);
+            this.save();
+        },
+        reset() { this.data = { seen: {}, wrong: {} }; this.save(); }
+    };
+
+    /* ---------- 📚 單字工具 ---------- */
+    const NUM_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+    const COLOR_WORDS = ['red', 'blue', 'yellow', 'green', 'black', 'white', 'purple', 'orange', 'pink'];
+    const NOT_COUNTABLE = new Set(['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+        'red', 'blue', 'yellow', 'green', 'black', 'white', 'purple', 'milk', 'juice', 'ice', 'jam', 'yogurt',
+        'free', 'kids', 'years', 'year', 'ink', 'sun', 'name', 'birthday', 'all_vocab', 'candy']);
+    const IRREGULAR_PLURAL = { fish: 'fish', ox: 'oxen', child: 'children', man: 'men', woman: 'women', foot: 'feet', mouse: 'mice', sheep: 'sheep' };
+    const CONFUSABLE = { b: 'd', d: 'b', p: 'q', q: 'p', m: 'n', n: 'm', a: 'e', e: 'i', i: 'e', o: 'u', u: 'o', c: 'k', k: 'c', s: 'z', z: 's', v: 'w', w: 'v', g: 'j', j: 'g', l: 'r', r: 'l', t: 'f', f: 't', h: 'n', y: 'v', x: 's' };
+
+    /* 具體名詞（動物、物品）：用在「形容詞 + 名詞」與複數題，避免出現奇怪的組合 */
+    const CONCRETE_NOUNS = new Set(['apple', 'ant', 'cat', 'cup', 'dog', 'egg', 'elephant', 'frog', 'duck', 'book', 'box', 'desk', 'pencil',
+        'pen', 'ruler', 'eraser', 'chair', 'bag', 'marker', 'bus', 'pig', 'rabbit', 'snake', 'tiger', 'turtle', 'hat', 'fan', 'goat', 'insect',
+        'jet', 'kite', 'lion', 'monkey', 'key', 'otter', 'umbrella', 'vest', 'van', 'watch', 'window', 'fox', 'yo-yo', 'zebra', 'pumpkin',
+        'bat', 'spider', 'witch', 'ghost', 'vampire', 'queen']);
+    function isConcreteNoun(v) { return isCountableNoun(v) && CONCRETE_NOUNS.has(v.en); }
+    function concreteOf(pool) { const c = pool.filter(isConcreteNoun); return c.length >= 4 ? c : vocabPool('all').filter(isConcreteNoun); }
+
+    function cleanZh(zh) { return String(zh || '').split('/')[0].trim(); }
+    function articleFor(word) {
+        const w = String(word).toLowerCase();
+        if (/^(hour|honest)/.test(w)) return 'an';
+        if (/^(uni|use|eu|one)/.test(w)) return 'a';
+        return /^[aeiou]/.test(w) ? 'an' : 'a';
+    }
+    function pluralOf(w) {
+        if (IRREGULAR_PLURAL[w]) return IRREGULAR_PLURAL[w];
+        if (w === 'yo-yo') return 'yo-yos';
+        if (/(s|x|z|ch|sh)$/.test(w)) return w + 'es';
+        if (/[^aeiou]y$/.test(w)) return w.slice(0, -1) + 'ies';
+        return w + 's';
+    }
+    function isCountableNoun(v) {
+        const w = v.en;
+        return !NOT_COUNTABLE.has(w) && !w.includes(' ') && /^[a-z-]+$/.test(w) && !/顏色|數字|票價/.test(v.phonics || '');
+    }
+    function vocabPool(unit) {
+        const all = (ACTIVE_DATA && ACTIVE_DATA.vocab ? ACTIVE_DATA.vocab : []).filter(v => v && v.en && v.en !== 'all_vocab');
+        const allowed = unitsUpTo(unit);
+        const pool = all.filter(v => !v.unit || allowed.includes(v.unit));
+        return pool.length >= 8 ? pool : all;
+    }
+    function zhConflict(a, b) {
+        if (!a || !b) return true;
+        if (a.en === b.en || a.en + 's' === b.en || b.en + 's' === a.en) return true;
+        const pa = String(a.zh).split('/').map(s => s.trim()), pb = String(b.zh).split('/').map(s => s.trim());
+        return pa.some(x => pb.includes(x));
+    }
+    function pickDistractors(target, pool, n, filterFn) {
+        const out = [];
+        const shuffled = shuffleArray(pool);
+        // 優先挑同單元的字當干擾選項（比較有鑑別度），再補其他單元
+        const ordered = [...shuffled.filter(v => v.unit && v.unit === target.unit), ...shuffled.filter(v => !v.unit || v.unit !== target.unit)];
+        for (const v of ordered) {
+            if (out.length >= n) break;
+            if (zhConflict(v, target)) continue;
+            if (filterFn && !filterFn(v)) continue;
+            if (out.some(o => zhConflict(o, v))) continue;
+            out.push(v);
+        }
+        if (out.length < n) {
+            const all = vocabPool('all');
+            for (const v of shuffleArray(all)) {
+                if (out.length >= n) break;
+                if (zhConflict(v, target) || out.some(o => zhConflict(o, v))) continue;
+                if (filterFn && !filterFn(v)) continue;
+                out.push(v);
+            }
+        }
+        return out;
+    }
+    function misspell(w) {
+        const vocabSet = new Set(vocabPool('all').map(v => v.en));
+        const cands = new Set();
+        const chars = w.split('');
+        for (let i = 0; i < chars.length - 1; i++) {
+            if (chars[i] !== chars[i + 1]) { const c = [...chars];[c[i], c[i + 1]] = [c[i + 1], c[i]]; cands.add(c.join('')); }
+        }
+        chars.forEach((ch, i) => {
+            if (CONFUSABLE[ch]) { const c = [...chars]; c[i] = CONFUSABLE[ch]; cands.add(c.join('')); }
+        });
+        if (w.length > 3) for (let i = 1; i < w.length; i++) cands.add(w.slice(0, i) + w.slice(i + 1));
+        const list = [...cands].filter(x => x !== w && !vocabSet.has(x) && x.length >= 2);
+        return list.length ? pickOne(list) : w + 'e';
+    }
+    function tokenizeSentence(s) { return String(s).replace(/([,.!?])/g, ' $1 ').split(/\s+/).filter(Boolean); }
+    function usableSentence(v) {
+        const s = v.ex || '';
+        if (!/^[A-Z]/.test(s) || /[0-9$\-]/.test(s) || /\band\b/i.test(s)) return false;
+        const words = tokenizeSentence(s).filter(t => !/^[,.!?]$/.test(t));
+        return words.length >= 3 && words.length <= 7 && /[.!?]$/.test(s.trim());
+    }
+    function sentenceHasWord(v) { return new RegExp('\\b' + escRe(v.en) + '\\b', 'i').test(v.ex || ''); }
+
+    /* ---------- 🏭 自動出題工廠 ---------- */
+    const QuestionFactory = {
+
+        /* 單字測驗：四種題型輪流 (英選中、中選英、聽音選義、例句填空) */
+        vocabQuestion(v, pool, forceMode) {
+            const zh = cleanZh(v.zh);
+            const modes = ['en2zh', 'en2zh', 'zh2en', 'zh2en', 'listen', 'listen'];
+            if (usableSentence(v) && sentenceHasWord(v)) modes.push('cloze', 'cloze');
+            const mode = forceMode || pickOne(modes);
+            const ds = pickDistractors(v, pool, 3);
+            if (mode === 'zh2en' || mode === 'cloze') {
+                const opts = shuffleArray([v.en, ...ds.map(d => d.en)]);
+                if (mode === 'cloze') {
+                    const blanked = v.ex.replace(new RegExp('\\b' + escRe(v.en) + '\\b', 'i'), '____');
+                    return { mode, v, unit: v.unit, display: blanked, sub: `（提示：${zh}）`, opts, ans: opts.indexOf(v.en),
+                        speak: blanked, after: v.ex, prompt: '例句填空：選出空格的英文單字' };
+                }
+                return { mode, v, unit: v.unit, display: zh, sub: '看中文，選出正確的英文單字', opts, ans: opts.indexOf(v.en),
+                    speak: '', after: v.en, prompt: '中選英' };
+            }
+            const opts = shuffleArray([zh, ...ds.map(d => cleanZh(d.zh))]);
+            if (mode === 'listen') {
+                return { mode, v, unit: v.unit, display: '🎧 ？？？', sub: '按「播放發音」聽單字，選出中文意思', opts, ans: opts.indexOf(zh),
+                    speak: v.en, after: v.en, prompt: '聽音選義' };
+            }
+            return { mode: 'en2zh', v, unit: v.unit, display: v.en, sub: '選出正確的中文意思', opts, ans: opts.indexOf(zh),
+                speak: v.en, after: v.en, prompt: '英選中' };
+        },
+
+        /* 是非題 */
+        tfQuestion(pool) {
+            const nouns = pool.filter(isCountableNoun);
+            const r = Math.random();
+            if (r < 0.25) {
+                const v = pickOne(pool), right = Math.random() > 0.5;
+                const shown = right ? cleanZh(v.zh) : cleanZh(pickDistractors(v, pool, 1)[0].zh);
+                return { unit: v.unit, statement: `英文單字「${v.en}」的中文意思是「${shown}」。`, ans: right, speak: v.en,
+                    trans: `${v.en} = ${cleanZh(v.zh)}`, note: right ? `正確！${v.en} 就是「${cleanZh(v.zh)}」。` : `錯誤！${v.en} 是「${cleanZh(v.zh)}」，不是「${shown}」。` };
+            }
+            if (r < 0.5) {
+                const v = pickOne(pool.filter(x => /^[a-z]+$/.test(x.en) && x.en.length >= 3)), right = Math.random() > 0.5;
+                const shown = right ? v.en : misspell(v.en);
+                return { unit: v.unit, statement: `「${cleanZh(v.zh)}」的英文拼法是「${shown}」。`, ans: right, speak: '',
+                    trans: `${cleanZh(v.zh)} = ${v.en}`, note: right ? `正確！拼法就是 ${v.en.split('').join('-')}。` : `錯誤！正確拼法是 ${v.en.split('').join('-')}，不是 ${shown}。` };
+            }
+            if (r < 0.7 && nouns.length) {
+                const v = pickOne(nouns), correct = articleFor(v.en), right = Math.random() > 0.5;
+                const claim = right ? correct : (correct === 'a' ? 'an' : 'a');
+                return { unit: v.unit, statement: `單數的「${cleanZh(v.zh)}」，英文要說「${claim} ${v.en}」。`, ans: right, speak: `${claim} ${v.en}`,
+                    trans: `${correct} ${v.en}`, note: `${v.en} 開頭是${correct === 'an' ? '母音' : '子音'}發音，所以用 ${correct}。` };
+            }
+            if (r < 0.85 && nouns.length) {
+                const v = pickOne(concreteOf(pool).filter(x => !IRREGULAR_PLURAL[x.en])), n = 2 + Math.floor(Math.random() * 9);
+                const correct = pluralOf(v.en), right = Math.random() > 0.5;
+                const wrong = /es$/.test(correct) ? v.en + 's' : (/ies$/.test(correct) ? v.en + 's' : v.en);
+                const claim = right ? correct : wrong;
+                return { unit: v.unit, statement: `「${cleanZh(v.zh)} × ${n}」英文要說「${NUM_WORDS[n]} ${claim}」。`, ans: right, speak: `${NUM_WORDS[n]} ${claim}`,
+                    trans: `${NUM_WORDS[n]} ${correct}`, note: `兩個以上要用複數：${v.en} → ${correct}。` };
+            }
+            // 形容詞陷阱：冠詞看「緊鄰的下一個字」
+            const v = pickOne(concreteOf(pool)), adj = pickOne(['big', 'little', 'cute', 'old', 'orange', 'red', 'blue', 'green', 'yellow', 'black', 'white']);
+            const correct = articleFor(adj), right = Math.random() > 0.5, claim = right ? correct : (correct === 'a' ? 'an' : 'a');
+            return { unit: 'u3', statement: `「${claim} ${adj} ${v.en}」是正確的說法。`, ans: right, speak: `${claim} ${adj} ${v.en}`,
+                trans: `${correct} ${adj} ${v.en}`, note: `冠詞要看緊鄰的下一個字：${adj} 是${correct === 'an' ? '母音' : '子音'}開頭，所以用 ${correct}。` };
+        },
+
+        /* 文法選擇題 */
+        grammarQuestion(pool) {
+            const nouns = pool.filter(isCountableNoun);
+            const r = Math.random();
+            if (r < 0.3 && nouns.length) {
+                const v = pickOne(nouns), correct = articleFor(v.en);
+                const tpl = pickOne([`Look! It is ____ ${v.en}.`, `I have ____ ${v.en}.`, `A: What's this? B: It's ____ ${v.en}.`,
+                    `I see ____ ${v.en}.`, `There is ____ ${v.en} in the box.`, `Is this ____ ${v.en}?`]);
+                const opts = shuffleArray(['a', 'an', 'two', 'the an']);
+                return { unit: v.unit, type: '冠詞 a/an', q: tpl, opts, ans: opts.indexOf(correct),
+                    trans: tpl.replace('____', correct) + `（${cleanZh(v.zh)}）`, note: `${v.en} 開頭是${correct === 'an' ? '母音' : '子音'}發音，用 ${correct}。` };
+            }
+            if (r < 0.5 && nouns.length) {
+                const v = pickOne(concreteOf(pool)), adj = pickOne(['big', 'little', 'cute', 'old', 'orange', 'red', 'blue', 'green', 'yellow', 'black', 'white', 'purple']);
+                const correct = articleFor(adj), q = pickOne([`I see ____ ${adj} ${v.en}.`, `It is ____ ${adj} ${v.en}.`, `This is ____ ${adj} ${v.en}.`]);
+                const opts = shuffleArray(['a', 'an', 'two', 'the a']);
+                return { unit: 'u4', type: '冠詞陷阱 (看下一個字)', q, opts, ans: opts.indexOf(correct),
+                    trans: q.replace('____', correct), note: `空格後面緊接的是 ${adj}（${correct === 'an' ? '母音' : '子音'}開頭），所以用 ${correct}，跟 ${v.en} 無關！` };
+            }
+            if (r < 0.68 && nouns.length) {
+                const v = pickOne(concreteOf(pool).filter(x => !IRREGULAR_PLURAL[x.en])), n = 2 + Math.floor(Math.random() * 9), correct = pluralOf(v.en);
+                const cand = [correct, v.en + 's', v.en + 'es', v.en, `a ${v.en}`];
+                const opts = shuffleArray([correct, ...shuffleArray([...new Set(cand.filter(c => c !== correct))]).slice(0, 3)]);
+                const q = pickOne([`I have ${NUM_WORDS[n]} ____.`, `Look! ${capFirst(NUM_WORDS[n])} ____.`, `I see ${NUM_WORDS[n]} ____.`]);
+                return { unit: v.unit, type: '名詞複數', q, opts, ans: opts.indexOf(correct),
+                    trans: q.replace('____', correct) + `（${cleanZh(v.zh)} × ${n}）`, note: `${NUM_WORDS[n]} 是 ${n}，後面名詞要用複數 ${correct}。` };
+            }
+            if (r < 0.82) {
+                const v = pickOne(concreteOf(pool)), c = pickOne(COLOR_WORDS.filter(x => x !== 'orange'));
+                const q = pickOne([`Look at my ${v.en}. It is ____.`, `A: What color is the ${v.en}? B: It's ____.`]);
+                const opts = shuffleArray([c, `a ${c}`, `an ${c}`, `${c}s`]);
+                return { unit: 'u4', type: '顏色不加 a/an', q, opts, ans: opts.indexOf(c),
+                    trans: q.replace('____', c), note: '顏色單獨放在句尾時是形容詞，前面不加 a / an，也不加 s！' };
+            }
+            const be = pickOne([
+                { q: 'I ____ a student.', a: 'am' }, { q: 'You ____ my friend.', a: 'are' }, { q: 'It ____ a pen.', a: 'is' },
+                { q: 'I ____ nine years old.', a: 'am' }, { q: 'This ____ my bag.', a: 'is' }, { q: 'A: How ____ you? B: I am fine.', a: 'are' },
+                { q: 'A: What ____ this? B: It is a ruler.', a: 'is' }, { q: 'My name ____ Leo.', a: 'is' }, { q: 'You ____ eight.', a: 'are' }
+            ]);
+            const opts = shuffleArray(['am', 'is', 'are', 'be']);
+            return { unit: 'u2', type: 'be 動詞 am / is / are', q: be.q, opts, ans: opts.indexOf(be.a),
+                trans: be.q.replace('____', be.a), note: 'I 配 am、You 配 are、It / This / 名字 配 is。' };
+        },
+
+        /* 聽力題 */
+        listeningQuestion(pool) {
+            const r = Math.random();
+            if (r < 0.4) {
+                const v = pickOne(pool), zh = cleanZh(v.zh), opts = shuffleArray([zh, ...pickDistractors(v, pool, 3).map(d => cleanZh(d.zh))]);
+                return { unit: v.unit, audio: v.en, prompt: '🎧 請聽單字，選出正確的中文意思：', opts, ans: opts.indexOf(zh),
+                    trans: `${v.en} = ${zh}`, note: `例句：${v.ex || ''}` };
+            }
+            if (r < 0.7) {
+                const cands = pool.filter(v => usableSentence(v) && sentenceHasWord(v));
+                if (cands.length) {
+                    const v = pickOne(cands);
+                    const ds = pickDistractors(v, pool, 3, d => !new RegExp('\\b' + escRe(d.en) + '\\b', 'i').test(v.ex));
+                    const opts = shuffleArray([v.en, ...ds.map(d => d.en)]);
+                    return { unit: v.unit, audio: v.ex, prompt: '🎧 請聽句子，句子裡出現了哪一個單字？', opts, ans: opts.indexOf(v.en),
+                        trans: `${v.ex}（${v.en} = ${cleanZh(v.zh)}）`, note: '先抓住句子裡的關鍵名詞！' };
+                }
+            }
+            const v = pickOne(pool.filter(x => /^[a-z]/.test(x.en))), first = v.en[0];
+            const letters = new Set([first]);
+            if (CONFUSABLE[first]) letters.add(CONFUSABLE[first]);
+            while (letters.size < 4) letters.add('abcdefghijklmnopqrstuvwxyz'[Math.floor(Math.random() * 26)]);
+            const opts = shuffleArray([...letters]);
+            return { unit: v.unit, audio: v.en, prompt: '🎧 請聽單字，選出它的「第一個字母」：', opts, ans: opts.indexOf(first),
+                trans: `${v.en}（${cleanZh(v.zh)}）的第一個字母是 ${first}`, note: `自然發音：${v.phonics || ''}` };
+        },
+
+        /* 句型重組：用課本例句 */
+        scrambleQuestion(v) {
+            const tokens = tokenizeSentence(v.ex);
+            return { unit: v.unit, hint: `重組課本例句（關鍵字：${v.en} = ${cleanZh(v.zh)}，共 ${tokens.length} 塊）`, tokens, ans: tokens.join(' '),
+                trans: v.ex, note: '句子第一個字母大寫，句尾記得放標點符號。' };
+        },
+
+        /* 拼字題 */
+        spellingItem(v) { return { unit: v.unit, en: v.en, zh: cleanZh(v.zh), phonics: v.phonics || '' }; }
+    };
+
+    /* 為一個模式建立「本次 10 題」：題庫真題 + 自動生成題，跨次不重複 */
+    function buildSession(kind, unit, count = 10) {
+        const pool = vocabPool(unit);
+        const allowed = unitsUpTo(unit);
+        const staticOf = arr => (arr || []).filter(x => unit === 'all' || !x.unit || allowed.includes(x.unit));
+        const gen = (fn, n) => { const out = []; for (let i = 0; i < n; i++) { try { const q = fn(); if (q) out.push(q); } catch (e) {} } return out; };
+        let staticPool = [], genPool = [], staticShare = 0.5;
+        if (kind === 'tf') {
+            staticPool = staticOf(ACTIVE_DATA.tf);
+            genPool = [...gen(() => QuestionFactory.tfQuestion(pool), 40), ...DynamicQuestionEngine.generateDynamicTFPool(unit, 6)];
+        } else if (kind === 'grammar') {
+            staticPool = staticOf(ACTIVE_DATA.grammar_articles);
+            genPool = [...gen(() => QuestionFactory.grammarQuestion(pool), 40), ...DynamicQuestionEngine.generateDynamicGrammarPool(unit, 6)];
+        } else if (kind === 'listening') {
+            staticPool = staticOf(ACTIVE_DATA.listening);
+            genPool = gen(() => QuestionFactory.listeningQuestion(pool), 40);
+        } else if (kind === 'scramble') {
+            staticPool = staticOf(ACTIVE_DATA.scramble);
+            genPool = pool.filter(usableSentence).map(v => QuestionFactory.scrambleQuestion(v));
+        } else if (kind === 'spelling') {
+            staticPool = staticOf(ACTIVE_DATA.spelling);
+            genPool = pool.filter(v => /^[a-z]{3,8}$/.test(v.en)).map(v => QuestionFactory.spellingItem(v));
+            staticShare = 0.3;
+        }
+        const nStatic = Math.min(staticPool.length, Math.round(count * staticShare));
+        const a = QuestionDeck.draw(`${kind}:static:${unit}`, staticPool, nStatic);
+        const b = QuestionDeck.draw(`${kind}:gen:${unit}`, genPool, count - a.length, 1);
+        // 去除同一單字/同一句重複
+        const seenText = new Set(), out = [];
+        shuffleArray([...a, ...b]).forEach(q => {
+            const key = (q.en || q.statement || q.q || q.audio || q.ans || '') + '';
+            if (seenText.has(key)) return;
+            seenText.add(key); out.push(q);
+        });
+        while (out.length < count && genPool.length) { const q = Object.assign({}, pickOne(genPool), { __deck: `${kind}:gen:${unit}` }); out.push(q); }
+        return out;
+    }
+
+    /* 聽力選項：如果選項同時有中文與英文括號，把英文藏起來（不然看字就能配對，練不到聽力） */
+    function hideEnglishInOption(opt) {
+        const s = String(opt);
+        if (!/[一-龥]/.test(s.replace(/[（(][^）)]*[）)]/g, ''))) {
+            // 選項主體不是中文 → 只有在主體是數字時才藏括號英文
+            if (!/^\s*[0-9]/.test(s)) return s;
+        }
+        return s.replace(/\s*[（(][^）)]*[A-Za-z][^）)]*[）)]/g, '').trim() || s;
+    }
+
+    /* ==================== 🔊 朗讀：遇到空格「叮」一聲，不唸答案 ==================== */
+    var _activeUtterances = [];
+    var _speechToken = 0;   // 每次新朗讀都換號碼，舊的「叮」後半句就不會接著唸
+    function prepSpeech(text) {
+        return String(text || '')
+            .replace(/\b[AB]\s*[:：]\s*/g, ' ')
+            .replace(/['"“”‘’](?=\s|$|[,.!?])|(^|\s)['"“”‘’]/g, '$1')
+            .replace(/[一-龥　-〿＀-￯]+/g, ' ')
+            .replace(/[（）()【】\[\]]/g, ' ')
+            .replace(/\s+/g, ' ').trim();
+    }
+    function speakWithBlank(text) {
+        if (!('speechSynthesis' in window)) return false;
+        const segs = String(text || '').split(/_{2,}|\[\s*\?\s*\]/).map(prepSpeech);
+        if (!segs.some(s => /[A-Za-z]/.test(s))) return false;
+        window.speechSynthesis.cancel();
+        _activeUtterances = [];
+        const my = ++_speechToken;
+        SoundEngine.duck();
+        let i = 0;
+        const next = () => {
+            if (my !== _speechToken) return;
+            if (i >= segs.length) { SoundEngine.unduck(); return; }
+            const s = segs[i], isLast = i === segs.length - 1; i++;
+            const after = () => {
+                if (my !== _speechToken) return;
+                if (!isLast) { SoundEngine.playTone(880, 'sine', 0.25, 0.12); setTimeout(next, 500); }
+                else SoundEngine.unduck();
+            };
+            if (!/[A-Za-z0-9]/.test(s)) { after(); return; }
+            const u = new SpeechSynthesisUtterance(s);
+            u.lang = 'en-US'; u.rate = 0.7;
+            u.onend = after; u.onerror = after;
+            _activeUtterances.push(u);
+            window.speechSynthesis.speak(u);
+        };
+        next();
+        return true;
+    }
+    /* 若朗讀內容含有正確答案、而且答案沒出現在畫面題目上 → 把答案換成「叮」 */
+    function hideAnswerInSpeech(speech, q) {
+        if (!speech || !q || !Array.isArray(q.opts) || typeof q.ans !== 'number') return speech;
+        const qText = String(q.q || q.prompt || '');
+        const pureListening = !!q.audio && /聽/.test(qText) && !/_{2,}/.test(qText);
+        if (pureListening) return speech;
+        const ansRaw = String(q.opts[q.ans] || '');
+        const ansEn = (ansRaw.match(/[A-Za-z][A-Za-z'’ ,.!?-]*/g) || []).join(' ').replace(/[\s,.!?]+$/, '').trim();
+        if (!ansEn || ansEn.length < 2) return speech;
+        const re = new RegExp('(^|[^A-Za-z])' + escRe(ansEn) + '(?![A-Za-z])', 'i');
+        if (re.test(qText.replace(/_{2,}/g, ' '))) return speech;
+        return speech.replace(re, '$1 ____ ');
+    }
+    function noSpeakHint(msg) {
+        showCenterDialog('🤫 這題不唸喔', msg || '這一題要靠自己想！答完之後會唸給你聽 😊');
+    }
+
+
+    /* ==================== v7：各練習模式改用新引擎 ==================== */
+
+    /* ---------- 冒險闖關：單字轉題 ---------- */
+    function buildMultiTypeBattleQ(vocabItem) {
+        if (!vocabItem) return null;
+        const pool = vocabPool('all');
+        const v = Object.assign({}, vocabItem);
+        if (!v.ex) { const full = pool.find(x => x.en === v.en); if (full) Object.assign(v, full); }
+        const vEn = v.en.toLowerCase(), vZh = cleanZh(v.zh);
+        const roll = Math.random();
+
+        // 1. 拼字積木（不先唸，避免洩答）
+        if (roll < 0.22 && /^[a-z]{3,8}$/.test(vEn)) {
+            return {
+                type: 'block', word: v.en, targetWord: vEn, speak: '', speakAfter: v.en,
+                noSpeakMsg: '拼字題要靠自己拼！拼完之後會唸給你聽 😊',
+                prompt: `【🔤 拼字挑戰】請依序點選積木拼出：「${vZh}」`,
+                tokens: shuffleArray([...vEn.split(''), ...spellingDistractors(vEn, 3)]),
+                trans: `${v.en} = ${vZh}`, note: `自然發音：${v.phonics || ''} ｜ 例句：${v.ex || ''}`
+            };
+        }
+        // 2. 是非題（字義 / 拼法 / 冠詞 / 鏡像字母）
+        if (roll < 0.45) {
+            const first = vEn[0];
+            if (['b', 'd', 'p', 'q'].includes(first) && Math.random() < 0.4) {
+                const isRightBelly = (first === 'b' || first === 'p'), askRight = Math.random() > 0.5;
+                return {
+                    type: 'tf', word: v.en, isTrue: askRight ? isRightBelly : !isRightBelly, speak: '', speakAfter: v.en,
+                    noSpeakMsg: '這題考字母長相，聽發音會洩答案喔！',
+                    prompt: `【⭕❌ 鏡像字母】「${vZh}」的英文第一個字母，肚子/圓圈朝【${askRight ? '右邊' : '左邊'}】。`,
+                    trans: `開頭字母為 ${first}`, note: 'b、p 圓圈在右邊；d、q 圓圈在左邊！'
+                };
+            }
+            const sub = Math.random();
+            if (sub < 0.4) {
+                const right = Math.random() > 0.5, shown = right ? vZh : cleanZh(pickDistractors(v, pool, 1)[0].zh);
+                return { type: 'tf', word: v.en, isTrue: right, speak: v.en,
+                    prompt: `【⭕❌ 字義】英文「${v.en}」的意思是「${shown}」。`, trans: `${v.en} = ${vZh}`,
+                    note: right ? `正確！` : `${v.en} 是「${vZh}」，不是「${shown}」。` };
+            }
+            if (sub < 0.75 && /^[a-z]{3,}$/.test(vEn)) {
+                const right = Math.random() > 0.5, shown = right ? vEn : misspell(vEn);
+                return { type: 'tf', word: v.en, isTrue: right, speak: '', speakAfter: v.en, noSpeakMsg: '這題考拼字，先不唸喔！',
+                    prompt: `【⭕❌ 拼字】「${vZh}」的英文拼法是「${shown}」。`, trans: `${vZh} = ${vEn}`,
+                    note: `正確拼法：${vEn.split('').join('-')}` };
+            }
+            if (isCountableNoun(v)) {
+                const c = articleFor(vEn), right = Math.random() > 0.5, claim = right ? c : (c === 'a' ? 'an' : 'a');
+                return { type: 'tf', word: v.en, isTrue: right, speak: `${claim} ${vEn}`,
+                    prompt: `【⭕❌ 冠詞】單數的「${vZh}」，要說「${claim} ${vEn}」。`, trans: `${c} ${vEn}`,
+                    note: `${vEn} 是${c === 'an' ? '母音' : '子音'}開頭發音，用 ${c}。` };
+            }
+        }
+        // 3. 冠詞陷阱（形容詞輪替，答案不再永遠是 a）
+        if (roll < 0.6 && isCountableNoun(v)) {
+            const useAdj = isConcreteNoun(v) && Math.random() > 0.45;
+            const adj = pickOne(['big', 'little', 'cute', 'old', 'orange', 'red', 'blue', 'green', 'yellow', 'white']);
+            const nextWord = useAdj ? adj : vEn, correct = articleFor(nextWord);
+            const sentence = useAdj ? `Look! It is ____ ${adj} ${vEn}.` : `There is ____ ${vEn} on the desk.`;
+            const opts = shuffleArray(['a', 'an', 'two', 'the an']);
+            return { type: 'trap', word: v.en, prompt: `【✏️ 冠詞判斷】\n"${sentence}"`, opts, ans: opts.indexOf(correct),
+                speak: sentence, speakAfter: sentence.replace('____', correct),
+                trans: sentence.replace('____', correct), note: `空格後面緊接的字是 ${nextWord}（${correct === 'an' ? '母音' : '子音'}開頭），所以用 ${correct}！` };
+        }
+        // 4. 單字題（英選中 / 中選英 / 聽音選義 / 例句填空）
+        const vq = QuestionFactory.vocabQuestion(v, pool);
+        const label = { en2zh: '📝 英選中', zh2en: '📝 中選英', listen: '🎧 聽音選義', cloze: '📝 例句填空' }[vq.mode];
+        let prompt;
+        if (vq.mode === 'en2zh') prompt = `【${label}】「${v.en}」的意思是什麼？`;
+        else if (vq.mode === 'zh2en') prompt = `【${label}】「${vZh}」的英文是哪一個？`;
+        else if (vq.mode === 'listen') prompt = `【${label}】按「🔊 朗讀英文」聽單字，選出中文意思！`;
+        else prompt = `【${label}】${vq.display} ${vq.sub}`;
+        return { type: 'mcq', word: v.en, prompt, opts: vq.opts, ans: vq.ans, speak: vq.speak, speakAfter: vq.after,
+            noSpeakMsg: '這題看中文選英文，聽發音就洩答案囉！', trans: `${v.en} = ${vZh}`, note: `例句：${v.ex || v.en}` };
+    }
+
+    function spellingDistractors(word, n) {
+        const out = [];
+        word.split('').forEach(ch => {
+            const c = CONFUSABLE[ch];
+            if (c && !word.includes(c) && !out.includes(c) && out.length < Math.ceil(n / 2)) out.push(c);
+        });
+        const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+        let guard = 0;
+        while (out.length < n && guard++ < 200) {
+            const r = alphabet[Math.floor(Math.random() * 26)];
+            if (!word.includes(r) && !out.includes(r)) out.push(r);
+        }
+        return out;
+    }
+
+    function prepareStageQuestion(q) {
+        const c = Object.assign({}, q);
+        if (c.audio && Array.isArray(c.opts)) c.opts = c.opts.map(hideEnglishInOption);
+        return c;
+    }
+
+    function startRPGCombat(stageId) {
+        if (!ACTIVE_DATA) return;
+        lastActivePracticePanel = 'battle';
+        curStage = ACTIVE_DATA.stages[stageId] || ACTIVE_DATA.stages[0];
+        curWaveIdx = 0;
+
+        LearningEngine.init(ACTIVE_DATA.vocab);
+        const otterLvl = (state.petLevels && state.petLevels.otter) ? state.petLevels.otter : 1;
+        otterShieldCount = otterLvl;
+        combatCoinsEarnedThisSession = 0;
+        hHp = getHeroMaxHp();
+        waveStartHpHero = hHp;
+
+        const pickedWords = LearningEngine.pickWords(8);
+        const vocabQuestions = pickedWords.map(w => {
+            const vObj = ACTIVE_DATA.vocab.find(v => v.en === w) || { en: w, zh: w };
+            return buildMultiTypeBattleQ(vObj);
+        }).filter(q => q !== null);
+
+        // 關卡真題：用牌組抽，做完整個關卡題庫才會重複
+        const stageQuestions = QuestionDeck.draw(`stage:${curStage.id}`, curStage.questions, 6).map(prepareStageQuestion);
+
+        fightQueue = shuffleArray([...vocabQuestions, ...stageQuestions]);
+        setupWave(0);
+        navTo('panel-battle');
+    }
+
+    function refillBattleQueue() {
+        const words = LearningEngine.pickWords(5).map(w => {
+            const vObj = ACTIVE_DATA.vocab.find(v => v.en === w) || { en: w, zh: w };
+            return buildMultiTypeBattleQ(vObj);
+        }).filter(q => q !== null);
+        const stageQs = QuestionDeck.draw(`stage:${curStage.id}`, curStage.questions, 3).map(prepareStageQuestion);
+        return shuffleArray([...words, ...stageQs]);
+    }
+
+    function speakBattleQ() {
+        if (!curQ) return;
+        if (curQ.speak !== undefined) {
+            if (!curQ.speak) { noSpeakHint(curQ.noSpeakMsg); return; }
+            speakWithBlank(curQ.speak);
+            return;
+        }
+        let speech = "";
+        if (curQ.audio) {
+            speech = curQ.audio.split(/\bB\s*[:.]/i)[0];
+        } else {
+            const promptStr = curQ.prompt || curQ.q || "";
+            const quoted = promptStr.match(/["'“”]([a-zA-Z0-9\s,.?!'_-]+)["'“”]/);
+            if (quoted && quoted[1]) speech = quoted[1];
+            else {
+                const mDialog = promptStr.match(/A:\s*["'“”]?([^"'“”\n]+)["'“”]?\s*B:/);
+                if (mDialog && mDialog[1]) speech = mDialog[1];
+                else speech = (promptStr.match(/[A-Za-z][A-Za-z0-9\s,.?!'_-]*/g) || []).filter(s => s.trim().split(/\s+/).length >= 2 || /_{2,}/.test(s)).join(' ');
+            }
+        }
+        speech = hideAnswerInSpeech(speech, curQ);
+        if (!speech || !speakWithBlank(speech)) {
+            showCenterDialog("提示", "本題為中文情境理解題，請直接閱讀題目作答！");
+        }
+    }
+
+    function speakAfterAnswer(q) {
+        if (!q) return;
+        const s = q.speakAfter || (q.mode && q.after);
+        if (s) setTimeout(() => speakWithBlank(s), 350);
+    }
+
+    /* ---------- 🎧 聽力 ---------- */
+    function startListeningExam() {
+        document.getElementById('lis-lobby-cover').style.display = 'none';
+        document.getElementById('lis-exam-area').style.display = 'block';
+        if (document.getElementById('lis-unit-filter-bar')) document.getElementById('lis-unit-filter-bar').style.display = 'flex';
+        lisRound = 0; lisScore = 0; lisCoinsEarned = 0;
+        lisQueue = buildSession('listening', currentLisUnit, 10).map(q => Object.assign({}, q, { opts: q.opts.map(hideEnglishInOption) }));
+        loadNextListeningQ();
+    }
+
+    /* ---------- 🧩 句型重組 ---------- */
+    function startScrambleExam() {
+        document.getElementById('scramble-lobby-cover').style.display = 'none';
+        document.getElementById('scramble-exam-area').style.display = 'block';
+        if (document.getElementById('scramble-unit-filter-bar')) document.getElementById('scramble-unit-filter-bar').style.display = 'flex';
+        scrambleRound = 0; scrambleCoinsEarned = 0;
+        scrambleQueue = buildSession('scramble', currentScrambleUnit, 10);
+        loadNextScramble();
+    }
+
+    /* ---------- 🔤 拼字 ---------- */
+    let spellHintUsed = false;
+    function startSpellingExam() {
+        document.getElementById('spell-lobby-cover').style.display = 'none';
+        document.getElementById('spell-exam-area').style.display = 'block';
+        if (document.getElementById('spell-unit-filter-bar')) document.getElementById('spell-unit-filter-bar').style.display = 'flex';
+        spellRound = 0; spellCoinsEarned = 0;
+        spellQueue = buildSession('spelling', currentSpellUnit, 10);
+        loadNextSpelling();
+    }
+    function speakSpellingWord() {
+        if (!curSp) return;
+        spellHintUsed = true;
+        speakText(curSp.en);
+    }
+
+    /* ---------- 📝 單字測驗（四種題型） ---------- */
+    function startVocabExam() {
+        document.getElementById('vocab-lobby-cover').style.display = 'none';
+        document.getElementById('vocab-exam-area').style.display = 'block';
+        if (document.getElementById('vocab-unit-filter-bar')) document.getElementById('vocab-unit-filter-bar').style.display = 'flex';
+        vocabRound = 0; vqCoinsEarned = 0;
+        const pool = vocabPool(currentVocabUnit);
+        const words = QuestionDeck.draw(`vocab:${currentVocabUnit}`, pool, 10, 2);
+        // 盡量讓四種題型平均出現
+        const modes = shuffleArray(['en2zh', 'en2zh', 'en2zh', 'zh2en', 'zh2en', 'zh2en', 'listen', 'listen', 'cloze', 'cloze']);
+        vocabQueue = words.map((v, i) => {
+            let m = modes[i % modes.length];
+            if (m === 'cloze' && !(usableSentence(v) && sentenceHasWord(v))) m = 'zh2en';
+            const q = QuestionFactory.vocabQuestion(v, pool, m);
+            q.__deck = v.__deck; q.__word = v;
+            return q;
+        });
+        loadNextVocabQ();
+    }
+
+    function loadNextVocabQ() {
+        document.getElementById('vq-exp-card').style.display = 'none';
+        if (vocabRound >= 10) {
+            const finalBonus = 15;
+            state.coins += finalBonus; vqCoinsEarned += finalBonus; saveUserState();
+            document.getElementById('vocab-lobby-cover').style.display = 'flex';
+            document.getElementById('vocab-exam-area').style.display = 'none';
+            document.getElementById('vocab-progress').innerText = `準備中`;
+            showSettlementCard(`恭喜完成 10 題單字測驗！`, vqCoinsEarned);
+            return;
+        }
+        if (vocabQueue.length === 0) {
+            const pool = vocabPool(currentVocabUnit);
+            vocabQueue = QuestionDeck.draw(`vocab:${currentVocabUnit}`, pool, 5).map(v => QuestionFactory.vocabQuestion(v, pool));
+        }
+        curVQ = vocabQueue.pop();
+        vocabRound++;
+        const modeLabel = { en2zh: '英選中', zh2en: '中選英', listen: '聽音選義', cloze: '例句填空' }[curVQ.mode];
+        document.getElementById('vocab-progress').innerText = `第 ${vocabRound} / 10 題・${modeLabel}`;
+        const wordEl = document.getElementById('vq-word');
+        wordEl.innerText = curVQ.display;
+        wordEl.classList.toggle('vq-sentence', curVQ.mode === 'cloze');
+        let subEl = document.getElementById('vq-sub');
+        if (!subEl) {
+            subEl = document.createElement('div');
+            subEl.id = 'vq-sub';
+            wordEl.insertAdjacentElement('afterend', subEl);
+        }
+        subEl.innerText = curVQ.sub || '';
+
+        const list = document.getElementById('vq-options-list');
+        list.innerHTML = '';
+        curVQ.opts.forEach((c, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-ans-pc';
+            btn.id = `vq-opt-btn-${idx}`;
+            btn.innerText = c;
+            btn.onclick = () => {
+                document.querySelectorAll('#vq-options-list .btn-ans-pc').forEach(b => b.disabled = true);
+                const right = idx === curVQ.ans;
+                QuestionDeck.result(curVQ.__word || curVQ, right);
+                if (curVQ.__word) LearningEngine.record(curVQ.v.en, right);
+                if (right) {
+                    btn.classList.add('correct-reveal');
+                    document.getElementById('vq-exp-title').innerText = "✅ 答對了！字彙力提升！";
+                    state.coins += 2; vqCoinsEarned += 2; state.streak++;
+                } else {
+                    btn.classList.add('user-wrong');
+                    const cb = document.getElementById(`vq-opt-btn-${curVQ.ans}`);
+                    if (cb) cb.classList.add('correct-reveal');
+                    document.getElementById('vq-exp-title').innerText = "❌ 答錯囉！這個字等一下還會再出現喔";
+                    state.streak = 0;
+                }
+                if (curVQ.mode === 'listen') wordEl.innerText = curVQ.v.en;
+                if (curVQ.mode === 'cloze') wordEl.innerText = curVQ.v.ex;
+                document.getElementById('vq-exp-body').innerText = `${curVQ.v.en} 代表「${cleanZh(curVQ.v.zh)}」｜ 例句: ${curVQ.v.ex || ''}`;
+                speakAfterAnswer(curVQ);
+                revealAndScrollToCard('vq-exp-card');
+                saveUserState();
+                { const _elS = document.getElementById('val-streak'); if (_elS) _elS.innerText = state.streak; }
+            };
+            list.appendChild(btn);
+        });
+        if (curVQ.mode === 'listen') setTimeout(() => speakText(curVQ.speak), 250);
+    }
+    function speakCurrentVocab() {
+        if (!curVQ) return;
+        if (!curVQ.speak) { noSpeakHint('這題看中文選英文，聽發音就洩答案囉！答完後會唸給你聽 😊'); return; }
+        speakWithBlank(curVQ.speak);
+    }
+
+    /* ---------- ⭕❌ 是非題 ---------- */
+    function startTFExam() {
+        document.getElementById('tf-lobby-cover').style.display = 'none';
+        document.getElementById('tf-exam-area').style.display = 'block';
+        if (document.getElementById('tf-unit-filter-bar')) document.getElementById('tf-unit-filter-bar').style.display = 'flex';
+        tfRound = 0; tfCoinsEarned = 0;
+        tfQueue = buildSession('tf', currentTFUnit, 10);
+        loadNextTF();
+    }
+    function speakCurrentTF() {
+        if (!curTF) return;
+        if (curTF.speak !== undefined) {
+            if (!curTF.speak) { noSpeakHint('這題考拼字，唸出來就洩答案囉！'); return; }
+            speakWithBlank(curTF.speak);
+            return;
+        }
+        const speech = extractEnglishOnly(curTF.statement);
+        if (speech) speakWithBlank(speech);
+    }
+
+    /* ---------- 🔗 連連看：整個單字庫輪完才重複 ---------- */
+    function pickMatchPairs() {
+        const pool = DynamicQuestionEngine.getCumulativeVocabPool(currentMatchUnit);
+        const picked = [];
+        for (const v of QuestionDeck.draw(`match:${currentMatchUnit}`, pool, 12, 0)) {
+            if (picked.length >= 5) break;
+            if (picked.some(p => zhConflict(p, v))) continue;
+            picked.push(v);
+        }
+        return picked;
+    }
+
+    /* ---------- ✏️ 文法 ---------- */
+    function startGrammarExam() {
+        document.getElementById('grammar-lobby-cover').style.display = 'none';
+        document.getElementById('grammar-exam-area').style.display = 'block';
+        if (document.getElementById('grammar-unit-filter-bar')) document.getElementById('grammar-unit-filter-bar').style.display = 'flex';
+        grammarRound = 0; grammarScore = 0; grammarCoinsEarned = 0;
+        grammarQueue = buildSession('grammar', currentGrammarUnit, 10);
+        loadNextGrammarQ();
+    }
+    function speakCurrentGrammar() {
+        if (!curGrammar) return;
+        // 空格只會「叮」一聲，絕不把答案唸出來
+        if (!speakWithBlank(hideAnswerInSpeech(curGrammar.q, curGrammar))) {
+            showCenterDialog("提示", "本題為中文說明題，請直接閱讀題目作答！");
+        }
+    }
+
+    /* ---------- 📑 模擬試卷 ---------- */
+    function generateNewExamPaper() {
+        if (!ACTIVE_DATA) return;
+        isExamGraded = false;
+        examUserAnswers = {};
+        document.getElementById('examScoreStamp').style.display = 'none';
+        document.getElementById('headerScoreDisplay').innerText = '待交卷評分';
+        document.getElementById('headerScoreDisplay').style.color = '#dc2626';
+        document.getElementById('btn-submit-exam').style.display = 'inline-block';
+        document.getElementById('btn-re-exam').style.display = 'none';
+        document.getElementById('exam-done-counter').innerText = '0';
+
+        const pool = vocabPool('all');
+        const gen = (fn, n) => Array.from({ length: n }, () => fn());
+        const four = q => q && Array.isArray(q.opts) && q.opts.length === 4;
+
+        const lisStatic = QuestionDeck.draw('exam:listening', ACTIVE_DATA.listening || [], 3);
+        const lisGen = gen(() => QuestionFactory.listeningQuestion(pool), 6).filter(four).slice(0, 2);
+        const lisPool = [...lisStatic, ...lisGen].map(q => Object.assign({}, q, { opts: q.opts.map(hideEnglishInOption) }));
+
+        const phonicsStatic = QuestionDeck.draw('exam:phonics', [
+            ...ACTIVE_DATA.stages[0].questions.filter(four), ...(ACTIVE_DATA.phonics_exam_pool || []).filter(four)
+        ], 3);
+        const phonicsGen = [DynamicQuestionEngine.generateMathQuestion(false),
+            QuestionFactory.listeningQuestion(pool)].filter(four).map(q => q.audio ? Object.assign({}, q, { opts: q.opts.map(hideEnglishInOption) }) : q);
+        const phonicsPool = shuffleArray([...phonicsStatic, ...phonicsGen]).slice(0, 5);
+
+        const grammarStatic = QuestionDeck.draw('exam:grammar', ACTIVE_DATA.grammar_articles || [], 4);
+        const grammarGen = gen(() => QuestionFactory.grammarQuestion(pool), 8).filter(four).slice(0, 4);
+        const grammarPool = shuffleArray([...grammarStatic, ...grammarGen]).slice(0, 8);
+
+        const finalStatic = QuestionDeck.draw('exam:final', [...ACTIVE_DATA.stages[7].questions, ...ACTIVE_DATA.stages[3].questions].filter(four), 6)
+            .map(prepareStageQuestion);
+        const finalQs = shuffleArray([...finalStatic, DynamicQuestionEngine.generateColorQuestion(false)]).slice(0, 7);
+
+        currentExamQuestions = [
+            ...lisPool.map(q => ({ ...q, section: "part1", secTitle: "一、 聽力理解測驗 (每題 4 分，共 20 分)" })),
+            ...phonicsPool.map(q => ({ ...q, section: "part2", secTitle: "二、 字母與自然發音辨識 (每題 4 分，共 20 分)" })),
+            ...grammarPool.map(q => ({ ...q, section: "part3", secTitle: "三、 冠詞與文法選擇題 (每題 4 分，共 32 分)" })),
+            ...finalQs.map(q => ({ ...q, section: "part4", secTitle: "四、 情境會話與日常素養 (每題 4 分，共 28 分)" }))
+        ];
+        renderExamPaperList();
+    }
+    function speakExamQ(idx) {
+        const q = currentExamQuestions[idx];
+        if (!q) return;
+        speakWithBlank(hideAnswerInSpeech(q.audio || '', q));
+    }
+
+    /* ---------- 🔠 字體大小切換 ---------- */
+    const TEXT_SIZES = [{ v: 1, label: '標準' }, { v: 1.15, label: '大' }, { v: 1.3, label: '特大' }];
+    function applyTextSize(i) {
+        const s = TEXT_SIZES[i] || TEXT_SIZES[0];
+        document.documentElement.style.setProperty('--ts', s.v);
+        const b = document.getElementById('btn-text-size');
+        if (b) b.innerText = `🔠 字體: ${s.label}`;
+        try { localStorage.setItem('ENGLISH_ADVENTURE_TEXT_SIZE', String(i)); } catch (e) {}
+    }
+    function cycleTextSize() {
+        let i = 0;
+        try { i = parseInt(localStorage.getItem('ENGLISH_ADVENTURE_TEXT_SIZE') || '0', 10) || 0; } catch (e) {}
+        applyTextSize((i + 1) % TEXT_SIZES.length);
+    }
+    (function initTextSize() {
+        let i = null;
+        try { const raw = localStorage.getItem('ENGLISH_ADVENTURE_TEXT_SIZE'); if (raw !== null) i = parseInt(raw, 10); } catch (e) {}
+        if (i === null || isNaN(i)) i = window.innerWidth <= 768 ? 1 : 0;   // 手機預設「大」
+        applyTextSize(i);
+    })();
+
 </script>
 
     <!-- 通用置中彈窗 (取代瀏覽器醜醜的 alert) -->
